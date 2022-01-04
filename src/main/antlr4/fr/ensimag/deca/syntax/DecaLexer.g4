@@ -9,8 +9,59 @@ options {
 }
 
 @members {
-}
+} 
+fragment LETTER : ( 'a'  ..  'z' | 'A'  ..  'Z'){
+   System.out.println("Lettre retrouvé");
+   System.out.println(getText());
+}; 
+fragment DIGIT : '0' .. '9';
+COMMENT : '//' .*? '\n' | '/*' .*? '*/' {skip()}; 
+CPARENT : ')';
+OPARENT : '(';
+SEMI : ';' ;
+OBRACE : '{' ;
+CBRACE :'}' ;
+COMMA : ',' ;
+EQUALS : '==' ;
 
-// Deca lexer rules.
-DUMMY_TOKEN: .; // A FAIRE : Règle bidon qui reconnait tous les caractères.
-                // A FAIRE : Il faut la supprimer et la remplacer par les vraies règles.
+
+
+
+STRING_CAR : LETTER | DIGIT | '<'  | '>' | '=' | '+' | '-' |  '*'  | '/' |  '%' |  '.' | COMMA | OPARENT  |  CPARENT  | OBRACE | CBRACE
+'!' |  SEMI | EQUALS | '!=' | '>=' | '<=' | '&&' | '||';
+
+
+STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"' ;
+MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
+
+WS  :   ( ' '
+        | '\t'
+        | '\r'
+        | '\n'
+        ) {
+              skip(); // avoid producing a token
+          }
+;
+ASM : 'asm' ;
+CLASS : 'class' ;
+ELSE : 'else';
+IF :'if';
+NEW :'new' ;
+NULL :'null' ;
+READINT :'readInt' ;
+READFLOAT :'readFloat' ;
+PROTECTED :'protected' ;
+RETURN :'return' ;
+THIS :'this' ;
+INSTANCEOF :'instanceof';
+EXTENDS :'extends' ;
+PRINTLN :  'println'; 
+PRINTLNX :  'printlnx';
+PRINT :  'print';
+PRINTX :  'printx';
+FALSE : 'false';
+TRUE : 'true' ; 
+WHILE : 'while';
+
+   
+  
