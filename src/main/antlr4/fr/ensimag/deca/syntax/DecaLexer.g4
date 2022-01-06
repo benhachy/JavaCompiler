@@ -33,7 +33,6 @@ PRINTX :  'printx';
 FALSE : 'false';
 TRUE : 'true' ; 
 WHILE : 'while';
-
  
 IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
@@ -79,12 +78,6 @@ DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
 NUMHEX : DIGITHEX+;
 FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' ); // Meme chose 
 FLOAT : FLOATDEC | FLOATHEX;
-
-
-
-
-
-
 
 STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"' ;
 MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
