@@ -64,11 +64,10 @@ LT : '<';
 TIMES : '*';
 SLASH :  '/';
 PERCENT : '%';
-ESPACE : ' ';
-TAB : '\t';
-EOL : '\n'; 
-STRING_CAR : LETTER | DIGIT | LT   | GT | EQUALS | PLUS | MINUS |  TIMES  | SLASH |  PERCENT |  DOT | COMMA | OPARENT  |  CPARENT  | OBRACE | CBRACE
-EXCLAM |  SEMI | EQEQ | NEQ | GEQ | LEQ | AND | OR | ESPACE ;
+ESPACE : ' '{skip();};
+TAB : '\t'{skip();};
+EOL : '\n'{skip();}; 
+STRING_CAR : ~('"'| '\n' |'\\');
 
 NUM : DIGIT+ ;
 SIGN : '+' | '-'  ;// Meme chose
