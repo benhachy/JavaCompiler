@@ -1,8 +1,8 @@
 #!/bin/sh
 
-#echo "Syntax tests run"
+echo "----- Syntax tests run -----"
 
-#echo "Invalid tests Battery"
+echo "----- Invalid tests Battery -----"
 
 #we change directory to the invalid syntaxt test directory
 PROJET_DIR=$(cd "$(dirname "$0")"/../../../ && pwd)
