@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
+import scala.collection.immutable.List;
 
 /**
  * 
@@ -27,7 +28,15 @@ public class ListInst extends TreeList<AbstractInst> {
     public void verifyListInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+                if(getList().size()==0)
+                {
+                    throw new ContextualError("Il faut au maoins une instruction",getLocation());
+                }
+                for (AbstractInst i : getList()) {
+                    i.verifyInst(compiler, localEnv, currentClass, returnType);
+                }
+            //<AbstractInst> listInstances = this.getList();
+        // throw new UnsupportedOperationException("not yet implemented");
     }
 
     public void codeGenListInst(DecacCompiler compiler) {

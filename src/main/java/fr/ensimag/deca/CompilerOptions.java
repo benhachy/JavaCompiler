@@ -1,5 +1,7 @@
 package fr.ensimag.deca;
 
+import static org.mockito.ArgumentMatchers.anyString;
+
 import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -66,8 +68,28 @@ public class CompilerOptions {
         } else {
             logger.info("Java assertions disabled");
         }
+        int i =0;
+        for (String s : args)
+        {
+            if(s.charAt(0)=='-')
+            {
+                i ++;
+                // switch(s.charAt(1))
+                // {
+                //     case 'p':
+                //     case 'v':
+                //     case 'b':
+                //     case 'P':
 
-        throw new UnsupportedOperationException("not yet implemented");
+                // }
+
+                break;
+            }
+        }
+        if(i ==0 )
+        {
+            sourceFiles.add(new File(args[args.length-1]));
+        }
     }
 
     protected void displayUsage() {

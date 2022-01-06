@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.StringType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -8,6 +9,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
+import fr.ensimag.deca.tools.SymbolTable;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -34,7 +36,11 @@ public class StringLiteral extends AbstractStringLiteral {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        SymbolTable tab = new SymbolTable();
+        SymbolTable.Symbol symbol = tab.create("String");
+        StringType chaine = new StringType(symbol) ;
+        setType(chaine);
+        return chaine;
     }
 
     @Override
@@ -43,8 +49,8 @@ public class StringLiteral extends AbstractStringLiteral {
     }
 
     @Override
-    public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+    public void decompile(IndentPrintStream s) {    
+        s.print(this.getValue());
     }
 
     @Override

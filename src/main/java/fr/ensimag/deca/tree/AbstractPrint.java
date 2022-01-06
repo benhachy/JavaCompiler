@@ -39,9 +39,21 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        if(arguments.size() != 1)
+        {
+            throw new ContextualError("Print prend un argument", this.getLocation());
+        }
+        for (AbstractExpr argument : getArguments().getList())
+        {
+            Type chaine = argument.verifyExpr(compiler, localEnv, currentClass);
+            
+            if(!chaine.isFloat() && !chaine.isInt() && !chaine.isString())
+            {
+                throw new ContextualError("Print ne prend en argument que : entier,réel ou chaine de caractéres ", this.getLocation());
+            }
+        }
+        
     }
-
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         for (AbstractExpr a : getArguments().getList()) {

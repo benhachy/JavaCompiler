@@ -16,16 +16,36 @@ import java.util.Map;
  * @date 01/01/2022
  */
 public class SymbolTable {
-    private Map<String, Symbol> map = new HashMap<String, Symbol>();
+    private Map<String, Symbol> map;
 
+    public SymbolTable()
+    {
+        map = new HashMap<String, Symbol>();
+    }
+        
     /**
      * Create or reuse a symbol.
      * 
      * If a symbol already exists with the same name in this table, then return
      * this Symbol. Otherwise, create a new Symbol and add it to the table.
      */
+    
+    
     public Symbol create(String name) {
-        throw new UnsupportedOperationException("Symbol creation");
+    
+        if (map.containsKey(name))
+        {
+            return map.get(name);
+        }
+        try{
+        SymbolTable.Symbol newSymbol = new Symbol(name);
+        map.put(name,newSymbol);
+        }
+        catch  (UnsupportedOperationException e) {
+            System.out.println("Symbol creation failed");
+        }
+        return map.get(name);
+       
     }
 
     public static class Symbol {

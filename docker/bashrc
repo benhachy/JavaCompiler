@@ -10,4 +10,14 @@ export M2_HOME=/opt/maven
 export MAVEN_HOME=/opt/maven
 export PATH=${M2_HOME}/bin:${PATH}
 
+JAVA_HOME=/usr/lib/jvm/java-16-openjdk-amd64
+M2_HOME=/opt/maven
+MAVEN_HOME=$M2_HOME
+PATH=$M2_HOME/bin:"$PATH"
+PATH=/matieres/4MMPGL/GL/global/bin:"$PATH"
+PATH=$JAVA_HOME/bin:"$PATH"
+PATH=$HOME/Projet_GL/src/main/bin:"$PATH"
+PATH=$HOME/Projet_GL/src/test/script:"$PATH"
+PATH=$HOME/Projet_GL/src/test/script/launchers:"$PATH"
+
 export PATH
