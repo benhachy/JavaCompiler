@@ -10,8 +10,6 @@ cd $PROJET_DIR"/src/test/deca/syntax/invalid"
 CP_FILE="$PROJET_DIR"/target/generated-sources/classpath.txt
 CP="$PROJET_DIR"/target/test-classes/:"$PROJET_DIR"/target/classes/:$(cat "$CP_FILE")
 
-#exec java -enableassertions -cp "$CP" fr.ensimag.deca.syntax.ManualTestLex "chaine_incomplete.deca" 2>1
-
 for i in *.deca 
 do
     #echo " $i "
@@ -28,9 +26,12 @@ done
 cd ".."
 cd "valid"
 
+result = ""
+
 for i in *.deca 
 do
-    #echo " $i "
+    #result = $(exec java -enableassertions -cp "$CP" fr.ensimag.deca.syntax.ManualTestLex "$i")
+    #ERROR=$(exec java -enableassertions -cp "$CP" fr.ensimag.deca.syntax.ManualTestLex "$i" 2>&1 >/dev/null)
     if exec java -enableassertions -cp "$CP" fr.ensimag.deca.syntax.ManualTestLex "$i" 2>&1 \
         | grep -q -e $i
     then
