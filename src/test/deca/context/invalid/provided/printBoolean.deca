@@ -1,0 +1,4 @@
+//printBoolean.deca:3:4: Print ne prend en argument que : entier,réel ou chaine de caractéres 
+{
+    print(true);
+}

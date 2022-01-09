@@ -52,6 +52,7 @@ public class SymbolTable {
         // Constructor is private, so that Symbol instances can only be created
         // through SymbolTable.create factory (which thus ensures uniqueness
         // of symbols).
+        private String name;
         private Symbol(String name) {
             super();
             this.name = name;
@@ -66,6 +67,30 @@ public class SymbolTable {
             return name;
         }
 
-        private String name;
+        
+
+        @Override
+        public boolean equals(Object o) 
+        {
+            if(o instanceof Symbol) {
+                Symbol symbol = (Symbol)o;
+                if(name.equals(symbol.name)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int hashCode = 0;
+            for(int i = 0; i < name.length(); i++) 
+            {
+                hashCode += (int)name.charAt(i);
+            }
+            return hashCode;
+        }
+
     }
 }

@@ -5,7 +5,7 @@ import fr.ensimag.ima.pseudocode.DAddr;
 
 /**
  * Definition associated to identifier in expressions.
- *
+ * 
  * @author gl03
  * @date 01/01/2022
  */

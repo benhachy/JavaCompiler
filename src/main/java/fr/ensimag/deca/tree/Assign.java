@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -29,6 +30,15 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        // AbstractExpr rvalue = getRightOperand();
+        // AbstractLValue lvalue = getLeftOperand();
+        // Type variable = lvalue.verifyExpr(compiler, localEnv, currentClass);
+        // rvalue.verifyRValue(compiler, localEnv, currentClass, variable);
+        // SymbolTable tab = new SymbolTable();
+        // SymbolTable.Symbol symbol = tab.create("Int");
+        // Type chaine = new Type(symbol);
+        // setType(chaine);
+        // return chaine;
         throw new UnsupportedOperationException("not yet implemented");
     }
 

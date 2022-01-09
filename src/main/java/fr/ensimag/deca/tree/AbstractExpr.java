@@ -79,11 +79,35 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param expectedType corresponds to the "type1" attribute            
      * @return this with an additional ConvFloat if needed...
      */
+    
     public AbstractExpr verifyRValue(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type expression = this.verifyExpr(compiler, localEnv, currentClass);
+        if(!verifyCompatibility(localEnv, expectedType, expression))
+        {
+            throw new ContextualError("Les deux types "+expectedType.toString()+
+            " et "+expression.toString()+" sont incompatibles ", getLocation());
+        }
+        this.setType(expression);
+        return this;
+    }
+    protected boolean verifyCompatibility(EnvironmentExp localEnv,Type type1,Type type2)
+    {
+        if(type1.isFloat() && type2.isInt())
+        {
+            return true;
+        }
+        if(type1.sameType(type2))
+        {
+            return true;
+        }
+        if(type2.isNull())
+        {
+            return true;
+        }
+        return false;
     }
     
     
@@ -91,7 +115,8 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        
+        this.verifyExpr(compiler, localEnv, currentClass);
     }
 
     /**

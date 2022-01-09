@@ -39,6 +39,7 @@ public class Main extends AbstractMain {
        // VoidType retour = new VoidType( symbol.create("void"));
         EnvironmentExp localEnv = new EnvironmentExp(null);
         insts.verifyListInst(compiler,localEnv, null, retour);
+        declVariables.verifyListDeclVariable(compiler, localEnv, null);
         // A FAIRE: Appeler méthodes "verify*" de ListDeclVarSet et ListInst.
         // Vous avez le droit de changer le profil fourni pour ces méthodes
         // (mais ce n'est à priori pas nécessaire).

@@ -1,0 +1,4 @@
+//addidtion-imcopatible.daca:3:10: Les deux types Boolean et String ne sont pas compatibles
+{
+    "5555"+true;
+}

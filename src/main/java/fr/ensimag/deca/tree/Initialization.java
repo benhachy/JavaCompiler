@@ -35,7 +35,12 @@ public class Initialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        expression = expression.verifyRValue(compiler, localEnv, currentClass, t);
+        if(!t.sameType(expression.getType()))// verifier que getType() est sous type de t
+        {
+            throw new ContextualError("Vous devez initialiser la variable "+
+                    t.getName()+"par"+localEnv.get(t.getName()),getLocation());
+        }
     }
 
 
