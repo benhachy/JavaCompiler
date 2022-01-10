@@ -84,6 +84,7 @@ public abstract class AbstractExpr extends AbstractInst {
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
+        System.out.println("::AbstractExpr.java :: verifyRValue");
         Type expression = this.verifyExpr(compiler, localEnv, currentClass);
         if(!verifyCompatibility(localEnv, expectedType, expression))
         {
@@ -99,11 +100,11 @@ public abstract class AbstractExpr extends AbstractInst {
         {
             return true;
         }
-        if(type1.sameType(type2))
+        else if(type2.sameType(type1))
         {
             return true;
         }
-        if(type2.isNull())
+        else if(type2.isNull())
         {
             return true;
         }
@@ -115,7 +116,7 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        
+        System.out.println("::AbstractExpr.java:: veridyInst");
         this.verifyExpr(compiler, localEnv, currentClass);
     }
 

@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
+import org.apache.log4j.Logger;
 /**
  * List of declarations (e.g. int x; float y,z).
  * 
@@ -33,6 +34,7 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
      */    
     void verifyListDeclVariable(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        System.out.println("Verify LisDeclVar");
         for (AbstractDeclVar i : getList()) {
             i.verifyDeclVar(compiler, localEnv, currentClass);
         }

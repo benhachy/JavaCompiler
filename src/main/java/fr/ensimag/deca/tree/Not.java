@@ -20,7 +20,14 @@ public class Not extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("::AbstractOpArith.java:: verifyExpr");
+        AbstractExpr expr = getOperand();
+        Type exprType = expr.verifyExpr(compiler, localEnv, currentClass);
+        if(!exprType.isBoolean())
+        {
+            throw new ContextualError("l'opérateur Not ne supporte que des booleens", getLocation());
+        }
+        return exprType;
     }
 
 

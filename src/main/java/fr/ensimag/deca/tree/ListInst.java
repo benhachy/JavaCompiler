@@ -28,9 +28,11 @@ public class ListInst extends TreeList<AbstractInst> {
     public void verifyListInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
+            System.out.println("ListInst.java::VerifyListInst");
                 if(getList().size()==0)
                 {
-                    throw new ContextualError("Il faut au maoins une instruction",getLocation());
+                    return;
+                    // throw new ContextualError("Il faut au maoins une instruction",getLocation());
                 }
                 for (AbstractInst i : getList()) {
                     i.verifyInst(compiler, localEnv, currentClass, returnType);

@@ -9,6 +9,8 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 
+import static org.mockito.ArgumentMatchers.nullable;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -38,8 +40,15 @@ public class Main extends AbstractMain {
         VoidType retour = new VoidType(name);
        // VoidType retour = new VoidType( symbol.create("void"));
         EnvironmentExp localEnv = new EnvironmentExp(null);
-        insts.verifyListInst(compiler,localEnv, null, retour);
-        declVariables.verifyListDeclVariable(compiler, localEnv, null);
+        if(declVariables != null)
+        {
+            declVariables.verifyListDeclVariable(compiler, localEnv, null);
+        }
+        if(insts != null)
+        {
+            insts.verifyListInst(compiler,localEnv, null, retour);
+        }
+        
         // A FAIRE: Appeler méthodes "verify*" de ListDeclVarSet et ListInst.
         // Vous avez le droit de changer le profil fourni pour ces méthodes
         // (mais ce n'est à priori pas nécessaire).

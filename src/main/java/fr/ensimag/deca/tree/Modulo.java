@@ -20,7 +20,16 @@ public class Modulo extends AbstractOpArith {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("::Modulo.java:: verifyExpr");
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr lOp = getLeftOperand();
+        Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
+        Type type2 = lOp.verifyExpr(compiler, localEnv, currentClass);
+        if(!type1.isInt() || !type2.isInt())
+        {
+            throw new ContextualError("Modulo ne supporte que des entiers", getLocation());
+        }
+        return type1;
     }
 
 

@@ -17,6 +17,8 @@ import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import net.bytebuddy.description.type.TypeDefinition;
 
+import static org.mockito.ArgumentMatchers.nullable;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -170,6 +172,12 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        System.out.println("::Identifier.java::VerifyExpr");
+        if(localEnv.get(getName())==null)
+        {
+            throw new ContextualError("la variable "+getName()+" n'est pas définie",getLocation());
+        }
+        this.setDefinition(localEnv.get(getName()));
         return this.getVariableDefinition().getType();
     }
 
@@ -179,7 +187,13 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("+++++++++++++++"+getName().toString());
+        if(compiler.getDefinition(this.getName()) == null)
+        {
+            return null;
+        }
+        this.setDefinition(compiler.getDefinition(getName()));
+        return getDefinition().getType();
     }
     
     

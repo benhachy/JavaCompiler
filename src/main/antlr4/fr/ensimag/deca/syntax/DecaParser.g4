@@ -25,6 +25,7 @@ options {
 // which packages should be imported?
 @header {
     import fr.ensimag.deca.tree.*;
+    import fr.ensimag.deca.tools.*;
     import java.io.PrintStream;
 }
 
@@ -80,19 +81,30 @@ list_decl_var[ListDeclVar l, AbstractIdentifier t]
     : dv1=decl_var[$t] {
         $l.add($dv1.tree);
         } (COMMA dv2=decl_var[$t] {
+            assert($dv2.tree != null);
+            $l.add($dv2.tree);
         }
       )*
     ;
 
 decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
 @init   {
-        
+        AbstractInitialization initiate;
         }
     : i=ident {
+            assert($i.tree != null);
+            initiate=new NoInitialization();
+
         }
       (EQUALS e=expr {
+            assert($e.tree != null);
+            initiate = new Initialization($e.tree);
+            setLocation($e.tree, $e.start);
         }
-      )? {
+      )? 
+      {
+          $tree = new DeclVar(t,$i.tree,initiate);
+          setLocation($tree, $i.start);
         }
     ;
 
@@ -152,13 +164,23 @@ inst returns[AbstractInst tree]
 
 if_then_else returns[IfThenElse tree]
 @init {
+        ListInst elseBranch = new ListInst();
+        IfThenElse = newElseIF;
+
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
+        
+            $tree= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
+            setLocation($tree,$if1);
+            
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
+            newElseIF= new IfThenElse($elsif_cond.tree,$elsif_li.tree,elseBranch);
+            setLocation(newElseIF,$elsif);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
+
         }
       )?
     ;
@@ -171,6 +193,7 @@ list_expr returns[ListExpr tree]
         $tree.add($e1.tree);
         }
        (COMMA e2=expr {
+           $tree.add($e2.tree);
         }
        )* )?
     ;
@@ -179,6 +202,7 @@ expr returns[AbstractExpr tree]
     : assign_expr {
             assert($assign_expr.tree != null);
             $tree = $assign_expr.tree;
+            setLocation($tree,$assign_expr.start);
         }
     ;
 
@@ -349,7 +373,7 @@ select_expr returns[AbstractExpr tree]
             assert($e.tree != null);
             $tree = $e.tree;
         }
-    //not yet implemented 
+    //not yet implemented partie objet
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
             assert($i.tree != null);
@@ -373,7 +397,7 @@ primary_expr returns[AbstractExpr tree]
     | m=ident OPARENT args=list_expr CPARENT {
             assert($args.tree != null);
             assert($m.tree != null);
-            $tree=$ident.tree;
+            //not yet
         }
     | OPARENT expr CPARENT {
             assert($expr.tree != null);
@@ -419,7 +443,7 @@ literal returns[AbstractExpr tree]
             setLocation($tree, $INT);
         }
     | fd=FLOAT {
-            $tree = new FloatLiteral($fd);
+            $tree = new FloatLiteral($fd.int);
             setLocation($tree, $fd);
         }
     | STRING {
@@ -448,7 +472,8 @@ literal returns[AbstractExpr tree]
 
 ident returns[AbstractIdentifier tree]
     : IDENT {
-
+        $tree = new Identifier( SymbolTable.creerSymbol($IDENT.text) );
+        setLocation($tree, $IDENT);
         }
     ;
 

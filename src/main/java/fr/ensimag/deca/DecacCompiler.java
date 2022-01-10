@@ -1,9 +1,14 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.Definition;
+import fr.ensimag.deca.context.FloatType;
+import fr.ensimag.deca.context.IntType;
+import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
@@ -11,6 +16,8 @@ import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import net.bytebuddy.description.type.TypeDescription;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,11 +51,13 @@ public class DecacCompiler {
      * Portable newline character.
      */
     private static final String nl = System.getProperty("line.separator", "\n");
-    //private  HashMap<Symbol,Definition> envTypes;
+    private  HashMap<SymbolTable.Symbol,TypeDefinition> envTypes;
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
+        envTypes = new HashMap<SymbolTable.Symbol,TypeDefinition>();
+        this.initiate();
     }
 
     /**
@@ -57,10 +66,24 @@ public class DecacCompiler {
     public File getSource() {
         return source;
     }
-    // public HashMap getEnvType()
-    // {
-    //     return envTypes;
-    // }
+    private void initiate()
+    {
+        SymbolTable.Symbol s =SymbolTable.creerSymbol("int");
+        SymbolTable.Symbol s1 =SymbolTable.creerSymbol("float");
+        SymbolTable.Symbol s2 =SymbolTable.creerSymbol("boolean");
+        envTypes.put(s, new TypeDefinition(new IntType(s),null));
+        envTypes.put(s1, new TypeDefinition(new FloatType(s1),null));
+        envTypes.put(s2, new TypeDefinition(new BooleanType(s2),null));
+    }
+
+    public Definition getDefinition(Symbol s)
+    {
+        if(envTypes.containsKey(s))
+        { 
+            return envTypes.get(s);
+        }
+        return null;
+    }
     /**
      * Compilation options (e.g. when to stop compilation, number of registers
      * to use, ...).

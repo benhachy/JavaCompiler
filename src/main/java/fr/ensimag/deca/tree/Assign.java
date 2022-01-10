@@ -30,16 +30,17 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        // AbstractExpr rvalue = getRightOperand();
-        // AbstractLValue lvalue = getLeftOperand();
-        // Type variable = lvalue.verifyExpr(compiler, localEnv, currentClass);
-        // rvalue.verifyRValue(compiler, localEnv, currentClass, variable);
-        // SymbolTable tab = new SymbolTable();
-        // SymbolTable.Symbol symbol = tab.create("Int");
-        // Type chaine = new Type(symbol);
-        // setType(chaine);
-        // return chaine;
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("::Assign.java:: verifyExpr");
+        AbstractExpr rvalue = getRightOperand();
+        AbstractLValue lvalue = getLeftOperand();
+        Type variable = lvalue.verifyExpr(compiler, localEnv, currentClass);
+        rvalue.verifyRValue(compiler, localEnv, currentClass, variable);
+        if(!verifyCompatibility(localEnv, variable, rvalue.getType()))
+        {
+            throw new ContextualError("L'affectation est impossible car les deux types "+
+            variable.getName()+" et "+rvalue.getType().getName()+" ne sont pas compatibles", getLocation());
+        }
+        return variable;
     }
 
 

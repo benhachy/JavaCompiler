@@ -47,15 +47,20 @@ public class SymbolTable {
         return map.get(name);
        
     }
+    public static Symbol creerSymbol(String name) {
+    
+        return new Symbol(name);
+       
+    }
 
-    public static class Symbol {
+    public static class Symbol { 
         // Constructor is private, so that Symbol instances can only be created
         // through SymbolTable.create factory (which thus ensures uniqueness
         // of symbols).
         private String name;
         private Symbol(String name) {
             super();
-            this.name = name;
+            this.name = name; 
         }
 
         public String getName() {

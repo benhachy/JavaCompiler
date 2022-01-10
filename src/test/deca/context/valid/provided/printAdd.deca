@@ -1,5 +1,4 @@
 { 
-    ReadInt();
     println("1"+"2");
     println(123);
     println("hello!");

@@ -31,11 +31,11 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-                SymbolTable tab = new SymbolTable();
-                SymbolTable.Symbol symbol = tab.create("Boolean");
-                BooleanType chaine = new BooleanType(symbol);
-                setType(chaine);
-                return chaine;
+            SymbolTable tab = new SymbolTable();
+            SymbolTable.Symbol symbol = tab.create("boolean");
+            BooleanType chaine = new BooleanType(symbol);
+            setType(chaine);
+            return chaine;
     }
 
 

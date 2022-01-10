@@ -21,17 +21,21 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        System.out.println("::AbstractOpArith.java:: verifyExpr");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
         Type type2 = lOp.verifyExpr(compiler, localEnv, currentClass);
-        if(verifyCompatibility(localEnv,type1,type2))
+        if(!(type1.isInt() && type2.isInt()) && !(type1.isFloat() && type2.isFloat())
+        && !(type1.isFloat() && type2.isInt()) && !(type1.isInt() && type2.isFloat()))
+        {
+            throw new ContextualError("Les deux types "+type1.getName()+" et "+type2.getName()+
+            " ne sont pas compatibles pour une opération arithmetique", getLocation());
+        }
+        if(type1.isFloat())
         {
             return type1;
         }
-        else{
-            throw new ContextualError("Les deux types "+type1.getName()+" et "+type2.getName()+
-            " ne sont pas compatibles", getLocation());
-        }
+        return type2;
     }
 }
