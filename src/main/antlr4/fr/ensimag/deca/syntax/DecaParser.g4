@@ -444,11 +444,12 @@ type returns[AbstractIdentifier tree]
 
 literal returns[AbstractExpr tree]
     : INT {
-            $tree = new IntLiteral((int)$INT.int);
+        //il faut ajouter un try catch erreur ici
+            $tree = new IntLiteral(Integer.parseInt($INT.text));
             setLocation($tree, $INT);
         }
     | fd=FLOAT {
-            $tree = new FloatLiteral($fd.int);
+            $tree = new FloatLiteral(Float.parseFloat( $fd.text));
             setLocation($tree, $fd);
         }
     | STRING {

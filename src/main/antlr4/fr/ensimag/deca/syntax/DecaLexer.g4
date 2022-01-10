@@ -13,6 +13,8 @@ options {
 fragment LETTER : ( 'a'  ..  'z' | 'A'  ..  'Z');
 fragment DIGIT : '0' .. '9';
 
+
+// mots reserve
 ASM : 'asm' ;
 CLASS : 'class' ;
 ELSE : 'else';
@@ -68,14 +70,14 @@ TAB : '\t'{skip();};
 EOL : '\n'{skip();}; 
 STRING_CAR : ~('"'| '\n' |'\\');
 
-NUM : DIGIT+ ;
-SIGN : '+' | '-'  ;// Meme chose
-EXP : ('E' | 'e') SIGN NUM;
-DEC : NUM '.' NUM;
-FLOATDEC : (DEC | DEC EXP) ('F' | 'f' ); // Normalement sans espace 
-DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
-NUMHEX : DIGITHEX+;
-FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' ); // Meme chose 
+fragment NUM : DIGIT+ ;
+fragment SIGN : '+' | '-'  ;// Meme chose
+fragment EXP : ('E' | 'e') SIGN NUM;
+fragment DEC : NUM '.' NUM;
+fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ); // Normalement sans espace 
+fragment DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
+fragment NUMHEX : DIGITHEX+;
+fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' ); // Meme chose 
 FLOAT : FLOATDEC | FLOATHEX;
 
 STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"' ;
