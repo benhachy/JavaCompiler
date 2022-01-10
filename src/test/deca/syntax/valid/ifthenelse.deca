@@ -1,0 +1,10 @@
+{
+    int i  = 89;
+    if (i == 79){
+        print("it works ifelse ");
+    }
+    else if ( i == 0) {
+        print("i should  not print this ");
+    } 
+
+}

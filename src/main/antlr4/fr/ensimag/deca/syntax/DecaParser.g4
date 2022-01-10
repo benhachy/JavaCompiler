@@ -165,24 +165,29 @@ inst returns[AbstractInst tree]
 if_then_else returns[IfThenElse tree]
 @init {
         ListInst elseBranch = new ListInst();
-        IfThenElse = newElseIF;
+        ListInst thenBranch = new ListInst();
+        IfThenElse firstIF;
+        IfThenElse newElseIF;
 
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
         
-            $tree= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
-            setLocation($tree,$if1);
+            firstIF= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
+            thenBranch.add(firstIF);
             
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
             newElseIF= new IfThenElse($elsif_cond.tree,$elsif_li.tree,elseBranch);
-            setLocation(newElseIF,$elsif);
+            thenBranch.add(newElseIF);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
-
+            elseBranch =$li_else.tree;
         }
-      )?
+      )?{
+            $tree= new IfThenElse($condition.tree,thenBranch,elseBranch);
+            setLocation($tree,$ELSE);
+      }
     ;
 
 list_expr returns[ListExpr tree]
@@ -439,7 +444,7 @@ type returns[AbstractIdentifier tree]
 
 literal returns[AbstractExpr tree]
     : INT {
-            $tree = new IntLiteral($INT.int);
+            $tree = new IntLiteral((int)$INT.int);
             setLocation($tree, $INT);
         }
     | fd=FLOAT {

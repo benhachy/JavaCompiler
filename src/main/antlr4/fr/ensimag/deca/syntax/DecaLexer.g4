@@ -52,7 +52,7 @@ EXCLAM : '!';
 OR : '||';
 NEQ : '!=';
 EQEQ : '==';
-POSITIVE_DIGIT : '1' .. '9';
+fragment POSITIVE_DIGIT : '1' .. '9';
 INT : '0' | POSITIVE_DIGIT DIGIT* ;
 PLUS : '+';
 MINUS : '-';
