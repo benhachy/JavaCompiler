@@ -39,10 +39,15 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        if(arguments.size() != 1)
+        if(arguments.size() == 0)
         {
-            throw new ContextualError("Print prend un argument", this.getLocation());
+            return;
         }
+        // if(arguments.size() != 1)
+        // {
+        //     throw new ContextualError("Print prend un argument", this.getLocation());
+        // }
+        System.out.println(":: AbstractPrint :: verifyInst");
         for (AbstractExpr argument : getArguments().getList())
         {
             Type chaine = argument.verifyExpr(compiler, localEnv, currentClass);

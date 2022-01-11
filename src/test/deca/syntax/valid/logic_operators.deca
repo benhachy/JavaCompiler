@@ -1,7 +1,7 @@
 {
-    bool a = true;
-    bood b = false;
-    bool c = a==b;
-    bool d = a!=b;
+    boolean a = true;
+    boolean b = false;
+    boolean c = a==b;
+    boolean d = a!=b;
 
 }

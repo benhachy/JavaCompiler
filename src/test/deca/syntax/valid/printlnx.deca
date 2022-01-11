@@ -1,3 +1,4 @@
 {
-    print("hello");
+    int a = 895; 
+    printlnx(1);
 }

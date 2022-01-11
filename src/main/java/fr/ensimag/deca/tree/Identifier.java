@@ -201,13 +201,15 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
+        System.out.println("::Identifier.java :: verifyType");
         if(compiler.getDefinition(this.getName()) == null)
         {
             throw new ContextualError(this.getName()+" n'est pas défini",getLocation());
         }
         this.setDefinition(compiler.getDefinition(getName()));
         Type type =getDefinition().getType();
-        if(!type.isBoolean()&& !type.isFloat() && !type.isInt())
+        System.out.println(""+type.getName()+"  " +type.isFloat());
+        if(!type.isBoolean() && !type.isFloat() && !type.isInt())
         {
             throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
         }
