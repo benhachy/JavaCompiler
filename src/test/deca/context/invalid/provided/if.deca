@@ -1,0 +1,12 @@
+//if.deca:5:7: La condition doit etre de type Boolean
+{
+    int a=1;
+    a = a +20;
+    if(5)
+    {
+        a = a+5;
+    }
+    else{
+        a = a-5;
+    }
+}

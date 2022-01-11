@@ -1,4 +1,3 @@
-package tools;
 
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;

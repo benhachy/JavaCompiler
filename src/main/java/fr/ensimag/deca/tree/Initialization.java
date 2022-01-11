@@ -42,6 +42,7 @@ public class Initialization extends AbstractInitialization {
             throw new ContextualError("Vous devez initialiser la variable "+
                     t.getName()+"par"+localEnv.get(t.getName()),getLocation());
         }
+        setExpression(expression);
     }
 
 

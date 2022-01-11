@@ -42,14 +42,18 @@ public class DeclVar extends AbstractDeclVar {
             throws ContextualError {
         System.out.println(":: DeclVar :: Verify DeclVar");
         Type t = type.verifyType(compiler);
+        initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
         varName.setType(t);
         VariableDefinition var = new VariableDefinition(t,getLocation());
         varName.setDefinition(var);
         try{
             localEnv.declare(varName.getName(),var);
-            if(varName.getVariableDefinition()==null)
+            if(initialization instanceof Initialization)
             {
-                System.out.print(varName.getName()+" Def is Null");
+                localEnv.setValue(varName.getName(), true);
+            }
+            else{
+                localEnv.setValue(varName.getName(), false);
             }
         }
         catch (EnvironmentExp.DoubleDefException e)
@@ -66,7 +70,7 @@ public class DeclVar extends AbstractDeclVar {
         {
             throw new ContextualError("Une variable ne peut pas etre de type void ",getLocation());
         }
-        initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
+        
     }
 
     

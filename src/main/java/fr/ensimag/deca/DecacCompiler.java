@@ -4,6 +4,8 @@ import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.FloatType;
 import fr.ensimag.deca.context.IntType;
+import fr.ensimag.deca.context.StringType;
+import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
@@ -16,7 +18,6 @@ import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
-import net.bytebuddy.description.type.TypeDescription;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,9 +72,13 @@ public class DecacCompiler {
         SymbolTable.Symbol s =SymbolTable.creerSymbol("int");
         SymbolTable.Symbol s1 =SymbolTable.creerSymbol("float");
         SymbolTable.Symbol s2 =SymbolTable.creerSymbol("boolean");
+        SymbolTable.Symbol s3 =SymbolTable.creerSymbol("void");
+        SymbolTable.Symbol s4 =SymbolTable.creerSymbol("float");
         envTypes.put(s, new TypeDefinition(new IntType(s),null));
         envTypes.put(s1, new TypeDefinition(new FloatType(s1),null));
         envTypes.put(s2, new TypeDefinition(new BooleanType(s2),null));
+        envTypes.put(s3, new TypeDefinition(new VoidType(s3),null));
+        envTypes.put(s4, new TypeDefinition(new StringType(s4),null));
     }
 
     public Definition getDefinition(Symbol s)

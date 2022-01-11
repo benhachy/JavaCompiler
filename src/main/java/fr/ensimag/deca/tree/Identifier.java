@@ -163,6 +163,16 @@ public class Identifier extends AbstractIdentifier {
     }
 
     private Symbol name;
+    private boolean estInitialisee;
+
+    public void setBool(boolean val)
+    {
+        this.estInitialisee = val;
+    }
+    public  boolean getBool()
+    {
+        return estInitialisee;
+    }
 
     public Identifier(Symbol name) {
         Validate.notNull(name);
@@ -175,7 +185,11 @@ public class Identifier extends AbstractIdentifier {
         System.out.println("::Identifier.java::VerifyExpr");
         if(localEnv.get(getName())==null)
         {
-            throw new ContextualError("la variable "+getName()+" n'est pas définie",getLocation());
+            throw new ContextualError("la variable "+getName()+" n'est pas déclarée",getLocation());
+        }
+        if(!localEnv.getValue(getName()))
+        {
+            throw new ContextualError("la variable "+getName()+" n'est pas initialisée",getLocation());
         }
         this.setDefinition(localEnv.get(getName()));
         return this.getVariableDefinition().getType();
@@ -187,15 +201,18 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        System.out.println("+++++++++++++++"+getName().toString());
         if(compiler.getDefinition(this.getName()) == null)
         {
-            return null;
+            throw new ContextualError(this.getName()+" n'est pas défini",getLocation());
         }
         this.setDefinition(compiler.getDefinition(getName()));
-        return getDefinition().getType();
+        Type type =getDefinition().getType();
+        if(!type.isBoolean()&& !type.isFloat() && !type.isInt())
+        {
+            throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
+        }
+        return type;
     }
-    
     
     private Definition definition;
 

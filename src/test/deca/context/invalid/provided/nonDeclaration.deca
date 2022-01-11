@@ -1,0 +1,4 @@
+//nonDeclaration.deca:3:11: la variable a n'est pas déclarée
+{
+    int a =a+5;
+}

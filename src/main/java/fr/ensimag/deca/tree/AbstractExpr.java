@@ -9,6 +9,9 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
+
+import javax.swing.SwingWorker.StateValue;
+
 import org.apache.commons.lang.Validate;
 
 /**
@@ -38,7 +41,16 @@ public abstract class AbstractExpr extends AbstractInst {
         this.type = type;
     }
     private Type type;
+    private Boolean initiate;
 
+    protected void SetValueBool(boolean val)
+    {
+        initiate = val;
+    }
+    protected boolean getValueBool()
+    {
+        return initiate;
+    }
     @Override
     protected void checkDecoration() {
         if (getType() == null) {
@@ -132,7 +144,12 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println("::AbstractExpr.java::verifyCondition ");
+        Type condition = verifyExpr(compiler, localEnv, currentClass);
+        if(!condition.isBoolean())
+        {
+            throw new ContextualError("La condition doit etre de type Boolean", getLocation());
+        }
     }
 
     /**

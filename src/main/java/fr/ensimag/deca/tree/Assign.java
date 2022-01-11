@@ -33,6 +33,11 @@ public class Assign extends AbstractBinaryExpr {
         System.out.println("::Assign.java:: verifyExpr");
         AbstractExpr rvalue = getRightOperand();
         AbstractLValue lvalue = getLeftOperand();
+        if(lvalue instanceof Identifier)
+        {
+            System.out.println("========>>>  "+((AbstractIdentifier)lvalue).getName());
+            localEnv.setValue(((AbstractIdentifier)lvalue).getName(), true);
+        }
         Type variable = lvalue.verifyExpr(compiler, localEnv, currentClass);
         rvalue.verifyRValue(compiler, localEnv, currentClass, variable);
         if(!verifyCompatibility(localEnv, variable, rvalue.getType()))
@@ -40,6 +45,7 @@ public class Assign extends AbstractBinaryExpr {
             throw new ContextualError("L'affectation est impossible car les deux types "+
             variable.getName()+" et "+rvalue.getType().getName()+" ne sont pas compatibles", getLocation());
         }
+
         return variable;
     }
 

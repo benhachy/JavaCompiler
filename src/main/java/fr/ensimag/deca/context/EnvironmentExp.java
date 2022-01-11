@@ -27,11 +27,13 @@ public class EnvironmentExp {
     // environnement (association nom -> définition, avec possibilité
     // d'empilement).
     private HashMap<SymbolTable.Symbol,ExpDefinition> envExp;
+    private HashMap<SymbolTable.Symbol,Boolean> values;
     EnvironmentExp parentEnvironment;
     
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
         envExp = new HashMap<SymbolTable.Symbol,ExpDefinition>();
+        values = new HashMap<SymbolTable.Symbol,Boolean>();
     }
 
     public static class DoubleDefException extends Exception {
@@ -39,6 +41,20 @@ public class EnvironmentExp {
         public DoubleDefException(String message) {
             super(message);
         }
+    }
+
+    public boolean getValue(Symbol key)
+    {
+        if(values.containsKey(key))
+        {
+            return values.get(key);
+        }
+        return false;
+    }
+
+    public void setValue(Symbol key,boolean val)
+    {
+        values.put(key, val);
     }
 
     /**
@@ -75,5 +91,10 @@ public class EnvironmentExp {
         }
         envExp.put(name, def);
     }
-
+    public void update(Symbol name, ExpDefinition def){
+        if(envExp.containsKey(name))
+        {
+            envExp.replace(name, def);
+        }
+    }
 }
