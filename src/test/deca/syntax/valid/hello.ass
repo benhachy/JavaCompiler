@@ -1,6 +1,7 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	WSTR """hello"""
+	RFLOAT
+	WFLOAT
 	HALT
 ; end main program
