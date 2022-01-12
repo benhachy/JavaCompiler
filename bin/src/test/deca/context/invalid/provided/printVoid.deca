@@ -1,0 +1,4 @@
+//test2.deca:2:4: Print prend un argument
+{
+    println();
+}

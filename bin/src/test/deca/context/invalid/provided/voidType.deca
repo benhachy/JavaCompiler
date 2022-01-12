@@ -1,0 +1,4 @@
+//voidType.deca:3:4: void n'est pas un type pour initialiser
+{
+    void t;
+}

@@ -1,0 +1,10 @@
+{
+    if(true)
+    int i = 15;
+    int a = 80;
+    boolean t0 = i==a;
+    boolean t1 = i>a;
+    boolean t2 = t1!=t0;
+    int b = a%i; 
+    println("test");
+}
