@@ -1,7 +1,17 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	RFLOAT
-	WFLOAT
+	LOAD #0, R0
+	LOAD #5, R1
+	ADD R1, R0
+	LOAD #5, R1
+	ADD R1, R0
+	LOAD #4, R1
+	ADD R1, R0
+	LOAD #3, R1
+	ADD R1, R0
+	LOAD #2, R1
+	ADD R0, R1
+	WINT
 	HALT
 ; end main program

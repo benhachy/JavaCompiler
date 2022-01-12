@@ -1,6 +1,10 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -34,8 +38,31 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         }
         if(type1.isFloat())
         {
+            setType(type1);
             return type1;
         }
+        setType(type2);
         return type2;
     }
+    @Override
+    protected void codeGenInst(DecacCompiler compiler)
+    {
+        System.out.println("::AbstractOpArith.java:: codeGenPrint");
+        
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr lOp = getLeftOperand();
+        rOp.codeGenPrint(compiler);
+        //R1 contient 4
+        //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
+        //4 en r0 
+        lOp.codeGenPrint(compiler);
+        
+        //R0 contiet 4
+        
+        //compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(1) ));
+        //R1 contient 4
+        
+    }
+    
+    
 }

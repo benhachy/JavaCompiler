@@ -132,6 +132,7 @@ public abstract class AbstractExpr extends AbstractInst {
         this.verifyExpr(compiler, localEnv, currentClass);
     }
 
+    
     /**
      * Verify the expression as a condition, i.e. check that the type is
      * boolean.
