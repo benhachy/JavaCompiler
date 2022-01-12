@@ -10,6 +10,12 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import liquibase.change.core.StopChange;
 
 import static org.mockito.ArgumentMatchers.nullable;
 
@@ -92,5 +98,11 @@ public class DeclVar extends AbstractDeclVar {
         type.prettyPrint(s, prefix, false);
         varName.prettyPrint(s, prefix, false);
         initialization.prettyPrint(s, prefix, true);
+    }
+
+    @Override
+    protected void codeGenDeclVar(DecacCompiler compiler){
+        compiler.addInstruction(new LOAD(initialization.codeGenInit(compiler),Register.getR(0)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.GB)));
     }
 }
