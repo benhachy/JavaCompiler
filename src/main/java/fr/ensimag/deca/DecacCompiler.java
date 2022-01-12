@@ -73,7 +73,7 @@ public class DecacCompiler {
         SymbolTable.Symbol s1 =SymbolTable.creerSymbol("float");
         SymbolTable.Symbol s2 =SymbolTable.creerSymbol("boolean");
         SymbolTable.Symbol s3 =SymbolTable.creerSymbol("void");
-        SymbolTable.Symbol s4 =SymbolTable.creerSymbol("float");
+        SymbolTable.Symbol s4 =SymbolTable.creerSymbol("string");
         envTypes.put(s, new TypeDefinition(new IntType(s),null));
         envTypes.put(s1, new TypeDefinition(new FloatType(s1),null));
         envTypes.put(s2, new TypeDefinition(new BooleanType(s2),null));

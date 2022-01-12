@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     bool a = true;
     bood b = false;
     bool c = a==b;
@@ -10,5 +11,11 @@
     bool i = 1>1;
     bool j = 1>=1;
     bool k = !true;
+=======
+    boolean a = true;
+    boolean b = false;
+    boolean c = a==b;
+    boolean d = a!=b;
+>>>>>>> d9cef92535a4513a09485fab546495679e412a78
 
 }

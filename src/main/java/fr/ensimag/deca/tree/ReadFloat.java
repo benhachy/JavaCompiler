@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.context.FloatType;
+import fr.ensimag.deca.tools.SymbolTable;
 import java.io.PrintStream;
 
 /**
@@ -18,7 +20,10 @@ public class ReadFloat extends AbstractReadExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        System.out.println(":: ReadFloat :: verifyExpr");
+        FloatType typefloat=new FloatType(SymbolTable.creerSymbol("readFloat"));
+        return typefloat;
+        // throw new UnsupportedOperationException("not yet implemented");
     }
 
 

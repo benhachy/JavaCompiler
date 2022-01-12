@@ -113,8 +113,8 @@ list_inst returns[ListInst tree]
     $tree = new ListInst();
 }
     : (inst {
-        assert($inst.tree != null);
         $tree.add($inst.tree);
+        setLocation($tree,$inst.start);
         }
       )*
     ;
@@ -125,6 +125,7 @@ inst returns[AbstractInst tree]
             $tree=$e1.tree;
         }
     | SEMI {
+            $tree = new NoOperation();
         }
     | PRINT OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
@@ -174,11 +175,13 @@ if_then_else returns[IfThenElse tree]
         
             firstIF= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
             thenBranch.add(firstIF);
+            setLocation(firstIF,$if1);
             
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
             newElseIF= new IfThenElse($elsif_cond.tree,$elsif_li.tree,elseBranch);
             thenBranch.add(newElseIF);
+            setLocation(newElseIF,$elsif);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
@@ -186,7 +189,7 @@ if_then_else returns[IfThenElse tree]
         }
       )?{
             $tree= new IfThenElse($condition.tree,thenBranch,elseBranch);
-            setLocation($tree,$ELSE);
+            setLocation($tree,$if1);
       }
     ;
 

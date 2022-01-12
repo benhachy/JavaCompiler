@@ -1,6 +1,21 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
+<<<<<<< HEAD
 	WSTR """hello"""
+=======
+	LOAD #0, R0
+	LOAD #5, R1
+	ADD R1, R0
+	LOAD #5, R1
+	ADD R1, R0
+	LOAD #4, R1
+	ADD R1, R0
+	LOAD #3, R1
+	ADD R1, R0
+	LOAD #2, R1
+	ADD R0, R1
+	WINT
+>>>>>>> d9cef92535a4513a09485fab546495679e412a78
 	HALT
 ; end main program

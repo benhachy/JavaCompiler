@@ -8,7 +8,14 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -39,10 +46,15 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        if(arguments.size() != 1)
+        if(arguments.size() == 0)
         {
-            throw new ContextualError("Print prend un argument", this.getLocation());
+            return;
         }
+        // if(arguments.size() != 1)
+        // {
+        //     throw new ContextualError("Print prend un argument", this.getLocation());
+        // }
+        System.out.println(":: AbstractPrint :: verifyInst");
         for (AbstractExpr argument : getArguments().getList())
         {
             Type chaine = argument.verifyExpr(compiler, localEnv, currentClass);
@@ -56,8 +68,28 @@ public abstract class AbstractPrint extends AbstractInst {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println(":: AbstractPrint :: codeGenInst");
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(0) ));
         for (AbstractExpr a : getArguments().getList()) {
-            a.codeGenPrint(compiler);
+            a.codeGenInst(compiler);
+            if(a.getType().isInt())
+            {
+                compiler.addInstruction(new WINT());
+            }
+            if(a.getType().isFloat())
+            {
+                if(getPrintHex())
+                {
+                    compiler.addInstruction(new WFLOATX());
+                }
+                else{
+                    compiler.addInstruction(new WFLOAT());
+                }
+                
+            }
+            else{
+                //compiler.addInstruction(new W());
+            }
         }
     }
 
