@@ -32,7 +32,9 @@ public class Modulo extends AbstractOpArith {
         return type1;
     }
 
-
+    protected int codeGenPrint2(DecacCompiler compiler, AbstractExpr rOp, AbstractExpr lOp) {
+        return 1;
+    }
     @Override
     protected String getOperatorName() {
         return "%";

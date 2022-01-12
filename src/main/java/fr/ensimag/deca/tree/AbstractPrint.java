@@ -15,6 +15,7 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -70,6 +71,7 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
         System.out.println(":: AbstractPrint :: codeGenInst");
         compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(0) ));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(2) ));
         for (AbstractExpr a : getArguments().getList()) {
             a.codeGenInst(compiler);
             if(a.getType().isInt())
@@ -88,7 +90,7 @@ public abstract class AbstractPrint extends AbstractInst {
                 
             }
             else{
-                //compiler.addInstruction(new W());
+                //compiler.addInstruction(new WSTR());  
             }
         }
     }

@@ -47,22 +47,24 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler)
     {
-        System.out.println("::AbstractOpArith.java:: codeGenPrint");
+        System.out.println("::AbstractOpArith.java:: codeGenInst");
         
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenPrint(compiler);
+        //codeGenPrint2(compiler,rOp,lOp);
         //R1 contient 4
         //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
         //4 en r0 
         lOp.codeGenPrint(compiler);
-        
         //R0 contiet 4
         
         //compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(1) ));
         //R1 contient 4
         
     }
+
+    protected abstract int codeGenPrint2(DecacCompiler compiler, AbstractExpr rOp, AbstractExpr lOp) ;
     
     
 }
