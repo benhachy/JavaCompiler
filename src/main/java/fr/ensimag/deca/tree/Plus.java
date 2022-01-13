@@ -20,11 +20,25 @@ public class Plus extends AbstractOpArith {
     protected void codeGenPrint(DecacCompiler compiler){
         System.out.println(":: Plus.java :: codeGenPrint");
         
+
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
+        DVal valueLeft =lOp.codeGenExpr(compiler);
+        DVal valueRight =rOp.codeGenExpr(compiler);//R3
+        compiler.addInstruction(new ADD(valueLeft,Register.getR(3)));
+        compiler.addInstruction(new LOAD(Register.getR(3),Register.getR(1)));
+
+        /* might work but not the best one 
         DVal value =rOp.codeGenExpr(compiler);
         compiler.addInstruction(new ADD(value,Register.getR(5)));
-        lOp.codeGenPrint(compiler);
+        if (lOp.isLiteral()){
+            compiler.addInstruction(new ADD(lOp,Register.getR(5)));
+            compiler.addInstruction(new LOAD(Register.getR(5),Register.getR(1)));
+        }
+        else{
+            lOp.codeGenPrint(compiler);
+        }*/
+        
         // compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
         // rOp.codeGenPrint(compiler);//r1 contint 2 
         // //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
@@ -44,9 +58,10 @@ public class Plus extends AbstractOpArith {
     public DVal codeGenExpr(DecacCompiler compiler) {
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
-        DVal value =rOp.codeGenExpr(compiler);
-        DVal leftOp =lOp.codeGenExpr(compiler);
-        return Register.getR(4);
+        DVal valueLeft =lOp.codeGenExpr(compiler);//R3
+        DVal valueRight =rOp.codeGenExprReg(compiler);//R2
+        compiler.addInstruction(new ADD(valueRight,Register.getR(3)));
+        return valueRight;
     }
     // protected void codeGenPrintversiontest(DecacCompiler compiler, AbstractExpr rightOperand,Register registre){
     //     compiler.addInstruction(new ADD(rightOperand,registre));

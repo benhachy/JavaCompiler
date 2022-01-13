@@ -30,6 +30,10 @@ public class IntLiteral extends AbstractExpr {
     public IntLiteral(int value) {
         this.value = value;
     }
+    @Override
+    public boolean isLiteral(){
+        return true;
+    }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -49,8 +53,9 @@ public class IntLiteral extends AbstractExpr {
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
         //System.out.println(":: IntLiteral.java :: codeGenPrint");
-        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(4) ));
-        compiler.addInstruction(new LOAD(Register.getR(4),Register.getR(1)));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(2) ));
+        //compiler.addInstruction(new LOAD(Register.getR(4),Register.getR(5)));
+        //compiler.addInstruction(new LOAD(Register.getR(4),Register.getR(1)));
         //compiler.addInstruction(new WINT());
     }
     
@@ -61,8 +66,13 @@ public class IntLiteral extends AbstractExpr {
     }
     @Override
     public DVal codeGenExpr(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(4) ));
-        return Register.getR(4);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(3) ));
+        return Register.getR(3);
+    }
+    @Override
+    public DVal codeGenExprReg(DecacCompiler compiler) {
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(2) ));
+        return Register.getR(2);
     }
 
     @Override

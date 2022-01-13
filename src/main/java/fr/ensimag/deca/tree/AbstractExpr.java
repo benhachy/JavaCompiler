@@ -29,6 +29,9 @@ public abstract class AbstractExpr extends AbstractInst {
     boolean isImplicit() {
         return false;
     }
+    public boolean isLiteral(){
+        return false;
+    }
 
     /**
      * Get the type decoration associated to this expression (i.e. the type computed by contextual verification).
@@ -168,6 +171,9 @@ public abstract class AbstractExpr extends AbstractInst {
         //throw new UnsupportedOperationException("not yet implemented");
     }
     public DVal codeGenExpr(DecacCompiler compiler) {
+        return null;
+    }
+    public DVal codeGenExprReg(DecacCompiler compiler) {
         return null;
     }
 
