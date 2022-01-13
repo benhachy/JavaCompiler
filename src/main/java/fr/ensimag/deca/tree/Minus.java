@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
 
 /**
  * @author gl03
@@ -10,7 +11,9 @@ public class Minus extends AbstractOpArith {
         super(leftOperand, rightOperand);
     }
 
-
+    protected int codeGenPrint2(DecacCompiler compiler, AbstractExpr rOp, AbstractExpr lOp) {
+        return 1;
+    }
     @Override
     protected String getOperatorName() {
         return "-";

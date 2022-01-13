@@ -1,0 +1,11 @@
+{
+    int a = 0;
+    while (a < 10000){
+        if (a%2 == 0){
+            println("chiffre pair");
+        }
+        else{
+            println("chiffre impair");
+        }
+    }
+}
