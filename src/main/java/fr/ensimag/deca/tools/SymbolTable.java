@@ -3,6 +3,8 @@ package fr.ensimag.deca.tools;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.text.StrTokenizer;
+
 /**
  * Manage unique symbols.
  * 
@@ -17,7 +19,7 @@ import java.util.Map;
  */
 public class SymbolTable {
     private Map<String, Symbol> map;
-
+    
     public SymbolTable()
     {
         map = new HashMap<String, Symbol>();
@@ -30,6 +32,7 @@ public class SymbolTable {
      * this Symbol. Otherwise, create a new Symbol and add it to the table.
      */
     
+
     
     public Symbol create(String name) {
     
@@ -58,6 +61,7 @@ public class SymbolTable {
         // through SymbolTable.create factory (which thus ensures uniqueness
         // of symbols).
         private String name;
+        private int ordre;
         private Symbol(String name) {
             super();
             this.name = name; 
@@ -65,6 +69,14 @@ public class SymbolTable {
 
         public String getName() {
             return name;
+        }
+        public void setOrdre(int val)
+        {
+            this.ordre = val;
+        }
+        public int getOrdre()
+        {
+            return this.ordre;
         }
 
         @Override

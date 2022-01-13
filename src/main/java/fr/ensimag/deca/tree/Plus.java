@@ -14,8 +14,8 @@ public class Plus extends AbstractOpArith {
     }
     
     @Override
-    protected void codeGenPrint(DecacCompiler compiler){
-        System.out.println(":: Plus.java :: codeGenPrint");
+    protected void codeGenInst(DecacCompiler compiler){
+        //System.out.println(":: Plus.java :: codeGenPrint");
         
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();

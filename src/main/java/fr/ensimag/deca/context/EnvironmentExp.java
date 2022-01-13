@@ -52,6 +52,11 @@ public class EnvironmentExp {
         return false;
     }
 
+    public int getOrdre(Symbol key)
+    {
+        return key.getOrdre();
+    }
+
     public void setValue(Symbol key,boolean val)
     {
         values.put(key, val);

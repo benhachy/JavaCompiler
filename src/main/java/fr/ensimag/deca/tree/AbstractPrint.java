@@ -54,7 +54,7 @@ public abstract class AbstractPrint extends AbstractInst {
         // {
         //     throw new ContextualError("Print prend un argument", this.getLocation());
         // }
-        System.out.println(":: AbstractPrint :: verifyInst");
+        //System.out.println(":: AbstractPrint :: verifyInst");
         for (AbstractExpr argument : getArguments().getList())
         {
             Type chaine = argument.verifyExpr(compiler, localEnv, currentClass);
@@ -68,8 +68,7 @@ public abstract class AbstractPrint extends AbstractInst {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println(":: AbstractPrint :: codeGenInst");
-        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(0) ));
+        //System.out.println(":: AbstractPrint :: codeGenInst");
         for (AbstractExpr a : getArguments().getList()) {
             a.codeGenInst(compiler);
             if(a.getType().isInt())
@@ -85,7 +84,6 @@ public abstract class AbstractPrint extends AbstractInst {
                 else{
                     compiler.addInstruction(new WFLOAT());
                 }
-                
             }
             else{
                 //compiler.addInstruction(new W());

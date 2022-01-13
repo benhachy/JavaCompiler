@@ -1,21 +1,22 @@
 ; start main program
 ; Main program
+	LOAD #0, R1
+	LOAD #15, R1
+	STORE R1, 3(GB)
+	LOAD #82, R1
+	STORE R1, 4(GB)
+	ADD R1, R0
+	STORE R1, 5(GB)
 ; Beginning of main instructions:
-<<<<<<< HEAD
-	WSTR """hello"""
-=======
-	LOAD #0, R0
-	LOAD #5, R1
-	ADD R1, R0
-	LOAD #5, R1
-	ADD R1, R0
-	LOAD #4, R1
-	ADD R1, R0
-	LOAD #3, R1
-	ADD R1, R0
-	LOAD #2, R1
-	ADD R0, R1
+	LOAD 3(GB), R1
 	WINT
->>>>>>> d9cef92535a4513a09485fab546495679e412a78
+	WNL
+	LOAD 4(GB), R1
+	WINT
+	WNL
+	LOAD 5(GB), R1
+	WINT
+	WNL
+	WSTR """Salam"""
 	HALT
 ; end main program

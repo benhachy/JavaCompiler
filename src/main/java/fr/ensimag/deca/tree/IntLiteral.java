@@ -47,7 +47,7 @@ public class IntLiteral extends AbstractExpr {
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
-        System.out.println(":: IntLiteral.java :: codeGenPrint");
+        //System.out.println(":: IntLiteral.java :: codeGenPrint");
         compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(1) ));
         //compiler.addInstruction(new LOAD(Register.getR(1),Register.getR(0)));
         //compiler.addInstruction(new WINT());
@@ -55,7 +55,7 @@ public class IntLiteral extends AbstractExpr {
     
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-        System.out.println(":: IntLiteral.java :: codeGenPrint");
+        //System.out.println(":: IntLiteral.java :: codeGenPrint");
         compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(1) ));
     }
 

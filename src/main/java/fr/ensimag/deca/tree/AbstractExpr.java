@@ -96,7 +96,7 @@ public abstract class AbstractExpr extends AbstractInst {
             EnvironmentExp localEnv, ClassDefinition currentClass, 
             Type expectedType)
             throws ContextualError {
-        System.out.println("::AbstractExpr.java :: verifyRValue");
+        //System.out.println("::AbstractExpr.java :: verifyRValue");
         Type expression = this.verifyExpr(compiler, localEnv, currentClass);
         if(!verifyCompatibility(localEnv, expectedType, expression))
         {
@@ -128,7 +128,7 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        System.out.println("::AbstractExpr.java:: veridyInst");
+        //System.out.println("::AbstractExpr.java:: veridyInst");
         this.verifyExpr(compiler, localEnv, currentClass);
     }
 
@@ -145,7 +145,7 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::AbstractExpr.java::verifyCondition ");
+        //System.out.println("::AbstractExpr.java::verifyCondition ");
         Type condition = verifyExpr(compiler, localEnv, currentClass);
         if(!condition.isBoolean())
         {
@@ -159,12 +159,12 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        // codeGenExpr(compiler);
+        //throw new UnsupportedOperationException("not yet implemented");
     }
     
 

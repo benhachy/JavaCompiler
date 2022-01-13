@@ -20,7 +20,7 @@ public class Not extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::AbstractOpArith.java:: verifyExpr");
+        //System.out.println("::AbstractOpArith.java:: verifyExpr");
         AbstractExpr expr = getOperand();
         Type exprType = expr.verifyExpr(compiler, localEnv, currentClass);
         if(!exprType.isBoolean())

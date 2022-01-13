@@ -46,13 +46,15 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        System.out.println(":: DeclVar :: Verify DeclVar");
+        //System.out.println(":: DeclVar :: Verify DeclVar");
         Type t = type.verifyType(compiler);
         initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
         varName.setType(t);
         VariableDefinition var = new VariableDefinition(t,getLocation());
         varName.setDefinition(var);
         try{
+            Identifier.identificateurs.put(varName.getName(),Identifier.ordreIdentifier);
+            ++Identifier.ordreIdentifier;
             localEnv.declare(varName.getName(),var);
             if(initialization instanceof Initialization)
             {
@@ -102,7 +104,10 @@ public class DeclVar extends AbstractDeclVar {
 
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler){
-        compiler.addInstruction(new LOAD(initialization.codeGenInit(compiler),Register.getR(0)));
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.GB)));
+        //System.out.println(":: DeclVar.java :: CodeGenDeclVar");
+        initialization.codeGenInit(compiler);
+        compiler.addInstruction(new STORE(Register.getR(1),new RegisterOffset(Identifier.identificateurs.get(varName.getName())+3,Register.GB)));
+
+        //compiler.addInstruction(new PUSH(Register.getR(1)));
     }
 }

@@ -99,7 +99,7 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
       (EQUALS e=expr {
             assert($e.tree != null);
             initiate = new Initialization($e.tree);
-            setLocation($e.tree, $e.start);
+            setLocation(initiate, $e.start); 
         }
       )? 
       {

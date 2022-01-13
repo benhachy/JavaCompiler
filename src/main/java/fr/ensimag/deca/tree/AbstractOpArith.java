@@ -25,7 +25,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::AbstractOpArith.java:: verifyExpr");
+        //System.out.println("::AbstractOpArith.java:: verifyExpr");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
@@ -47,7 +47,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler)
     {
-        System.out.println("::AbstractOpArith.java:: codeGenPrint");
+        //System.out.println("::AbstractOpArith.java:: codeGenPrint");
         
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();

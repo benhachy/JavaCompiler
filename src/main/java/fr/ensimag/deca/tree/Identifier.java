@@ -15,11 +15,17 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import net.bytebuddy.description.type.TypeDefinition;
 
 import static org.mockito.ArgumentMatchers.nullable;
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -182,7 +188,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::Identifier.java::VerifyExpr");
+        //System.out.println("::Identifier.java::VerifyExpr");
         if(localEnv.get(getName())==null)
         {
             throw new ContextualError("la variable "+getName()+" n'est pas déclarée",getLocation());
@@ -192,7 +198,8 @@ public class Identifier extends AbstractIdentifier {
             throw new ContextualError("la variable "+getName()+" n'est pas initialisée",getLocation());
         }
         this.setDefinition(localEnv.get(getName()));
-        return this.getVariableDefinition().getType();
+        setType(this.getVariableDefinition().getType());
+        return this.getType();
     }
 
     /**
@@ -201,23 +208,31 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        System.out.println("::Identifier.java :: verifyType");
+        //System.out.println("::Identifier.java :: verifyType");
         if(compiler.getDefinition(this.getName()) == null)
         {
             throw new ContextualError(this.getName()+" n'est pas défini",getLocation());
         }
         this.setDefinition(compiler.getDefinition(getName()));
         Type type =getDefinition().getType();
-        System.out.println(""+type.getName()+"  " +type.isFloat());
+        //System.out.println(""+type.getName()+"  " +type.isFloat());
         if(!type.isBoolean() && !type.isFloat() && !type.isInt())
         {
             throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
         }
+        
         return type;
     }
     
-    private Definition definition;
 
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+    }
+
+    private Definition definition;
+    public static HashMap<SymbolTable.Symbol,Integer> identificateurs = new HashMap<SymbolTable.Symbol,Integer>();
+    public static int ordreIdentifier;
 
     @Override
     protected void iterChildren(TreeFunction f) {

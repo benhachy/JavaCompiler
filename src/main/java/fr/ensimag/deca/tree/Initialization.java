@@ -35,19 +35,21 @@ public class Initialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        System.out.println("initialization.java:::::Verify Initialization");
+        //System.out.println("initialization.java:::::Verify Initialization");
         expression = expression.verifyRValue(compiler, localEnv, currentClass, t);
-        if(!t.sameType(expression.getType()))// verifier que getType() est sous type de t
-        {
-            throw new ContextualError("Vous devez initialiser la variable "+
-                    t.getName()+"par"+localEnv.get(t.getName()),getLocation());
-        }
+        // if(!t.sameType(expression.getType()))// verifier que getType() est sous type de t
+        // {
+        //     throw new ContextualError("Vous devez initialiser la variable "+
+        //             t.getName()+"par"+localEnv.get(t.getName()),getLocation());
+        // }
+        
         setExpression(expression);
     }
 
 
     @Override
     public void decompile(IndentPrintStream s) {
+       
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -60,5 +62,10 @@ public class Initialization extends AbstractInitialization {
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         expression.prettyPrint(s, prefix, true);
+    }
+
+    public void codeGenInit(DecacCompiler compiler)
+    {
+        expression.codeGenInst(compiler);
     }
 }

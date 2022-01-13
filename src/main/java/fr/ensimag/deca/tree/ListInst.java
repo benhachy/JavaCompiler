@@ -28,7 +28,7 @@ public class ListInst extends TreeList<AbstractInst> {
     public void verifyListInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-            System.out.println("ListInst.java::VerifyListInst");
+            //System.out.println("ListInst.java::VerifyListInst");
                 if(getList().size()==0)
                 {
                     return;
@@ -42,7 +42,7 @@ public class ListInst extends TreeList<AbstractInst> {
     }
 
     public void codeGenListInst(DecacCompiler compiler) {
-        System.out.println(":: ListInst :: codeGenListInst");
+        //System.out.println(":: ListInst :: codeGenListInst");
         for (AbstractInst i : getList()) {
             i.codeGenInst(compiler);
         }
