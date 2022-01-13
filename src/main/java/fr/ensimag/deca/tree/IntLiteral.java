@@ -12,6 +12,7 @@ import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
+import fr.ensimag.ima.pseudocode.*;
 
 /**
  * Integer literal
@@ -48,8 +49,8 @@ public class IntLiteral extends AbstractExpr {
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
         //System.out.println(":: IntLiteral.java :: codeGenPrint");
-        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(1) ));
-        //compiler.addInstruction(new LOAD(Register.getR(1),Register.getR(0)));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(4) ));
+        compiler.addInstruction(new LOAD(Register.getR(4),Register.getR(1)));
         //compiler.addInstruction(new WINT());
     }
     
@@ -57,6 +58,11 @@ public class IntLiteral extends AbstractExpr {
     protected void codeGenInst(DecacCompiler compiler){
         //System.out.println(":: IntLiteral.java :: codeGenPrint");
         compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(1) ));
+    }
+    @Override
+    public DVal codeGenExpr(DecacCompiler compiler) {
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(4) ));
+        return Register.getR(4);
     }
 
     @Override

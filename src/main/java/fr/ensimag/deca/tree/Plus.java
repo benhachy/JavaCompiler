@@ -3,6 +3,8 @@ import fr.ensimag.ima.pseudocode.instructions.*;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.*;
 import fr.ensimag.deca.tree.IntLiteral;
+import fr.ensimag.ima.*;
+import fr.ensimag.ima.pseudocode.DVal;
 
 
 /**
@@ -15,34 +17,40 @@ public class Plus extends AbstractOpArith {
     }
     
     @Override
-    protected void codeGenInst(DecacCompiler compiler){
-        //System.out.println(":: Plus.java :: codeGenPrint");
+    protected void codeGenPrint(DecacCompiler compiler){
+        System.out.println(":: Plus.java :: codeGenPrint");
         
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
-        compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-        rOp.codeGenPrint(compiler);//r1 contint 2 
-        //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-        //r1 contient 1
-        if(lOp instanceof IntLiteral)
-        {
-            compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-            lOp.codeGenPrint(compiler);
-            compiler.addInstruction(new ADD(Register.getR(0),Register.getR(1)));
-        }
-        else{
-            lOp.codeGenPrint(compiler);
-        }
-        //compiler.addInstruction(new ADD(Register.getR(0),Register.getR(1)));
-        //r0 contient la valeur final
-        //rOp.codeGenPrint(compiler);
-        //r1 contient 5
-        // 
-        //compiler.addInstruction(new ADD(Register.getR(0),Register.getR(1) ));
-        //r1 contient 6
+        DVal value =rOp.codeGenExpr(compiler);
+        compiler.addInstruction(new ADD(value,Register.getR(5)));
+        lOp.codeGenPrint(compiler);
+        // compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
+        // rOp.codeGenPrint(compiler);//r1 contint 2 
+        // //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
+        // //r1 contient 1
+        // if(lOp instanceof IntLiteral)
+        // {
+        //     compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
+        //     lOp.codeGenPrint(compiler);
+        //     compiler.addInstruction(new ADD(Register.getR(0),Register.getR(1)));
+        // }
+        // else{
+        //     lOp.codeGenPrint(compiler);
+        // }
         
-        //affiche 6
     }
+    @Override
+    public DVal codeGenExpr(DecacCompiler compiler) {
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr lOp = getLeftOperand();
+        DVal value =rOp.codeGenExpr(compiler);
+        DVal leftOp =lOp.codeGenExpr(compiler);
+        return Register.getR(4);
+    }
+    // protected void codeGenPrintversiontest(DecacCompiler compiler, AbstractExpr rightOperand,Register registre){
+    //     compiler.addInstruction(new ADD(rightOperand,registre));
+    // }
 
      //protected int codeGenPrint2(DecacCompiler compiler ,AbstractExpr roperand ,AbstractExpr loperand, int debut ){
     //     //2

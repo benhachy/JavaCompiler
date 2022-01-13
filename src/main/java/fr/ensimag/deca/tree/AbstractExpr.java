@@ -9,6 +9,7 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
 
 import javax.swing.SwingWorker.StateValue;
 
@@ -166,7 +167,9 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
         //throw new UnsupportedOperationException("not yet implemented");
     }
-    
+    public DVal codeGenExpr(DecacCompiler compiler) {
+        return null;
+    }
 
     @Override
     protected void decompileInst(IndentPrintStream s) {

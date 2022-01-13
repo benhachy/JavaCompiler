@@ -71,7 +71,7 @@ public abstract class AbstractPrint extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
         //System.out.println(":: AbstractPrint :: codeGenInst");
         for (AbstractExpr a : getArguments().getList()) {
-            a.codeGenInst(compiler);
+            a.codeGenPrint(compiler);//Print 
             if(a.getType().isInt())
             {
                 compiler.addInstruction(new WINT());
