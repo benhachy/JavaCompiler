@@ -7,6 +7,13 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
  *
@@ -15,11 +22,27 @@ import fr.ensimag.deca.tools.SymbolTable;
  */
 public class Equals extends AbstractOpExactCmp {
 
+    private static int cmpEtiquetes=0; 
+
     public Equals(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
 
-    
+    @Override
+    protected void codeGenInst(DecacCompiler compiler){
+        getRightOperand().codeGenExpr(compiler, 2);
+        getLeftOperand().codeGenExpr(compiler, 3);
+        compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
+        Label loadTrue = new Label("loadTrueEQ."+cmpEtiquetes);
+        Label finCmp = new Label("finComparationEQ."+cmpEtiquetes);
+        compiler.addInstruction(new BEQ(loadTrue));
+        new IntLiteral(0).codeGenExpr(compiler,1);
+        compiler.addInstruction(new BRA(finCmp));
+        compiler.addLabel(loadTrue);
+        new IntLiteral(1).codeGenExpr(compiler,1);
+        compiler.addLabel(finCmp);
+        cmpEtiquetes++;
+    }
     
     @Override
     protected String getOperatorName() {

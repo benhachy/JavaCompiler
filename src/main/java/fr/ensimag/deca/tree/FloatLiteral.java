@@ -56,6 +56,11 @@ public class FloatLiteral extends AbstractExpr {
         //compiler.addInstruction(new WFLOAT());
     }
     @Override
+    public void codeGenExpr(DecacCompiler compiler,int n){
+        compiler.addInstruction(new LOAD(new ImmediateFloat(getValue()),Register.getR(n)));
+        //compiler.addInstruction(new WFLOAT());
+    }
+    @Override
     public void decompile(IndentPrintStream s) {
         s.print(java.lang.Float.toHexString(value));
     }

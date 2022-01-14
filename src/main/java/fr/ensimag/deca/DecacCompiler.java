@@ -159,12 +159,14 @@ public class DecacCompiler implements Runnable{
      * @return true on error
      */
     public boolean compile() {
+        
         String sourceFile = source.getAbsolutePath();
-        System.out.println(sourceFile);
-        // String[] result = sourceFile.split("[.]");
-        // String destFile = result[result.length-2]+".ass";
-        String destFile = "hello.ass";
-        System.out.println(destFile);
+        String[] result = sourceFile.split("[.]");
+        String destFile = "";
+        for (int i = 0; i<result.length-1;i++) {
+            destFile+=result[i]+".";
+        }
+        destFile+="ass";
 
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         

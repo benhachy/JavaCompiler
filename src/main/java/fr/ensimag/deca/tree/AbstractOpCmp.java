@@ -44,8 +44,8 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
                     }  
                 } 
             } 
-        
-        return new BooleanType(SymbolTable.creerSymbol(getOperatorName()));
+        setType(new BooleanType(SymbolTable.creerSymbol(getOperatorName())));
+        return getType();
     }
 
 
