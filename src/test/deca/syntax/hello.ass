@@ -1,16 +1,20 @@
 ; start main program
 ; Main program
+	LOAD #1, R2
+	LOAD #1, R3
+	CMP R3, R2
+	BEQ loadTrueEQ.0
 	LOAD #0, R1
+	BRA finComparationEQ.0
+loadTrueEQ.0:
+	LOAD #1, R1
+finComparationEQ.0:
 	STORE R1, 3(GB)
 ; Beginning of main instructions:
 beginWhile:
-	BRA bodyWhile
 bodyWhile:
-	PUSH R2
-	LOAD #1, R2
-	LOAD R2, R0
-	POP R2
-	ADD R0, R2
+	WSTR """hello"""
+	WNL
 	PUSH R1
 	BRA beginWhile
 endWhile:
