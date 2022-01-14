@@ -7,9 +7,12 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
-import java.io.PrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+
+import java.io.PrintStream;
 
 import javax.swing.SwingWorker.StateValue;
 
@@ -27,9 +30,6 @@ public abstract class AbstractExpr extends AbstractInst {
      * in the source code (and should be decompiled to the empty string).
      */
     boolean isImplicit() {
-        return false;
-    }
-    public boolean isLiteral(){
         return false;
     }
 
@@ -170,12 +170,7 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
         //throw new UnsupportedOperationException("not yet implemented");
     }
-    public DVal codeGenExpr(DecacCompiler compiler) {
-        return null;
-    }
-    public DVal codeGenExprReg(DecacCompiler compiler) {
-        return null;
-    }
+    
 
     @Override
     protected void decompileInst(IndentPrintStream s) {
@@ -192,5 +187,25 @@ public abstract class AbstractExpr extends AbstractInst {
             s.print(t);
             s.println();
         }
+    }
+    public boolean isLiteral()
+    {
+        return false;
+    }
+
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+        return ;
+    }
+
+    public void codeGenOp(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand,int n) {
+        return ;
+    }
+
+    public void codeGenOpBool(DecacCompiler compiler,boolean b,int n) {
+        return ;
+    }
+
+    public void codeGenCode(DecacCompiler compiler, DVal C,boolean b,Label E) {
+        return ;
     }
 }

@@ -1,6 +1,12 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.OPP;
+import fr.ensimag.ima.pseudocode.instructions.QUO;
 
 /**
  *
@@ -19,5 +25,9 @@ public class Divide extends AbstractOpArith {
     protected String getOperatorName() {
         return "/";
     }
-
+    @Override
+    public void codeGenOp(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand,int n) {
+        compiler.addInstruction(new QUO(rightOperand,leftOperand));
+        //compiler.addInstruction(new LOAD(leftOperand,Register.getR(n)));
+    }
 }

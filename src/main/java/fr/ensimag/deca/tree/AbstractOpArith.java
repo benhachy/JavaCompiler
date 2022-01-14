@@ -5,6 +5,8 @@ import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -44,36 +46,30 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         setType(type2);
         return type2;
     }
+
     @Override
-    protected void codeGenPrint(DecacCompiler compiler)
+    public void codeGenExpr(DecacCompiler compiler,int n)
     {
-        System.out.println("::AbstractOpArith.java:: codeGenPrint");
-        // AbstractExpr rOp = getRightOperand();
-        // AbstractExpr lOp = getLeftOperand();
-
-
-
-        // rOp.codeGenPrintversiontest(compiler,rOp,Register.getR(4));
-        // lOp.codeGenPrintversiontest2(compiler,)
-        // //codeGenPrint2(compiler,rOp,lOp);
-        // //R1 contient 4
-        // //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-        // //4 en r0 
-        // lOp.codeGenPrint(compiler);
-        // //R0 contiet 4
-        
-        // //compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(1) ));
-        // //R1 contient 4
-        
+        AbstractExpr leftOperand = getLeftOperand();
+        AbstractExpr rightOperand = getRightOperand();
+        leftOperand.codeGenExpr(compiler,n);
+        compiler.addInstruction(new PUSH(Register.getR(n)));
+        rightOperand.codeGenExpr(compiler,n);
+        compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
+        compiler.addInstruction(new POP(Register.getR(n)));
+        this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n);
     }
-    // protected void codeGenPrintversiontest2(DecacCompiler compiler,AbstractExpr rightOperand, AbstractExpr lOp){
-    //     if ( )
-    //     codeGenPrintversiontest2(compiler,lOp.getLeftOperand(); lOp.getRightOperand());
-    //     compiler.addInstruction(new ADD(rightOperand.getValue(),Register.getR(1)));
-    //     return 1;
 
-    // }
-    protected abstract int codeGenPrint2(DecacCompiler compiler, AbstractExpr rOp, AbstractExpr lOp) ;
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        codeGenExpr(compiler, 2);
+    }
+
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+        codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.getR(2) ,Register.getR(1)));
+    }
     
     
 }

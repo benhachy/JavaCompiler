@@ -15,103 +15,17 @@ public class Plus extends AbstractOpArith {
     public Plus(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
-    
+
     @Override
-    protected void codeGenPrint(DecacCompiler compiler){
-        System.out.println(":: Plus.java :: codeGenPrint");
-        
-
-        AbstractExpr rOp = getRightOperand();
-        AbstractExpr lOp = getLeftOperand();
-        DVal valueLeft =lOp.codeGenExpr(compiler);
-        DVal valueRight =rOp.codeGenExpr(compiler);//R3
-        compiler.addInstruction(new ADD(valueLeft,Register.getR(3)));
-        compiler.addInstruction(new LOAD(Register.getR(3),Register.getR(1)));
-
-        /* might work but not the best one 
-        DVal value =rOp.codeGenExpr(compiler);
-        compiler.addInstruction(new ADD(value,Register.getR(5)));
-        if (lOp.isLiteral()){
-            compiler.addInstruction(new ADD(lOp,Register.getR(5)));
-            compiler.addInstruction(new LOAD(Register.getR(5),Register.getR(1)));
-        }
-        else{
-            lOp.codeGenPrint(compiler);
-        }*/
-        
-        // compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-        // rOp.codeGenPrint(compiler);//r1 contint 2 
-        // //compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-        // //r1 contient 1
-        // if(lOp instanceof IntLiteral)
-        // {
-        //     compiler.addInstruction(new ADD(Register.getR(1),Register.getR(0)));
-        //     lOp.codeGenPrint(compiler);
-        //     compiler.addInstruction(new ADD(Register.getR(0),Register.getR(1)));
-        // }
-        // else{
-        //     lOp.codeGenPrint(compiler);
-        // }
-        
+    public void codeGenOp(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand,int n) {
+        compiler.addInstruction(new ADD(rightOperand,leftOperand));
+        //compiler.addInstruction(new LOAD(rightOperand,Register.getR(n)));
     }
-    @Override
-    public DVal codeGenExpr(DecacCompiler compiler) {
-        AbstractExpr rOp = getRightOperand();
-        AbstractExpr lOp = getLeftOperand();
-        DVal valueLeft =lOp.codeGenExpr(compiler);//R3
-        DVal valueRight =rOp.codeGenExprReg(compiler);//R2
-        compiler.addInstruction(new ADD(valueRight,Register.getR(3)));
-        return valueRight;
-    }
-    // protected void codeGenPrintversiontest(DecacCompiler compiler, AbstractExpr rightOperand,Register registre){
-    //     compiler.addInstruction(new ADD(rightOperand,registre));
-    // }
 
-     //protected int codeGenPrint2(DecacCompiler compiler ,AbstractExpr roperand ,AbstractExpr loperand, int debut ){
-    //     //2
-    //     if (debut != 0){
-    //         IntLiteral rOp2= ( IntLiteral ) roperand;
-    //         System.out.println(rOp2.getValue());
-    //         Plus lOp4 = (Plus ) getLeftOperand();//2  
-           
-    //     }
-    //     else{
-    //         AbstractExpr rOp = getRightOperand();//3
-    //         AbstractExpr lOp = getLeftOperand();//2  
-    //         IntLiteral rOp2= ( IntLiteral ) rOp;
-    //         System.out.println(rOp2.getValue());
-    //         Plus lOp4 = (Plus ) getLeftOperand();//2  
-            
-    //     }
-       
-    //     System.out.println("::PLUS.java:: codeGenPrint2");
-    //     if (loperand instanceof IntLiteral){
-    //         loperand.codeGenPrint(compiler);
-    //         //IntLiteral rOp2= ( IntLiteral ) rOp;
-    //         //compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(3) ));//R3 contient 2
-    //         return 0;
-    //     }
-    //     else{
-    //     codeGenPrint2(compiler,rOp,lOp4.getRightOperand());
-        
-    //     compiler.addInstruction(new ADD(new ImmediateInteger(rOp2.getValue()),Register.getR(3)));//R3 contient 9
-
-    //         //compiler.addInstruction(new ADD(rOp,Register.getR(3)));//R3 contient 9
-
-    //         //compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(3) ));//R3 contient 2
-    //     return 1;
-    //     }
-    //     return 1;
-    // }
-    //
+  
     @Override
     protected String getOperatorName() {
         return "+";
     }
 
-    @Override
-    protected int codeGenPrint2(DecacCompiler compiler, AbstractExpr rOp, AbstractExpr lOp) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 }

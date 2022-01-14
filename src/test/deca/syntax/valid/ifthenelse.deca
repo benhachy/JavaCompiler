@@ -6,5 +6,8 @@
     else if ( i == 0) {
         print("i should  not print this ");
     } 
+    else if ( i == 2) {
+        print("i am the third one ");
+    }
 
 }

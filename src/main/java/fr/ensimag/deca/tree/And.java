@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
-
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.Label;
 
 /**
  *
@@ -16,6 +18,19 @@ public class And extends AbstractOpBool {
     protected String getOperatorName() {
         return "&&";
     }
-
+    // @Override
+    // protected  void codeGenCondition(DecacCompiler compiler,boolean bool,Label etiquette){
+    //     AbstractExpr rOp = getRightOperand();
+    //     AbstractExpr lOp = getLeftOperand();
+    //     if ( bool){
+    //         lOp.codeGenCondition(compiler,!bool,etiquette);
+    //         rOp.codeGenCondition(compiler,bool,etiquette);
+    //     }
+    //     else{
+    //         lOp.codeGenCondition(compiler,bool,etiquette);
+    //         rOp.codeGenCondition(compiler,bool,etiquette);
+    //     }
+        
+    // }
 
 }

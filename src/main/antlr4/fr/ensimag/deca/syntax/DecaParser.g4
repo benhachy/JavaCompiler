@@ -126,6 +126,7 @@ inst returns[AbstractInst tree]
         }
     | SEMI {
             $tree = new NoOperation();
+            setLocation($tree,$SEMI);
         }
     | PRINT OPARENT list_expr CPARENT SEMI {
             assert($list_expr.tree != null);
@@ -156,7 +157,7 @@ inst returns[AbstractInst tree]
             assert($condition.tree != null);
             assert($body.tree != null);
             $tree = new While($condition.tree,$list_inst.tree);
-            setLocation($tree,$WHILE);
+            setLocation($tree,$condition.start);
         }
     | RETURN expr SEMI {
             assert($expr.tree != null);
@@ -169,28 +170,27 @@ if_then_else returns[IfThenElse tree]
         ListInst thenBranch = new ListInst();
         IfThenElse firstIF;
         IfThenElse newElseIF;
-
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
         
-            firstIF= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
-            thenBranch.add(firstIF);
-            setLocation(firstIF,$if1);
+            $tree= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
+            //thenBranch.add(firstIF);
+            setLocation($tree,$if1);
             
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
             newElseIF= new IfThenElse($elsif_cond.tree,$elsif_li.tree,elseBranch);
-            thenBranch.add(newElseIF);
+            //thenBranch.add(newElseIF);
+            elseBranch.add(newElseIF);
             setLocation(newElseIF,$elsif);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
             elseBranch =$li_else.tree;
-        }
-      )?{
             $tree= new IfThenElse($condition.tree,thenBranch,elseBranch);
             setLocation($tree,$if1);
-      }
+        }
+      )?
     ;
 
 list_expr returns[ListExpr tree]
@@ -372,7 +372,7 @@ unary_expr returns[AbstractExpr tree]
         }
     | select_expr {
             assert($select_expr.tree != null);
-             $tree = $select_expr.tree;
+            $tree = $select_expr.tree;
         }
     ;
 
