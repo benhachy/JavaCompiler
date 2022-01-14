@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.DVal;
 
 /**
  *
@@ -16,6 +18,10 @@ public class And extends AbstractOpBool {
     protected String getOperatorName() {
         return "&&";
     }
+    @Override
+    public void codeGenOpBool(DecacCompiler compiler,boolean b,int n) {
+        if(b){
 
-
+        }
+    }
 }

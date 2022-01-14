@@ -7,7 +7,11 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+
 import java.io.PrintStream;
 
 import javax.swing.SwingWorker.StateValue;
@@ -183,5 +187,25 @@ public abstract class AbstractExpr extends AbstractInst {
             s.print(t);
             s.println();
         }
+    }
+    public boolean isLiteral()
+    {
+        return false;
+    }
+
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+        return ;
+    }
+
+    public void codeGenOp(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand,int n) {
+        return ;
+    }
+
+    public void codeGenOpBool(DecacCompiler compiler,boolean b,int n) {
+        return ;
+    }
+
+    public void codeGenCode(DecacCompiler compiler, DVal C,boolean b,Label E) {
+        return ;
     }
 }

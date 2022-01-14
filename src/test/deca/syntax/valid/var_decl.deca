@@ -2,8 +2,27 @@
     int a = 15;
     int b = 82;
     int c = a;
+    int z = 15;
+    int e = 82;
+    int r = a;
     println(a);
     println(b);
     println(c);
+    println(z);
+    println(e);
+    println(r);
+    println(a);
+    println(b);
+    println(c);
+    println(z);
+    println(e);
+    println(r);    
+    println(a);
+    println(b);
+    println(c);
+    println(z);
+    println(e);
+    println(r);
+    
     print("Salam");
 }

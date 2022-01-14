@@ -8,6 +8,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.*;
@@ -28,6 +30,12 @@ public class IntLiteral extends AbstractExpr {
 
     public IntLiteral(int value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean isLiteral()
+    {
+        return true;
     }
 
     @Override
@@ -52,7 +60,12 @@ public class IntLiteral extends AbstractExpr {
         //compiler.addInstruction(new LOAD(Register.getR(1),Register.getR(0)));
         //compiler.addInstruction(new WINT());
     }
-    
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n)
+    {
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(n) ));
+        
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
         //System.out.println(":: IntLiteral.java :: codeGenPrint");
