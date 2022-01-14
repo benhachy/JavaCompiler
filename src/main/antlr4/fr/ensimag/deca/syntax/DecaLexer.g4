@@ -12,11 +12,15 @@ options {
 } 
 fragment LETTER : ( 'a'  ..  'z' | 'A'  ..  'Z');
 fragment DIGIT : '0' .. '9';
-
+fragment NOF : (LETTER | '.' | DIGIT)+;
+INCLUDE : '#include'  (ESPACE)*  '"'  NOF  '"'{
+   doInclude(getText());
+}; 
 
 // mots reserve
 ASM : 'asm' ;
 CLASS : 'class' ;
+ELSEIF: 'elseif';
 ELSE : 'else';
 IF :'if';
 NEW :'new' ;
