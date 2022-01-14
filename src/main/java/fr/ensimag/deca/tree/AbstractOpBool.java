@@ -11,6 +11,8 @@ import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -28,6 +30,12 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         super(leftOperand, rightOperand);
     }
 
+    public static int numFin =0;
+    private String labelEnd = "E.Fin";
+    private String labelStart = "E.Start";
+    Label operand = new Label("E");
+    Label endOperand = new Label("E.end");
+
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
@@ -40,10 +48,12 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
             {
                 throw new ContextualError("Les opérations booleennes ne supportent que des booleens", getLocation());
             }
-            return new BooleanType(SymbolTable.creerSymbol("OpBool"));
+            setType(new BooleanType(SymbolTable.creerSymbol(getOperatorName())));
+            return getType();
     }
     @Override
-    public void codeGenCode(DecacCompiler compiler,DVal C, boolean b,Label E) {
+    public void codeGenExpr(DecacCompiler compiler,int n){
+        System.out.println("::AbstractOpBool.java:: codeGenExpr");
         // AbstractExpr rOp = getRightOperand();
         // AbstractExpr lOp = getLeftOperand();
         // lOp.codeGenCode(compiler, C, b, E);
@@ -60,15 +70,28 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         // {
         //     compiler.addInstruction(new BEQ(E));
         // } 
-        AbstractExpr rOp = getRightOperand();
-        AbstractExpr lOp = getLeftOperand();
-
+        AbstractExpr leftOperand = getLeftOperand();
+        AbstractExpr rightOperand = getRightOperand();
+        Label Operand = new Label(labelStart+numFin);
+        Label endOperand = new Label(labelEnd+numFin);
+        ++numFin;
+        compiler.addLabel(Operand);
+        //leftOperand.codeGenOpBool(compiler,Register.getR(0), Register.getR(0),false,Operand, n);
+        leftOperand.codeGenExpr(compiler,n);//true
+        compiler.addInstruction(new PUSH(Register.getR(n)));
+        //compiler.addLabel(endOperand);
+        rightOperand.codeGenOpBool(compiler,Register.getR(0), Register.getR(0),true,Operand,endOperand, n);//false
+        compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
+        compiler.addInstruction(new POP(Register.getR(n)));
+        this.codeGenOpBool(compiler,Register.getR(n) ,Register.getR(0), true, endOperand,endOperand, n);
+        compiler.addLabel(endOperand);
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        
-        codeGenExpr(compiler, 2);
+
+        codeGenOpBool(compiler, null, null, true, operand,endOperand, 2);
+        compiler.addLabel(operand.addFin(55));
     }
 
 }

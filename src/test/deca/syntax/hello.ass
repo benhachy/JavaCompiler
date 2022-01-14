@@ -1,0 +1,18 @@
+; start main program
+; Main program
+	LOAD #0, R1
+	STORE R1, 3(GB)
+; Beginning of main instructions:
+beginWhile:
+	BRA bodyWhile
+bodyWhile:
+	PUSH R2
+	LOAD #1, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	PUSH R1
+	BRA beginWhile
+endWhile:
+	HALT
+; end main program

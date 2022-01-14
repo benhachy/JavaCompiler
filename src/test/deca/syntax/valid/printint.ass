@@ -1,0 +1,7 @@
+; start main program
+; Main program
+; Beginning of main instructions:
+	ADD R1, R0
+	WINT
+	HALT
+; end main program

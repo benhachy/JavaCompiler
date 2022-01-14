@@ -22,5 +22,10 @@ public class Label extends Operand {
         Validate.isTrue(name.matches("^[a-zA-Z][a-zA-Z0-9_.]*$"), "Invalid label name " + name);
         this.name = name;
     }
+    public Label addFin(int i)
+    {
+        String fin = name+""+i;
+        return new Label(fin);
+    }
     private String name;
 }

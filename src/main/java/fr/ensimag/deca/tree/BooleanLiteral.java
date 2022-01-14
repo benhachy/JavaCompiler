@@ -9,9 +9,12 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import java.io.PrintStream;
 
@@ -64,11 +67,30 @@ public class BooleanLiteral extends AbstractExpr {
     }
 
     @Override
-    public void codeGenCode(DecacCompiler compiler,DVal C, boolean b,Label E) {
+    public void codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) 
+    {
+        System.out.println("::BooleanLIteral.java:: codeGenOpBool");
         if(this.getValue() && b || !this.getValue() && !b )
-        {
+        {   
+            //compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
             compiler.addInstruction(new BRA(E));
         }
+        else{
+            compiler.addInstruction(new BRA(EFin));
+        }
+    }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n)
+    {
+        if(getValue())
+        {
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
+        }
+        else{
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
+        }
+        
+        
     }
 
 }

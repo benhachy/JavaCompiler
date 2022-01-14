@@ -201,7 +201,7 @@ public abstract class AbstractExpr extends AbstractInst {
         return ;
     }
 
-    public void codeGenOpBool(DecacCompiler compiler,boolean b,int n) {
+    public void codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
         return ;
     }
 
