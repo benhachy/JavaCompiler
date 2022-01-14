@@ -42,12 +42,12 @@ public class While extends AbstractInst {
     protected void codeGenInst(DecacCompiler compiler) {
         Label beginWhile = new Label("beginWhile");
         Label endWhile = new Label("endWhile");
-        Label bodyWhile = new Label("bodyWhile");
+        Label instWhile = new Label("instWhile");
         compiler.addLabel(beginWhile);
-        condition.codeGenOpBool(compiler, null, null,true , bodyWhile, endWhile, 2);
-        compiler.addLabel(bodyWhile);
+        condition.codeGenOpBool(compiler, null, null,true , instWhile, endWhile, 2);
+        compiler.addInstruction(new BRA(endWhile));
+        compiler.addLabel(instWhile);
         body.codeGenListInst(compiler);
-        //compiler.addInstruction(new BRA(endWhile));
         compiler.addInstruction(new BRA(beginWhile));
         compiler.addLabel(endWhile);
     }

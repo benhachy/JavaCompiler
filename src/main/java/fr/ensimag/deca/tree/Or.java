@@ -19,21 +19,12 @@ public class Or extends AbstractOpBool {
     protected String getOperatorName() {
         return "||";
     }
-
-    // @Override
-    // public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,int n) {
-    //     System.out.println("::And.java:: codeGenOpBool");
-    //     AbstractExpr lOp = getLeftOperand();
-    //     AbstractExpr rOp = getRightOperand();
-        
-    //     }
-    // }
-    // @Override
-    // protected  void codeGenCondition(DecacCompiler compiler,boolean bool,Label etiquette){
-    //     AbstractExpr rOp = getRightOperand();
-    //     AbstractExpr lOp = getLeftOperand();
-    //     lOp.codeGenCondition(compiler,bool,etiquette);
-    //     rOp.codeGenCondition(compiler,bool,etiquette);
-    // }
-
+    @Override
+    public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
+        System.out.println("::Or.java:: codeGenOpBool");
+        AbstractExpr lOp = getLeftOperand();
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr OrOperand =new Not(new And( new Not(lOp), new Not(rOp)));
+        OrOperand.codeGenOpBool(compiler, null, null, b, E,EFin, n);
+    }
 }

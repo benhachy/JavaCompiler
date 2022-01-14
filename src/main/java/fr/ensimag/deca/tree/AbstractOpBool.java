@@ -54,44 +54,13 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n){
         System.out.println("::AbstractOpBool.java:: codeGenExpr");
-        // AbstractExpr rOp = getRightOperand();
-        // AbstractExpr lOp = getLeftOperand();
-        // lOp.codeGenCode(compiler, C, b, E);
-        // compiler.addInstruction(new LOAD(C, Register.getR(0)));
-        // rOp.codeGenCode(compiler, C, b, E);
-        // this.codeGenOpBool(compiler,b, 0);
-        // compiler.addInstruction(new LOAD(C, Register.getR(0)));
-        // compiler.addInstruction(new CMP(new ImmediateInteger(0), Register.getR(0)));
-        // if(b)
-        // {
-        //     compiler.addInstruction(new BNE(E));
-        // }
-        // else
-        // {
-        //     compiler.addInstruction(new BEQ(E));
-        // } 
-        AbstractExpr leftOperand = getLeftOperand();
-        AbstractExpr rightOperand = getRightOperand();
-        Label Operand = new Label(labelStart+numFin);
-        Label endOperand = new Label(labelEnd+numFin);
-        ++numFin;
-        compiler.addLabel(Operand);
-        //leftOperand.codeGenOpBool(compiler,Register.getR(0), Register.getR(0),false,Operand, n);
-        leftOperand.codeGenExpr(compiler,n);//true
-        compiler.addInstruction(new PUSH(Register.getR(n)));
-        //compiler.addLabel(endOperand);
-        rightOperand.codeGenOpBool(compiler,Register.getR(0), Register.getR(0),true,Operand,endOperand, n);//false
-        compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
-        compiler.addInstruction(new POP(Register.getR(n)));
-        this.codeGenOpBool(compiler,Register.getR(n) ,Register.getR(0), true, endOperand,endOperand, n);
-        compiler.addLabel(endOperand);
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
 
-        codeGenOpBool(compiler, null, null, true, operand,endOperand, 2);
-        compiler.addLabel(operand.addFin(55));
+        //codeGenOpBool(compiler, null, null, true, operand,endOperand, 2);
+        //compiler.addLabel(operand.addFin(55));
     }
 
 }

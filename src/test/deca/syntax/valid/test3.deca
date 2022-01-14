@@ -1,0 +1,7 @@
+{
+    int i =1;
+    while(false  || false || false || false || false){
+        print(0);
+    }
+    print(i);
+}

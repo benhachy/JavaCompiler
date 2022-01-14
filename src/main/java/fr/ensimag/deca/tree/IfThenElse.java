@@ -41,15 +41,15 @@ public class IfThenElse extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        // Label beginIf = new Label("beginIf");
-        // Label finElse = new Label("finElse");
-        // Label bodyWhile = new Label("bodyWhile");
-        // compiler.addLabel(beginWhile);
-        // condition.codeGenExpr(compiler);
-        // compiler.addInstruction(new BRA(endWhile));
-        // body.codeGenListInst(compiler);
-        // compiler.addInstruction(new BRA(beginWhile));
-        // compiler.addLabel(endWhile);
+        Label beginIf = new Label("beginIf");
+        Label finElse = new Label("finElse");
+        Label bodyWhile = new Label("bodyWhile");
+        compiler.addLabel(beginWhile);
+        condition.codeGenExpr(compiler);
+        compiler.addInstruction(new BRA(endWhile));
+        body.codeGenListInst(compiler);
+        compiler.addInstruction(new BRA(beginWhile));
+        compiler.addLabel(endWhile);
     }
 
     @Override

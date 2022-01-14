@@ -33,35 +33,13 @@ public class And extends AbstractOpBool {
         System.out.println("::And.java:: codeGenOpBool");
         AbstractExpr lOp = getLeftOperand();
         AbstractExpr rOp = getRightOperand();
-        // Label Operand = new Label(labelStart+numFin);
-        // Label endOperand = new Label(labelEnd+numFin);
-        // ++numFin;
-        compiler.addLabel(E);
-        // lOp.codeGenOpBool(compiler,Register.getR(0), Register.getR(0),b,E, n);
-        // //lOp.codeGenExpr(compiler,n);//true
-        // compiler.addInstruction(new PUSH(Register.getR(n)));
-        // //compiler.addLabel(endOperand);
-        // rOp.codeGenOpBool(compiler,Register.getR(0), Register.getR(0),b,E, n);//false
-        // compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
-        // compiler.addInstruction(new POP(Register.getR(n)));
-        // this.codeGenOpBool(compiler,Register.getR(n) ,Register.getR(0), true, endOperand, n);
-        // compiler.addLabel(endOperand);
         if (b){
-            lOp.codeGenOpBool(compiler, null, null, false, EFin,EFin.addFin(numFin), n);
-            //compiler.addInstruction(new PUSH(Register.getR(n)));
+            lOp.codeGenOpBool(compiler, null, null, false, EFin,E, n);
             rOp.codeGenOpBool(compiler, null, null, true, E,EFin, n);
-            // compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
-            // compiler.addInstruction(new POP(Register.getR(n)));
-            compiler.addLabel(EFin);
-            ++numFin;
         }
         else{
             lOp.codeGenOpBool(compiler, null, null, false, E,EFin, n);
-            //compiler.addInstruction(new PUSH(Register.getR(n)));
             rOp.codeGenOpBool(compiler, null, null, false, E,EFin, n);
-            // compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
-            // compiler.addInstruction(new POP(Register.getR(n)));
         }
-        numFin++;
     }
 }

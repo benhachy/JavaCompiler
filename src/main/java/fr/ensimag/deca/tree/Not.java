@@ -5,6 +5,11 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.deca.context.BooleanType;
 
 /**
  *
@@ -27,12 +32,20 @@ public class Not extends AbstractUnaryExpr {
         {
             throw new ContextualError("l'opérateur Not ne supporte que des booleens", getLocation());
         }
-        return exprType;
+        setType(new BooleanType(SymbolTable.creerSymbol(getOperatorName())));
+        return getType();
     }
 
 
     @Override
     protected String getOperatorName() {
         return "!";
+    }
+    @Override
+    public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
+        System.out.println("::Not.java:: codeGenOpBool");
+        AbstractExpr operand = getOperand();
+        operand.codeGenOpBool(compiler, null, null, !b, E,EFin, n);
+        
     }
 }
