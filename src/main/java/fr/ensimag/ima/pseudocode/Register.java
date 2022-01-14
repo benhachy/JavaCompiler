@@ -40,12 +40,8 @@ public class Register extends DVal {
     /**
      * General Purpose Registers
      */
-    public static GPRegister getR(int i) throws RegisterException {
-        if(i>nbRegistres){
-            throw new RegisterException("nous avons que "+nbRegistres+" registres");
-        }else{
-            return R[i];
-        }
+    public static GPRegister getR(int i){
+        return R[i];
     }
     public static int nbRegistres = 15;
     /**
