@@ -57,7 +57,13 @@ public class Assign extends AbstractBinaryExpr {
         //System.out.println("::Assign.java:: codeGenInst");
         AbstractExpr rvalue = getRightOperand();
         rvalue.codeGenInst(compiler);
-        compiler.addInstruction(new PUSH(Register.getR(1)));
+        try{
+            compiler.addInstruction(new PUSH(Register.getR(1)));
+        }catch(RegisterException e){
+           System.out.println(e.getMessage());
+           System.exit(-1);
+           //throw new RegisterException(e.getMessage());
+        }
     }
     @Override
     protected String getOperatorName() {

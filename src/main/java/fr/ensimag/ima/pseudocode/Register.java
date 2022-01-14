@@ -1,5 +1,8 @@
 package fr.ensimag.ima.pseudocode;
 
+import fr.ensimag.deca.syntax.InvalidLValue;
+import fr.ensimag.deca.tree.RegisterException;
+
 /**
  * Register operand (including special registers like SP).
  * 
@@ -37,9 +40,14 @@ public class Register extends DVal {
     /**
      * General Purpose Registers
      */
-    public static GPRegister getR(int i) {
-        return R[i];
+    public static GPRegister getR(int i) throws RegisterException {
+        if(i>nbRegistres){
+            throw new RegisterException("nous avons que "+nbRegistres+" registres");
+        }else{
+            return R[i];
+        }
     }
+    public static int nbRegistres = 15;
     /**
      * Convenience shortcut for R[0]
      */

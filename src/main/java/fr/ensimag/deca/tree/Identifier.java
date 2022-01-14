@@ -227,7 +227,12 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+        try{
+            compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+        }catch(RegisterException e){
+            //throw new Exception("not enogh registers");
+            System.out.println(e.getMessage());
+        }
     }
 
     private Definition definition;

@@ -26,25 +26,43 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-            throw new UnsupportedOperationException("decac -b not yet implemented");
+            //throw new UnsupportedOperationException("decac -b not yet implemented");
+            System.out.println("----- Equipe gl03 -----");
         }
         if (options.getSourceFiles().isEmpty()) {
-            throw new UnsupportedOperationException("decac without argument not yet implemented");
+            //throw new UnsupportedOperationException("decac without argument not yet implemented");
         }
         if (options.getParallel()) {
-            // A FAIRE : instancier DecacCompiler pour chaque fichier à
-            // compiler, et lancer l'exécution des méthodes compile() de chaque
-            // instance en parallèle. Il est conseillé d'utiliser
-            // java.util.concurrent de la bibliothèque standard Java.
-            throw new UnsupportedOperationException("Parallel build not yet implemented");
+            Thread[] threads = new Thread[options.getSourceFiles().size()];
+            DecacCompiler[] compilers = new DecacCompiler[options.getSourceFiles().size()];
+            int i = 0;
+            for (File source : options.getSourceFiles()) {
+                compilers[i] = new DecacCompiler(options, source);
+                threads[i] = new Thread(compilers[i]);
+                threads[i].start();
+                System.out.println("Thread #"+i);
+                i++;
+            }
+            int j=0;
+            for (j =0 ; j <  i ; j++) {
+                try{
+                    threads[j].join();
+                }catch(Exception ex)
+                {
+                    System.out.println("Exception has "+"been caught" + ex);
+                }
+                j++;
+            }
+
         } else {
             for (File source : options.getSourceFiles()) {
                 DecacCompiler compiler = new DecacCompiler(options, source);
-                if (compiler.compile()) {
+                if(compiler.compile()) {
                     error = true;
                 }
             }
+            System.exit(error ? 1 : 0);
         }
-        System.exit(error ? 1 : 0);
+        
     }
 }

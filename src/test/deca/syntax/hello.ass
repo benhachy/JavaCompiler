@@ -1,0 +1,8 @@
+; start main program
+; Main program
+; Beginning of main instructions:
+	LOAD #5, R7
+	WINT
+	WSTR """test """
+	HALT
+; end main program

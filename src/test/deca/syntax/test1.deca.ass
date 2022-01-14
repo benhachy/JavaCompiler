@@ -1,0 +1,7 @@
+; start main program
+; Main program
+	LOAD #1, R7
+	STORE R1, 3(GB)
+; Beginning of main instructions:
+	HALT
+; end main program

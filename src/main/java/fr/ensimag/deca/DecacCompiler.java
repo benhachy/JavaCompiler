@@ -45,7 +45,7 @@ import org.apache.log4j.Logger;
  * @author gl03
  * @date 01/01/2022
  */
-public class DecacCompiler {
+public class DecacCompiler implements Runnable{
     private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
     
     /**
@@ -160,7 +160,8 @@ public class DecacCompiler {
      */
     public boolean compile() {
         String sourceFile = source.getAbsolutePath();
-        String destFile = "hello.ass";
+        String[] result = sourceFile.split("[.]");
+        String destFile = result[0]+".ass";
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
         
         // A FAIRE: fichier .deca.
@@ -208,33 +209,37 @@ public class DecacCompiler {
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
 
-        if (prog == null) {
-            LOG.info("Parsing failed");
-            return true;
+        
+            if (prog == null) {
+                LOG.info("Parsing failed");
+                return true;
+            }
+
+        if(!compilerOptions.getVerification()){
+            assert(prog.checkAllLocations());
+    
+            prog.verifyProgram(this);
+            assert(prog.checkAllDecorations());
+    
+            addComment("start main program");
+            prog.codeGenProgram(this);
+            addComment("end main program");
+            LOG.debug("Generated assembly code:" + nl + program.display());
+            LOG.info("Output file assembly file is: " + destName);
+    
+            FileOutputStream fstream = null;
+            try {
+                fstream = new FileOutputStream(destName);
+            } catch (FileNotFoundException e) {
+                throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
+            }
+    
+            LOG.info("Writing assembler file ...");
+    
+            program.display(new PrintStream(fstream));
+            LOG.info("Compilation of " + sourceName + " successful.");
         }
-        assert(prog.checkAllLocations());
-
-
-        prog.verifyProgram(this);
-        assert(prog.checkAllDecorations());
-
-        addComment("start main program");
-        prog.codeGenProgram(this);
-        addComment("end main program");
-        LOG.debug("Generated assembly code:" + nl + program.display());
-        LOG.info("Output file assembly file is: " + destName);
-
-        FileOutputStream fstream = null;
-        try {
-            fstream = new FileOutputStream(destName);
-        } catch (FileNotFoundException e) {
-            throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
-        }
-
-        LOG.info("Writing assembler file ...");
-
-        program.display(new PrintStream(fstream));
-        LOG.info("Compilation of " + sourceName + " successful.");
+        
         return false;
     }
 
@@ -264,6 +269,10 @@ public class DecacCompiler {
         DecaParser parser = new DecaParser(tokens);
         parser.setDecacCompiler(this);
         return parser.parseProgramAndManageErrors(err);
+    }
+
+    public void run(){
+        compile();
     }
 
 }

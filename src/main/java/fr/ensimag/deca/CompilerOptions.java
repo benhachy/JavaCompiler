@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import fr.ensimag.ima.pseudocode.Register;
+
 /**
  * User-specified options influencing the compilation.
  *
@@ -33,6 +35,10 @@ public class CompilerOptions {
     public boolean getPrintBanner() {
         return printBanner;
     }
+
+    public boolean getVerification() {
+        return verification;
+    }
     
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
@@ -41,6 +47,7 @@ public class CompilerOptions {
     private int debug = 0;
     private boolean parallel = false;
     private boolean printBanner = false;
+    private boolean verification = false;
     private List<File> sourceFiles = new ArrayList<File>();
 
     
@@ -69,26 +76,60 @@ public class CompilerOptions {
             logger.info("Java assertions disabled");
         }
         int i =0;
+        int posArgs = 0;
+        char lastArgument=' ';
         for (String s : args)
         {
+            System.out.println(s);
             if(s.charAt(0)=='-')
             {
                 i ++;
-                // switch(s.charAt(1))
-                // {
-                //     case 'p':
-                //     case 'v':
-                //     case 'b':
-                //     case 'P':
-
-                // }
-
-                break;
+                switch(s.charAt(1))
+                {
+                    case 'b':
+                       printBanner= true;
+                        break;
+                    case 'v':
+                        verification= true;
+                        break;
+                    case 'p':
+                        parallel= true;
+                        break;
+                    case 'r':
+                        break;
+                }
+            }else{
+                if(lastArgument=='r'){
+                    if(s.charAt(0) >= '0' && s.charAt(0) <= '9'){
+                        try{
+                            int nbRegistres = Integer.parseInt(s);
+                            if(nbRegistres>16||nbRegistres<4){
+                                throw new UnsupportedOperationException("-r can only take values between 4 and 16");
+                            }else{
+                                //let know the compiler how many registers it can use 
+                                System.out.println("we will only use "+nbRegistres+" registers");
+                                Register.nbRegistres = nbRegistres;
+                            }
+                        }catch (NumberFormatException ex){
+                            throw new UnsupportedOperationException("-r can only take values between 4 and 16");
+                        }
+                    }else{
+                        throw new UnsupportedOperationException("-r can only take values between 4 and 16");
+                    }
+                }else{
+                    sourceFiles.add(new File(args[posArgs]));
+                }
             }
-        }
-        if(i ==0 )
-        {
-            sourceFiles.add(new File(args[args.length-1]));
+            if(s.length()>1){
+                if(s.charAt(0)=='-'){
+                    lastArgument = s.charAt(1);
+                }else{
+                    lastArgument = ' ';
+                }
+            }else{
+                lastArgument = ' ';
+            }
+            posArgs++;
         }
     }
 
