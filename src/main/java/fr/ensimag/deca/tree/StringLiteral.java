@@ -45,13 +45,11 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     protected void codeGenPrint(DecacCompiler compiler) {
-        //System.out.println(":: StringLiteral.java :: codeGenPrint");
-        compiler.addInstruction(new WSTR(new ImmediateString(value)));
+        compiler.addInstruction(new WSTR(new ImmediateString(getValue())));
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        //System.out.println(":: StringLiteral.java :: codeGenPrint");
-        compiler.addInstruction(new WSTR(new ImmediateString(value)));
+        compiler.addInstruction(new WSTR(new ImmediateString(getValue())));
     }
     @Override
     public void decompile(IndentPrintStream s) {    

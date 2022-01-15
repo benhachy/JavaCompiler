@@ -30,7 +30,7 @@ options {
     import fr.ensimag.deca.tree.IfThenElse;
 }
 
-@members {
+@members {   
     @Override
     protected AbstractProgram parseProgram() {
         return prog().tree;
@@ -453,7 +453,7 @@ literal returns[AbstractExpr tree]
             setLocation($tree, $fd);
         }
     | STRING {
-            $tree = new StringLiteral($STRING.text);
+            $tree = new StringLiteral($STRING.text.substring(1,$STRING.text.length()-1));
             setLocation($tree, $STRING);
         }
     | TRUE {

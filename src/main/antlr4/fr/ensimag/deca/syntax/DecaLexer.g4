@@ -10,6 +10,15 @@ options {
 
 @members {
 } 
+
+fragment COMMENT : ('//' .*? ('\n'| EOF ) | '/*' .*? '*/');
+fragment ESPACE : ' ';
+fragment TAB : '\t';
+fragment EOL : '\n'; 
+SEPARATEUR : (COMMENT | ESPACE |EOL | TAB |'\r'){ skip(); };
+
+
+
 fragment LETTER : ( 'a'  ..  'z' | 'A'  ..  'Z');
 fragment DIGIT : '0' .. '9';
 fragment NOF : (LETTER | '.' | DIGIT)+;
@@ -17,7 +26,7 @@ INCLUDE : '#include'  (ESPACE)*  '"'  NOF  '"'{
    doInclude(getText());
 }; 
 
-// mots reserve
+
 ASM : 'asm' ;
 CLASS : 'class' ;
 ELSEIF: 'elseif';
@@ -42,9 +51,9 @@ WHILE : 'while';
  
 IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
-COMMENT : ('//' .*? '\n' | '/*' .*? '*/'){
-   skip();
-}; 
+
+
+
 CPARENT : ')';
 OPARENT : '(';
 SEMI : ';' ;
@@ -69,10 +78,7 @@ LT : '<';
 TIMES : '*';
 SLASH :  '/';
 PERCENT : '%';
-ESPACE : ' '{skip();};
-TAB : '\t'{skip();};
-EOL : '\n'{skip();}; 
-STRING_CAR : ~('"'| '\n' |'\\');
+fragment STRING_CAR : ~('"'| '\n' |'\\');
 
 fragment NUM : DIGIT+ ;
 fragment SIGN : '+' | '-'  ;// Meme chose
@@ -84,18 +90,8 @@ fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' ); // Meme chose 
 FLOAT : FLOATDEC | FLOATHEX;
 
-STRING : '"' (STRING_CAR | '\\"' | '\\\\' | EOL)* '"' ;
+STRING : '"' (STRING_CAR | '\\"' | '\\\\' )* '"' ;
 MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
-
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) {
-              skip(); // avoid producing a token
-          }
-;
-
 
    
   

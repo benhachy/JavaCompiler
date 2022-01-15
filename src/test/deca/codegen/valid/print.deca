@@ -1,7 +1,7 @@
-//"1"
+//"hello"
 
 // Historique:
 //    cree le 15/01/2022
 {
-    println("1");
+    println("hello");
 }

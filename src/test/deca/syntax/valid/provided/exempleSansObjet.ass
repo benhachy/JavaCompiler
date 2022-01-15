@@ -1,0 +1,21 @@
+; start main program
+; Main program
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+	STORE R2, 3(GB)
+	LOAD #0x1.0p-1, R2
+	PUSH R2
+	LOAD 3(GB), R2
+	PUSH R2
+	LOAD 3(GB), R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	LOAD R2, R1
+	WFLOAT
+	WNL
+	HALT
+; end main program
