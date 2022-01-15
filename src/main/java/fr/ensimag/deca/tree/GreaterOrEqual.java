@@ -37,9 +37,9 @@ public class GreaterOrEqual extends AbstractOpIneq {
         if (b){
             compiler.addInstruction(new BGE(E));
         }
-        else{
-            compiler.addInstruction( new BLE(E));
-        }
+        // else{
+        //     compiler.addInstruction( new BLE(E));
+        // }
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){

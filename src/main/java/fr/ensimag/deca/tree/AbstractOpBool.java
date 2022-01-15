@@ -29,6 +29,7 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     public AbstractOpBool(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
+    public static int numInst =0;
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -52,6 +53,18 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        Label trueVar = new Label("trueVar"+numInst);
+        Label falseVar = new Label("falseVar"+numInst);
+        Label nextVar = new Label("nextVar"+numInst);
+        numInst++;
+        codeGenOpBool(compiler,null,null,true,trueVar,falseVar,1);
+        compiler.addInstruction(new BRA(falseVar));
+        compiler.addLabel(trueVar);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(2)));
+        compiler.addInstruction(new BRA(nextVar));
+        compiler.addLabel(falseVar);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(2)));
+        compiler.addLabel(nextVar);
     }
 
 }

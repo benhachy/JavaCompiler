@@ -1,11 +1,15 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
@@ -18,6 +22,10 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import net.bytebuddy.description.type.TypeDefinition;
 
@@ -185,10 +193,6 @@ public class Identifier extends AbstractIdentifier {
         Validate.notNull(name);
         this.name = name;
     }
-    @Override
-    public boolean isIdentifier() {
-        return true;
-    }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -242,7 +246,21 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(n) ));
         
     }
+    @Override
+    public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
+        System.out.println("::Identifier.java:: codeGenOpBool");
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(0) ));
+        if(b){
+            compiler.addInstruction(new CMP( new ImmediateInteger(0) ,Register.getR(0)));
+            compiler.addInstruction(new BNE(E));
 
+        }
+        else{
+            compiler.addInstruction(new CMP(new ImmediateInteger(0),Register.getR(0)));
+            compiler.addInstruction(new BEQ(E));
+
+        }
+    }
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
         compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));

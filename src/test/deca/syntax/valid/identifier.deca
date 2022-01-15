@@ -1,0 +1,14 @@
+{
+    boolean a = false;
+    boolean b =true ;
+    boolean c = true;
+    boolean d = true;
+    boolean e =  ( a &&  b ) || c ;
+    if (e){
+        print(1);
+    }
+    else{
+            print(0);
+
+    }
+}

@@ -1,0 +1,24 @@
+; start main program
+; Main program
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+	LOAD #4, R2
+	PUSH R2
+	STORE R2, 3(GB)
+beginIf0:
+	LOAD 3(GB), R3
+	LOAD #0, R2
+	CMP R2, R3
+	LOAD 3(GB), R3
+	LOAD #5, R2
+	CMP R2, R3
+	BLE ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR """x est dans l'intervalle [0, 5]"""
+	BRA finElse0
+elseInst0:
+	WSTR """x n'est pas dans l'intervalle [0, 5]"""
+finElse0:
+	HALT
+; end main program

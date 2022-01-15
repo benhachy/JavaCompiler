@@ -1,8 +1,10 @@
 {
     int i =1;
-    int a = 4;
-    while( a == 4  && i != 1 || a <= 5 ){
-        print(i);
+    int a = 3;
+    while( a <= 5 ){
+        a = a +1 ;
+        println(a);
     }
-    print(i);
+    println(a);
+    println(i);
 }

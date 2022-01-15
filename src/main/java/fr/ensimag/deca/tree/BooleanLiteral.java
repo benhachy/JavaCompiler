@@ -75,18 +75,29 @@ public class BooleanLiteral extends AbstractExpr {
             compiler.addInstruction(new BRA(E));
         }
     }
+    // @Override
+    // public void codeGenExpr(DecacCompiler compiler,int n)
+    // {
+    //     if(getValue())
+    //     {
+    //         compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
+    //     }
+    //     else{
+    //         compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
+    //     }
+        
+        
+    // }
     @Override
-    public void codeGenExpr(DecacCompiler compiler,int n)
-    {
+    protected void codeGenInst(DecacCompiler compiler) {
         if(getValue())
         {
-            compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(2) ));
         }
         else{
-            compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(2) ));
         }
-        
-        
+
     }
 
 }
