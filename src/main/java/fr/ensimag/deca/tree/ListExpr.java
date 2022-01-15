@@ -22,9 +22,8 @@ public class ListExpr extends TreeList<AbstractExpr> {
     // }
     @Override
     public void decompile(IndentPrintStream s) {
-        List<TreeType> list = getList();
-        for (TreeType e : list){
-            e.decompile(s);
+        for (AbstractExpr i : getList()) {
+            i.decompile(s);
         }
     }
 }

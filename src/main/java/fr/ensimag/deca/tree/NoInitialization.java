@@ -21,7 +21,6 @@ public class NoInitialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        System.out.println("NoInitialization VerifyInitialization\n");
         return;
     }
 

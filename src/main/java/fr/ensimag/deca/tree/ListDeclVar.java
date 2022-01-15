@@ -5,6 +5,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import liquibase.datatype.core.TimeType;
+
+import java.util.List;
 
 import org.apache.log4j.Logger;
 /**
@@ -17,9 +20,8 @@ public class ListDeclVar extends TreeList<AbstractDeclVar> {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        List<TreeType> list  = getList();
-        for (TreeType e : list){
-            e.decompile(s);
+        for (AbstractDeclVar i : getList()) {
+            i.decompile(s);
         }
     }
 

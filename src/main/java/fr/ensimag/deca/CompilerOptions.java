@@ -39,6 +39,9 @@ public class CompilerOptions {
     public boolean getVerification() {
         return verification;
     }
+    public boolean getParse() {
+        return parse;
+    }
     
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
@@ -48,6 +51,7 @@ public class CompilerOptions {
     private boolean parallel = false;
     private boolean printBanner = false;
     private boolean verification = false;
+    private boolean parse = false;
     private List<File> sourceFiles = new ArrayList<File>();
 
     
@@ -80,7 +84,6 @@ public class CompilerOptions {
         char lastArgument=' ';
         for (String s : args)
         {
-            System.out.println(s);
             if(s.charAt(0)=='-')
             {
                 i ++;
@@ -92,9 +95,11 @@ public class CompilerOptions {
                     case 'v':
                         verification= true;
                         break;
-                    case 'p':
+                    case 'P':
                         parallel= true;
                         break;
+                    case 'p':
+                        parse = true;
                     case 'r':
                         break;
                 }

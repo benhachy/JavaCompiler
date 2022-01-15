@@ -10,6 +10,7 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
@@ -159,7 +160,7 @@ public class DecacCompiler implements Runnable{
      * @return true on error
      */
     public boolean compile() {
-        
+
         String sourceFile = source.getAbsolutePath();
         String[] result = sourceFile.split("[.]");
         String destFile = "";
@@ -216,37 +217,43 @@ public class DecacCompiler implements Runnable{
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
 
         
-            if (prog == null) {
-                LOG.info("Parsing failed");
-                return true;
-            }
-
-        if(!compilerOptions.getVerification()){
+        if (prog == null) {
+            LOG.info("Parsing failed");
+            return true;
+        }else{
             assert(prog.checkAllLocations());
-    
-            prog.verifyProgram(this);
-            assert(prog.checkAllDecorations());
-    
-            addComment("start main program");
-            prog.codeGenProgram(this);
-            addComment("end main program");
-            LOG.debug("Generated assembly code:" + nl + program.display());
-            LOG.info("Output file assembly file is: " + destName);
-    
-            FileOutputStream fstream = null;
-            try {
-                fstream = new FileOutputStream(destName);
-            } catch (FileNotFoundException e) {
-                throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
+            
+            if(compilerOptions.getParse()){
+                prog.decompile(new IndentPrintStream(System.out));
+            }else{
+                
+                prog.verifyProgram(this);
+                
+                if(!compilerOptions.getVerification()){
+                    
+                    assert(prog.checkAllDecorations());
+                    addComment("start main program");
+                    prog.codeGenProgram(this);
+                    addComment("end main program");
+
+                    LOG.debug("Generated assembly code:" + nl + program.display());
+                    LOG.info("Output file assembly file is: " + destName);
+            
+                    FileOutputStream fstream = null;
+                    try {
+                        fstream = new FileOutputStream(destName);
+                    } catch (FileNotFoundException e) {
+                        throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
+                    }
+            
+                    LOG.info("Writing assembler file ...");
+            
+                    program.display(new PrintStream(fstream));
+                    LOG.info("Compilation of " + sourceName + " successful.");
+                }
             }
-    
-            LOG.info("Writing assembler file ...");
-    
-            program.display(new PrintStream(fstream));
-            LOG.info("Compilation of " + sourceName + " successful.");
-        }
-        
-        return false;
+            return false;
+        }    
     }
 
     /**
