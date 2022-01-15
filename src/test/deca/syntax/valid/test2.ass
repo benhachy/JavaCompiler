@@ -1,9 +1,17 @@
 ; start main program
 ; Main program
-	LOAD #0, R1
+	LOAD #1, R1
 	STORE R1, 3(GB)
 ; Beginning of main instructions:
 beginIf0:
+	LOAD #0, R2
+	CMP R3, R2
+	BGT loadTrueGT.0
+	LOAD #0, R1
+	BRA finComparationGT.0
+loadTrueGT.0:
+	LOAD #1, R1
+finComparationGT.0:
 	BRA elseInst0
 ifInst0:
 	LOAD #0, R1

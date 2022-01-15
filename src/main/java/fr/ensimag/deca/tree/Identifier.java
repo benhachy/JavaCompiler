@@ -227,10 +227,17 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("::Identifier.java:: codeGenInst");
         
         compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+    }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+        System.out.println("::Identifier.java:: codeGenExpr");
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(n) ));
         
     }
+
 
     private Definition definition;
     public static HashMap<SymbolTable.Symbol,Integer> identificateurs = new HashMap<SymbolTable.Symbol,Integer>();

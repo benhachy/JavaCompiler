@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.BLE;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 
@@ -26,6 +27,15 @@ public class LowerOrEqual extends AbstractOpIneq {
         return "<=";
     }
 
+    public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
+        System.out.println("::Greater.java:: codeGenOpBool");
+        getLeftOperand().codeGenExpr(compiler, 3);
+        getRightOperand().codeGenExpr(compiler, 2);
+        compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));
+        if (b){
+            compiler.addInstruction(new BLE(E));
+        }
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
         getRightOperand().codeGenExpr(compiler, 2);

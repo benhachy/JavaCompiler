@@ -63,6 +63,7 @@ public class IntLiteral extends AbstractExpr {
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n)
     {
+        System.out.println("::INtLiteral.java:: codeGenExpr"+ ""+getValue());
         compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(n) ));
         
     }

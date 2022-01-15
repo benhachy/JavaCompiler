@@ -1,6 +1,6 @@
 {
-    int i = 0;
-    if (false ){
+    int i = 1;
+    if (i > 0 ){
         print(0);
     }
     else{
