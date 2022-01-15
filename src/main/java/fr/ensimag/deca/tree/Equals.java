@@ -12,6 +12,7 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
@@ -36,6 +37,9 @@ public class Equals extends AbstractOpExactCmp {
         compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));
         if (b){
             compiler.addInstruction(new BEQ(E));
+        }
+        else{
+            compiler.addInstruction(new BNE(E));
         }
     }
     @Override

@@ -36,6 +36,10 @@ public class Greater extends AbstractOpIneq {
         if (b){
             compiler.addInstruction(new BGT(E));
         }
+        else{
+            compiler.addInstruction(new BLT(E));
+
+        }
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){

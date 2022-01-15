@@ -40,6 +40,7 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("::While.java:: codeGenInst");
         Label beginWhile = new Label("beginWhile");
         Label endWhile = new Label("endWhile");
         Label instWhile = new Label("instWhile");

@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.BGE;
+import fr.ensimag.ima.pseudocode.instructions.BLE;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
@@ -35,6 +36,9 @@ public class GreaterOrEqual extends AbstractOpIneq {
         compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));
         if (b){
             compiler.addInstruction(new BGE(E));
+        }
+        else{
+            compiler.addInstruction( new BLE(E));
         }
     }
     @Override

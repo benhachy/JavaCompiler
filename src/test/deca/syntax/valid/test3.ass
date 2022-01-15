@@ -2,18 +2,20 @@
 ; Main program
 	LOAD #1, R1
 	STORE R1, 3(GB)
-	LOAD #3, R1
+	LOAD #4, R1
 	STORE R1, 4(GB)
 ; Beginning of main instructions:
 beginWhile:
 	LOAD 4(GB), R3
 	LOAD #4, R2
 	CMP R2, R3
+	BNE endWhile
 	LOAD 3(GB), R3
 	LOAD #1, R2
 	CMP R2, R3
+	BNE instWhile
 	LOAD 4(GB), R3
-	LOAD #4, R2
+	LOAD #5, R2
 	CMP R2, R3
 	BLE instWhile
 	BRA endWhile
