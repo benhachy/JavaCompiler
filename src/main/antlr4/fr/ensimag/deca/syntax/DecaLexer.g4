@@ -84,7 +84,7 @@ fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' ); // Meme chose 
 FLOAT : FLOATDEC | FLOATHEX;
 
-STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"' ;
+STRING : '"' (STRING_CAR | '\\"' | '\\\\' | EOL)* '"' ;
 MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
 
 WS  :   ( ' '
