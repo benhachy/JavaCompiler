@@ -93,5 +93,13 @@ FLOAT : FLOATDEC | FLOATHEX;
 STRING : '"' (STRING_CAR | '\\"' | '\\\\' )* '"' ;
 MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
 
-   
-  
+// Ignore spaces, tabs, newlines and whitespaces
+WS  :   ( ' '
+        | '\t'
+        | '\r'
+        | '\n'
+        ) {
+              skip(); // avoid producing a token
+          }
+    ;
+DEFAULT: . ;
