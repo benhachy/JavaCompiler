@@ -70,11 +70,8 @@ public class BooleanLiteral extends AbstractExpr {
     public void codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) 
     {
         System.out.println("::BooleanLIteral.java:: codeGenOpBool");
-        System.out.println(":: i am "+getValue()+"and the bool is "+b+E.toString());
         if(this.getValue() && b || !this.getValue() && !b )
         {   
-            System.out.println(":: i will write a branch to "+E.toString());
-            //compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
             compiler.addInstruction(new BRA(E));
         }
     }

@@ -1,6 +1,6 @@
 {
     int i =1;
-    while(false  || false || false || false || false){
+    while(true){
         print(0);
     }
     print(i);

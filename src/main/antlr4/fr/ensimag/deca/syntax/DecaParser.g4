@@ -27,6 +27,7 @@ options {
     import fr.ensimag.deca.tree.*;
     import fr.ensimag.deca.tools.*;
     import java.io.PrintStream;
+    import fr.ensimag.deca.tree.IfThenElse;
 }
 
 @members {
@@ -167,28 +168,24 @@ inst returns[AbstractInst tree]
 if_then_else returns[IfThenElse tree]
 @init {
         ListInst elseBranch = new ListInst();
-        ListInst thenBranch = new ListInst();
-        IfThenElse firstIF;
+        ListInst secondElseBranch = new ListInst();
         IfThenElse newElseIF;
 }
     : if1=IF OPARENT condition=expr CPARENT OBRACE li_if=list_inst CBRACE {
         
             $tree= new IfThenElse($condition.tree,$li_if.tree,elseBranch);
-            //thenBranch.add(firstIF);
             setLocation($tree,$if1);
             
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
-            newElseIF= new IfThenElse($elsif_cond.tree,$elsif_li.tree,elseBranch);
-            //thenBranch.add(newElseIF);
+            newElseIF= new IfThenElse($elsif_cond.tree,$elsif_li.tree,secondElseBranch);
             elseBranch.add(newElseIF);
             setLocation(newElseIF,$elsif);
+            $tree = newElseIF;
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
-            elseBranch =$li_else.tree;
-            $tree= new IfThenElse($condition.tree,thenBranch,elseBranch);
-            setLocation($tree,$if1);
+            $tree.setElseBranch($li_else.tree);
         }
       )?
     ;

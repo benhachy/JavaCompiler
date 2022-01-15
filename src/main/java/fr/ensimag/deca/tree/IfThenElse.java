@@ -8,6 +8,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.Label;
 
 /**
  * Full if/else if/else statement.
@@ -20,7 +22,7 @@ public class IfThenElse extends AbstractInst {
     private final AbstractExpr condition; 
     private final ListInst thenBranch;
     private ListInst elseBranch;
-
+    public static int numIf =0;
     public IfThenElse(AbstractExpr condition, ListInst thenBranch, ListInst elseBranch) {
         Validate.notNull(condition);
         Validate.notNull(thenBranch);
@@ -29,7 +31,9 @@ public class IfThenElse extends AbstractInst {
         this.thenBranch = thenBranch;
         this.elseBranch = elseBranch;
     }
-    
+    public void setElseBranch(ListInst elseBranch){
+        this.elseBranch=elseBranch;
+    }
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
@@ -37,19 +41,26 @@ public class IfThenElse extends AbstractInst {
         //System.out.println("::IfThenElse.java::verifyInst ");
         condition.verifyCondition(compiler, localEnv, currentClass);
         thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
+        elseBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        Label beginIf = new Label("beginIf");
-        Label finElse = new Label("finElse");
-        Label bodyWhile = new Label("bodyWhile");
-        compiler.addLabel(beginWhile);
-        condition.codeGenExpr(compiler);
-        compiler.addInstruction(new BRA(endWhile));
-        body.codeGenListInst(compiler);
-        compiler.addInstruction(new BRA(beginWhile));
-        compiler.addLabel(endWhile);
+        Label beginIf = new Label("beginIf"+numIf);
+        Label finElse = new Label("finElse"+numIf);
+        Label ifInst = new Label("ifInst"+numIf);
+        Label elseInst = new Label("elseInst"+numIf);
+        numIf++;
+        compiler.addLabel(beginIf);
+        condition.codeGenOpBool(compiler, null, null,true , ifInst, finElse, 2);
+        compiler.addInstruction(new BRA(elseInst));
+        compiler.addLabel(ifInst);
+        thenBranch.codeGenListInst(compiler);
+        compiler.addInstruction(new BRA(finElse));
+        compiler.addLabel(elseInst);
+        elseBranch.codeGenListInst(compiler);
+        //compiler.addInstruction(new BRA(beginIf));
+        compiler.addLabel(finElse);;
     }
 
     @Override

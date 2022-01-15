@@ -30,12 +30,6 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         super(leftOperand, rightOperand);
     }
 
-    public static int numFin =0;
-    private String labelEnd = "E.Fin";
-    private String labelStart = "E.Start";
-    Label operand = new Label("E");
-    Label endOperand = new Label("E.end");
-
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
@@ -58,9 +52,6 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-
-        //codeGenOpBool(compiler, null, null, true, operand,endOperand, 2);
-        //compiler.addLabel(operand.addFin(55));
     }
 
 }
