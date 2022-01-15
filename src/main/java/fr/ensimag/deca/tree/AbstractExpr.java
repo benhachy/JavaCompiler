@@ -33,6 +33,9 @@ public abstract class AbstractExpr extends AbstractInst {
         return false;
     }
 
+    public boolean isIdentifier() {
+        return false;
+    }
     /**
      * Get the type decoration associated to this expression (i.e. the type computed by contextual verification).
      */

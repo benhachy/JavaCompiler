@@ -185,6 +185,10 @@ public class Identifier extends AbstractIdentifier {
         Validate.notNull(name);
         this.name = name;
     }
+    @Override
+    public boolean isIdentifier() {
+        return true;
+    }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,

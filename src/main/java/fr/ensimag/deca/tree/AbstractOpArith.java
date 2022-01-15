@@ -53,11 +53,17 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         AbstractExpr leftOperand = getLeftOperand();
         AbstractExpr rightOperand = getRightOperand();
         leftOperand.codeGenExpr(compiler,n);
+        if(leftOperand.isIdentifier())
+        {
+            System.out.println("PUSH");
+        }
+        
         compiler.addInstruction(new PUSH(Register.getR(n)));
+        System.out.println("LOAD et POP");
         rightOperand.codeGenExpr(compiler,n);
         compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
         compiler.addInstruction(new POP(Register.getR(n)));
-        this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n);
+        this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n);    
     }
 
     @Override

@@ -1,7 +1,13 @@
 {
     int i=0;
-    while(i<5){
+    int b=66;
+    int c = 77;
+    int a= 55;
+    while(i<10){
         print(i,"==");
         i = i+1;
+        print(c,"==");
+        print(a,"::");
     }
+    
 }
