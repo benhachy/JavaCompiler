@@ -18,6 +18,7 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 import net.bytebuddy.description.type.TypeDefinition;
 
 import static org.mockito.ArgumentMatchers.nullable;
@@ -229,13 +230,23 @@ public class Identifier extends AbstractIdentifier {
     protected void codeGenInst(DecacCompiler compiler) {
         System.out.println("::Identifier.java:: codeGenInst");
         
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(2) ));
     }
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n) {
         System.out.println("::Identifier.java:: codeGenExpr");
         compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(n) ));
         
+    }
+
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler){
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+    }
+
+    @Override
+    public  void codeGenAssign(DecacCompiler compiler){
+        compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB) ));
     }
 
 

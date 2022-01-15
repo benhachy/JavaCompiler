@@ -70,7 +70,7 @@ public class IntLiteral extends AbstractExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler){
         //System.out.println(":: IntLiteral.java :: codeGenPrint");
-        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(1) ));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(getValue()),Register.getR(2) ));
     }
 
     @Override

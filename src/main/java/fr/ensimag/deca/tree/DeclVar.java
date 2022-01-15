@@ -105,6 +105,6 @@ public class DeclVar extends AbstractDeclVar {
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler){
         initialization.codeGenInit(compiler);        
-        compiler.addInstruction(new STORE(Register.getR(1),new RegisterOffset(Identifier.identificateurs.get(varName.getName())+3,Register.GB)));
+        compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Identifier.identificateurs.get(varName.getName())+3,Register.GB)));
     }
 }

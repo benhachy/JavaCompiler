@@ -14,5 +14,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
  * @date 01/01/2022
  */
 public abstract class AbstractLValue extends AbstractExpr {
+
+    public abstract void codeGenAssign(DecacCompiler compiler);
 }
 
