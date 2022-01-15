@@ -1,3 +1,5 @@
+// Resultats:
+//    hello
 {
     print("hello");
 }
