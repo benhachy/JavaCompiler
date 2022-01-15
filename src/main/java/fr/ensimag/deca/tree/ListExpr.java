@@ -1,11 +1,12 @@
 package fr.ensimag.deca.tree;
-
+import java.util.List;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import java.util.Collections;
 
 /**
  * List of expressions (eg list of parameters).
@@ -21,6 +22,9 @@ public class ListExpr extends TreeList<AbstractExpr> {
     // }
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        List<TreeType> list = getList();
+        for (TreeType e : list){
+            e.decompile(s);
+        }
     }
 }
