@@ -22,6 +22,7 @@ import org.apache.commons.lang.Validate;
 public class While extends AbstractInst {
     private AbstractExpr condition;
     private ListInst body;
+    public static int numWhile =0;
 
     public AbstractExpr getCondition() {
         return condition;
@@ -41,9 +42,10 @@ public class While extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         System.out.println("::While.java:: codeGenInst");
-        Label beginWhile = new Label("beginWhile");
-        Label endWhile = new Label("endWhile");
-        Label instWhile = new Label("instWhile");
+        Label beginWhile = new Label("beginWhile"+numWhile);
+        Label endWhile = new Label("endWhile"+numWhile);
+        Label instWhile = new Label("instWhile"+numWhile);
+        numWhile++;
         compiler.addLabel(beginWhile);
         condition.codeGenOpBool(compiler, null, null,true , instWhile, endWhile, 2);
         compiler.addInstruction(new BRA(endWhile));
