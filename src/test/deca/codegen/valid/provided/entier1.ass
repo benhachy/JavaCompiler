@@ -8,6 +8,8 @@
 	WINT
 	WNL
 	LOAD 3(GB), R2
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD #1, R2
 	LOAD R2, R0
@@ -18,4 +20,16 @@
 	WINT
 	WNL
 	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	ERROR
 ; end main program

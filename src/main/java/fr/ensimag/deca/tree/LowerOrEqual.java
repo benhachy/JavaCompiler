@@ -8,6 +8,7 @@ import fr.ensimag.ima.pseudocode.instructions.BGE;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 
 /**
  *
@@ -42,8 +43,18 @@ public class LowerOrEqual extends AbstractOpIneq {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-        getRightOperand().codeGenExpr(compiler, 2);
-        getLeftOperand().codeGenExpr(compiler, 3);
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr lOp = getLeftOperand();
+        rOp.codeGenExpr(compiler, 2);
+        lOp.codeGenExpr(compiler, 3);
+        if(rOp.getType().isFloat() && lOp.getType().isInt())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(3), Register.getR(3)));
+        }
+        else if(rOp.getType().isInt() && lOp.getType().isFloat())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(2), Register.getR(2)));
+        }
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         Label loadTrue = new Label("loadTrueLE."+cmpEtiquetes);
         Label finCmp = new Label("finComparationLE."+cmpEtiquetes);

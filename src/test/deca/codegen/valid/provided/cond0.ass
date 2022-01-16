@@ -16,4 +16,16 @@ elseInst0:
 	WNL
 finElse0:
 	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	ERROR
 ; end main program

@@ -2,9 +2,7 @@
 //      multiplication entre deux floats qui vont générer une Overflow error
 // Resultats :
 //      Error: Overflow during arithmetic operation
-//Historique :
+//Historique
 {
-    float a = 1000000000 ;
-    float b = -1000000000 ;
-    a*b;
+    float a = 1000000000000;
 }

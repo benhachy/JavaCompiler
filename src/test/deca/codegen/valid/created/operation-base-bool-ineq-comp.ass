@@ -1,11 +1,11 @@
 ; start main program
 ; Main program
-	LOAD #12, R3
 	LOAD #12, R2
+	LOAD #12, R3
 	CMP R2, R3
 	BNE finAnd0
-	LOAD #12, R3
 	LOAD #16, R2
+	LOAD #12, R3
 	CMP R2, R3
 	BLT trueVar0
 finAnd0:
@@ -25,8 +25,9 @@ nextVar0:
 	STORE R2, 6(GB)
 ; Beginning of main instructions:
 beginIf0:
-	LOAD 6(GB), R3
 	LOAD 4(GB), R2
+	LOAD 6(GB), R3
+	FLOAT R3, R3
 	CMP R2, R3
 	BLT ifInst0
 	BRA elseInst0
@@ -39,8 +40,9 @@ elseInst0:
 	WNL
 finElse0:
 beginIf1:
-	LOAD 6(GB), R3
 	LOAD 5(GB), R2
+	LOAD 6(GB), R3
+	FLOAT R3, R3
 	CMP R2, R3
 	BEQ ifInst1
 	BRA elseInst1
@@ -53,8 +55,9 @@ elseInst1:
 	WNL
 finElse1:
 beginIf2:
-	LOAD 6(GB), R3
 	LOAD 5(GB), R2
+	LOAD 6(GB), R3
+	FLOAT R3, R3
 	CMP R2, R3
 	BNE ifInst2
 	BRA elseInst2
@@ -79,8 +82,8 @@ elseInst3:
 	WSTR "false"
 	WNL
 finElse3:
-	LOAD #12, R3
 	LOAD #12, R2
+	LOAD #12, R3
 	CMP R2, R3
 	BNE trueVar1
 	LOAD #16, R3
@@ -108,8 +111,8 @@ elseInst4:
 	WSTR "false"
 	WNL
 finElse4:
-	LOAD #12, R3
 	LOAD #15, R2
+	LOAD #12, R3
 	CMP R2, R3
 	BEQ finAnd1
 	LOAD #150, R3
@@ -164,8 +167,8 @@ elseInst6:
 	WSTR "false"
 	WNL
 finElse6:
-	LOAD #12, R3
 	LOAD #152, R2
+	LOAD #12, R3
 	CMP R2, R3
 	BEQ finAnd3
 	LOAD 4(GB), R3
@@ -173,8 +176,8 @@ finElse6:
 	CMP R2, R3
 	BLT finAnd2
 finAnd3:
-	LOAD 4(GB), R3
 	LOAD 5(GB), R2
+	LOAD 4(GB), R3
 	CMP R2, R3
 	BEQ trueVar3
 finAnd2:

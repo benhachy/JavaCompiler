@@ -49,7 +49,7 @@ FALSE : 'false';
 TRUE : 'true' ; 
 WHILE : 'while';
  
-IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
+
 
 
 
@@ -68,7 +68,7 @@ OR : '||';
 NEQ : '!=';
 EQEQ : '==';
 fragment POSITIVE_DIGIT : '1' .. '9';
-INT : '0' | POSITIVE_DIGIT DIGIT* ;
+
 PLUS : '+';
 MINUS : '-';
 GEQ : '>=';
@@ -84,12 +84,13 @@ fragment NUM : DIGIT+ ;
 fragment SIGN : ('+' | '-' | ) ;// Meme chose
 fragment EXP : ('E' | 'e') SIGN NUM;
 fragment DEC : NUM '.' NUM;
-fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ); // Normalement sans espace 
+fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f'| ); // Normalement sans espace 
 fragment DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f'| ); // Meme chose 
 FLOAT : FLOATDEC | FLOATHEX;
-
+INT : '0' | POSITIVE_DIGIT DIGIT* ;
+IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 STRING : '"' (STRING_CAR | '\\"' | '\\\\' )* '"' ;
 MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
 
