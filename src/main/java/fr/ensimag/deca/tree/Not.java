@@ -6,9 +6,11 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.context.BooleanType;
 
@@ -53,12 +55,25 @@ public class Not extends AbstractUnaryExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler)
     {
-        System.out.println("::Not.java:: codeGenInst");
-        Label beginNot = new Label("beginNot"+numNot);
-        Label endNot = new Label("endNot"+numNot);
-        compiler.addLabel(beginNot);
-        codeGenOpBool(compiler, null, null,false , beginNot, endNot, 2);
-        compiler.addInstruction(new BRA(endNot));
-        compiler.addLabel(endNot);
+        // System.out.println("::Not.java:: codeGenInst");
+        // Label beginNot = new Label("beginNot"+numNot);
+        // Label endNot = new Label("endNot"+numNot);
+        // compiler.addLabel(beginNot);
+        // codeGenOpBool(compiler, null, null,false , beginNot, endNot, 2);
+        // compiler.addInstruction(new BRA(endNot));
+        // compiler.addLabel(endNot);
+        System.out.println("::AbstractOpBool.java:: codeGenInst");
+        Label trueVar = new Label("trueVar"+AbstractOpBool.numInst);
+        Label falseVar = new Label("falseVar"+AbstractOpBool.numInst);
+        Label nextVar = new Label("nextVar"+AbstractOpBool.numInst);
+        AbstractOpBool.numInst++;
+        codeGenOpBool(compiler,null,null,true,trueVar,falseVar,1);
+        compiler.addInstruction(new BRA(falseVar));
+        compiler.addLabel(trueVar);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(2)));
+        compiler.addInstruction(new BRA(nextVar));
+        compiler.addLabel(falseVar);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(2)));
+        compiler.addLabel(nextVar);
     }
 }

@@ -53,6 +53,7 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        System.out.println("::AbstractOpBool.java:: codeGenInst");
         Label trueVar = new Label("trueVar"+numInst);
         Label falseVar = new Label("falseVar"+numInst);
         Label nextVar = new Label("nextVar"+numInst);

@@ -1,6 +1,6 @@
 //Un programe qui demade à l'utilisateur d'entrer un entier 
 // si le nombre entré est palindrome afficher un message 
-// sinon il redemande d'entrer un autre entier de taille 6
+// sinon il redemande d'entrer un autre entier 
 // 100000 10 :: 10000 100 :: 1000 1000 ::
 {
     int a ;
@@ -14,6 +14,7 @@
     int condition = 0;
     int j=1;
     boolean estPalindrome = true;
+
     while(estPalindrome){
         compteur =0;
         print("Entrer un entier : ");

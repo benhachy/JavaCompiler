@@ -21,6 +21,26 @@
 	LOAD #1, R2
 	STORE R2, 13(GB)
 ; Beginning of main instructions:
+beginIf0:
+	LOAD #5, R3
+	LOAD #3, R2
+	CMP R2, R3
+	BNE finElse0
+	LOAD #10, R3
+	LOAD #0, R2
+	CMP R2, R3
+	BGT ifInst0
+	LOAD #5, R3
+	LOAD #4, R2
+	CMP R2, R3
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "je sui false"
+	WNL
+	BRA finElse0
+elseInst0:
+finElse0:
 beginWhile0:
 	LOAD 13(GB), R0
 	CMP #0, R0
@@ -159,21 +179,21 @@ endWhile3:
 	STORE R2, 7(GB)
 	LOAD #1, R2
 	STORE R2, 10(GB)
-beginIf0:
+beginIf1:
 	LOAD 4(GB), R3
 	LOAD 5(GB), R2
 	CMP R2, R3
-	BNE ifInst0
-	BRA elseInst0
-ifInst0:
+	BNE ifInst1
+	BRA elseInst1
+ifInst1:
 	WSTR "le nombre n'est pas palaindrome  "
 	WNL
 	LOAD #1, R2
 	STORE R2, 9(GB)
 	LOAD #0, R2
 	STORE R2, 11(GB)
-	BRA finElse0
-elseInst0:
+	BRA finElse1
+elseInst1:
 	LOAD 8(GB), R2
 	PUSH R2
 	LOAD #1, R2
@@ -181,21 +201,21 @@ elseInst0:
 	POP R2
 	ADD R0, R2
 	STORE R2, 8(GB)
-beginIf1:
+beginIf2:
 	LOAD 11(GB), R3
 	LOAD #0, R2
 	CMP R2, R3
-	BNE ifInst1
-	BRA elseInst1
-ifInst1:
-	BRA finElse1
-elseInst1:
+	BNE ifInst2
+	BRA elseInst2
+ifInst2:
+	BRA finElse2
+elseInst2:
 	WSTR "le nombre est palaindrome  "
 	WNL
 	LOAD #0, R2
 	STORE R2, 13(GB)
+finElse2:
 finElse1:
-finElse0:
 	BRA beginWhile1
 endWhile1:
 	BRA beginWhile0

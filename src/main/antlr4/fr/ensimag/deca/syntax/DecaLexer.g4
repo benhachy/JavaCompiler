@@ -102,4 +102,3 @@ WS  :   ( ' '
               skip(); // avoid producing a token
           }
     ;
-DEFAULT: . ;

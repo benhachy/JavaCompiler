@@ -33,13 +33,19 @@ public class And extends AbstractOpBool {
         System.out.println("::And.java:: codeGenOpBool");
         AbstractExpr lOp = getLeftOperand();
         AbstractExpr rOp = getRightOperand();
+
         if (b){
-            lOp.codeGenOpBool(compiler, null, null, false, EFin,E, n);
+            Label finAnd = new Label("finAnd"+numFin);
+            ++numFin; 
+            lOp.codeGenOpBool(compiler, null, null, false, finAnd,E, n);
             rOp.codeGenOpBool(compiler, null, null, true, E,EFin, n);
+            compiler.addLabel(finAnd);
         }
         else{
             lOp.codeGenOpBool(compiler, null, null, false, E,EFin, n);
             rOp.codeGenOpBool(compiler, null, null, false, E,EFin, n);
+
         }
+
     }
 }

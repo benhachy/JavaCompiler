@@ -1,0 +1,13 @@
+{
+    boolean a =true;
+    boolean b =true;
+    boolean c= true;
+    boolean d =false;
+    a = !((!a && d)||b);
+    if(a){
+        print(1);
+    }
+    else{
+        print(0);
+    }
+}
