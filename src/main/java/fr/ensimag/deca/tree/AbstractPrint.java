@@ -76,7 +76,7 @@ public abstract class AbstractPrint extends AbstractInst {
             {
                 compiler.addInstruction(new WINT());
             }
-            if(a.getType().isFloat())
+            else if(a.getType().isFloat())
             {
                 if(getPrintHex())
                 {

@@ -31,6 +31,7 @@ public class UnaryMinus extends AbstractUnaryExpr {
         if ( !typeMinus.isFloat() && !typeMinus.isInt() ){
             throw new ContextualError("Minus ne supporte pas  "+typeMinus.getName()+"", getLocation());
         }
+        setType(typeMinus);
         return typeMinus;
     }
     @Override

@@ -1,10 +1,12 @@
-// Description : 
-//      float negatifs
-// Resultats :
+//Description:
+//    float negatifs
+//
+// Resultats:
 //    1.82050e+03
 //    -2.04078e+04
-//Historique :
-//
+// 
+// Historique:
+//    cree le 01/01/2022
 {
     float a = -162.4;
     float b = -11.21;

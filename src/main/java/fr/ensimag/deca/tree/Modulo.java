@@ -40,7 +40,7 @@ public class Modulo extends AbstractOpArith {
             throw new ContextualError("Modulo ne supporte que des entiers", getLocation());
         }
         setType(type1);
-        return type1;
+        return getType();
     }
 
 

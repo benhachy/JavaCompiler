@@ -28,7 +28,6 @@ public abstract class AbstractUnaryExpr extends AbstractExpr {
     public void decompile(IndentPrintStream s) {
         s.print(getOperatorName());
         operand.decompile(s);
-       // throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

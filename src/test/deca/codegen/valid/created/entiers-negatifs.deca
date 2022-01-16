@@ -1,10 +1,11 @@
-// Description : 
-//      entiers negatifs
-// Resultats :
+//Description:
+//    entiers negatifs
+//
+// Resultats:
 //    -100
 //    -31
-// Historique :
-//
+// Historique:
+//    cree le 01/01/2022
 {
     int a = -100 ;
     int b = -(15+16);
