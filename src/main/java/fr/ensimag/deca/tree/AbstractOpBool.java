@@ -34,7 +34,7 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-            System.out.println("::AbstractOpCm.java:: verifyExpr");
+            //System.out.println("::AbstractOpCm.java:: verifyExpr");
             AbstractExpr rOp = getRightOperand();
             AbstractExpr lOp = getLeftOperand();
             Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
@@ -48,12 +48,12 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     }
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n){
-        System.out.println("::AbstractOpBool.java:: codeGenExpr");
+        //System.out.println("::AbstractOpBool.java:: codeGenExpr");
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("::AbstractOpBool.java:: codeGenInst");
+        //System.out.println("::AbstractOpBool.java:: codeGenInst");
         Label trueVar = new Label("trueVar"+numInst);
         Label falseVar = new Label("falseVar"+numInst);
         Label nextVar = new Label("nextVar"+numInst);

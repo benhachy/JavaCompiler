@@ -30,7 +30,7 @@ public class And extends AbstractOpBool {
 
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        System.out.println("::And.java:: codeGenOpBool");
+        //System.out.println("::And.java:: codeGenOpBool");
         AbstractExpr lOp = getLeftOperand();
         AbstractExpr rOp = getRightOperand();
 

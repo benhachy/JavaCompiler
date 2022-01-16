@@ -1,0 +1,39 @@
+// Description:
+//  declaration de deux variables booleennes une initialisee par true
+//  et l'autre par false
+// Resultats:
+//  a = true b = false
+//  a && !b = true
+//  !(!a && b) = true
+//  !a && !b = false
+//  !!(!!a && !!b) && !a && !b = false
+// 
+{
+    boolean a =true;
+    boolean b =false;
+    println("a = true"," b = false");
+    if(a && !b){
+        println("a && !b = true");
+    }
+    else{
+        println("a && !b = false");
+    }
+    if(!(!a && b)){
+        println("!(!a && b) = true");
+    }
+    else{
+        println("a && !b = false");
+    }
+    if(!a && !b){
+        println("!a && !b = true");;
+    }
+    else{
+        println("!a && !b = false");;
+    }
+    if(!!(!!a && !!b) && !a && !b){
+        println("!!(!!a && !!b) && !a && !b = true");
+    }
+    else{
+        println("!!(!!a && !!b) && !a && !b = false");
+    }
+}

@@ -29,7 +29,7 @@ public class Not extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::NOT.java:: verifyExpr");
+        //System.out.println("::NOT.java:: verifyExpr");
         AbstractExpr expr = getOperand();
         Type exprType = expr.verifyExpr(compiler, localEnv, currentClass);
         if(!exprType.isBoolean())
@@ -47,7 +47,7 @@ public class Not extends AbstractUnaryExpr {
     }
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        System.out.println("::Not.java:: codeGenOpBool");
+        //System.out.println("::Not.java:: codeGenOpBool");
         AbstractExpr operand = getOperand();
         operand.codeGenOpBool(compiler, null, null, !b, E,EFin, n);
         
@@ -62,7 +62,7 @@ public class Not extends AbstractUnaryExpr {
         // codeGenOpBool(compiler, null, null,false , beginNot, endNot, 2);
         // compiler.addInstruction(new BRA(endNot));
         // compiler.addLabel(endNot);
-        System.out.println("::AbstractOpBool.java:: codeGenInst");
+        //System.out.println("::AbstractOpBool.java:: codeGenInst");
         Label trueVar = new Label("trueVar"+AbstractOpBool.numInst);
         Label falseVar = new Label("falseVar"+AbstractOpBool.numInst);
         Label nextVar = new Label("nextVar"+AbstractOpBool.numInst);

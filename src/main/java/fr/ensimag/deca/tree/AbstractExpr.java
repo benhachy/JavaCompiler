@@ -14,7 +14,6 @@ import fr.ensimag.ima.pseudocode.Register;
 
 import java.io.PrintStream;
 
-import javax.swing.SwingWorker.StateValue;
 
 import org.apache.commons.lang.Validate;
 
