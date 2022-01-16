@@ -11,6 +11,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
@@ -72,27 +73,34 @@ public abstract class AbstractPrint extends AbstractInst {
         //System.out.println(":: AbstractPrint :: codeGenInst");
         for (AbstractExpr a : getArguments().getList()) {
             a.codeGenPrint(compiler);
-            if(a.getType().isInt())
+            if(!getPrintHex())
             {
-                compiler.addInstruction(new WINT());
+                if(a.getType().isInt())
+                {
+                    compiler.addInstruction(new WINT());
+                }
+                else if(a.getType().isFloat())
+                {
+                    compiler.addInstruction(new WFLOAT());
+                }
+                else if (a.getType().isString()){
+                    
+                }
+                else{
+                    System.out.println("i skiped this one "); 
+
+                }
             }
-            else if(a.getType().isFloat())
-            {
-                if(getPrintHex())
+            else{
+                if(a.getType().isFloat())
                 {
                     compiler.addInstruction(new WFLOATX());
                 }
                 else{
-                    compiler.addInstruction(new WFLOAT());
+                    compiler.addInstruction(new BOV(new Label("print_Error")));
                 }
             }
-            else if (a.getType().isString()){
-                
-            }
-            else{
-                System.out.println("i skiped this one "); 
-
-            }
+            
         }
     }
 

@@ -157,7 +157,7 @@ inst returns[AbstractInst tree]
     | WHILE OPARENT condition=expr CPARENT OBRACE body=list_inst CBRACE {
             assert($condition.tree != null);
             assert($body.tree != null);
-            $tree = new While($condition.tree,$list_inst.tree);
+            $tree = new While($condition.tree,$body.tree);
             setLocation($tree,$condition.start);
         }
     | RETURN expr SEMI {
@@ -207,7 +207,6 @@ expr returns[AbstractExpr tree]
     : assign_expr {
             assert($assign_expr.tree != null);
             $tree = $assign_expr.tree;
-            setLocation($tree,$assign_expr.start);
         }
     ;
 
