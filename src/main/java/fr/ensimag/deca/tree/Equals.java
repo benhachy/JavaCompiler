@@ -31,7 +31,7 @@ public class Equals extends AbstractOpExactCmp {
     }
 
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        System.out.println("::Greater.java:: codeGenOpBool");
+        System.out.println("::Equals.java:: codeGenOpBool");
         getLeftOperand().codeGenExpr(compiler, 3);
         getRightOperand().codeGenExpr(compiler, 2);
         compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));
@@ -50,10 +50,10 @@ public class Equals extends AbstractOpExactCmp {
         Label loadTrue = new Label("loadTrueEQ."+cmpEtiquetes);
         Label finCmp = new Label("finComparationEQ."+cmpEtiquetes);
         compiler.addInstruction(new BEQ(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,1);
+        new IntLiteral(0).codeGenExpr(compiler,2);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,1);
+        new IntLiteral(1).codeGenExpr(compiler,2);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }

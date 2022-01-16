@@ -52,10 +52,10 @@ public class Lower extends AbstractOpIneq {
         Label loadTrue = new Label("loadTrueLT."+cmpEtiquetes);
         Label finCmp = new Label("finComparationLT."+cmpEtiquetes);
         compiler.addInstruction(new BLT(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,1);
+        new IntLiteral(0).codeGenExpr(compiler,2);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,1);
+        new IntLiteral(1).codeGenExpr(compiler,2);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }

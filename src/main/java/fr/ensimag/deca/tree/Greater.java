@@ -49,10 +49,10 @@ public class Greater extends AbstractOpIneq {
         Label loadTrue = new Label("loadTrueGT."+cmpEtiquetes);
         Label finCmp = new Label("finComparationGT."+cmpEtiquetes);
         compiler.addInstruction(new BGT(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,1);
+        new IntLiteral(0).codeGenExpr(compiler,2);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,1);
+        new IntLiteral(1).codeGenExpr(compiler,2);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }
