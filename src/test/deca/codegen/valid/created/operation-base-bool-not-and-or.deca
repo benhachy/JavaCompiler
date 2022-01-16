@@ -1,17 +1,16 @@
-// Description:
+//Description:
 //  declaration de deux variables booleennes une initialisee par true
 //  et l'autre par false
 // Resultats:
-//  false
-//  true
-//  true
-//  true
-//  false
-//  true
-//  false
-// 
+//    false
+//    true
+//    true
+//    true
+//    false
+//    true
+//    false
 // Historique:
-//    cree le 16/01/2022
+//    cree le 14/01/2022
 {
     boolean a = false;
     boolean b = true;

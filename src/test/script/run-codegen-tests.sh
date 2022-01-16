@@ -32,7 +32,7 @@ do
             then
                 echo "${GREEN}Test passed${NC} - program output equals expected output for $cas_de_test"
             else
-                echo "${RED}Test failed${NC} - Program output: $program_output for $cas_de_test"
+                echo "${RED}Test failed${NC} -Program expected output $expected_output - Program output: $program_output for $cas_de_test"
             fi
         fi
         echo $expected_output
