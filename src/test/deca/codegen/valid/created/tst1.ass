@@ -18,7 +18,6 @@ instWhile0:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	STORE R2, 3(GB)
 	BRA beginWhile0
 endWhile0:

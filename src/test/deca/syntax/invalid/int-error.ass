@@ -1,32 +1,22 @@
 ; start main program
 ; Main program
-<<<<<<< HEAD:src/test/deca/syntax/invalid/created/float-error.ass
-	LOAD #0x1.5af1d8p66, R2
-	STORE R2, 3(GB)
-	LOAD #0x1.e848p19, R2
-=======
 	LOAD #100000000, R2
 	FLOAT R2, R2
 	STORE R2, 3(GB)
 	LOAD #100000000, R2
 	FLOAT R2, R2
->>>>>>> 334e9607b620bf0634ea5f7d21710cf8aa07666b:src/test/deca/codegen/valid/created/overflow-error.ass
 	STORE R2, 4(GB)
 	STORE R2, 5(GB)
 ; Beginning of main instructions:
-	LOAD 4(GB), R2
+	LOAD 3(GB), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-	LOAD 3(GB), R2
+	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
 	BOV Overflow_error
-<<<<<<< HEAD:src/test/deca/syntax/invalid/created/float-error.ass
-	LOAD R2, R1
-	WFLOAT
-=======
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
@@ -119,7 +109,6 @@
 	MUL R0, R2
 	BOV Overflow_error
 	STORE R2, 5(GB)
->>>>>>> 334e9607b620bf0634ea5f7d21710cf8aa07666b:src/test/deca/codegen/valid/created/overflow-error.ass
 	HALT
 pile_pleine:
 	WSTR "Error: pile pleine"

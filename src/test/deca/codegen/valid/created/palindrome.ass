@@ -73,7 +73,6 @@ instWhile2:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	STORE R2, 7(GB)
 	LOAD 6(GB), R2
 	TSTO #2
@@ -112,7 +111,6 @@ instWhile3:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	STORE R2, 10(GB)
 	LOAD 12(GB), R2
 	TSTO #2
@@ -122,7 +120,6 @@ instWhile3:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	STORE R2, 12(GB)
 	BRA beginWhile3
 endWhile3:
@@ -184,7 +181,6 @@ endWhile3:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	STORE R2, 9(GB)
 	LOAD #1, R2
 	STORE R2, 7(GB)

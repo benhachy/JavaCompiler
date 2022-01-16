@@ -16,7 +16,6 @@
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	LOAD R2, R0
 	POP R2
 	SUB R0, R2
@@ -36,7 +35,6 @@
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	LOAD R2, R0
 	POP R2
 	QUO R0, R2

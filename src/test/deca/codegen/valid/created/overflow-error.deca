@@ -1,8 +1,14 @@
-// Description : 
-//      multiplication entre deux floats qui vont générer une Overflow error
-// Resultats :
-//      Error: Overflow during arithmetic operation
-//Historique
-{
-    float a = 1000000000000;
+//Description:
+//    test overflow error
+//
+// Resultats:
+//    Error: Overflow during arithmetic operation
+// 
+// Historique:
+//    cree le 01/01/2022
+{   
+    float a = 100000000;
+    float b = 100000000;
+    float c ;
+    c = a*b*b*b*100000*b*b*b*100000*b*b*b*100000;
 }

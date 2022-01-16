@@ -15,7 +15,6 @@
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
@@ -23,7 +22,6 @@
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
-	BOV Overflow_error
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2

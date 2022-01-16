@@ -23,7 +23,11 @@ public class Multiply extends AbstractOpArith {
     @Override
     public void codeGenOp(DecacCompiler compiler,GPRegister leftOperand,GPRegister rightOperand,int n){
         compiler.addInstruction(new MUL(rightOperand,leftOperand));
-        compiler.addInstruction(new BOV(new Label("Overflow_error")));
+        if(this.getType().isFloat())
+        {
+            compiler.addInstruction(new BOV(new Label("Overflow_error")));
+        }
+        
         //compiler.addInstruction(new LOAD(rightOperand,Register.getR(n)));
     }
     @Override
