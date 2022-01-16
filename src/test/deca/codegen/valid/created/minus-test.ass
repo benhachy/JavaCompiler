@@ -5,7 +5,6 @@
 	STORE R2, 3(GB)
 ; Beginning of main instructions:
 beginIf0:
-	LOAD 3(GB), R3
 	LOAD #40, R2
 	TSTO #2
 	BOV pile_pleine
@@ -21,6 +20,7 @@ beginIf0:
 	LOAD R2, R0
 	POP R2
 	SUB R0, R2
+	LOAD 3(GB), R3
 	CMP R2, R3
 	BEQ ifInst0
 	BRA elseInst0

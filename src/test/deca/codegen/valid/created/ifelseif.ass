@@ -4,8 +4,8 @@
 	STORE R2, 3(GB)
 ; Beginning of main instructions:
 beginIf0:
-	LOAD 3(GB), R3
 	LOAD #5, R2
+	LOAD 3(GB), R3
 	CMP R2, R3
 	BEQ ifInst0
 	BRA elseInst0
