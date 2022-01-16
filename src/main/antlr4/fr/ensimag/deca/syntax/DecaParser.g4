@@ -444,12 +444,23 @@ type returns[AbstractIdentifier tree]
 literal returns[AbstractExpr tree]
     : INT {
         //il faut ajouter un try catch erreur ici
+        try {
             $tree = new IntLiteral(Integer.parseInt($INT.text));
             setLocation($tree, $INT);
         }
+        catch (NumberFormatException e){
+            throw new DecaRecognitionException(this,$INT);
+        }
+
+        }
     | fd=FLOAT {
+        try{
             $tree = new FloatLiteral(Float.parseFloat( $fd.text));
             setLocation($tree, $fd);
+        }
+        catch (NumberFormatException e){
+            throw new DecaRecognitionException(this,$fd);
+        }
         }
     | STRING {
             $tree = new StringLiteral($STRING.text.substring(1,$STRING.text.length()-1));
