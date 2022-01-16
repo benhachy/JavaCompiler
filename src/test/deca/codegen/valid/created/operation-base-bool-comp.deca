@@ -2,42 +2,34 @@
 //  declaration de deux variables booleennes une initialisee par true
 //  et l'autre par false
 // Resultats:
-//      true
 //      false
 //      true
-//      false
 //      true
+//      false
 // 
 {
-    boolean a = 12 ==12;
+    boolean a = 12 > 12;
     if(a){
         println("true");
     }
     else{
         println("false");
     }
-    a = 12 != 12;
+    a = 12>=12;
     if(a){
         println("true");
     }
     else{
         println("false");
     }
-    a = 12 !=15;
+    a = 12<=12;
     if(a){
         println("true");
     }
     else{
         println("false");
     }
-    a = 12 == 152;
-    if(a){
-        println("true");
-    }
-    else{
-        println("false");
-    }
-    a = !(12 == 152);
+    a = 12<12;
     if(a){
         println("true");
     }

@@ -1,3 +1,11 @@
+//Description:
+//    tests conditionnelle
+//
+// Resultats:
+//    9
+// 
+// Historique:
+//    cree le 01/01/2022
 {
     print(2/2+8);
 }

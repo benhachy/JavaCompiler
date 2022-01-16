@@ -1,9 +1,6 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	WSTR "ok"
-	WNL
-	WSTR "ok"
-	WNL
+	WSTR "hello \\\\ "
 	HALT
 ; end main program

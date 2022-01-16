@@ -1,3 +1,11 @@
+//Description:
+//    tests conditionnelle
+//
+// Resultats:
+//    1
+// 
+// Historique:
+//    cree le 01/01/2022
 {   
     boolean a = false;
     boolean b = false;

@@ -1,3 +1,11 @@
+//Description:
+//    tests boolean while
+//
+// Resultats:
+//    No output
+// 
+// Historique:
+//    cree le 01/01/2022
 {
     boolean b = false;
     while ( b = true ){

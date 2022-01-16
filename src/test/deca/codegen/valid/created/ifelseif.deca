@@ -1,3 +1,11 @@
+//Description:
+//    tests conditionnelle
+//
+// Resultats:
+//    16
+// 
+// Historique:
+//    cree le 01/01/2022
 {
     int a = 5;
     if ( a == 1){
