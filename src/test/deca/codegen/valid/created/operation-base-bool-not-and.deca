@@ -8,6 +8,8 @@
 //  !a && !b = false
 //  !!(!!a && !!b) && !a && !b = false
 // 
+// Historique:
+//    cree le 16/01/2022
 {
     boolean a =true;
     boolean b =false;

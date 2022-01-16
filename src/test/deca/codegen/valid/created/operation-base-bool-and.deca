@@ -3,7 +3,8 @@
 //  et l'autre par false
 // Resultats:
 //  00
-// 
+// Historique:
+//    cree le 16/01/2022
 {
     boolean a =true;
     boolean b =false;

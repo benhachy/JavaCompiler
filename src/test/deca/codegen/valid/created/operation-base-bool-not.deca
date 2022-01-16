@@ -6,6 +6,8 @@
 // Resultats:
 //  1010
 // 
+// Historique:
+//    cree le 16/01/2022
 {
     boolean a =true;
     if(a){

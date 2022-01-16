@@ -11,6 +11,8 @@
 //      false
 //      false
 // 
+// Historique:
+//    cree le 16/01/2022
 {
     boolean a = (12==12) && (12<16);
     float b = 15.5;
