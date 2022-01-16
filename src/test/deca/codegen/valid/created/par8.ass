@@ -1,0 +1,17 @@
+; start main program
+; Main program
+	LOAD #0x1.8p3, R2
+	STORE R2, 3(GB)
+	LOAD #0x1.2p2, R2
+	STORE R2, 4(GB)
+; Beginning of main instructions:
+	LOAD 3(GB), R2
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R1
+	WFLOAT
+	HALT
+; end main program

@@ -1,0 +1,12 @@
+//Description:
+//    tester operation arithmétique
+//
+// Resultats:
+//    2
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    int b = 2 + 2 + 2 + 5 - ( 5 + 2 + 2) ;
+    print(b);
+}

@@ -1,0 +1,13 @@
+//Description:
+//    tester operation arithmétique
+//
+// Resultats:
+//    -1.10000e+00
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    float a = 8.8;
+    float d = 9.9;
+    print(a-d);
+}

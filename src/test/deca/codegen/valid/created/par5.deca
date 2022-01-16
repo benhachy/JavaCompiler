@@ -1,0 +1,14 @@
+//Description:
+//    tester operation arithmétique
+//
+// Resultats:
+//    8.00000e+00
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    float a = 2.2;
+    float b = 5.8;
+    float c = a+b;
+    print(c);
+}
