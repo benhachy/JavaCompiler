@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -56,9 +57,13 @@ public class Assign extends AbstractBinaryExpr {
     protected void codeGenInst(DecacCompiler compiler) {
         //System.out.println("::Assign.java:: codeGenInst");
         AbstractExpr rvalue = getRightOperand();
-        rvalue.codeGenInst(compiler);
-        //compiler.addInstruction(new PUSH(Register.getR(2)));
         AbstractLValue lvalue = getLeftOperand();
+        rvalue.codeGenInst(compiler);
+        if(rvalue.getType().isInt() && lvalue.getType().isFloat())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(2),Register.getR(2)));
+        }
+        //compiler.addInstruction(new PUSH(Register.getR(2)));
         lvalue.codeGenAssign(compiler);
         
     }

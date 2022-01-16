@@ -64,8 +64,10 @@ public class Initialization extends AbstractInitialization {
         expression.prettyPrint(s, prefix, true);
     }
 
+    @Override
     public void codeGenInit(DecacCompiler compiler)
     {
         expression.codeGenInst(compiler);
+        
     }
 }

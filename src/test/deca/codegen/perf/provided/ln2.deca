@@ -13,14 +13,20 @@
     float g = 0.0f, d = 1.0f;
     float fg = -1.0f; float fd = 0.718284f;
     float m, fm;
-
+	0x1.0p-1;
     while (d>=(g+0x1.0p-23)) {
+	println("d = ",d);
+	println("g = ",g);
 	m = (g+d) / 2.0f;
+	println("m = ",m);
  	fm = m * (m * (m * (m * (m * (m * ( m * (1.0/5040.0) + 1.0/720.0) + 1.0/120.0) + 1.0/24.0) + 1.0/6.0) + 1.0/2.0) + 1.0) -1;
+	println("fm = ",fm);
 	if (fm > 0.0) {
+		println("fm est positif");
 	    d = m;
 	    fd = fm;
 	} else {
+		println("fm est négatif");
 	    g=m;
 	    fg = fm;
 	}

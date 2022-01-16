@@ -1,0 +1,42 @@
+{
+    boolean c1 =true;
+    boolean c2 =true;
+    boolean c3 =true;
+    c3 = !c3;
+    while(c1){
+        if(c2){
+            if(c3){
+                print("c3 est true  ");
+            }
+            else{
+                print(" c3 est false  ");
+            }
+            c3 = !c3;
+            if(c3){
+                print("c3 est true  ");
+            }
+            else{
+                print(" c3 est false  ");
+            }
+            c2 = false;
+            println("c2 est true");
+        }
+        else{
+            println("c2 est false");
+            c2 = c3 && !c1;
+            c1 = !c3;
+            if(c3){
+                print("c3 est true ");
+            }
+            else{
+                print(" c3 est false ");
+            }
+            if(c1){
+                println(" c1 est true");
+            }
+            else{
+                println(" c1 est false");
+            }
+        }
+    }
+}

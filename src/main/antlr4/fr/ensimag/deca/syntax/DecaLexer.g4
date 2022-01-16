@@ -81,13 +81,13 @@ PERCENT : '%';
 fragment STRING_CAR : ~('"'| '\n' |'\\');
 
 fragment NUM : DIGIT+ ;
-fragment SIGN : '+' | '-'  ;// Meme chose
+fragment SIGN : ('+' | '-' | ) ;// Meme chose
 fragment EXP : ('E' | 'e') SIGN NUM;
 fragment DEC : NUM '.' NUM;
 fragment FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ); // Normalement sans espace 
 fragment DIGITHEX : '0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
-fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' ); // Meme chose 
+fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f'| ); // Meme chose 
 FLOAT : FLOATDEC | FLOATHEX;
 
 STRING : '"' (STRING_CAR | '\\"' | '\\\\' )* '"' ;

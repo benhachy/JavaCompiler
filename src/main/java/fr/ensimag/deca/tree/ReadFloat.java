@@ -8,6 +8,10 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.context.FloatType;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.RFLOAT;
+
 import java.io.PrintStream;
 
 /**
@@ -26,6 +30,12 @@ public class ReadFloat extends AbstractReadExpr {
         // throw new UnsupportedOperationException("not yet implemented");
     }
 
+    @Override
+    protected void codeGenInst(DecacCompiler compiler){
+        //System.out.println(":: IntLiteral.java :: codeGenPrint");
+        compiler.addInstruction(new RFLOAT());
+        compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(2)));
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {

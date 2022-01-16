@@ -4,6 +4,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
@@ -53,16 +54,19 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         AbstractExpr leftOperand = getLeftOperand();
         AbstractExpr rightOperand = getRightOperand();
         leftOperand.codeGenExpr(compiler,n);
-        if(leftOperand.isIdentifier())
-        {
-            System.out.println("PUSH");
-        }
         
         compiler.addInstruction(new PUSH(Register.getR(n)));
-        System.out.println("LOAD et POP");
         rightOperand.codeGenExpr(compiler,n);
         compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
         compiler.addInstruction(new POP(Register.getR(n)));
+        if(rightOperand.getType().isFloat() && leftOperand.getType().isInt())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(n),Register.getR(n)));
+        }
+        else if(rightOperand.getType().isInt() && leftOperand.getType().isFloat())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(0),Register.getR(0)));
+        }
         this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n);    
     }
 

@@ -1,0 +1,14 @@
+; start main program
+; Main program
+	LOAD #1, R2
+	STORE R2, 3(GB)
+beginNot0:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE beginNot0
+	BRA endNot0
+endNot0:
+	STORE R2, 4(GB)
+; Beginning of main instructions:
+	HALT
+; end main program

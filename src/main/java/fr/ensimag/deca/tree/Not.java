@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.context.BooleanType;
 
@@ -21,11 +22,12 @@ public class Not extends AbstractUnaryExpr {
     public Not(AbstractExpr operand) {
         super(operand);
     }
+    public static int numNot=0;
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println("::AbstractOpArith.java:: verifyExpr");
+        System.out.println("::NOT.java:: verifyExpr");
         AbstractExpr expr = getOperand();
         Type exprType = expr.verifyExpr(compiler, localEnv, currentClass);
         if(!exprType.isBoolean())
@@ -47,5 +49,16 @@ public class Not extends AbstractUnaryExpr {
         AbstractExpr operand = getOperand();
         operand.codeGenOpBool(compiler, null, null, !b, E,EFin, n);
         
+    }
+    @Override
+    protected void codeGenInst(DecacCompiler compiler)
+    {
+        System.out.println("::Not.java:: codeGenInst");
+        Label beginNot = new Label("beginNot"+numNot);
+        Label endNot = new Label("endNot"+numNot);
+        compiler.addLabel(beginNot);
+        codeGenOpBool(compiler, null, null,false , beginNot, endNot, 2);
+        compiler.addInstruction(new BRA(endNot));
+        compiler.addLabel(endNot);
     }
 }

@@ -1,0 +1,188 @@
+; start main program
+; Main program
+	LOAD #0x0.0p0, R2
+	STORE R2, 3(GB)
+	LOAD #0x1.0p0, R2
+	STORE R2, 4(GB)
+	STORE R2, 5(GB)
+	LOAD #0x1.6fc2ecp-1, R2
+	STORE R2, 6(GB)
+	STORE R2, 7(GB)
+	STORE R2, 8(GB)
+; Beginning of main instructions:
+	LOAD #0x1.0p-1, R2
+beginWhile0:
+	LOAD 4(GB), R3
+	LOAD 3(GB), R2
+	PUSH R2
+	LOAD #0x1.0p-23, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	CMP R2, R3
+	BGE instWhile0
+	BRA endWhile0
+instWhile0:
+	WSTR "d = "
+	LOAD 4(GB), R1
+	WFLOAT
+	WNL
+	WSTR "g = "
+	LOAD 3(GB), R1
+	WFLOAT
+	WNL
+	LOAD 3(GB), R2
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	PUSH R2
+	LOAD #0x1.0p1, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	STORE R2, 7(GB)
+	WSTR "m = "
+	LOAD 7(GB), R1
+	WFLOAT
+	WNL
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD 7(GB), R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	PUSH R2
+	LOAD #0x1.3bp12, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	PUSH R2
+	LOAD #0x1.68p9, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	PUSH R2
+	LOAD #0x1.ep6, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	PUSH R2
+	LOAD #0x1.8p4, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	PUSH R2
+	LOAD #0x1.8p2, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	PUSH R2
+	LOAD #0x1.0p1, R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #0x1.0p0, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	PUSH R2
+	LOAD #1, R2
+	LOAD R2, R0
+	POP R2
+	FLOAT R0, R0
+	SUB R0, R2
+	STORE R2, 8(GB)
+	WSTR "fm = "
+	LOAD 8(GB), R1
+	WFLOAT
+	WNL
+beginIf0:
+	LOAD 8(GB), R3
+	LOAD #0x0.0p0, R2
+	CMP R2, R3
+	BGT ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "fm est positif"
+	WNL
+	LOAD 7(GB), R2
+	STORE R2, 4(GB)
+	LOAD 8(GB), R2
+	STORE R2, 6(GB)
+	BRA finElse0
+elseInst0:
+	WSTR "fm est négatif"
+	WNL
+	LOAD 7(GB), R2
+	STORE R2, 3(GB)
+	LOAD 8(GB), R2
+	STORE R2, 5(GB)
+finElse0:
+	BRA beginWhile0
+endWhile0:
+	LOAD 3(GB), R1
+	WFLOAT
+	WSTR " = "
+	LOAD 3(GB), R1
+	WFLOATX
+	WNL
+	HALT
+; end main program

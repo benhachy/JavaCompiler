@@ -1,6 +1,12 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.MUL;
+import fr.ensimag.ima.pseudocode.instructions.QUO;
+import fr.ensimag.ima.pseudocode.instructions.SUB;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -29,12 +35,22 @@ public class Modulo extends AbstractOpArith {
         {
             throw new ContextualError("Modulo ne supporte que des entiers", getLocation());
         }
+        setType(type1);
         return type1;
     }
 
-    protected int codeGenPrint2(DecacCompiler compiler, AbstractExpr rOp, AbstractExpr lOp) {
-        return 1;
+
+    @Override
+    public void codeGenOp(DecacCompiler compiler,GPRegister leftOperand,GPRegister rightOperand,int n){
+        compiler.addInstruction(new LOAD(leftOperand,Register.getR(3)));
+        compiler.addInstruction(new QUO(rightOperand,leftOperand));
+        compiler.addInstruction(new MUL(rightOperand,leftOperand));
+        compiler.addInstruction(new SUB(leftOperand,Register.getR(3)));
+        compiler.addInstruction(new LOAD(Register.getR(3),leftOperand));
+        
     }
+
+
     @Override
     protected String getOperatorName() {
         return "%";

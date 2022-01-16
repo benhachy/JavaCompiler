@@ -1,0 +1,39 @@
+; start main program
+; Main program
+	STORE R2, 3(GB)
+	LOAD #0x1.fp3, R2
+	STORE R2, 4(GB)
+	LOAD #2, R2
+	STORE R2, 5(GB)
+; Beginning of main instructions:
+	LOAD 4(GB), R2
+	PUSH R2
+	LOAD 5(GB), R2
+	LOAD R2, R0
+	POP R2
+	FLOAT R0, R0
+	DIV R0, R2
+	STORE R2, 4(GB)
+	LOAD 4(GB), R1
+	WFLOAT
+	WSTR "  test que float f = 1 fait que f == 1.0"
+	WNL
+	LOAD #1, R2
+	FLOAT R2, R2
+	STORE R2, 3(GB)
+beginIf0:
+	LOAD 3(GB), R3
+	LOAD #0x1.0p0, R2
+	CMP R2, R3
+	BEQ ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "ok"
+	WNL
+	BRA finElse0
+elseInst0:
+	WSTR "ERRONE"
+	WNL
+finElse0:
+	HALT
+; end main program

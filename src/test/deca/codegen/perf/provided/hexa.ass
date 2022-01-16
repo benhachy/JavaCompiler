@@ -1,0 +1,97 @@
+; start main program
+; Main program
+	LOAD #1, R2
+	STORE R2, 3(GB)
+	LOAD #1, R2
+	STORE R2, 4(GB)
+	LOAD #1, R2
+	STORE R2, 5(GB)
+; Beginning of main instructions:
+	STORE R2, 5(GB)
+beginWhile0:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE instWhile0
+	BRA endWhile0
+instWhile0:
+beginIf0:
+	LOAD 4(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+beginIf1:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst1
+	BRA elseInst1
+ifInst1:
+	WSTR "c3 est true  "
+	BRA finElse1
+elseInst1:
+	WSTR " c3 est false  "
+finElse1:
+	STORE R2, 5(GB)
+beginIf2:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst2
+	BRA elseInst2
+ifInst2:
+	WSTR "c3 est true  "
+	BRA finElse2
+elseInst2:
+	WSTR " c3 est false  "
+finElse2:
+	LOAD #0, R2
+	STORE R2, 4(GB)
+	WSTR "c2 est true"
+	WNL
+	BRA finElse0
+elseInst0:
+	WSTR "c2 est false"
+	WNL
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BEQ falseVar0
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BEQ trueVar0
+	BRA falseVar0
+trueVar0:
+	LOAD #1, R2
+	BRA nextVar0
+falseVar0:
+	LOAD #0, R2
+nextVar0:
+	STORE R2, 4(GB)
+	STORE R2, 3(GB)
+beginIf3:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst3
+	BRA elseInst3
+ifInst3:
+	WSTR "c3 est true "
+	BRA finElse3
+elseInst3:
+	WSTR " c3 est false "
+finElse3:
+beginIf4:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst4
+	BRA elseInst4
+ifInst4:
+	WSTR " c1 est true"
+	WNL
+	BRA finElse4
+elseInst4:
+	WSTR " c1 est false"
+	WNL
+finElse4:
+finElse0:
+	BRA beginWhile0
+endWhile0:
+	HALT
+; end main program

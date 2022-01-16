@@ -8,6 +8,10 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.RINT;
+
 import java.io.PrintStream;
 
 /**
@@ -23,6 +27,13 @@ public class ReadInt extends AbstractReadExpr {
             System.out.println(":: ReadInt :: verifyExpr");
             IntType typeInt=new IntType(SymbolTable.creerSymbol("readInt"));
             return typeInt;
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler){
+        //System.out.println(":: IntLiteral.java :: codeGenPrint");
+        compiler.addInstruction(new RINT());
+        compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(2)));
     }
 
 

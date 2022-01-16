@@ -38,6 +38,7 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+                System.out.println("::BooleanLiteral.java:: verifyExpr");
             SymbolTable tab = new SymbolTable();
             SymbolTable.Symbol symbol = tab.create("boolean");
             BooleanType chaine = new BooleanType(symbol);
@@ -75,19 +76,18 @@ public class BooleanLiteral extends AbstractExpr {
             compiler.addInstruction(new BRA(E));
         }
     }
-    // @Override
-    // public void codeGenExpr(DecacCompiler compiler,int n)
-    // {
-    //     if(getValue())
-    //     {
-    //         compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
-    //     }
-    //     else{
-    //         compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
-    //     }
-        
-        
-    // }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n)
+    {
+        System.out.println("::BooleanLiteral.java:: codeGenInst");
+        if(getValue())
+        {
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
+        }
+        else{
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
+        }
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         if(getValue())
