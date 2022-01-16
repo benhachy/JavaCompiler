@@ -86,8 +86,12 @@ public abstract class AbstractPrint extends AbstractInst {
                     compiler.addInstruction(new WFLOAT());
                 }
             }
+            else if (a.getType().isString()){
+                
+            }
             else{
                 System.out.println("i skiped this one "); 
+
             }
         }
     }
