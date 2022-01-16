@@ -1,8 +1,9 @@
 // Description : 
 //      entiers negatifs
 // Resultats :
-//      Error: Division by zero
-//Historique :
+//    -100
+//    -31
+// Historique :
 //
 {
     int a = -100 ;

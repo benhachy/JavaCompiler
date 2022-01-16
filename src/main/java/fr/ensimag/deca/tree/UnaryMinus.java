@@ -9,6 +9,8 @@ import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.OPP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 
 /**
  * @author gl03
@@ -31,7 +33,11 @@ public class UnaryMinus extends AbstractUnaryExpr {
         }
         return typeMinus;
     }
-
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler) {
+        codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.getR(2),Register.getR(1)));
+    }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         AbstractExpr unaryOperand = getOperand();

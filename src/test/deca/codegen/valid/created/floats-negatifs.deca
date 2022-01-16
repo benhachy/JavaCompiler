@@ -1,3 +1,10 @@
+// Description : 
+//      float negatifs
+// Resultats :
+//    1.82050e+03
+//    -2.04078e+04
+//Historique :
+//
 {
     float a = -162.4;
     float b = -11.21;

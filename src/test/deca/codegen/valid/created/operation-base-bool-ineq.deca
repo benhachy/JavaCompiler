@@ -2,16 +2,6 @@
 //  declaration de deux variables booleennes une initialisee par true
 //  et l'autre par false
 // Resultats:
-<<<<<<< HEAD
-//      true
-//      false
-//      true
-//      false
-//      true
-// 
-// Historique:
-//    cree le 16/01/2022
-=======
 //    true
 //    false
 //    true
@@ -19,7 +9,6 @@
 //    true
 // Historique:
 //    cree le 14/01/2022
->>>>>>> 758dd19571e585dea700d6aef59d657aa5c6d4a2
 {
     boolean a = 12 ==12;
     if(a){

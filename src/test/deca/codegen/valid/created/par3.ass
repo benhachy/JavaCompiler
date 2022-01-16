@@ -6,8 +6,12 @@
 	STORE R2, 4(GB)
 ; Beginning of main instructions:
 	LOAD 4(GB), R2
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD 3(GB), R2
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD 3(GB), R2
 	LOAD R2, R0
@@ -16,7 +20,25 @@
 	LOAD R2, R0
 	POP R2
 	QUO R0, R2
+	CMP #0, R0
+	BEQ division_zero
 	LOAD R2, R1
 	WINT
 	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
 ; end main program

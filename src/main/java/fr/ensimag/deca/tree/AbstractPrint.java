@@ -87,7 +87,7 @@ public abstract class AbstractPrint extends AbstractInst {
                 }
             }
             else{
-                //compiler.addInstruction(new WSTR());  
+                System.out.println("i skiped this one "); 
             }
         }
     }

@@ -1,25 +1,35 @@
 ; start main program
 ; Main program
+	LOAD #10, R2
+	OPP R2, R2
+	STORE R2, 3(GB)
 ; Beginning of main instructions:
-	LOAD #2, R2
+beginIf0:
+	LOAD 3(GB), R3
+	LOAD #40, R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-	LOAD #2, R2
-	LOAD R2, R0
-	POP R2
-	QUO R0, R2
-	CMP #0, R0
-	BEQ division_zero
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-	LOAD #8, R2
+	LOAD #50, R2
 	LOAD R2, R0
 	POP R2
 	ADD R0, R2
-	LOAD R2, R1
-	WINT
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #100, R2
+	LOAD R2, R0
+	POP R2
+	SUB R0, R2
+	CMP R2, R3
+	BEQ ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "OK"
+	BRA finElse0
+elseInst0:
+	WSTR "NOT OK"
+finElse0:
 	HALT
 pile_pleine:
 	WSTR "Error: pile pleine"

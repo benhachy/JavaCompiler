@@ -1,21 +1,31 @@
 ; start main program
 ; Main program
 	LOAD #5, R2
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD #4, R2
 	LOAD R2, R0
 	POP R2
 	ADD R0, R2
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD #5, R2
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
+	BOV Overflow_error
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD #3, R2
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
+	BOV Overflow_error
+	TSTO #2
+	BOV pile_pleine
 	PUSH R2
 	LOAD #4, R2
 	LOAD R2, R0
@@ -26,4 +36,20 @@
 	LOAD 3(GB), R1
 	WINT
 	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
 ; end main program

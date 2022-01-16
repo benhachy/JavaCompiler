@@ -1,25 +1,47 @@
 ; start main program
 ; Main program
+	LOAD #0x1.44ccccp7, R2
+	OPP R2, R2
+	STORE R2, 3(GB)
+	LOAD #0x1.66b852p3, R2
+	OPP R2, R2
+	STORE R2, 4(GB)
 ; Beginning of main instructions:
-	LOAD #2, R2
+	LOAD 4(GB), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-	LOAD #2, R2
+	LOAD 3(GB), R2
 	LOAD R2, R0
 	POP R2
-	QUO R0, R2
-	CMP #0, R0
+	MUL R0, R2
+	BOV Overflow_error
+	STORE R2, 4(GB)
+	LOAD 4(GB), R1
+	WFLOAT
+	WNL
+	LOAD 4(GB), R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	BOV Overflow_error
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 3(GB), R2
+	LOAD R2, R0
+	POP R2
+	DIV R0, R2
+	CMP #0x0.0p0, R0
 	BEQ division_zero
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-	LOAD #8, R2
-	LOAD R2, R0
-	POP R2
-	ADD R0, R2
-	LOAD R2, R1
-	WINT
+	STORE R2, 4(GB)
+	LOAD 4(GB), R1
+	WFLOAT
+	WNL
 	HALT
 pile_pleine:
 	WSTR "Error: pile pleine"

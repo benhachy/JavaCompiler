@@ -1,0 +1,15 @@
+// Description : 
+//      modulo zero
+// Resultats :
+//    OK
+//Historique :
+//
+{
+    int i = -10 ;
+    if(i == (40+50-100)){
+        print("OK");
+    }
+    else{
+        print("NOT OK");
+    }
+}

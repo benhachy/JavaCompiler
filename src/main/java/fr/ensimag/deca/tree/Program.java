@@ -64,6 +64,7 @@ public class Program extends AbstractProgram {
     private void ajouterMessageErreur(DecacCompiler compiler,Label label,String msg){
         compiler.addLabel(label);
         compiler.addInstruction(new WSTR(msg));
+        compiler.addInstruction(new WNL());
         compiler.addInstruction(new ERROR());
     }
     
