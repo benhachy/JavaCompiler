@@ -25,11 +25,16 @@ do
         else
             file_name=${cas_de_test%.*}
             program_output=$(ima $file_name.ass)
-            if [ "$program_output" = "$expected_output" ]; then
+            if [ "$program_output" = "$expected_output" ];
+            then 
+                echo "${GREEN}Test passed${NC} - program output equals expected output for $cas_de_test"
+            elif [ "$expected_output" = "No output" ] && [ "$program_output" = "" ];
+            then
                 echo "${GREEN}Test passed${NC} - program output equals expected output for $cas_de_test"
             else
                 echo "${RED}Test failed${NC} - Program output: $program_output for $cas_de_test"
             fi
         fi
+        echo $expected_output
     fi
 done
