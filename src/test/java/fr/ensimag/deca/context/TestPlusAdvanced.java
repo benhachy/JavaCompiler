@@ -57,10 +57,14 @@ public class TestPlusAdvanced {
     public void testIntFloat() throws ContextualError {
         Plus t = new Plus(intexpr1, floatexpr1);
         // check the result
+        
         assertTrue(t.verifyExpr(compiler, null, null).isFloat());
+        System.out.println("Valider 00");
         // ConvFloat should have been inserted on the right side
         assertTrue(t.getLeftOperand() instanceof ConvFloat);
+        System.out.println("Valider 11");
         assertFalse(t.getRightOperand() instanceof ConvFloat);
+        System.out.println("Valider 22");
         // check that the mocks have been called properly.
         verify(intexpr1).verifyExpr(compiler, null, null);
         verify(floatexpr1).verifyExpr(compiler, null, null);

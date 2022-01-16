@@ -1,0 +1,13 @@
+//Description:
+//    test overflow error
+//
+// Resultats:
+//    Error: Overflow during arithmetic operation
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    float x = 15.5;
+    int a;
+    a=x;
+}
