@@ -21,7 +21,7 @@ SEPARATEUR : (COMMENT | ESPACE |EOL | TAB |'\r'){ skip(); };
 
 fragment LETTER : ( 'a'  ..  'z' | 'A'  ..  'Z');
 fragment DIGIT : '0' .. '9';
-fragment NOF : (LETTER | '.' | DIGIT)+;
+fragment NOF : (LETTER | '.' | DIGIT | '-' | '_')+;
 INCLUDE : '#include'  (ESPACE)*  '"'  NOF  '"'{
    doInclude(getText());
 }; 

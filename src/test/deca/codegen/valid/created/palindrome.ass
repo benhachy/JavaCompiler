@@ -34,8 +34,8 @@ instWhile0:
 	LOAD 3(GB), R2
 	STORE R2, 11(GB)
 beginWhile1:
-	LOAD 11(GB), R3
 	LOAD #0, R2
+	LOAD 11(GB), R3
 	CMP R2, R3
 	BNE instWhile1
 	BRA endWhile1
@@ -52,7 +52,6 @@ instWhile1:
 	BEQ division_zero
 	STORE R2, 11(GB)
 beginWhile2:
-	LOAD 6(GB), R3
 	LOAD 8(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -61,6 +60,7 @@ beginWhile2:
 	LOAD R2, R0
 	POP R2
 	ADD R0, R2
+	LOAD 6(GB), R3
 	CMP R2, R3
 	BNE instWhile2
 	BRA endWhile2
@@ -89,6 +89,7 @@ endWhile2:
 	LOAD #1, R2
 	STORE R2, 12(GB)
 beginWhile3:
+	LOAD #0, R2
 	LOAD 11(GB), R3
 	TSTO #2
 	BOV pile_pleine
@@ -99,7 +100,6 @@ beginWhile3:
 	QUO R0, R3
 	CMP #0, R0
 	BEQ division_zero
-	LOAD #0, R2
 	CMP R2, R3
 	BNE instWhile3
 	BRA endWhile3
@@ -191,8 +191,8 @@ endWhile3:
 	LOAD #1, R2
 	STORE R2, 10(GB)
 beginIf0:
-	LOAD 4(GB), R3
 	LOAD 5(GB), R2
+	LOAD 4(GB), R3
 	CMP R2, R3
 	BNE ifInst0
 	BRA elseInst0
@@ -215,8 +215,8 @@ elseInst0:
 	ADD R0, R2
 	STORE R2, 8(GB)
 beginIf1:
-	LOAD 11(GB), R3
 	LOAD #0, R2
+	LOAD 11(GB), R3
 	CMP R2, R3
 	BNE ifInst1
 	BRA elseInst1

@@ -93,8 +93,8 @@ elseInst3:
 	WSTR "false"
 	WNL
 finElse3:
-	LOAD #12, R3
 	LOAD #152, R2
+	LOAD #12, R3
 	CMP R2, R3
 	BNE trueVar0
 	BRA falseVar0
