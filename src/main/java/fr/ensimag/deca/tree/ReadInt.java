@@ -8,7 +8,9 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.RINT;
 
@@ -24,7 +26,7 @@ public class ReadInt extends AbstractReadExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-            System.out.println(":: ReadInt :: verifyExpr");
+            //System.out.println(":: ReadInt :: verifyExpr");
             IntType typeInt=new IntType(SymbolTable.creerSymbol("readInt"));
             return typeInt;
     }
@@ -33,6 +35,7 @@ public class ReadInt extends AbstractReadExpr {
     protected void codeGenInst(DecacCompiler compiler){
         //System.out.println(":: IntLiteral.java :: codeGenPrint");
         compiler.addInstruction(new RINT());
+        compiler.addInstruction(new BOV(new Label("io_error")));
         compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(2)));
     }
 

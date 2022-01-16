@@ -1,0 +1,8 @@
+{
+    float a = -162.4;
+    float b = -11.21;
+    b = b*a;
+    println(b);
+    b = b*b/a;
+    println(b); 
+}

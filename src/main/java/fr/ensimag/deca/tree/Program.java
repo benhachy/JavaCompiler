@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
 
@@ -47,12 +48,23 @@ public class Program extends AbstractProgram {
         compiler.addComment("Main program");
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
+        ajouterMessageErreur(compiler, new Label("pile_pleine"), "Error: pile pleine");
+        ajouterMessageErreur(compiler, new Label("Overflow_error"), "Error: Overflow during arithmetic operation");
+        ajouterMessageErreur(compiler, new Label("division_zero"),"Error: Division by zero" );
+        ajouterMessageErreur(compiler, new Label("io_error"),"Error: Input/Output error" );
+        
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
         getClasses().decompile(s);
         getMain().decompile(s);
+    }
+
+    private void ajouterMessageErreur(DecacCompiler compiler,Label label,String msg){
+        compiler.addLabel(label);
+        compiler.addInstruction(new WSTR(msg));
+        compiler.addInstruction(new ERROR());
     }
     
     @Override

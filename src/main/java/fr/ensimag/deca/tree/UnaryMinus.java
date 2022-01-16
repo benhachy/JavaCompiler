@@ -7,6 +7,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.*;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.OPP;
 
 /**
  * @author gl03
@@ -30,6 +32,12 @@ public class UnaryMinus extends AbstractUnaryExpr {
         return typeMinus;
     }
 
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        AbstractExpr unaryOperand = getOperand();
+        unaryOperand.codeGenExpr(compiler, 2);
+        compiler.addInstruction(new OPP(Register.getR(2),Register.getR(2)));
+    }
 
     @Override
     protected String getOperatorName() {

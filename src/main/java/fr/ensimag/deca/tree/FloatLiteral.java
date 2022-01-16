@@ -52,6 +52,7 @@ public class FloatLiteral extends AbstractExpr {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
+        //System.out.println("FloatLiteral :: codeGEnInst");
         compiler.addInstruction(new LOAD(new ImmediateFloat(getValue()),Register.getR(2) ));
         //compiler.addInstruction(new WFLOAT());
     }

@@ -1,0 +1,11 @@
+// Description : 
+//      modulo zero
+// Resultats :
+//      Error: Division by zero
+//Historique :
+//
+{
+    int a = 100 ;
+    int b = 0 ;
+    a%b;
+}

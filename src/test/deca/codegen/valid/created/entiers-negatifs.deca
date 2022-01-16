@@ -1,0 +1,12 @@
+// Description : 
+//      entiers negatifs
+// Resultats :
+//      Error: Division by zero
+//Historique :
+//
+{
+    int a = -100 ;
+    int b = -(15+16);
+    println(a);
+    println(b);
+}

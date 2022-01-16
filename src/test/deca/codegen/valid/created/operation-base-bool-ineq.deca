@@ -8,6 +8,8 @@
 //      false
 //      true
 // 
+// Historique:
+//    cree le 16/01/2022
 {
     boolean a = 12 ==12;
     if(a){

@@ -6,6 +6,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -30,6 +33,7 @@ public class Initialization extends AbstractInitialization {
         Validate.notNull(expression);
         this.expression = expression;
     }
+    private Type expectedType;
 
     @Override
     protected void verifyInitialization(DecacCompiler compiler, Type t,
@@ -42,7 +46,7 @@ public class Initialization extends AbstractInitialization {
         //     throw new ContextualError("Vous devez initialiser la variable "+
         //             t.getName()+"par"+localEnv.get(t.getName()),getLocation());
         // }
-        
+        expectedType = t;
         setExpression(expression);
     }
 
@@ -68,6 +72,9 @@ public class Initialization extends AbstractInitialization {
     public void codeGenInit(DecacCompiler compiler)
     {
         expression.codeGenInst(compiler);
+        if(expression.getType().isInt() && expectedType.isFloat() ){
+            compiler.addInstruction(new FLOAT(Register.getR(2),Register.getR(2)));
+        }
         
     }
 }

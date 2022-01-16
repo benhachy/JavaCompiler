@@ -1,0 +1,11 @@
+// Description : 
+//      division par zero
+// Resultats :
+//      Error: Division by zero
+//Historique :
+//
+{
+    float a = 100 ;
+    float b = 0 ;
+    a/b;
+}
