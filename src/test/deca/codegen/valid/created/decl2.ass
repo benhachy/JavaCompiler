@@ -1,0 +1,10 @@
+; start main program
+; Main program
+	STORE R2, 3(GB)
+	STORE R2, 4(GB)
+	STORE R2, 5(GB)
+	STORE R2, 6(GB)
+	STORE R2, 7(GB)
+; Beginning of main instructions:
+	HALT
+; end main program

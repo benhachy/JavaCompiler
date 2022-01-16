@@ -2,11 +2,11 @@
 //  declaration de deux variables booleennes une initialisee par true
 //  et l'autre par false
 // Resultats:
-//  a = true b = false
-//  a && !b = true
-//  !(!a && b) = true
-//  !a && !b = false
-//  !!(!!a && !!b) && !a && !b = false
+//    a = true b = false
+//    a && !b = true
+//    !(!a && b) = true
+//    !a && !b = false
+//    !!(!!a && !!b) && !a && !b = false
 // 
 // Historique:
 //    cree le 16/01/2022

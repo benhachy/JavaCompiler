@@ -1,0 +1,21 @@
+; start main program
+; Main program
+	STORE R2, 3(GB)
+	STORE R2, 4(GB)
+	STORE R2, 5(GB)
+; Beginning of main instructions:
+	LOAD 3(GB), R2
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	PUSH R2
+	LOAD 5(GB), R2
+	LOAD R2, R0
+	POP R2
+	SUB R0, R2
+	LOAD R2, R1
+	WINT
+	HALT
+; end main program

@@ -49,10 +49,10 @@ public class GreaterOrEqual extends AbstractOpIneq {
         Label loadTrue = new Label("loadTrueGE."+cmpEtiquetes);
         Label finCmp = new Label("finComparationGE."+cmpEtiquetes);
         compiler.addInstruction(new BGE(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,1);
+        new IntLiteral(0).codeGenExpr(compiler,2);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,1);
+        new IntLiteral(1).codeGenExpr(compiler,2);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }

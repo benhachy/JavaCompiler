@@ -1,0 +1,25 @@
+; start main program
+; Main program
+	LOAD #1, R2
+	STORE R2, 3(GB)
+	LOAD #1, R2
+	STORE R2, 4(GB)
+; Beginning of main instructions:
+beginIf0:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	LOAD 4(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	LOAD #1, R1
+	WINT
+	BRA finElse0
+elseInst0:
+	LOAD #2, R1
+	WINT
+finElse0:
+	HALT
+; end main program

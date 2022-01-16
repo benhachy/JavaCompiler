@@ -1,0 +1,25 @@
+; start main program
+; Main program
+	LOAD #3, R2
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+beginWhile0:
+	LOAD 3(GB), R3
+	LOAD #7, R2
+	CMP R2, R3
+	BNE instWhile0
+	BRA endWhile0
+instWhile0:
+	LOAD 3(GB), R2
+	PUSH R2
+	LOAD #2, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	STORE R2, 3(GB)
+	BRA beginWhile0
+endWhile0:
+	LOAD 3(GB), R1
+	WINT
+	HALT
+; end main program

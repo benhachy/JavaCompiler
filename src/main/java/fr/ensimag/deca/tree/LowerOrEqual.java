@@ -48,10 +48,10 @@ public class LowerOrEqual extends AbstractOpIneq {
         Label loadTrue = new Label("loadTrueLE."+cmpEtiquetes);
         Label finCmp = new Label("finComparationLE."+cmpEtiquetes);
         compiler.addInstruction(new BLE(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,1);
+        new IntLiteral(0).codeGenExpr(compiler,2);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,1);
+        new IntLiteral(1).codeGenExpr(compiler,2);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }

@@ -1,0 +1,12 @@
+//Description:
+//    tester operation arithmétique
+//
+// Resultats:
+//    -1
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    int a = (5 - 3*2) / 18/(9*2);
+    print(a);
+}

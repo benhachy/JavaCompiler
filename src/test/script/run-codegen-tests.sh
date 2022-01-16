@@ -4,7 +4,7 @@ echo "----- Code Gen tests run -----"
 
 cd "$(dirname "$0")"/../../.. || exit 1
 
-cd "src/test/deca/codegen/valid/created"
+cd "src/test/deca/codegen/valid/provided"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -32,7 +32,7 @@ do
             then
                 echo "${GREEN}Test passed${NC} - program output equals expected output for $cas_de_test"
             else
-                echo "${RED}Test failed${NC} - Program output: $program_output for $cas_de_test"
+                echo "${RED}Test failed${NC} -Program expected output $expected_output - Program output: $program_output for $cas_de_test"
             fi
         fi
         echo $expected_output

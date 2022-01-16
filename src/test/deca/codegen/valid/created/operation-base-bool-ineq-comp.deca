@@ -1,18 +1,17 @@
-// Description:
+//Description:
 //  declaration de deux variables booleennes une initialisee par true
 //  et l'autre par false
 // Resultats:
-//      false
-//      true
-//      false
-//      true
-//      false
-//      true
-//      false
-//      false
-// 
+//    false
+//    true
+//    false
+//    true
+//    false
+//    true
+//    false
+//    false
 // Historique:
-//    cree le 16/01/2022
+//    cree le 14/01/2022
 {
     boolean a = (12==12) && (12<16);
     float b = 15.5;
