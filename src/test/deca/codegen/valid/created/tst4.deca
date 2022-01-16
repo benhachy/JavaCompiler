@@ -1,0 +1,7 @@
+{
+    boolean b = true;
+    while ( b = true ){
+        print(5);
+        b = false;
+    }
+}

@@ -1,0 +1,41 @@
+// Description:
+//  declaration de deux variables booleennes une initialisee par true
+//  et l'autre par false
+// Resultats:
+//      false
+//      true
+//      true
+//      false
+// 
+{
+    boolean a = 12 >12;
+    if(a){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    a = 12>=12;
+    if(a){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    a = 12<=12;
+    if(a){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    a = 12<12;
+    if(a){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    
+
+}

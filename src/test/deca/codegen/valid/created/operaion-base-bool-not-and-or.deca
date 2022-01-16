@@ -1,0 +1,69 @@
+// Description:
+//  declaration de deux variables booleennes une initialisee par true
+//  et l'autre par false
+// Resultats:
+//  false
+//  true
+//  true
+//  true
+//  false
+//  true
+//  false
+// 
+{
+    boolean a = false;
+    boolean b = true;
+    boolean c = true;
+    boolean d = false;
+    boolean e;
+    e = !a && !b || c&&d; //false
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    e = !a || b && c|| d; // true
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    e = (!a || b) && (c|| d);//true
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    e = !(!e || !a && b && c && d);//true
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    e = !(e && !e || e || !e);//false
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    e = !e && ( e || (e || !e));//true
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+    e = !!(!(!(a && c) && (a || c)));//false
+    if(e){
+        println("true");
+    }
+    else{
+        println("false");
+    }
+
+}

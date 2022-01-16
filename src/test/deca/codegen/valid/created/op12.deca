@@ -1,0 +1,6 @@
+{   
+    int a = 5;
+    int b = 25;
+    int c = b/a;
+    print(c);
+}

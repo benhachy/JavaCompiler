@@ -1,0 +1,15 @@
+{
+    int a = 5;
+    if ( a == 1){
+        print(a);
+    }
+    elseif (a == 2){
+        print(14);
+    }
+    elseif(a ==5){
+        print(a);
+    }
+    else{
+        print(20);
+    }
+}

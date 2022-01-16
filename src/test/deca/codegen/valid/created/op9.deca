@@ -1,0 +1,10 @@
+{   
+    boolean a = true;
+    boolean b = true;
+    if ( a && b && true ){
+        print(1);
+    }
+    else{
+        print(2);
+    }
+}
