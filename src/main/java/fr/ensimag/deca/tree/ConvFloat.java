@@ -16,11 +16,18 @@ public class ConvFloat extends AbstractUnaryExpr {
         super(operand);
     }
 
-    @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
+    // @Override
+    // public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
+    //         ClassDefinition currentClass) throws ContextualError  {
+    //     //System.out.println(":: UnaryMinus :: verifyExpr");
+    //     AbstractExpr unaryOperand = getOperand();
+    //     Type typeInt= unaryOperand.verifyExpr(compiler, localEnv, currentClass);
+    //     if ( !typeInt.isInt() && !typeInt.isFloat()){
+    //         throw new ContextualError("Nous ne pouvons pas convertir "+typeInt.getType()+" en float",getLocation());
+    //     }
+    //     setType(new FloatType(SymbolTable.));
+    //     return typeMinus;
+    // }
 
 
     @Override

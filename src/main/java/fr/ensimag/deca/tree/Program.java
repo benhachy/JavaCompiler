@@ -46,6 +46,7 @@ public class Program extends AbstractProgram {
     public void codeGenProgram(DecacCompiler compiler) {
         // A FAIRE: compléter ce squelette très rudimentaire de code
         compiler.addComment("Main program");
+        compiler.addInstruction(new ADDSP(Identifier.identificateurs.size()+2));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
         ajouterMessageErreur(compiler, new Label("pile_pleine"), "Error: pile pleine");
