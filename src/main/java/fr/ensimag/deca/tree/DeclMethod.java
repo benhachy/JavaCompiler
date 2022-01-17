@@ -12,47 +12,26 @@ import java.io.PrintStream;
  * @author gl03
  * @date 01/01/2022
  */
-public class DeclClass extends AbstractDeclClass {
+public class DeclMethod extends AbstractDeclMethod {
     AbstractIdentifier identifier;
     AbstractIdentifier classExtension;
-    ListDeclField   feildDecl;
-    ListDeclMethod  methodDecl;
-
-
-    public DeclClass(AbstractIdentifier identifier,AbstractIdentifier classExtension,ListDeclField  feildDecl,ListDeclMethod  methodDecl){
+    ListDeclParam   paramDecl;
+    MethodBody  methodBody;
+    public DeclMethod(AbstractIdentifier identifier,AbstractIdentifier classExtension,ListDeclParam   paramDecl,MethodBody  methodBody){
         this.identifier= identifier;
         this.classExtension=classExtension;
-        this.feildDecl= feildDecl;
-        this.methodDecl=methodDecl;
+        this.paramDecl= paramDecl;
+        this.methodBody=methodBody;
     }
-
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
     }
 
     @Override
-    protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
-    protected void verifyClassMembers(DecacCompiler compiler)
-            throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-    
-    @Override
-    protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-
-    @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         throw new UnsupportedOperationException("Not yet supported");
     }
-
     @Override
     protected void iterChildren(TreeFunction f) {
         throw new UnsupportedOperationException("Not yet supported");

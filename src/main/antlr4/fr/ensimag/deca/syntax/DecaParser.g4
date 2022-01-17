@@ -501,57 +501,92 @@ list_classes returns[ListDeclClass tree]
 }
     :
       (c1=class_decl {
+        $tree.add($c1.tree);
+        setLocation($tree,$c1.start);
         }
       )*
     ;
 
-class_decl
+class_decl returns[AbstractDeclClass tree]
     : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {
+        $tree = new DeclClass($name.tree,$superclass.tree,$class_body.fieldDecl,$class_body.methodDecl);
+        setLocation($tree,$CLASS);
         }
     ;
 
 class_extension returns[AbstractIdentifier tree]
     : EXTENDS ident {
+        $tree = new Identifier( SymbolTable.creerSymbol($ident.text) );
+        setLocation($tree, $ident.start);
         }
     | /* epsilon */ {
+        // une class extends always object dans java mais dans deca ?
+        $tree = new Identifier( SymbolTable.creerSymbol("Object") );
         }
     ;
 
-class_body
+class_body returns[ ListDeclField fieldDecl , ListDeclMethod methodDecl ]
+@init{
+    $fieldDecl = new ListDeclField();
+    $methodDecl= new ListDeclMethod();
+}
     : (m=decl_method {
+        $methodDecl.add($m.tree);
         }
-      | decl_field_set
+      | decl_field_set{
+        $fieldDecl.add($decl_field_set.tree);
+      }
       )*
     ;
 
-decl_field_set
+decl_field_set returns[AbstractDeclField tree]
     : v=visibility t=type list_decl_field
       SEMI
     ;
 
-visibility
+visibility returns[Visibility tree]
     : /* epsilon */ {
+        $tree =Visibility.PUBLIC;
         }
     | PROTECTED {
+        $tree = Visibility.PROTECTED;
         }
     ;
 
-list_decl_field
-    : dv1=decl_field
-        (COMMA dv2=decl_field
+list_decl_field returns[ListDeclField tree]
+@init   {
+        $tree = new ListDeclField();
+        }
+    : dv1=decl_field{
+        $tree.add($dv1.tree);
+    }
+        (COMMA dv2=decl_field {
+            $tree.add($dv2.tree);
+        }
       )*
     ;
 
-decl_field
+decl_field returns[AbstractDeclField tree]
+@init   {
+        AbstractInitialization initiate;
+        }
     : i=ident {
+        assert($i.tree != null);
+        initiate=new NoInitialization();
         }
       (EQUALS e=expr {
+            assert($e.tree != null);
+            initiate = new Initialization($e.tree);
+            setLocation(initiate, $e.start); 
         }
       )? {
+          $tree = new DeclField();
+          setLocation($tree, $i.start);
         }
     ;
 
-decl_method
+
+decl_method returns[AbstractDeclMethod tree]
 @init {
 }
     : type ident OPARENT params=list_params CPARENT (block {
