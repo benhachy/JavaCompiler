@@ -30,7 +30,7 @@ public class LowerOrEqual extends AbstractOpIneq {
     }
 
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        System.out.println("::Greater.java:: codeGenOpBool");
+        // System.out.println("::Greater.java:: codeGenOpBool");
         getLeftOperand().codeGenExpr(compiler, 3);
         getRightOperand().codeGenExpr(compiler, 2);
         compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));

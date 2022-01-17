@@ -32,7 +32,7 @@ public class Equals extends AbstractOpExactCmp {
     }
 
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        System.out.println("::Equals.java:: codeGenOpBool");
+        // System.out.println("::Equals.java:: codeGenOpBool");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 2);

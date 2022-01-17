@@ -1,0 +1,11 @@
+//Description:
+//    tester print arithmétique
+//
+// Resultats:
+//    -0x1.5d4cccp+9
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    printx(-698.6);
+}

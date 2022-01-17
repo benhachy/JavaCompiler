@@ -1,4 +1,0 @@
-//decl_var_invalid.deca:2:4: no viable alternative at input 'int'
-{
-    int a,b,c,d=5;
-}

@@ -1,0 +1,16 @@
+//Description:
+//    tests int and float
+//
+// Resultats:
+//    NO
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    if(10.3 < 5){
+        println("OK");
+    }
+    else{
+        println("NO");
+    }
+}

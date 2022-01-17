@@ -1,0 +1,11 @@
+//Description:
+//    tester print arithmétique
+//
+// Resultats:
+//    6.30000e+00
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    print(2.3+4);
+}

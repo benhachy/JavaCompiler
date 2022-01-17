@@ -1,0 +1,22 @@
+//Description:
+//    tests while avec comp
+//
+// Resultats:
+//    10946
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    int a =20;
+    int b = 0;
+    int c = 1; 
+    int i = 1;
+    int valeur = 0;
+    while ( i <= a){
+        valeur = b+c;
+        i=i+1;
+        b=c;
+        c=valeur;
+    }
+    println(c);
+}

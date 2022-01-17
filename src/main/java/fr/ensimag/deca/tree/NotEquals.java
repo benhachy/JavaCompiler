@@ -29,7 +29,7 @@ public class NotEquals extends AbstractOpExactCmp {
         return "!=";
     }
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        System.out.println("::NotEquals.java:: codeGenOpBool");
+        // System.out.println("::NotEquals.java:: codeGenOpBool");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 2);
