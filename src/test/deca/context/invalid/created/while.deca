@@ -1,0 +1,5 @@
+//while.deca:3:10: La condition doit etre de type Boolean
+{
+    while(5)
+    {}
+}

@@ -12,7 +12,7 @@ NC='\033[0m'
 
 echo "----- Invalid tests Battery -----"
 
-for cas_de_test in src/test/deca/context/invalid/*.deca
+for cas_de_test in src/test/deca/context/invalid/created/*.deca
 do
     if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
     then
@@ -24,7 +24,7 @@ done
 
 echo "----- Valid tests Battery -----"
 
-for cas_de_test in src/test/deca/context/valid/*.deca
+for cas_de_test in src/test/deca/context/valid/created/*.deca
 do
     if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
     then

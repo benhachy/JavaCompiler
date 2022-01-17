@@ -1,0 +1,4 @@
+//minus boolean is not defined
+{
+    -true;
+}

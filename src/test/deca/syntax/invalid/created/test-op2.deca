@@ -1,0 +1,4 @@
+//test-op2.deca:3:23: token recognition error at: '| '
+{
+    boolean a = true ||| false ;
+}

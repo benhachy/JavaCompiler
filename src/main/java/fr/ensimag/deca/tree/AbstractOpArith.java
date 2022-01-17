@@ -15,6 +15,8 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FloatType;
+import fr.ensimag.deca.context.IntType;
 
 /**
  * Arithmetic binary operations (+, -, /, ...)
@@ -42,14 +44,52 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
             throw new ContextualError("Les deux types "+type1.getName()+" et "+type2.getName()+
             " ne sont pas compatibles pour une opération arithmetique", getLocation());
         }
-        if(type1.isFloat())
+        if(type1.isFloat()&&type2.isInt())
         {
-            setType(type1);
-            return type1;
+            lOp = new ConvFloat(lOp);
+            type2 = lOp.verifyExpr(compiler, localEnv, currentClass);
+            lOp.setType( new FloatType(null));
+            setLeftOperand(lOp);
+            setType(new FloatType(null));
+            
         }
-        setType(type2);
-        return type2;
+        else if(type2.isFloat()&&type1.isInt()){
+            rOp = new ConvFloat(rOp);
+            type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
+            rOp.setType( new FloatType(null));
+            setRightOperand(rOp);
+            setType(new FloatType(null));
+            
+        }
+        else{
+            setType(type1);
+        }
+        return getType();
     }
+    // @Override
+    // public void codeGenExpr(DecacCompiler compiler,int n)
+    // {
+    //     AbstractExpr leftOperand = getLeftOperand();
+    //     AbstractExpr rightOperand = getRightOperand();
+    //     if(n == Register.nbRegistres )
+    //     {
+    //         leftOperand.codeGenExpr(compiler,n);
+    //         compiler.addInstruction(new TSTO(2));
+    //         compiler.addInstruction(new BOV(new Label("pile_pleine")));
+    //         compiler.addInstruction(new PUSH(Register.getR(n)));
+    //         rightOperand.codeGenExpr(compiler,n);
+    //         compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
+    //         compiler.addInstruction(new POP(Register.getR(n)));
+    //         this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n); 
+    //     }
+    //     else if(n < Register.nbRegistres){
+    //         leftOperand.codeGenExpr(compiler,n);
+    //         rightOperand.codeGenExpr(compiler,n+1);
+    //         this.codeGenOp(compiler, Register.getR(n), Register.getR(n+1), n); 
+    // }
+ 
+    //}
+
 
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n)
@@ -63,14 +103,6 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         rightOperand.codeGenExpr(compiler,n);
         compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
         compiler.addInstruction(new POP(Register.getR(n)));
-        if(rightOperand.getType().isFloat() && leftOperand.getType().isInt())
-        {
-            compiler.addInstruction(new FLOAT(Register.getR(n),Register.getR(n)));
-        }
-        else if(rightOperand.getType().isInt() && leftOperand.getType().isFloat())
-        {
-            compiler.addInstruction(new FLOAT(Register.getR(0),Register.getR(0)));
-        }
         this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n);    
     }
 

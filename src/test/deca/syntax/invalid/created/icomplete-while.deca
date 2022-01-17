@@ -1,0 +1,4 @@
+//icomplete-while.deca:5:1: missing '}' at '<EOF>'
+{
+    while(true){
+}

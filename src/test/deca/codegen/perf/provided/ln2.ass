@@ -1,5 +1,6 @@
 ; start main program
 ; Main program
+	ADDSP #8
 	LOAD #0x0.0p0, R2
 	STORE R2, 3(GB)
 	LOAD #0x1.0p0, R2
@@ -27,14 +28,6 @@ beginWhile0:
 	BGE instWhile0
 	BRA endWhile0
 instWhile0:
-	WSTR "d = "
-	LOAD 4(GB), R1
-	WFLOAT
-	WNL
-	WSTR "g = "
-	LOAD 3(GB), R1
-	WFLOAT
-	WNL
 	LOAD 3(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -53,10 +46,6 @@ instWhile0:
 	CMP #0x0.0p0, R0
 	BEQ division_zero
 	STORE R2, 7(GB)
-	WSTR "m = "
-	LOAD 7(GB), R1
-	WFLOAT
-	WNL
 	LOAD 7(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -214,15 +203,11 @@ instWhile0:
 	BOV pile_pleine
 	PUSH R2
 	LOAD #1, R2
+	FLOAT R2, R2
 	LOAD R2, R0
 	POP R2
-	FLOAT R0, R0
 	SUB R0, R2
 	STORE R2, 8(GB)
-	WSTR "fm = "
-	LOAD 8(GB), R1
-	WFLOAT
-	WNL
 beginIf0:
 	LOAD 8(GB), R3
 	LOAD #0x0.0p0, R2
@@ -230,16 +215,12 @@ beginIf0:
 	BGT ifInst0
 	BRA elseInst0
 ifInst0:
-	WSTR "fm est positif"
-	WNL
 	LOAD 7(GB), R2
 	STORE R2, 4(GB)
 	LOAD 8(GB), R2
 	STORE R2, 6(GB)
 	BRA finElse0
 elseInst0:
-	WSTR "fm est négatif"
-	WNL
 	LOAD 7(GB), R2
 	STORE R2, 3(GB)
 	LOAD 8(GB), R2
@@ -256,14 +237,22 @@ endWhile0:
 	HALT
 pile_pleine:
 	WSTR "Error: pile pleine"
+	WNL
 	ERROR
 Overflow_error:
 	WSTR "Error: Overflow during arithmetic operation"
+	WNL
 	ERROR
 division_zero:
 	WSTR "Error: Division by zero"
+	WNL
 	ERROR
 io_error:
 	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
 	ERROR
 ; end main program

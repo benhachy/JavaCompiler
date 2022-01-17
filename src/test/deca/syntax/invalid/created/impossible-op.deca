@@ -1,0 +1,5 @@
+//erreur au niveau des tokens
+{
+    int a ;
+    a++;
+}

@@ -7,6 +7,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FloatType;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.Register;
 
 /**
  * Conversion of an int into a float. Used for implicit conversions.
@@ -22,16 +24,17 @@ public class ConvFloat extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError  {
-        //System.out.println(":: UnaryMinus :: verifyExpr");
-        AbstractExpr unaryOperand = getOperand();
-        Type typeInt= unaryOperand.verifyExpr(compiler, localEnv, currentClass);
-        if ( !typeInt.isInt() && !typeInt.isFloat()){
-            throw new ContextualError("Nous ne pouvons pas convertir "+typeInt.getName()+" en float",getLocation());
-        }
-        setType(new FloatType(SymbolTable.creerSymbol("float")));
-        return getType();
+        return new FloatType(null);
     }
 
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n)
+    {
+        AbstractExpr operand = getOperand();
+        operand.codeGenExpr(compiler,n);
+        compiler.addInstruction(new FLOAT(Register.getR(n),Register.getR(n)));
+           
+    }
 
     @Override
     protected String getOperatorName() {

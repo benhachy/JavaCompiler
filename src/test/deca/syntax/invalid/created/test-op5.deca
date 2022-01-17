@@ -1,0 +1,4 @@
+//test-op5.deca:3:6: mismatched input '+' expecting {'new', 'null', 'readInt', 'readFloat', 'this', 'false', 'true', '(', '!', '-', FLOAT, INT, IDENT, STRING}
+{
+    a++;
+}

@@ -1,3 +1,11 @@
+// Description:
+//    Programme minimaliste utilisant println.
+//
+// Resultats:
+//    1: ok
+//
+// Historique:
+//    cree le 01/01/2022
 {
     int i = 1;
     println(i, " : ok");

@@ -1,0 +1,4 @@
+//impossible d'attribuer une cst à une cst
+{
+    true = true ;
+}

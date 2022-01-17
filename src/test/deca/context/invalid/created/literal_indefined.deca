@@ -1,0 +1,4 @@
+//un literal de type indéfini
+{
+    hello;
+}

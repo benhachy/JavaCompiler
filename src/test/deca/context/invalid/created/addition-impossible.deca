@@ -1,8 +1,8 @@
 //Description:
-//    test overflow error
+//    test contexte error
 //
 // Resultats:
-//    Error: Overflow during arithmetic operation
+//    Error contextuelle
 // 
 // Historique:
 //    cree le 01/01/2022

@@ -1,0 +1,4 @@
+//test-op4.deca:3:8: extraneous input '==' expecting {'new', 'null', 'readInt', 'readFloat', 'this', 'false', 'true', '(', '!', '-', FLOAT, INT, IDENT, STRING}
+{
+    a ==== 4;
+}

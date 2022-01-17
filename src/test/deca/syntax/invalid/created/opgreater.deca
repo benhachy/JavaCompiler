@@ -1,0 +1,4 @@
+//opgreater.deca:3:7: extraneous input '>' expecting {'new', 'null', 'readInt', 'readFloat', 'this', 'false', 'true', '(', '!', '-', FLOAT, INT, IDENT, STRING}
+{
+    i >> 1 ;
+}

@@ -1,0 +1,4 @@
+//test-op1.deca:3:18: token recognition error at: '&b'
+{
+    boolean = a &&&b;
+}

@@ -1,0 +1,6 @@
+//elsethenif.deca:3:4: mismatched input 'else' expecting {'if', 'new', 'null', 'readInt', 'readFloat', 'return', 'this', 'println', 'printlnx', 'print', 'printx', 'false', 'true', 'while', '(', ';', '}', '!', '-', FLOAT, INT, IDENT, STRING}
+{
+    else if (true) {
+
+    }
+}

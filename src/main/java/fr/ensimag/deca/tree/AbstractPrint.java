@@ -52,10 +52,6 @@ public abstract class AbstractPrint extends AbstractInst {
         {
             return;
         }
-        // if(arguments.size() != 1)
-        // {
-        //     throw new ContextualError("Print prend un argument", this.getLocation());
-        // }
         //System.out.println(":: AbstractPrint :: verifyInst");
         for (AbstractExpr argument : getArguments().getList())
         {

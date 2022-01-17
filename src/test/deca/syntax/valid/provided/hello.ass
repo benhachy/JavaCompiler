@@ -1,6 +1,0 @@
-; start main program
-; Main program
-; Beginning of main instructions:
-	WSTR """BOnjour"""
-	HALT
-; end main program

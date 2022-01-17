@@ -1,0 +1,4 @@
+//test-op3.deca:3:14: mismatched input '+' expecting {';', ',', '='}
+{
+    boolean a += !1;
+}

@@ -1,0 +1,4 @@
+//incomplete-while-condition.deca:3:0: mismatched input '}' expecting {'new', 'null', 'readInt', 'readFloat', 'this', 'false', 'true', '(', '!', '-', FLOAT, INT, IDENT, STRING}
+{
+    while(
+}

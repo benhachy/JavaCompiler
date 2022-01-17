@@ -1,0 +1,4 @@
+//test-op6.deca:3:6: extraneous input '=' expecting {'new', 'null', 'readInt', 'readFloat', 'this', 'false', 'true', '(', '!', '-', FLOAT, INT, IDENT, STRING}
+{
+    a-=5;
+}
