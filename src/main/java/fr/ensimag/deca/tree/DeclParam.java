@@ -13,6 +13,12 @@ import java.io.PrintStream;
  * @date 01/01/2022
  */
 public class DeclParam extends AbstractDeclParam {
+    AbstractIdentifier type;
+    AbstractIdentifier ident;
+    public DeclParam(AbstractIdentifier type,AbstractIdentifier name){
+        this.type= type;
+        this.ident=ident;
+    }
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");

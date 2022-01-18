@@ -1,0 +1,191 @@
+; start main program
+; Main program
+	ADDSP #5
+	LOAD #2, R2
+	STORE R2, 3(GB)
+	LOAD #3, R2
+	STORE R2, 4(GB)
+	STORE R2, 5(GB)
+; Beginning of main instructions:
+	LOAD 3(GB), R2
+	LOAD 3(GB), R3
+	CMP R3, R2
+	BEQ loadTrueEQ.0
+	LOAD #0, R2
+	BRA finComparationEQ.0
+loadTrueEQ.0:
+	LOAD #1, R2
+finComparationEQ.0:
+	STORE R2, 5(GB)
+beginIf0:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "ok1"
+	WNL
+	BRA finElse0
+elseInst0:
+finElse0:
+	LOAD 4(GB), R2
+	LOAD 3(GB), R3
+	CMP R3, R2
+	BEQ loadTrueEQ.1
+	LOAD #0, R2
+	BRA finComparationEQ.1
+loadTrueEQ.1:
+	LOAD #1, R2
+finComparationEQ.1:
+	STORE R2, 5(GB)
+beginIf1:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst1
+	BRA elseInst1
+ifInst1:
+	WSTR "ko1"
+	WNL
+	BRA finElse1
+elseInst1:
+finElse1:
+	LOAD 4(GB), R2
+	LOAD 3(GB), R3
+	CMP R3, R2
+	BLT loadTrueLT.0
+	LOAD #0, R2
+	BRA finComparationLT.0
+loadTrueLT.0:
+	LOAD #1, R2
+finComparationLT.0:
+	STORE R2, 5(GB)
+beginIf2:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst2
+	BRA elseInst2
+ifInst2:
+	WSTR "ok2"
+	WNL
+	BRA finElse2
+elseInst2:
+finElse2:
+	LOAD 4(GB), R2
+	LOAD 3(GB), R3
+	CMP R3, R2
+	BLE loadTrueLE.0
+	LOAD #0, R2
+	BRA finComparationLE.0
+loadTrueLE.0:
+	LOAD #1, R2
+finComparationLE.0:
+	STORE R2, 5(GB)
+beginIf3:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst3
+	BRA elseInst3
+ifInst3:
+	WSTR "ok3"
+	WNL
+	BRA finElse3
+elseInst3:
+finElse3:
+	LOAD 3(GB), R1
+	WINT
+	WNL
+	LOAD 4(GB), R1
+	WINT
+	WNL
+	LOAD #2, R2
+	LOAD #3, R3
+	CMP R3, R2
+	BLT loadTrueLT.1
+	LOAD #0, R2
+	BRA finComparationLT.1
+loadTrueLT.1:
+	LOAD #1, R2
+finComparationLT.1:
+	STORE R2, 5(GB)
+beginIf4:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst4
+	BRA elseInst4
+ifInst4:
+	WSTR "ko2"
+	WNL
+	BRA finElse4
+elseInst4:
+finElse4:
+	LOAD 3(GB), R2
+	LOAD 4(GB), R3
+	CMP R3, R2
+	BLE loadTrueLE.1
+	LOAD #0, R2
+	BRA finComparationLE.1
+loadTrueLE.1:
+	LOAD #1, R2
+finComparationLE.1:
+	STORE R2, 5(GB)
+beginIf5:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst5
+	BRA elseInst5
+ifInst5:
+	WSTR "ko3"
+	WNL
+	BRA finElse5
+elseInst5:
+finElse5:
+	LOAD 4(GB), R2
+	LOAD 3(GB), R3
+	CMP R2, R3
+	BGT finAnd0
+	LOAD 4(GB), R2
+	LOAD 3(GB), R3
+	CMP R2, R3
+	BLT trueVar0
+finAnd0:
+	BRA falseVar0
+trueVar0:
+	LOAD #1, R2
+	BRA nextVar0
+falseVar0:
+	LOAD #0, R2
+nextVar0:
+	STORE R2, 5(GB)
+beginIf6:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst6
+	BRA elseInst6
+ifInst6:
+	WSTR "ko4"
+	WNL
+	BRA finElse6
+elseInst6:
+finElse6:
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+; end main program

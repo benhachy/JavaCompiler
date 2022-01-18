@@ -1,0 +1,45 @@
+//Description:
+//    tests conditionnelle
+//
+// Resultats:
+//    OK
+//    OK
+//    OK
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    int i = 2;
+    int j = 3;
+    boolean b ;
+    b = i == i ;
+    if(b){
+        println("ok1");
+    }
+    b = i == j ;
+    if(b){
+        println("ko1");
+    }
+    b = i < j ;
+    if(b){
+        println("ok2");
+    }
+    b = i <= j ;
+    if(b){
+        println("ok3");
+    }
+    println(i);
+    println(j);
+    b = j < i ;
+    if(b){
+        println("ko2");
+    }
+    b = j <= i ;
+    if(b){
+        println("ko3");
+    }
+    b = (i < j ) && ( i < j ) ;
+    if(b){
+        println("ko4");
+    }
+}

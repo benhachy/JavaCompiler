@@ -4,6 +4,7 @@ import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import org.apache.commons.lang.Validate;
 import java.io.PrintStream;
 
 /**
@@ -12,16 +13,11 @@ import java.io.PrintStream;
  * @author gl03
  * @date 01/01/2022
  */
-public class DeclMethod extends AbstractDeclMethod {
-    AbstractIdentifier type;
-    AbstractIdentifier name;
-    ListDeclParam   paramDecl;
-    AbstractMethodBody  methodBody;
-    public DeclMethod(AbstractIdentifier type,AbstractIdentifier name,ListDeclParam   paramDecl,AbstractMethodBody methodBody){
-        this.type= type;
-        this.name=name;
-        this.paramDecl= paramDecl;
-        this.methodBody=methodBody;
+public class MethodAsm extends AbstractMethodBody {
+    private String multLineString;
+    public MethodAsm( String multLineString){
+        Validate.notNull(multLineString);
+        this.multLineString = multLineString;
     }
     @Override
     public void decompile(IndentPrintStream s) {
@@ -36,5 +32,4 @@ public class DeclMethod extends AbstractDeclMethod {
     protected void iterChildren(TreeFunction f) {
         throw new UnsupportedOperationException("Not yet supported");
     }
-
 }

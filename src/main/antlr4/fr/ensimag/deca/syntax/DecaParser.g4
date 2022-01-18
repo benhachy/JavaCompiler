@@ -162,6 +162,8 @@ inst returns[AbstractInst tree]
         }
     | RETURN expr SEMI {
             assert($expr.tree != null);
+            $tree = new Return($expr.tree);
+            setLocation($tree,$RETURN);
         }
     ;
 
@@ -307,6 +309,8 @@ inequality_expr returns[AbstractExpr tree]
     | e1=inequality_expr INSTANCEOF type {
             assert($e1.tree != null);
             assert($type.tree != null);
+            $tree = new InstanceOf($type.tree,$e1.tree);
+            setLocation($tree,$INSTANCEOF);
         }
     ;
 
@@ -385,10 +389,15 @@ select_expr returns[AbstractExpr tree]
         (o=OPARENT args=list_expr CPARENT {
             // we matched "e1.i(args)"
             assert($args.tree != null);
-            
+            $tree=new MethodCall($e1.tree,$i.tree,$args.tree);
+            setLocation($tree,$e1.start);
+            setLocation($tree,$i.start);
         }
         | /* epsilon */ {
             // we matched "e.i"
+            $tree = new Dot($i.tree,$e1.tree);
+            setLocation($tree,$e1.start);
+            setLocation($tree,$i.start);
         }
         )
     ;
@@ -420,13 +429,15 @@ primary_expr returns[AbstractExpr tree]
         }
     | NEW ident OPARENT CPARENT {
             assert($ident.tree != null);
-            // $tree = new New($ident.tree);
-            // setLocation($tree,$NEW);
+            $tree = new New($ident.tree);
+            setLocation($tree,$NEW);
         }
     | cast=OPARENT type CPARENT OPARENT expr CPARENT {
         //not yet implemented
             assert($type.tree != null);
             assert($expr.tree != null);
+            $tree = new Cast($type.tree,$expr.tree);
+            setLocation($tree,$type.start);
         }
     | literal {
             assert($literal.tree != null);
@@ -475,13 +486,13 @@ literal returns[AbstractExpr tree]
             setLocation($tree, $FALSE);
         }
     | THIS {
-            // $tree = new This();
-            // setLocation($tree, $THIS);
+            $tree = new This();
+            setLocation($tree, $THIS);
 
         }
     | NULL {
-            // $tree = new Null();
-            // setLocation($tree, $NULL);
+            $tree = new Null();
+            setLocation($tree, $NULL);
 
         }
     ;
@@ -533,14 +544,12 @@ class_body returns[ ListDeclField fieldDecl , ListDeclMethod methodDecl ]
     : (m=decl_method {
         $methodDecl.add($m.tree);
         }
-      | decl_field_set{
-        $fieldDecl.add($decl_field_set.tree);
-      }
+      | decl_field_set[$fieldDecl]
       )*
     ;
 
-decl_field_set returns[AbstractDeclField tree]
-    : v=visibility t=type list_decl_field
+decl_field_set[ListDeclField tree]
+    : v=visibility t=type list_decl_field[$tree,$t.tree,$v.tree]
       SEMI
     ;
 
@@ -553,20 +562,18 @@ visibility returns[Visibility tree]
         }
     ;
 
-list_decl_field returns[ListDeclField tree]
-@init   {
-        $tree = new ListDeclField();
-        }
-    : dv1=decl_field{
+list_decl_field[ListDeclField tree, AbstractIdentifier t,Visibility v] 
+
+    : dv1=decl_field[$v,$t]{
         $tree.add($dv1.tree);
     }
-        (COMMA dv2=decl_field {
+        (COMMA dv2=decl_field[$v,$t] {
             $tree.add($dv2.tree);
         }
       )*
     ;
 
-decl_field returns[AbstractDeclField tree]
+decl_field[Visibility v ,AbstractIdentifier t] returns[AbstractDeclField tree]
 @init   {
         AbstractInitialization initiate;
         }
@@ -580,7 +587,7 @@ decl_field returns[AbstractDeclField tree]
             setLocation(initiate, $e.start); 
         }
       )? {
-          $tree = new DeclField();
+          $tree = new DeclField($v,$t,$i.tree,initiate);
           setLocation($tree, $i.start);
         }
     ;
@@ -588,18 +595,30 @@ decl_field returns[AbstractDeclField tree]
 
 decl_method returns[AbstractDeclMethod tree]
 @init {
+    AbstractMethodBody methodBody;
 }
     : type ident OPARENT params=list_params CPARENT (block {
+        methodBody = new MethodBody($block.decls,$block.insts) ;
+        setLocation(methodBody,$block.start);
         }
       | ASM OPARENT code=multi_line_string CPARENT SEMI {
+        methodBody = new MethodAsm($code.text) ;
+        //setLocation(methodBody,$code.location);
         }
       ) {
+          $tree = new DeclMethod($type.tree,$ident.tree,$params.tree,methodBody);
+          setLocation($tree,$type.start);
         }
     ;
 
-list_params
+list_params returns[ListDeclParam tree]
+@init{
+    $tree = new ListDeclParam();
+}
     : (p1=param {
+        $tree.add($p1.tree);
         } (COMMA p2=param {
+            $tree.add($p2.tree);
         }
       )*)?
     ;
@@ -615,7 +634,9 @@ multi_line_string returns[String text, Location location]
         }
     ;
 
-param
+param returns[AbstractDeclParam tree]
     : type ident {
+        $tree = new DeclParam($type.tree,$ident.tree);
+        setLocation($tree,$type.start);
         }
     ;

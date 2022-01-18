@@ -5,6 +5,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -13,6 +14,21 @@ import java.io.PrintStream;
  * @date 01/01/2022
  */
 public class DeclField extends AbstractDeclField {
+    final private Visibility visibility;
+    final private AbstractIdentifier type;
+    final private AbstractIdentifier name;
+    final private AbstractInitialization initiate;
+    public DeclField(Visibility visibility,AbstractIdentifier type,AbstractIdentifier  name,AbstractInitialization  initiate){
+        // Validate.notNull(name);
+        // Validate.notNull(visibility);
+        // Validate.notNull(type);
+        // Validate.notNull(initiate);
+        this.visibility= visibility;
+        this.type=type;
+        this.name= name;
+        this.initiate=initiate;
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
