@@ -1,8 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.ClassType;
-import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -17,4 +14,12 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
     public void decompile(IndentPrintStream s) {
     }
     
+
+    @Override
+    protected void prettyPrintChildren(PrintStream s, String prefix) {
+        for(AbstractDeclField f : this.getList())
+        {
+            f.prettyPrintChildren(s,prefix);
+        }
+    }
 }

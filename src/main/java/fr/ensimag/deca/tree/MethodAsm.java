@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -14,13 +15,11 @@ import java.io.PrintStream;
  * @author gl03
  * @date 01/01/2022
  */
-public class MethodBody extends AbstractMethodBody {
-     ListDeclVar declVariables;
-     ListInst insts;
-    public MethodBody(ListDeclVar declVariables,
-            ListInst insts) {
-        this.declVariables = declVariables;
-        this.insts = insts;
+public class MethodAsm extends AbstractMethodBody {
+    private String multLineString;
+    public MethodAsm( String multLineString){
+        Validate.notNull(multLineString);
+        this.multLineString = multLineString;
     }
     @Override
     public void decompile(IndentPrintStream s) {
@@ -29,8 +28,7 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        declVariables.prettyPrint(s, prefix, false);
-        insts.prettyPrint(s, prefix, true);
+        //nothing
     }
     @Override
     protected void iterChildren(TreeFunction f) {
@@ -39,15 +37,7 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     public void verifyMethodBody(DecacCompiler compiler,EnvironmentExp localEnv, 
-    EnvironmentExp parametres, ClassDefinition currentClass, Type expectedReturn) 
-        throws ContextualError{
-            parametres.empiler(localEnv);
-            declVariables.verifyListDeclVariable(compiler,parametres,currentClass);
-            if((insts.getList().size()==0) && !expectedReturn.isVoid())
-            {
-                throw new ContextualError("Le retour doit etre de type "+expectedReturn.getName(),getLocation());
-            }
-            insts.verifyListInst(compiler,parametres,currentClass,expectedReturn);
-
+    EnvironmentExp parametres, ClassDefinition currentClass, Type expectedReturn) throws ContextualError{
+            throw new UnsupportedOperationException("Not yet implemented");
         }
 }

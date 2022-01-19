@@ -6,9 +6,9 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
-
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
+
 
 /**
  * Deca complete program (class definition plus main block)
@@ -36,7 +36,7 @@ public class Program extends AbstractProgram {
     @Override
     public void verifyProgram(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify program: start");
-        
+        this.getClasses().verifyListClass(compiler);
         this.getMain().verifyMain(compiler);
         // throw new UnsupportedOperationException("not yet implemented");
         LOG.debug("verify program: end");

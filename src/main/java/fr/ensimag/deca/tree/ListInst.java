@@ -1,13 +1,11 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
-import scala.collection.immutable.List;
 
 /**
  * 
@@ -34,8 +32,14 @@ public class ListInst extends TreeList<AbstractInst> {
                     return;
                     // throw new ContextualError("Il faut au maoins une instruction",getLocation());
                 }
+                AbstractInst lastInst = getList().get(0);
                 for (AbstractInst i : getList()) {
                     i.verifyInst(compiler, localEnv, currentClass, returnType);
+                    lastInst = i;
+                }
+                if(!returnType.isVoid() && !(lastInst instanceof Return))
+                {
+                    throw new ContextualError(" le retour est de type "+ returnType.getName(),getLocation() );
                 }
             //<AbstractInst> listInstances = this.getList();
         // throw new UnsupportedOperationException("not yet implemented");
