@@ -1,13 +1,8 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
+import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
-import fr.ensimag.deca.context.TypeDefinition;
-import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
@@ -49,65 +44,29 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        System.out.println("DeclClass.java :: verifyClass");
-        
-        ClassType c = new ClassType(identifier.getName(),getLocation(),null);
-        TypeDefinition superClass = compiler.get(classExtension.getName());
-        if(superClass == null)
-        {
-            throw new ContextualError("la super classe "+ classExtension.getName()  +" n'est déjà définie", getLocation());
-        }
-        
-        try{
-            classExtension.setDefinition(superClass);
-            identifier.setDefinition((new ClassDefinition(c,getLocation(),classExtension.getClassDefinition())));
-            compiler.declare(identifier.getName(), identifier.getClassDefinition());
-        }
-        catch( DoubleDefException e)
-        {
-            throw new ContextualError("la classe "+ identifier.getName()  +" est déjà définie", getLocation());
-        }
-        catch( DecacInternalError e)
-        {
-            throw new ContextualError(classExtension.getName()  +" n'est pas une class", getLocation());
-        }
-        EnvironmentExp envExpF = new EnvironmentExp(null);
-        for(AbstractDeclField f : feildDecl.getList())
-        {
-            f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition());
-        }
-        for(AbstractDeclMethod f : methodDecl.getList())
-        {
-            f.verifyMethod(compiler,envExpF,classExtension.getClassDefinition());
-        }
-        compiler.setEvn(identifier.getName(),envExpF);
+        throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        System.out.println("ListDeclClass.java :: verifyClassMembers");
         throw new UnsupportedOperationException("not yet implemented");
     }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        System.out.println("ListDeclClass.java :: verifyClassBody");
         throw new UnsupportedOperationException("not yet implemented");
     }
 
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        identifier.prettyPrint(s, prefix, false);
-        classExtension.prettyPrint(s, prefix, false);
-        feildDecl.prettyPrint(s,prefix,false);
-        methodDecl.prettyPrint(s,prefix,true);
+        throw new UnsupportedOperationException("Not yet supported");
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        
+        throw new UnsupportedOperationException("Not yet supported");
     }
 
     /*public void codeGenClass(DecacCompiler compiler){
@@ -134,7 +93,7 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.GB)));
         //insertion des etiquetes des methodes
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
-            methode.creerEtStockerLabel(compiler);
+            methode.creerEtStockerLabel(compiler,this);
         }
         //cherche les methodes du super class pour les inserer aussi
         //comment faire pour le surcharge des methodes???
@@ -151,6 +110,11 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         int pos = 1;
         for (AbstractDeclField champ : feildDecl.getList()) {
+            //pour chaque champ on verifie le type
+            //if(champ.getType().)
+            
+            //appres on charge la valeur par defaut de cette type
+            //a la fin on fait l'insertion du valeur dans la pille
             pos++;
         }
 

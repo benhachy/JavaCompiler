@@ -8,7 +8,9 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Operand;
 
+import org.antlr.v4.runtime.atn.SemanticContext.Operator;
 import org.apache.log4j.Logger;
 
 /**
@@ -62,9 +64,9 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         //add table entry for object and equals
         compiler.addInstruction(new LOAD(null,Register.getR(0)));
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
-        Label equals = new Label("code.Object.equals");
-        compiler.addInstruction(new LOAD(equals,Register.getR(0));
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(2,Register.GB)));
+        Operand equals = new Label("code.Object.equals");
+        //compiler.addInstruction(new LOAD(equals,Register.getR(0));
+        //compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(2,Register.GB)));
         for (AbstractDeclClass declClass : getList()) {
             declClass.genCodeInitializationChampsEtMethodes(compiler);
         }

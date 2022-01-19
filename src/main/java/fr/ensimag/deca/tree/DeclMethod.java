@@ -11,6 +11,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
@@ -50,19 +51,19 @@ public class DeclMethod extends AbstractDeclMethod {
         throw new UnsupportedOperationException("Not yet supported");
     }
 
-    public void creerEtStockerLabel(DecacCompiler compiler,DeclClasss declClass){
+    public void creerEtStockerLabel(DecacCompiler compiler,DeclClass declClass){
         //creer l'etiquete du methode
-        Label label = new Label("code."+declClass.getName()+"."+name.getName());
+        Label label = new Label("code."+declClass.getClass()+"."+name.getName());
         //insertion des etiquetes des methodes sur la table des methodes
-        compiler.addInstruction(new LOAD(label,Register.getR(0));
+        //compiler.addInstruction(new LOAD(label,Register.getR(0));
         compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(4,Register.GB)));
     }
 
     //generer le code ass pour le methode
-    public void genCodeMethode(DecacCompiler compiler){
+    public void genCodeMethode(DecacCompiler compiler,DeclClass declClass){
         
         //creer l'etiquete du methode
-        Label label = new  Label("code."+classExtension.getName()+identifier.getName());
+        Label label = new  Label("code."+declClass.getClass()+name.getName());
         //inserer l'etiquete du methode
         compiler.addLabel(label);
 
