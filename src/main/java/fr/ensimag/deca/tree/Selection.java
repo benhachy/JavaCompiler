@@ -25,10 +25,10 @@ import fr.ensimag.deca.context.BooleanType;
  * @author gl03
  * @date 01/01/2022
  */
-public class Dot extends AbstractLValue {
+public class Selection extends AbstractLValue {
     public AbstractIdentifier type;
     public AbstractExpr expr;
-    public Dot(AbstractIdentifier type,AbstractExpr expr) {
+    public Selection(AbstractIdentifier type,AbstractExpr expr) {
         this.type = type;
         this.expr=expr;
     }
@@ -51,12 +51,13 @@ public class Dot extends AbstractLValue {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        expr.iter(f);
+        type.iter(f);
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
     // leaf node => nothing to do
-    type.prettyPrint(s, prefix, false);
     expr.prettyPrint(s, prefix, false);
+    type.prettyPrint(s, prefix, false);
     }
 }

@@ -31,11 +31,11 @@ public class This extends AbstractExpr {
             }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        //throw new UnsupportedOperationException("Not yet supported");
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // leaf node => nothing to do
+        //throw new UnsupportedOperationException("Not yet supported");
     }
     @Override
     public void decompile(IndentPrintStream s) {
