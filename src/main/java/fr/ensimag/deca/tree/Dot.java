@@ -56,5 +56,7 @@ public class Dot extends AbstractLValue {
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
     // leaf node => nothing to do
+    type.prettyPrint(s, prefix, false);
+    expr.prettyPrint(s, prefix, false);
     }
 }

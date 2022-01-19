@@ -26,7 +26,7 @@ public class MethodAsm extends AbstractMethodBody {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        //nothing
     }
     @Override
     protected void iterChildren(TreeFunction f) {

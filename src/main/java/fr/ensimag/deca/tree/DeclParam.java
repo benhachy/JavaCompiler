@@ -15,7 +15,7 @@ import java.io.PrintStream;
 public class DeclParam extends AbstractDeclParam {
     AbstractIdentifier type;
     AbstractIdentifier ident;
-    public DeclParam(AbstractIdentifier type,AbstractIdentifier name){
+    public DeclParam(AbstractIdentifier type,AbstractIdentifier ident){
         this.type= type;
         this.ident=ident;
     }
@@ -28,7 +28,8 @@ public class DeclParam extends AbstractDeclParam {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.prettyPrint(s, prefix, false);
+        ident.prettyPrint(s, prefix, true);
     }
     @Override
     protected void iterChildren(TreeFunction f) {

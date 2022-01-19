@@ -55,7 +55,7 @@ public class New extends AbstractExpr {
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // leaf node => nothing to do
+        type.prettyPrint(s, prefix, false);
     }
     @Override
     public void decompile(IndentPrintStream s) {

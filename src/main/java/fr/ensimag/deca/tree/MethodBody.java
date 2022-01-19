@@ -28,7 +28,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        declVariables.prettyPrint(s, prefix, false);
+        insts.prettyPrint(s, prefix, true);
     }
     @Override
     protected void iterChildren(TreeFunction f) {
