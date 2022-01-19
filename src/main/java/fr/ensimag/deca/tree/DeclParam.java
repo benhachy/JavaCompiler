@@ -18,8 +18,6 @@ public class DeclParam extends AbstractDeclParam {
         s.print("class { ... A FAIRE ... }");
     }
 
-
-
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         throw new UnsupportedOperationException("Not yet supported");

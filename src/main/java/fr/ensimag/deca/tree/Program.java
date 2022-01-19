@@ -44,17 +44,18 @@ public class Program extends AbstractProgram {
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
-        // A FAIRE: compléter ce squelette très rudimentaire de code
+        //add addsp pour la table des methodes et des variables globals
+        classes.creerTableMethodes(compiler);
         compiler.addComment("Main program");
         compiler.addInstruction(new ADDSP(Identifier.identificateurs.size()+2));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
+        classes.genCodeInitializationEtMethodes(compiler);
         ajouterMessageErreur(compiler, new Label("pile_pleine"), "Error: pile pleine");
         ajouterMessageErreur(compiler, new Label("Overflow_error"), "Error: Overflow during arithmetic operation");
         ajouterMessageErreur(compiler, new Label("division_zero"),"Error: Division by zero" );
         ajouterMessageErreur(compiler, new Label("io_error"),"Error: Input/Output error" );
         ajouterMessageErreur(compiler, new Label("print_Error"),"Error: print float only in hexa form" );
-        
     }
 
     @Override

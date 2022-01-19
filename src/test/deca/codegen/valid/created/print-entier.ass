@@ -1,0 +1,30 @@
+; start main program
+; Main program
+	ADDSP #2
+; Beginning of main instructions:
+	LOAD #1, R2
+	OPP R2, R2
+	LOAD R2, R1
+	WINT
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+; end main program

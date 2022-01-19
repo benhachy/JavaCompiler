@@ -1,0 +1,48 @@
+; start main program
+; Main program
+	ADDSP #3
+	LOAD #1, R2
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+beginWhile0:
+	LOAD #5, R2
+	LOAD 3(GB), R3
+	CMP R2, R3
+	BLT instWhile0
+	BRA endWhile0
+instWhile0:
+	LOAD 3(GB), R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #2, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	STORE R2, 3(GB)
+	BRA beginWhile0
+endWhile0:
+	LOAD 3(GB), R1
+	WINT
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+; end main program

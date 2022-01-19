@@ -1,0 +1,93 @@
+; start main program
+; Main program
+	ADDSP #8
+	LOAD #15, R2
+	STORE R2, 3(GB)
+	LOAD #82, R2
+	STORE R2, 4(GB)
+	LOAD 3(GB), R2
+	STORE R2, 5(GB)
+	LOAD #15, R2
+	STORE R2, 6(GB)
+	LOAD #82, R2
+	STORE R2, 7(GB)
+	LOAD 3(GB), R2
+	STORE R2, 8(GB)
+; Beginning of main instructions:
+	LOAD 3(GB), R1
+	WINT
+	WNL
+	LOAD 4(GB), R1
+	WINT
+	WNL
+	LOAD 5(GB), R1
+	WINT
+	WNL
+	LOAD 6(GB), R1
+	WINT
+	WNL
+	LOAD 7(GB), R1
+	WINT
+	WNL
+	LOAD 8(GB), R1
+	WINT
+	WNL
+	LOAD 3(GB), R1
+	WINT
+	WNL
+	LOAD 4(GB), R1
+	WINT
+	WNL
+	LOAD 5(GB), R1
+	WINT
+	WNL
+	LOAD 6(GB), R1
+	WINT
+	WNL
+	LOAD 7(GB), R1
+	WINT
+	WNL
+	LOAD 8(GB), R1
+	WINT
+	WNL
+	LOAD 3(GB), R1
+	WINT
+	WNL
+	LOAD 4(GB), R1
+	WINT
+	WNL
+	LOAD 5(GB), R1
+	WINT
+	WNL
+	LOAD 6(GB), R1
+	WINT
+	WNL
+	LOAD 7(GB), R1
+	WINT
+	WNL
+	LOAD 8(GB), R1
+	WINT
+	WNL
+	WSTR "Salam"
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+; end main program

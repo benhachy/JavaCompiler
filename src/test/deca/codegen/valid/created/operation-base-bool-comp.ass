@@ -1,0 +1,118 @@
+; start main program
+; Main program
+	ADDSP #3
+	LOAD #12, R2
+	LOAD #12, R3
+	CMP R3, R2
+	BGT loadTrueGT.0
+	LOAD #0, R2
+	BRA finComparationGT.0
+loadTrueGT.0:
+	LOAD #1, R2
+finComparationGT.0:
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+beginIf0:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "true"
+	WNL
+	BRA finElse0
+elseInst0:
+	WSTR "false"
+	WNL
+finElse0:
+	LOAD #12, R2
+	LOAD #12, R3
+	CMP R3, R2
+	BGE loadTrueGE.0
+	LOAD #0, R2
+	BRA finComparationGE.0
+loadTrueGE.0:
+	LOAD #1, R2
+finComparationGE.0:
+	STORE R2, 3(GB)
+beginIf1:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst1
+	BRA elseInst1
+ifInst1:
+	WSTR "true"
+	WNL
+	BRA finElse1
+elseInst1:
+	WSTR "false"
+	WNL
+finElse1:
+	LOAD #12, R2
+	LOAD #12, R3
+	CMP R3, R2
+	BLE loadTrueLE.0
+	LOAD #0, R2
+	BRA finComparationLE.0
+loadTrueLE.0:
+	LOAD #1, R2
+finComparationLE.0:
+	STORE R2, 3(GB)
+beginIf2:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst2
+	BRA elseInst2
+ifInst2:
+	WSTR "true"
+	WNL
+	BRA finElse2
+elseInst2:
+	WSTR "false"
+	WNL
+finElse2:
+	LOAD #12, R2
+	LOAD #12, R3
+	CMP R3, R2
+	BLT loadTrueLT.0
+	LOAD #0, R2
+	BRA finComparationLT.0
+loadTrueLT.0:
+	LOAD #1, R2
+finComparationLT.0:
+	STORE R2, 3(GB)
+beginIf3:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst3
+	BRA elseInst3
+ifInst3:
+	WSTR "true"
+	WNL
+	BRA finElse3
+elseInst3:
+	WSTR "false"
+	WNL
+finElse3:
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+; end main program

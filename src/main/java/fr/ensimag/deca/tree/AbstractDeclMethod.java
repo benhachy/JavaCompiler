@@ -10,5 +10,6 @@ import fr.ensimag.deca.context.ContextualError;
  * @date 17/01/2022
  */
 public abstract class AbstractDeclMethod extends Tree {
-
+    public abstract void genCodeMethode(DecacCompiler compiler);
+    public abstract void creerEtStockerLabel(DecacCompiler compiler);
 }

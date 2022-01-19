@@ -3,6 +3,12 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.Label;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -42,6 +48,23 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     public void verifyListClassBody(DecacCompiler compiler) throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    public void creerTableMethodes(DecacCompiler compiler){
+        for (AbstractDeclClass declClass : getList()) {
+            declClass.insertionClassTableMethodes(compiler);
+        }
+    }
+    public void genCodeInitializationEtMethodes(DecacCompiler compiler){
+        //add table entry for object and equals
+        compiler.addInstruction(new LOAD(null,Register.getR(0)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
+        Label equals = new Label("code.Object.equals");
+        compiler.addInstruction(new LOAD(equals,Register.getR(0));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(2,Register.GB)));
+        for (AbstractDeclClass declClass : getList()) {
+            declClass.genCodeInitializationChampsEtMethodes(compiler);
+        }
     }
 
 
