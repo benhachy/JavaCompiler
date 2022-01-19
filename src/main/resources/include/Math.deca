@@ -21,8 +21,7 @@ public class MathDeca {
 	}
 	
 	/**
-	 * Cette algorithme apr�s devient tr�s lent dans le cas suivant par exemple (1009,28)
-	 * D�s que le nombre d'it�ration devient plus grand que 25 
+	 * Cette algorithme après devient lent dès que le nombre d'itération devient plus grand que 25 
 	 * */
 	 
 	public  float racine_n(float a, int n) {
@@ -34,7 +33,7 @@ public class MathDeca {
 		}
 	}
 	
-	// On peut pas regrouper les deux fonctions � cause de la r�ccurence 
+	// On peut pas regrouper les deux fonctions racine_n et racine à cause de la réccurence 
 	public  float racine(float a) {
 		
 		if(a < 0) {
@@ -105,8 +104,7 @@ public class MathDeca {
 	
 	
 	/**
-	 * Cette fonction retourn l'exposant mais en mode decimal 
-	  	
+	 * Cette fonction retourn l'exposant mais en mode decimal càd l'exposant du radix 10 
 	*/
 	
 	public  int getExponent(float d ) {
