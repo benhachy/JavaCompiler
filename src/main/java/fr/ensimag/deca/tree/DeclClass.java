@@ -90,13 +90,12 @@ public class DeclClass extends AbstractDeclClass {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         identifier.prettyPrint(s, prefix, false);
         classExtension.prettyPrint(s, prefix, false);
-        feildDecl.prettyPrintChildren(s,prefix);
-        //throw new UnsupportedOperationException("Not yet supported");
+        feildDecl.prettyPrint(s,prefix,false);
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        
     }
 
 }

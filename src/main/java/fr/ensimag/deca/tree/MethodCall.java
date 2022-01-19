@@ -52,7 +52,9 @@ public class MethodCall extends AbstractExpr {
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-    // leaf node => nothing to do
+        name.prettyPrint(s, prefix, false);
+        methodName.prettyPrint(s, prefix, false);
+        listExpression.prettyPrint(s, prefix, false);
     }
     @Override
     public void decompile(IndentPrintStream s) {

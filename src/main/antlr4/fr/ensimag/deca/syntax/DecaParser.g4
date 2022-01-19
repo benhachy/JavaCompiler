@@ -115,7 +115,6 @@ list_inst returns[ListInst tree]
 }
     : (inst {
         $tree.add($inst.tree);
-        setLocation($tree,$inst.start);
         }
       )*
     ;
@@ -390,14 +389,16 @@ select_expr returns[AbstractExpr tree]
             // we matched "e1.i(args)"
             assert($args.tree != null);
             $tree=new MethodCall($e1.tree,$i.tree,$args.tree);
-            setLocation($tree,$e1.start);
-            setLocation($tree,$i.start);
+            //setLocation($tree,$e1.start);
+            //setLocation($tree,$i.start);
+            setLocation($tree,$DOT);
         }
         | /* epsilon */ {
             // we matched "e.i"
             $tree = new Dot($i.tree,$e1.tree);
-            setLocation($tree,$e1.start);
+            setLocation($tree,$DOT);
             setLocation($tree,$i.start);
+            setLocation($tree,$e1.start);
         }
         )
     ;

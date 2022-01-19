@@ -80,9 +80,15 @@ public class DeclField extends AbstractDeclField {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
+<<<<<<< HEAD
         type.prettyPrint(s,prefix,false);
         name.prettyPrint(s,prefix,false);
         initialization.prettyPrint(s, prefix, true);
+=======
+        type.prettyPrint(s, prefix, false);
+        name.prettyPrint(s, prefix, false);
+        initiate.prettyPrint(s, prefix, false);
+>>>>>>> c649b6cb5727b9a10367769cda95561bd1851a0d
     }
     @Override
     protected void iterChildren(TreeFunction f) {
