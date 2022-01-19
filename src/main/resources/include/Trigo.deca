@@ -1,0 +1,227 @@
+
+public class TrigoSimple {
+	
+	public  float cos(float theta) {
+		
+		theta = anglePrincipal(theta); // on retrouve l'angle principale c�d compris entre -PI et PI de theta
+		
+		if (theta > PI/2 ) {
+			theta -= PI/2;
+			return - sin(theta);
+		}
+		
+		elseif (theta < - PI/2) {
+			theta = - PI/2 - theta;
+			return -sin(theta);
+		}
+		
+		else {
+			 float K = 1.646760258121;
+			int n = 45;
+			
+			float x = 1/K;
+			float y = 0;
+			float z = theta;
+			int i=0;
+			while(i < n)  {
+				int d;
+				
+				float funx = x;
+				float funy = y;
+				float funz = z;
+				
+				// Initialisation de d	
+				if (funz > 0) {
+					d = 1;
+				}
+				else {
+					d = -1;
+				}
+				
+				x = funx - d * funy * puissanceNegativeDeDeux(i);
+				y = funy + d * funx * puissanceNegativeDeDeux(i);
+				z = funz - d * getAtan(i);
+				
+				i++;
+			}
+			return x;	
+		}	
+	}
+	
+	
+	public  float sin(float theta) {
+		
+		theta = anglePrincipal(theta); // on retrouve l'angle principale c�d compris entre -PI et PI de theta
+
+		
+		if (theta > PI/2 ) {
+			theta -= PI/2;
+			return cos(theta);
+		}
+		
+		elseif(theta < - PI/2 ) {
+			theta += PI/2;
+			return -cos(theta);
+		}
+		
+		else {
+		    float K = 1.646760258121;
+			int n = 45;
+			
+			float x = 1/K;
+			float y = 0;
+			float z = theta;
+			int i=0;
+			while(i < n){
+				int d;
+				
+				float funx = x;
+				float funy = y;
+				float funz = z;
+				
+				// Initialisation de d	
+				if (funz > 0) {
+					d = 1;
+				}
+				else {
+					d = -1;
+				}
+				
+				x = funx - d * funy * puissanceNegativeDeDeux(i);
+				y = funy + d * funx * puissanceNegativeDeDeux(i);
+				z = funz - d * getAtan(i);
+				
+				i++;
+			}
+			
+			return y;
+		}
+		
+		
+	}
+	
+	public  float atan(float val) {
+		
+		
+		// Le if else statement sert � adapter pour le cas o� abs(val) >1
+		
+		if(val > 1) {
+			return PI/2 - atan(1/val);
+		}
+		
+		elseif (val < -1) {
+			return - PI/2 - atan(1/val);
+		}
+		
+		int n = 45;
+		
+		float x = 1;
+		float y = val;
+		float z = 0;
+		int i=0;
+		while(i < n){
+			int d;
+			
+			float funx = x;
+			float funy = y;
+			float funz = z;
+			
+			// Initialisation de d	
+			if (funy > 0) {
+				d = -1;
+			}
+			else {
+				d = 1;
+			}
+			
+			x = funx - d * funy * puissanceNegativeDeDeux(i);
+			y = funy + d * funx * puissanceNegativeDeDeux(i);
+			z = funz - d * getAtan(i);
+			
+			i++;
+		}
+		
+		return z;
+		
+	}
+	
+	public  float asin(float val) {
+		
+		if (val > 1 || val < -1) {
+			return nulla; // En Deca, si le type Nan n'existe pas, on fera un try catch, si �a n'existe pas, on ignore le cas
+		}
+		
+		elseif (val == 1){
+			return PI/2;
+		}
+		
+		elseif (val == -1) {
+			return - PI/2;
+		}
+		
+		else {
+			val = val/racine((1 - val * val));
+			return atan(val);
+		}
+		
+		
+		
+	}
+	
+	
+	public float getAtan(int  i) {
+	if(i == 0) { return 0.7853981633974483;}
+elseif(i == 1) { return 0.4636476090008061;}
+elseif(i == 2) { return 0.24497866312686414;}
+elseif(i == 3) { return 0.12435499454676144;}
+elseif(i == 4) { return 0.06241880999595735;}
+elseif(i == 5) { return 0.031239833430268277;}
+elseif(i == 6) { return 0.015623728620476831;}
+elseif(i == 7) { return 0.007812341060101111;}
+elseif(i == 8) { return 0.0039062301319669718;}
+elseif(i == 9) { return 0.0019531225164788188;}
+elseif(i == 10) { return 0.0009765621895593195;}
+elseif(i == 11) { return 0.0004882812111948983;}
+elseif(i == 12) { return 0.00024414062014936177;}
+elseif(i == 13) { return 0.00012207031189367021;}
+elseif(i == 14) { return 6.103515617420877e-05;}
+elseif(i == 15) { return 3.0517578115526096e-05;}
+elseif(i == 16) { return 1.5258789061315762e-05;}
+elseif(i == 17) { return 7.62939453110197e-06;}
+elseif(i == 18) { return 3.814697265606496e-06;}
+elseif(i == 19) { return 1.907348632810187e-06;}
+elseif(i == 20) { return 9.536743164059608e-07;}
+elseif(i == 21) { return 4.7683715820308884e-07;}
+elseif(i == 22) { return 2.3841857910155797e-07;}
+elseif(i == 23) { return 1.1920928955078068e-07;}
+elseif(i == 24) { return 5.960464477539055e-08;}
+elseif(i == 25) { return 2.9802322387695303e-08;}
+elseif(i == 26) { return 1.4901161193847655e-08;}
+elseif(i == 27) { return 7.450580596923828e-09;}
+elseif(i == 28) { return 3.725290298461914e-09;}
+elseif(i == 29) { return 1.862645149230957e-09;}
+elseif(i == 30) { return 9.313225746154785e-10;}
+elseif(i == 31) { return 4.656612873077393e-10;}
+elseif(i == 32) { return 2.3283064365386963e-10;}
+elseif(i == 33) { return 1.1641532182693481e-10;}
+elseif(i == 34) { return 5.820766091346741e-11;}
+elseif(i == 35) { return 2.9103830456733704e-11;}
+elseif(i == 36) { return 1.4551915228366852e-11;}
+elseif(i == 37) { return 7.275957614183426e-12;}
+elseif(i == 38) { return 3.637978807091713e-12;}
+elseif(i == 39) { return 1.8189894035458565e-12;}
+elseif(i == 40) { return 9.094947017729282e-13;}
+elseif(i == 41) { return 4.547473508864641e-13;}
+elseif(i == 42) { return 2.2737367544323206e-13;}
+elseif(i == 43) { return 1.1368683772161603e-13;}
+elseif(i == 44) { return 5.684341886080802e-14;}
+elseif(i == 45) {return 2.8421709430404007e-14}
+	}
+	
+	
+	
+	
+	
+	
+
+}
