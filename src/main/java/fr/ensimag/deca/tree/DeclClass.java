@@ -91,6 +91,7 @@ public class DeclClass extends AbstractDeclClass {
         identifier.prettyPrint(s, prefix, false);
         classExtension.prettyPrint(s, prefix, false);
         feildDecl.prettyPrint(s,prefix,false);
+        methodDecl.prettyPrint(s,prefix,true);
     }
 
     @Override
