@@ -1,42 +1,39 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
-import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
-import fr.ensimag.deca.context.ExpDefinition;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
-
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
-import net.bytebuddy.description.type.TypeDefinition;
+import java.io.PrintStream;
+import java.util.HashMap;
+import org.apache.commons.lang.Validate;
+
 
 import static org.mockito.ArgumentMatchers.nullable;
 
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.HashSet;
 
-import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
 
 /**
  * Deca Identifier
@@ -198,7 +195,8 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         //System.out.println("::Identifier.java::VerifyExpr");
-        if(localEnv.get(getName())==null)
+        ExpDefinition def = localEnv.get(getName());
+        if(def==null)
         {
             throw new ContextualError("la variable "+getName()+" n'est pas déclarée",getLocation());
         }
@@ -206,9 +204,20 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError("la variable "+getName()+" n'est pas initialisée",getLocation());
         }
-        this.setDefinition(localEnv.get(getName()));
-        setType(this.getVariableDefinition().getType());
+        this.setDefinition(def);
+        setType(def.getType());
         return this.getType();
+    }
+
+    @Override
+    public ClassDefinition verifyIdentifier( DecacCompiler compiler,ClassType c,TypeDefinition definition)throws ContextualError {
+        if(compiler.get(getName())==null)
+        {
+            throw new ContextualError("la classe "+getName()+" n'est pas déclarée",getLocation());
+        }
+        setType(c);
+        setDefinition((new ClassDefinition(c,getLocation(),(ClassDefinition)definition)));
+        return getClassDefinition();
     }
 
     /**
@@ -224,8 +233,7 @@ public class Identifier extends AbstractIdentifier {
         }
         this.setDefinition(compiler.getDefinition(getName()));
         Type type =getDefinition().getType();
-        //System.out.println(""+type.getName()+"  " +type.isFloat());
-        if(!type.isBoolean() && !type.isFloat() && !type.isInt())
+        if(type.isVoid() || type.isString())
         {
             throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
         }

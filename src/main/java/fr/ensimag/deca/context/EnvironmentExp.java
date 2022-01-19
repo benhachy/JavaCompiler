@@ -1,9 +1,9 @@
 package fr.ensimag.deca.context;
 
-import java.util.HashMap;
-
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import java.util.HashMap;
+
 
 /**
  * Dictionary associating identifier's ExpDefinition to their names.
@@ -43,6 +43,20 @@ public class EnvironmentExp {
         }
     }
 
+    public void empiler(EnvironmentExp env)
+    {
+        for( Symbol s : env.getEnvExp().keySet())
+        {
+            if(!envExp.containsKey(s))
+            {
+                
+                envExp.put(s,env.getEnvExp().get(s));
+            }
+        }
+    }
+
+
+
     public boolean getValue(Symbol key)
     {
         if(values.containsKey(key))
@@ -50,6 +64,10 @@ public class EnvironmentExp {
             return values.get(key);
         }
         return false;
+    }
+    public HashMap<SymbolTable.Symbol,ExpDefinition>  getEnvExp()
+    {
+        return envExp;
     }
 
     public int getOrdre(Symbol key)
@@ -101,5 +119,17 @@ public class EnvironmentExp {
         {
             envExp.replace(name, def);
         }
+        else{
+            envExp.put(name,def);
+        }
+    }
+    public void afficher()
+    {
+        System.out.print(" {");
+        for( Symbol s : envExp.keySet())
+        {
+            System.out.println(" "+s);
+        }
+        System.out.print(" }");
     }
 }

@@ -1,8 +1,12 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.Signature;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -35,6 +39,28 @@ public class DeclMethod extends AbstractDeclMethod {
     @Override
     protected void iterChildren(TreeFunction f) {
         throw new UnsupportedOperationException("Not yet supported");
+    }
+
+
+    @Override
+    public void verifyMethod(DecacCompiler compiler,
+            EnvironmentExp localEnv, ClassDefinition currentClass)
+            throws ContextualError{
+        System.out.println(" type "+type.getName()+" name "+name.getName());
+        Type expectedReturn = compiler.get(type.getName()).getType();
+        Signature signature = new Signature();
+        EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler,signature);
+        MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,0);
+        try{
+            localEnv.declare(name.getName(),method);
+        }
+        catch (EnvironmentExp.DoubleDefException e)
+        {
+            
+            throw new ContextualError("la méthode "+ name.getName()+" est déjà définie", getLocation());
+        }
+        
+        methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
     }
 
 }

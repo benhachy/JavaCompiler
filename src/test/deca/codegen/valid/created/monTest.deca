@@ -1,0 +1,9 @@
+class A {
+    int x;
+    int y = 50;
+    int getX(int a,int b){
+        this.x =10;
+        println(x);
+        return x;
+    }
+}

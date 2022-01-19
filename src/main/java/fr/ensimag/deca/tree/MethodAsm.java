@@ -1,11 +1,13 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import org.apache.commons.lang.Validate;
 import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -32,4 +34,10 @@ public class MethodAsm extends AbstractMethodBody {
     protected void iterChildren(TreeFunction f) {
         throw new UnsupportedOperationException("Not yet supported");
     }
+
+    @Override
+    public void verifyMethodBody(DecacCompiler compiler,EnvironmentExp localEnv, 
+    EnvironmentExp parametres, ClassDefinition currentClass, Type expectedReturn) throws ContextualError{
+            throw new UnsupportedOperationException("Not yet implemented");
+        }
 }

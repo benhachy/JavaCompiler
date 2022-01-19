@@ -1,19 +1,9 @@
 package fr.ensimag.deca.tree;
-import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.tools.SymbolTable;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.FLOAT;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.BooleanType;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -28,10 +18,18 @@ public class Return extends AbstractInst {
     public Return(AbstractExpr expression) {
         this.expression=expression;
     }
+    @Override
     protected void verifyInst(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass, Type returnType) throws ContextualError{
+                Type t = expression.verifyExpr(compiler,localEnv,currentClass);
+                if(!expression.verifyCompatibility(localEnv,t,returnType))
+                {
+                    throw new ContextualError("le type du retour et le retour ne sont pas compatibles ",getLocation());
+                }
+                
             
             }
+    @Override
     protected void codeGenInst(DecacCompiler compiler){
 
     }

@@ -1,12 +1,18 @@
 package fr.ensimag.deca;
 
 import fr.ensimag.deca.context.BooleanType;
+import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.Definition;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.context.FloatType;
 import fr.ensimag.deca.context.IntType;
+import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.StringType;
-import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.context.TypeDefinition;
+import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
@@ -19,17 +25,17 @@ import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
-
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
+
+
 
 /**
  * Decac compiler instance.
@@ -54,11 +60,13 @@ public class DecacCompiler implements Runnable{
      */
     private static final String nl = System.getProperty("line.separator", "\n");
     private  HashMap<SymbolTable.Symbol,TypeDefinition> envTypes;
+    private  HashMap<SymbolTable.Symbol,EnvironmentExp> envExprs;
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
         envTypes = new HashMap<SymbolTable.Symbol,TypeDefinition>();
+        envExprs = new HashMap<SymbolTable.Symbol,EnvironmentExp> ();
         this.initiate();
     }
 
@@ -80,6 +88,60 @@ public class DecacCompiler implements Runnable{
         envTypes.put(s2, new TypeDefinition(new BooleanType(s2),null));
         envTypes.put(s3, new TypeDefinition(new VoidType(s3),null));
         envTypes.put(s4, new TypeDefinition(new StringType(s4),null));
+        // définir la class Object
+        SymbolTable.Symbol o =SymbolTable.creerSymbol("Object");
+        SymbolTable.Symbol sup =SymbolTable.creerSymbol("0");
+        ClassType superObject = new ClassType(sup,null,null);
+        ClassType objectClass= new ClassType(o,null, superObject.getDefinition());
+        envTypes.put(o,objectClass.getDefinition());
+        Signature sign = new Signature();
+        sign.add(objectClass);
+        SymbolTable.Symbol e =SymbolTable.creerSymbol("equals");
+        MethodDefinition equal = new MethodDefinition(new BooleanType(null),null,sign,0);
+        EnvironmentExp envObjet = new EnvironmentExp(null);
+        envObjet.update(e,equal);
+        envExprs.put(e,envObjet);
+    }
+
+    public void declare(Symbol name, TypeDefinition def) throws DoubleDefException {
+        if(envTypes.containsKey(name))
+        {
+            throw new DoubleDefException("La class "+name.getName()+" est déjà définie");
+        }
+        envTypes.put(name, def);
+    }
+    public void setEvn(Symbol s,EnvironmentExp def){
+        envExprs.put(s,def);
+    }
+
+    public void update(Symbol name, TypeDefinition def){
+        if(envTypes.containsKey(name))
+        {
+            envTypes.replace(name, def);
+        }
+    }
+
+    public TypeDefinition get(Symbol key) {
+        if (envTypes.containsKey(key))
+        {
+            return envTypes.get(key);
+        }
+        return null;
+    }
+
+    public ClassDefinition getClass(Symbol key) {
+        if (envTypes.containsKey(key))
+        {
+            try{
+                return (ClassDefinition)envTypes.get(key);
+            }
+            catch(ClassCastException e)
+            {
+                throw new DecacInternalError(" Une erreur lors du casting");
+            }
+            
+        }
+        return null;
     }
 
     public Definition getDefinition(Symbol s)
@@ -284,6 +346,7 @@ public class DecacCompiler implements Runnable{
         return parser.parseProgramAndManageErrors(err);
     }
 
+    @Override
     public void run(){
         compile();
     }

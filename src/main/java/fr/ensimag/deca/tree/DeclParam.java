@@ -1,9 +1,13 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ParamDefinition;
+import fr.ensimag.deca.context.Signature;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
 
 /**
@@ -17,8 +21,38 @@ public class DeclParam extends AbstractDeclParam {
     AbstractIdentifier ident;
     public DeclParam(AbstractIdentifier type,AbstractIdentifier name){
         this.type= type;
-        this.ident=ident;
+        this.ident=name;
     }
+
+
+    @Override
+    public void verifyParam(DecacCompiler compiler,Signature signature,EnvironmentExp paramsEnv )
+        throws ContextualError 
+    {
+        Type t = type.verifyType(compiler);
+        ident.setType(t);
+        try{
+            paramsEnv.declare(ident.getName(),new ParamDefinition(t,getLocation()));
+        }
+        catch (EnvironmentExp.DoubleDefException e)
+        {
+            
+            throw new ContextualError("le parametre "+ident.getName()+" est deja déclaré ", getLocation());
+        }
+        
+        signature.add(t);
+    }
+
+
+    @Override
+    public Type getType(){
+        return ident.getType();
+    }
+    @Override
+    public Symbol getName(){
+        return ident.getName();
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
