@@ -1,6 +1,6 @@
 
 
-public class ULP {
+public class Ulp {
 	
 	public  int MAX_EXPONENT = 127;
 	public  int MIN_EXPONENT = -126;
@@ -28,7 +28,7 @@ public class ULP {
 			 }
 			 
 			 else {
-				 returnValue = 1; /// TO-DO needs intBitsTofloat with the shift operation <<
+				 returnValue = 1 << (exp - (MIN_EXPONENT - (SIGNIFICAND_WIDTH - 1))); 
 			 }
 		 }
 		 
