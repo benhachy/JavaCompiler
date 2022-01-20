@@ -1,12 +1,11 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.BLT;
 import fr.ensimag.ima.pseudocode.instructions.BGT;
-import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.BLT;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
@@ -57,8 +56,8 @@ public class Lower extends AbstractOpIneq {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-        getRightOperand().codeGenExpr(compiler, 2);
-        getLeftOperand().codeGenExpr(compiler, 3);
+        getRightOperand().codeGenExpr(compiler, 3);
+        getLeftOperand().codeGenExpr(compiler, 2);
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         Label loadTrue = new Label("loadTrueLT."+cmpEtiquetes);
         Label finCmp = new Label("finComparationLT."+cmpEtiquetes);

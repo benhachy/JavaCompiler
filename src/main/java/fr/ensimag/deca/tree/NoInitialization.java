@@ -1,10 +1,14 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FloatType;
+import fr.ensimag.deca.context.IntType;
+import fr.ensimag.deca.context.NullType;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -17,11 +21,40 @@ import java.io.PrintStream;
  */
 public class NoInitialization extends AbstractInitialization {
 
+    Type type;
+    AbstractExpr defaultValue;
+
     @Override
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        return;
+            if(t.isBoolean())
+            {
+                defaultValue = new BooleanLiteral(false);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,new BooleanType(null));
+                type = new BooleanType(null);
+            }
+            else if(t.isInt())
+            {
+                defaultValue = new IntLiteral(0);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,new IntType(null));
+                type = new IntType(null);
+            }
+            else if(t.isFloat())
+            {
+                defaultValue = new FloatLiteral(0);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,new FloatType(null));
+                type = new FloatType(null);
+            }
+            else if(t.isClassOrNull())
+            {
+                defaultValue = new Null();
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,new NullType(null));
+                type = t;
+            }
+            else{
+                throw new ContextualError("le type n'est pas défini ",null);
+            }
     }
 
 
@@ -48,7 +81,9 @@ public class NoInitialization extends AbstractInitialization {
         // leaf node => nothing to do
     }
 
+    @Override
     public void codeGenInit(DecacCompiler compiler)
     {
+        defaultValue.codeGenInst(compiler);
     }
 }

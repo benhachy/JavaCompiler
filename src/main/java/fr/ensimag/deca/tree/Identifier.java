@@ -14,7 +14,6 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
@@ -200,10 +199,10 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError("la variable "+getName()+" n'est pas déclarée",getLocation());
         }
-        if(!localEnv.getValue(getName()))
-        {
-            throw new ContextualError("la variable "+getName()+" n'est pas initialisée",getLocation());
-        }
+        // if(!localEnv.getValue(getName()))
+        // {
+        //     throw new ContextualError("la variable "+getName()+" n'est pas initialisée",getLocation());
+        // }
         this.setDefinition(def);
         setType(def.getType());
         return this.getType();
@@ -279,7 +278,7 @@ public class Identifier extends AbstractIdentifier {
 
 
     private Definition definition;
-    public static HashMap<SymbolTable.Symbol,Integer> identificateurs = new HashMap<SymbolTable.Symbol,Integer>();
+    public static HashMap<Symbol,Integer> identificateurs = new HashMap<Symbol,Integer>();
     public static int ordreIdentifier;
 
     @Override

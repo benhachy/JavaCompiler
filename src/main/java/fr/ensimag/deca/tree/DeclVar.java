@@ -1,26 +1,22 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.VariableDefinition;
-import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.VariableDefinition;
+import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
-import liquibase.change.core.StopChange;
+import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
 
 import static org.mockito.ArgumentMatchers.nullable;
 
-import java.io.PrintStream;
-import org.apache.commons.lang.Validate;
 
 /**
  * @author gl03
@@ -56,13 +52,13 @@ public class DeclVar extends AbstractDeclVar {
             Identifier.identificateurs.put(varName.getName(),Identifier.ordreIdentifier);
             ++Identifier.ordreIdentifier;
             localEnv.declare(varName.getName(),var);
-            if(initialization instanceof Initialization)
-            {
-                localEnv.setValue(varName.getName(), true);
-            }
-            else{
-                localEnv.setValue(varName.getName(), false);
-            }
+            // if(initialization instanceof Initialization)
+            // {
+            //     localEnv.setValue(varName.getName(), true);
+            // }
+            // else{
+            //     localEnv.setValue(varName.getName(), false);
+            // }
         }
         catch (EnvironmentExp.DoubleDefException e)
         {
