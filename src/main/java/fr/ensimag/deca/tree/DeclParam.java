@@ -21,7 +21,7 @@ public class DeclParam extends AbstractDeclParam {
     AbstractIdentifier ident;
     public DeclParam(AbstractIdentifier type,AbstractIdentifier ident){
         this.type= type;
-        this.ident=name;
+        this.ident=ident;
     }
 
 

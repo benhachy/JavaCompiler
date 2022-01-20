@@ -1,9 +1,9 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.BGT;
 import fr.ensimag.ima.pseudocode.instructions.BLT;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
@@ -46,8 +46,8 @@ public class Greater extends AbstractOpIneq {
     protected void codeGenInst(DecacCompiler compiler){
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
-        rOp.codeGenExpr(compiler, 2);
-        lOp.codeGenExpr(compiler, 3);
+        rOp.codeGenExpr(compiler, 3);
+        lOp.codeGenExpr(compiler, 2);
         if(rOp.getType().isFloat() && lOp.getType().isInt())
         {
             compiler.addInstruction(new FLOAT(Register.getR(3), Register.getR(3)));

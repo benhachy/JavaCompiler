@@ -28,8 +28,6 @@
     if(b){
         println("ok3");
     }
-    println(i);
-    println(j);
     b = j < i ;
     if(b){
         println("ko2");
@@ -38,7 +36,7 @@
     if(b){
         println("ko3");
     }
-    b = (i < j ) && ( i < j ) ;
+    b = (i < j ) && ( j < i ) ;
     if(b){
         println("ko4");
     }

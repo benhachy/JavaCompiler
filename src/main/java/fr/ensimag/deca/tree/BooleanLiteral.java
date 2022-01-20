@@ -81,10 +81,10 @@ public class BooleanLiteral extends AbstractExpr {
         //System.out.println("::BooleanLiteral.java:: codeGenInst");
         if(getValue())
         {
-            compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
+            compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
         }
         else{
-            compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n) ));
+            compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n) ));
         }
     }
     
