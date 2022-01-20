@@ -78,7 +78,7 @@ LT : '<';
 TIMES : '*';
 SLASH :  '/';
 PERCENT : '%';
-fragment STRING_CAR : ~('"'| '\n' |'\\');
+
 
 fragment NUM : DIGIT+ ;
 fragment SIGN : ('+' | '-' | ) ;// Meme chose
@@ -91,15 +91,6 @@ fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 
 FLOAT : FLOATDEC | FLOATHEX;
 INT : '0' | POSITIVE_DIGIT DIGIT* ;
 IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
-STRING : '"' (STRING_CAR | '\\"' | '\\\\' )* '"' ;
-MULTI_LINE_STRING : '"' (STRING_CAR | '\n' |  '\\"' | '\\\\')* '"';
+STRING : '"' ( '\\"' | '\\\\' | * ~('"'|'\n'|'\\')) ;
+MULTI_LINE_STRING : '"' ('\\"' |'\\\\' | ~('"'|'\\'))* '"';
 
-// Ignore spaces, tabs, newlines and whitespaces
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        | '\n'
-        ) {
-              skip(); // avoid producing a token
-          }
-    ;
