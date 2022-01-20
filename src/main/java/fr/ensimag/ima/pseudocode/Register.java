@@ -48,6 +48,9 @@ public class Register extends DVal {
     public static void updatePosGB(){
         positionGB++;
     }
+    public static int getPosGB(){
+        return positionGB;
+    }
     /**
      * Convenience shortcut for R[0]
      */

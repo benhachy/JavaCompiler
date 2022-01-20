@@ -107,8 +107,10 @@ public class DeclVar extends AbstractDeclVar {
         if(type.getType().isClass()){
             
         }else{
-            compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Identifier.identificateurs.get(varName.getName())+3,Register.GB)));
+            compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosGB(),Register.GB)));
             initialization.codeGenInit(compiler);        
         }
+        Identifier.posGBIdentificateur.put(varName.getName(),Register.positionGB);
+        Register.updatePosGB();
     }
 }

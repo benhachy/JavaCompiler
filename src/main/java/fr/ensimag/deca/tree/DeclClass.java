@@ -53,6 +53,10 @@ public class DeclClass extends AbstractDeclClass {
         s.print("class { ... A FAIRE ... }");
     }
 
+    public AbstractIdentifier getIdentifier(){
+        return identifier;
+    }
+
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
         System.out.println("DeclClass.java :: verifyClass");
@@ -128,11 +132,16 @@ public class DeclClass extends AbstractDeclClass {
             compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
         }else{
             //chercher la address de la super class dans la table des methodes
-            compiler.addInstruction(new LEA(new RegisterOffset(Identifier.identificateurs.get(classExtension.getName()),Register.GB),Register.getR(0)));
+            compiler.addInstruction(new LEA(new RegisterOffset(Identifier.posGBIdentificateur.get(classExtension.getName()),Register.GB),Register.getR(0)));
         }
         //mettre l'address ver la super class dans la derner address disponible
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(Register.positionGB,Register.GB)));
+        Identifier.posGBIdentificateur.put(identifier.getName(),Register.positionGB);
         Register.updatePosGB();
+        //insertion des etiquetes des methodes de la super class
+        /*for (AbstractDeclMethod  methode : classExtension.getList()) {
+            methode.creerEtStockerLabel(compiler,this);
+        }*/
         //insertion des etiquetes des methodes
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
             methode.creerEtStockerLabel(compiler,this);
