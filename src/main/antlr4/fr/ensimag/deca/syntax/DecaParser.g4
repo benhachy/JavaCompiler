@@ -387,18 +387,17 @@ select_expr returns[AbstractExpr tree]
         }
         (o=OPARENT args=list_expr CPARENT {
             // we matched "e1.i(args)"
+            // a revoir there is a pb here somewhere !!
             assert($args.tree != null);
             $tree=new MethodCall($e1.tree,$i.tree,$args.tree);
-            //setLocation($tree,$e1.start);
-            //setLocation($tree,$i.start);
-            setLocation($tree,$DOT);
+            setLocation($tree,$e1.start);
+            setLocation($tree,$i.start);
         }
         | /* epsilon */ {
             // we matched "e.i"
-            $tree = new Dot($i.tree,$e1.tree);
-            setLocation($tree,$DOT);
-            setLocation($tree,$i.start);
+            $tree = new Selection($i.tree,$e1.tree);
             setLocation($tree,$e1.start);
+            setLocation($tree,$i.start);
         }
         )
     ;
@@ -514,7 +513,7 @@ list_classes returns[ListDeclClass tree]
     :
       (c1=class_decl {
         $tree.add($c1.tree);
-        setLocation($tree,$c1.start);
+        //setLocation($tree,$c1.start);
         }
       )*
     ;
@@ -581,6 +580,7 @@ decl_field[Visibility v ,AbstractIdentifier t] returns[AbstractDeclField tree]
     : i=ident {
         assert($i.tree != null);
         initiate=new NoInitialization();
+        setLocation(initiate, $i.start);
         }
       (EQUALS e=expr {
             assert($e.tree != null);

@@ -24,7 +24,6 @@ public class DeclParam extends AbstractDeclParam {
         this.ident=ident;
     }
 
-
     @Override
     public void verifyParam(DecacCompiler compiler,Signature signature,EnvironmentExp paramsEnv )
         throws ContextualError 
@@ -57,8 +56,6 @@ public class DeclParam extends AbstractDeclParam {
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
     }
-
-
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {

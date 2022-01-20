@@ -102,6 +102,9 @@ public class CompilerOptions {
                         parse = true;
                     case 'r':
                         break;
+                    case 'd':
+                        debug = TRACE;
+                        break;
                 }
             }else{
                 if(lastArgument=='r'){

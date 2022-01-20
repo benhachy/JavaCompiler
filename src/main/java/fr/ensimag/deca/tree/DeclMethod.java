@@ -8,6 +8,13 @@ import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 import java.io.PrintStream;
 
 /**
@@ -44,6 +51,28 @@ public class DeclMethod extends AbstractDeclMethod {
         throw new UnsupportedOperationException("Not yet supported");
     }
 
+    public void creerEtStockerLabel(DecacCompiler compiler,DeclClass declClass){
+        //creer l'etiquete du methode
+        Label label = new Label("code."+declClass.getClass()+"."+name.getName());
+        //insertion des etiquetes des methodes sur la table des methodes
+        //compiler.addInstruction(new LOAD(label,Register.getR(0));
+        compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(4,Register.GB)));
+    }
+
+    //generer le code ass pour le methode
+    public void genCodeMethode(DecacCompiler compiler,DeclClass declClass){
+        
+        //creer l'etiquete du methode
+        Label label = new  Label("code."+declClass.getClass()+name.getName());
+        //inserer l'etiquete du methode
+        compiler.addLabel(label);
+
+        //code pour la declaration des parametres 
+
+        //paramDecl
+        //code pour les instructions de methode
+        //methodBody
+    }
 
     @Override
     public void verifyMethod(DecacCompiler compiler,

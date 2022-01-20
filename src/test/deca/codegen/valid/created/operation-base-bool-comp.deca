@@ -9,33 +9,24 @@
 // Historique:
 //    cree le 14/01/2022
 {
-    boolean a = 12 > 12;
+    int i =2;
+    int j =3;
+
+    boolean a = i > j;
     if(a){
-        println("true");
+        println("ko1");
     }
-    else{
-        println("false");
-    }
-    a = 12>=12;
+    a = 3>=2;
     if(a){
-        println("true");
+        println("ok2");
     }
-    else{
-        println("false");
-    }
-    a = 12<=12;
+    a = 2<=3;
     if(a){
-        println("true");
+        println("ok3");
     }
-    else{
-        println("false");
-    }
-    a = 12<12;
+    a = 3<2;
     if(a){
-        println("true");
-    }
-    else{
-        println("false");
+        println("ko4");
     }
     
 

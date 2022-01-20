@@ -1,0 +1,15 @@
+
+// Description : 
+//	Utilisation de la bibliotheque Math pour calculer cos(PI/4)
+//
+// Résultats : 
+//
+
+#include "Math.decah"
+
+{
+    Math m = new Math();
+    float angle = PI/4;
+    float cos = m.cos(PI/4);
+    println("Le cosinus de PI/4 est ", cos);
+}

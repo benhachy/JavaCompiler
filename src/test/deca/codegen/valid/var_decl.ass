@@ -1,0 +1,6 @@
+; start main program
+; Main program
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+	HALT
+; end main program

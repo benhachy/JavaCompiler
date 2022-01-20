@@ -34,6 +34,10 @@ public class DeclField extends AbstractDeclField {
         this.initialization=initiate;
     }
 
+    public AbstractIdentifier getType(){
+        return type;
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
@@ -82,7 +86,11 @@ public class DeclField extends AbstractDeclField {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         type.prettyPrint(s,prefix,false);
         name.prettyPrint(s,prefix,false);
+<<<<<<< HEAD
         initialization.prettyPrint(s, prefix, false);
+=======
+        initialization.prettyPrint(s, prefix, true);
+>>>>>>> 35a2455d9bb96279a4811a9a2db1a1f5031d57f1
     }
     @Override
     protected void iterChildren(TreeFunction f) {

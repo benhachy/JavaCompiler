@@ -193,7 +193,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println("::Identifier.java::VerifyExpr");
+        System.out.println("::Identifier.java::VerifyExpr");
         ExpDefinition def = localEnv.get(getName());
         if(def==null)
         {
@@ -210,6 +210,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public ClassDefinition verifyIdentifier( DecacCompiler compiler,ClassType c,TypeDefinition definition)throws ContextualError {
+        System.out.println("::Identifier.java :: verifyIdentifier");
         if(compiler.get(getName())==null)
         {
             throw new ContextualError("la classe "+getName()+" n'est pas déclarée",getLocation());
@@ -225,7 +226,7 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        //System.out.println("::Identifier.java :: verifyType");
+        System.out.println("::Identifier.java :: verifyType");
         if(compiler.getDefinition(this.getName()) == null)
         {
             throw new ContextualError(this.getName()+" n'est pas défini",getLocation());
