@@ -12,6 +12,7 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
@@ -119,22 +120,19 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     public void insertionClassTableMethodes(DecacCompiler compiler){
-        System.out.println("je suis là 1 ");
         //on verifie si la class extend object
-        compiler.addComment("; Code de la table des méthodes de "+identifier.getName());
-        System.out.println("je suis là 1 "+classExtension.getName());
+        compiler.addComment("Code de la table des méthodes de "+identifier.getName());
 
         if(classExtension.getName().getName().equals("Object")){
-            System.out.println("je suis là 2 ");
             //si la class extends object on insert un pointure vers 
             compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
         }else{
-            System.out.println("je suis là and i shouldn't be here  ");
             //chercher la address de la super class dans la table des methodes
             compiler.addInstruction(new LEA(new RegisterOffset(Identifier.identificateurs.get(classExtension.getName()),Register.GB),Register.getR(0)));
         }
         //mettre l'address ver la super class dans la derner address disponible
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(Register.positionGB,Register.GB)));
+        Register.updatePosGB();
         //insertion des etiquetes des methodes
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
             methode.creerEtStockerLabel(compiler,this);
@@ -145,16 +143,16 @@ public class DeclClass extends AbstractDeclClass {
 
     public void genCodeInitializationChampsEtMethodes(DecacCompiler compiler){
         
-        compiler.addComment("; Initialisation des champs de "+identifier.getName());
+        compiler.addComment("Initialisation des champs de "+identifier.getName());
         Label label = new Label("init."+identifier.getName());
         compiler.addLabel(label);
 
         //on verifie si la class herite d'un autre class
         if(!classExtension.getName().getName().equals("Object")){
-            compiler.addComment("; Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
+            compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
             compiler.addInstruction(new PUSH(Register.getR(1)));
-            Label label = new Label("init."+classExtension.getName().getName());
-            compiler.addInstruction(new BSR(label));
+            Label labelInitSuper = new Label("init."+classExtension.getName().getName());
+            compiler.addInstruction(new BSR(labelInitSuper));
             compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
         }
         int nmChamps = feildDecl.getList().size();
@@ -165,13 +163,13 @@ public class DeclClass extends AbstractDeclClass {
         for (AbstractDeclField champ : feildDecl.getList()) {
             //pour chaque champ on verifie le type
             //appres on les mett sur le registre R0
-            if(champ.getTypeField().getType().isFloat()){
+            if(champ.getType().getType().isFloat()){
                 new FloatLiteral(0).codeGenExpr(compiler,0);
-            }else if(champ.getTypeField().getType().isInt()){
+            }else if(champ.getType().getType().isInt()){
                 new IntLiteral(0).codeGenExpr(compiler,0);
-            }else if(champ.getTypeField().getType().isBoolean()){
+            }else if(champ.getType().getType().isBoolean()){
                 new BooleanLiteral(false).codeGenExpr(compiler,0);
-            }else if(champ.getTypeField().getType().isClass()){
+            }else if(champ.getType().getType().isClass()){
                 //c'est un objet
                 compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
             }

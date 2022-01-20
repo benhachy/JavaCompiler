@@ -14,6 +14,7 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.LabelOperand;
 
 import java.io.PrintStream;
 
@@ -55,7 +56,7 @@ public class DeclMethod extends AbstractDeclMethod {
         //creer l'etiquete du methode
         Label label = new Label("code."+declClass.getClass()+"."+name.getName());
         //insertion des etiquetes des methodes sur la table des methodes
-        //compiler.addInstruction(new LOAD(label,Register.getR(0));
+        compiler.addInstruction(new LOAD(new LabelOperand(label),Register.getR(0)));
         compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(4,Register.GB)));
     }
 

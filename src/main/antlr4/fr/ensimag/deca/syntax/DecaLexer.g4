@@ -91,6 +91,6 @@ fragment FLOATHEX : ('0x' | '0X') NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 
 FLOAT : FLOATDEC | FLOATHEX;
 INT : '0' | POSITIVE_DIGIT DIGIT* ;
 IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
-STRING : '"' ( '\\"' | '\\\\' | * ~('"'|'\n'|'\\')) ;
+STRING : '"' ( '\\"' | '\\\\' | ~('"'|'\n'|'\\'))* '"' ;
 MULTI_LINE_STRING : '"' ('\\"' |'\\\\' | ~('"'|'\\'))* '"';
 

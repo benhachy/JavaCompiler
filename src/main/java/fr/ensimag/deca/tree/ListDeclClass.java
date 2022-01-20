@@ -7,7 +7,11 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.LabelOperand;
 import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.Operand;
 import fr.ensimag.ima.pseudocode.NullOperand;
@@ -59,17 +63,18 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
     }
 
     public void creerTableMethodes(DecacCompiler compiler){
+        compiler.addComment("code pour l'initializaton de la table des methodes");
+        //add table entry for object and equals
+        compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
+        Label label = new Label("code.Object.equals");
+        compiler.addInstruction(new LOAD(new LabelOperand(label),Register.getR(0)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(2,Register.GB)));
         for (AbstractDeclClass declClass : getList()) {
             declClass.insertionClassTableMethodes(compiler);
         }
     }
     public void genCodeInitializationEtMethodes(DecacCompiler compiler){
-        //add table entry for object and equals
-        compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
-        Operand equals = new Label("code.Object.equals");
-        //compiler.addInstruction(new LOAD(equals,Register.getR(0));
-        //compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(2,Register.GB)));
         for (AbstractDeclClass declClass : getList()) {
             declClass.genCodeInitializationChampsEtMethodes(compiler);
         }

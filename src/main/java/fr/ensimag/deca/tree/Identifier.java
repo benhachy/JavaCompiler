@@ -237,7 +237,7 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
         }
-        
+        setType(type);
         return type;
     }
     

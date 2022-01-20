@@ -33,8 +33,9 @@ public class DeclField extends AbstractDeclField {
         this.name= name;
         this.initialization=initiate;
     }
-    
-    public AbstractIdentifier getTypeField(){
+
+    @Override
+    public AbstractIdentifier getType(){
         return type;
     }
 
@@ -50,8 +51,6 @@ public class DeclField extends AbstractDeclField {
     @Override
     public void verifyFeild(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition superClass,ClassDefinition currentClass)
     throws ContextualError {
-        System.out.println("DeclFeild.java :: verifyFeild");
-        System.out.println("Type "+ type.getName()+" name "+ name.getName()+ " visib "+visibility+" initiate "+ initialization);
         Type t = type.verifyType(compiler);
         initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
         name.setType(t);
@@ -94,6 +93,9 @@ public class DeclField extends AbstractDeclField {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+        name.iter(f);
+        initialization.iter(f);
     }
+
 }

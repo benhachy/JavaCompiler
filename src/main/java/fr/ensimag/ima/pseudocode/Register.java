@@ -44,6 +44,10 @@ public class Register extends DVal {
         return R[i];
     }
     public static int nbRegistres = 15;
+    public static int positionGB = 3;
+    public static void updatePosGB(){
+        positionGB++;
+    }
     /**
      * Convenience shortcut for R[0]
      */

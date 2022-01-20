@@ -4,17 +4,20 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de a
+; Code de la table des méthodes de A
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
 ; Main program
 	ADDSP #2
 ; Beginning of main instructions:
 	HALT
-; Initialisation des champs de a
-init.a:
-	TSTO #1
+; Initialisation des champs de A
+init.A:
+	TSTO #2
 	BOV pile_pleine
+	LOAD #0, R0
+	LOAD -2(LB), R1
+	STORE R0, -1(R1)
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
