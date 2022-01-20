@@ -380,7 +380,6 @@ select_expr returns[AbstractExpr tree]
             assert($e.tree != null);
             $tree = $e.tree;
         }
-    //not yet implemented partie objet
     | e1=select_expr DOT i=ident {
             assert($e1.tree != null);
             assert($i.tree != null);
@@ -519,20 +518,22 @@ list_classes returns[ListDeclClass tree]
     ;
 
 class_decl returns[AbstractDeclClass tree]
-    : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {
+    : CLASS name=ident superclass=class_extension[$CLASS] OBRACE class_body CBRACE {
         $tree = new DeclClass($name.tree,$superclass.tree,$class_body.fieldDecl,$class_body.methodDecl);
         setLocation($tree,$CLASS);
         }
     ;
 
-class_extension returns[AbstractIdentifier tree]
+class_extension[Token name] returns[AbstractIdentifier tree]
+    //i added the token name so i can do the setlocation of the object due to an error raised while compiling 
     : EXTENDS ident {
         $tree = new Identifier( SymbolTable.creerSymbol($ident.text) );
         setLocation($tree, $ident.start);
         }
     | /* epsilon */ {
-        // une class extends always object dans java mais dans deca ?
+        // une class extends always from object dans java mais dans deca ?
         $tree = new Identifier( SymbolTable.creerSymbol("Object") );
+        setLocation($tree,$name);
         }
     ;
 
