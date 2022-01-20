@@ -15,9 +15,13 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 
 import java.io.PrintStream;
@@ -139,21 +143,41 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addComment("; Initialisation des champs de "+identifier.getName());
         Label label = new Label("init."+identifier.getName());
         compiler.addLabel(label);
+
+        //on verifie si la class herite d'un autre class
+        if(!classExtension.getName().getName().equals("Object")){
+            compiler.addComment("; Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
+            compiler.addInstruction(new PUSH(Register.getR(1)));
+            Label label = new Label("init."+classExtension.getName().getName());
+            compiler.addInstruction(new BSR(label));
+            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
+        }
         int nmChamps = feildDecl.getList().size();
         //on verifie les debordements de la pile
-        compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps)));
+        compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         int pos = 1;
         for (AbstractDeclField champ : feildDecl.getList()) {
             //pour chaque champ on verifie le type
-            //if(champ.getType().)
-            
+            //appres on les mett sur le registre R0
+            if(champ.getTypeField().getType().isFloat()){
+                new FloatLiteral(0).codeGenExpr(compiler,0);
+            }else if(champ.getTypeField().getType().isInt()){
+                new IntLiteral(0).codeGenExpr(compiler,0);
+            }else if(champ.getTypeField().getType().isBoolean()){
+                new BooleanLiteral(false).codeGenExpr(compiler,0);
+            }else if(champ.getTypeField().getType().isClass()){
+                //c'est un objet
+                compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
+            }
+            //on charge l'address de le objet sur le registre R1
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
+            compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(-pos,Register.getR(1))));
             //appres on charge la valeur par defaut de cette type
             //a la fin on fait l'insertion du valeur dans la pille
             pos++;
         }
-
-
+        compiler.addInstruction(new RTS());
     }
 
 }

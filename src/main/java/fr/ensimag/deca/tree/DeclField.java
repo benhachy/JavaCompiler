@@ -33,9 +33,13 @@ public class DeclField extends AbstractDeclField {
         this.name= name;
         this.initialization=initiate;
     }
-
-    public AbstractIdentifier getType(){
+    
+    public AbstractIdentifier getTypeField(){
         return type;
+    }
+
+    public AbstractIdentifier getName(){
+        return name;
     }
 
     @Override
