@@ -1,0 +1,35 @@
+; start main program
+; ; Code de la table des méthodes de a
+	LEA 1(GB), R0
+	STORE R0, 0(GB)
+; Main program
+	ADDSP #2
+; Beginning of main instructions:
+	HALT
+	LOAD #null, R0
+	STORE R0, 1(GB)
+; ; Initialisation des champs de a
+init.a:
+	TSTO #0
+	BOV pile_pleine
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+; end main program

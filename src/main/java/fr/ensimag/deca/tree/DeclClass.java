@@ -115,17 +115,22 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     public void insertionClassTableMethodes(DecacCompiler compiler){
+        System.out.println("je suis là 1 ");
         //on verifie si la class extend object
         compiler.addComment("; Code de la table des méthodes de "+identifier.getName());
-        if(classExtension.getName().equals("")){
+        System.out.println("je suis là 1 "+classExtension.getName());
+
+        if(classExtension.getName().getName().equals("Object")){
+            System.out.println("je suis là 2 ");
             //si la class extends object on insert un pointure vers 
             compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
         }else{
+            System.out.println("je suis là and i shouldn't be here  ");
             //chercher la address de la super class dans la table des methodes
             compiler.addInstruction(new LEA(new RegisterOffset(Identifier.identificateurs.get(classExtension.getName()),Register.GB),Register.getR(0)));
         }
         //mettre l'address ver la super class dans la derner address disponible
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.GB)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
         //insertion des etiquetes des methodes
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
             methode.creerEtStockerLabel(compiler,this);
