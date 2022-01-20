@@ -34,6 +34,10 @@ public class DeclField extends AbstractDeclField {
         this.initialization=initiate;
     }
 
+    public AbstractIdentifier getType(){
+        return type;
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");

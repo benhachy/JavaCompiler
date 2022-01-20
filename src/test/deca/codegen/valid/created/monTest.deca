@@ -1,3 +1,12 @@
+
+class A {
+    int x;
+    int y = 50;
+    int getX(int a,int b){
+        x=10;
+        println(x);
+        return x;
+    }
 {
     boolean b1, b2, b3;
     b1 = true;
@@ -16,5 +25,4 @@
     }
     if(b3 != false){
         println("ok3");
-    }
 }

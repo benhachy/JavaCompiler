@@ -12,8 +12,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
  * @date 17/01/2022
  */
 public abstract class AbstractDeclMethod extends Tree {
-
-
+    public abstract void genCodeMethode(DecacCompiler compiler,DeclClass declClass);
+    public abstract void creerEtStockerLabel(DecacCompiler compiler,DeclClass declClass);
 
     public abstract void verifyMethod(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)

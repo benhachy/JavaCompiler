@@ -43,6 +43,6 @@ public class Return extends AbstractInst {
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-    // leaf node => nothing to do
+        expression.prettyPrint(s,prefix,false);
     }
 }

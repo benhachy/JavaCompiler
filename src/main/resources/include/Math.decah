@@ -2,21 +2,420 @@
 // Library for class Math of Deca, coded in Deca
 
 class Math {
-    float sin(float f) {
-        println("sin(f) not yet implemented");
-    }
-    float cos(float f) {
-        println("cos(f) not yet implemented");
-    }
-    float asin(float f) {
-        println("asin(f) not yet implemented");
-    }
-    float atan(float f) {
-        println("atan(f) not yet implemented");
-    }
-    float ulp(float f) {
-        println("ulp(f) not yet implemented");
-    }
+	
+	
+	public  float PI = 3.141592653589793f;
+	public  int MAX_EXPONENT = 127;
+	public  int MIN_EXPONENT = -126;
+	public  float  MIN_VALUE = 1.4e-45f;
+	public  int SIGNIFICAND_WIDTH = 24;
+	
+	public float _anglePrincipal(float theta) {
+		
+		while (theta > 2 * PI ) {
+			theta -= 2 * PI;
+		}
+		
+		while (theta < 0) {
+			theta += 2 * PI;
+		}
+		
+		if (theta > PI) {
+			theta -= 2*PI ;
+		}
+		
+		return theta;
+	}
+	
+	/**
+	 * Cette algorithme après devient lent dès que le nombre d'itération devient plus grand que 25 
+	 * */
+	 
+	public float _racine_n(float a, int n) {
+		if (n == 0 ) {
+			return 1;
+		}
+		else {
+			return   0.5*(racine_n(a, n -1) + a/racine_n(a, n -1) );
+		}
+	}
+	
+	// On peut pas regrouper les deux fonctions racine_n et racine à cause de la réccurence 
+	public float _racine(float a) {
+		
+		if(a < 0) {
+			return null;
+		}
+		
+		return racine_n(a, 20);
+	}
+	
+	
+	
+	public float _puissanceDeDix(int i) {
+		if(i < 0) {
+			i = -i;
+			float count = 1;
+			int j=0;
+			while(j < i){
+				count *= 0.1;
+				j++;
+			}
+			return count;
+		}
+		
+		else {
+			float count = 1;
+			int j=0;
+			while(j < i){
+				count *= 10;
+				j++;
+			}
+			return count;
+		}
+		
+	}
+	
+	public float _puissanceDeDeux(int i) {
+		if(i < 0) {
+			i = -i;
+			float count = 1;
+			int j=0;
+			while(j < i){
+				count *= 0.5;
+				j++;
+				}
+			return count;
+		}
+		
+		else {
+			float count = 1;
+			int j=0;
+			while(j < i){
+				count *= 2;
+				j++;
+				}
+			return count;
+		}
+		
+	}
+	
+	public float _abs(float f ) {
+		if (f >= 0) {
+			return f;
+		}
+		else {
+			return -f;
+		}
+	}
+	
+	
+	/**
+	 * Cette fonction retourn l'exposant mais en mode decimal càd l'exposant du radix 10 
+	*/
+	
+	public int _getExponent(float d ) {
+		int nbrMaxDeDeux = -1023;
+		
+		if(d != 0) {
+			nbrMaxDeDeux = nbrMaxDeDeux(d);
+		}
+		
+		return nbrMaxDeDeux;
+	}
+	
+	
+	public int _nbrMaxDeDeux(float d ) {
+		d = abs(d);
+		int m = 0;
+		
+		while (d > 2) {
+			m += 1;
+			d /= 2;
+		}
+		return m;
+	}
+	
+	public  int _nbrDeDeux(int nbrDeDix) {
+		
+		int nbrDeDeux = -127;
+		if (nbrDeDix > 0 ) {
+			int r = nbrDeDix % 3;
+			int q = (nbrDeDix - r) / 3 ;
+			
+			if (r == 0) {
+				nbrDeDeux =  9 + (q-1) * 10;
+			}
+			
+			elseif (r == 1) {
+				nbrDeDeux = 3 + q * 10;
+			}
+			
+			else {
+				nbrDeDeux =  6 + q *10;
+			}
+		}
+		
+		elseif (nbrDeDix < 0) {	
+			nbrDeDix = -nbrDeDix;
+			return -nbrDeDeux(nbrDeDix) - 1;
+		}
+		
+		
+		
+		return nbrDeDeux;	
+	}
+	
+	public float _getAtan(int  i) {
+	if(i == 0) { return 0.7853981633974483f;}
+	elseif(i == 1) { return 0.4636476090008061f;}
+	elseif(i == 2) { return 0.24497866312686414f;}
+	elseif(i == 3) { return 0.12435499454676144f;}
+	elseif(i == 4) { return 0.06241880999595735f;}
+	elseif(i == 5) { return 0.031239833430268277f;}
+	elseif(i == 6) { return 0.015623728620476831f;}
+	elseif(i == 7) { return 0.007812341060101111f;}
+	elseif(i == 8) { return 0.0039062301319669718f;}
+	elseif(i == 9) { return 0.0019531225164788188f;}
+	elseif(i == 10) { return 0.0009765621895593195f;}
+	elseif(i == 11) { return 0.0004882812111948983f;}
+	elseif(i == 12) { return 0.00024414062014936177f;}
+	elseif(i == 13) { return 0.00012207031189367021f;}
+	elseif(i == 14) { return 6.103515617420877e-05f;}
+	elseif(i == 15) { return 3.0517578115526096e-05f;}
+	elseif(i == 16) { return 1.5258789061315762e-05f;}
+	elseif(i == 17) { return 7.62939453110197e-06f;}
+	elseif(i == 18) { return 3.814697265606496e-06f;}
+	elseif(i == 19) { return 1.907348632810187e-06f;}
+	elseif(i == 20) { return 9.536743164059608e-07f;}
+	elseif(i == 21) { return 4.7683715820308884e-07f;}
+	elseif(i == 22) { return 2.3841857910155797e-07f;}
+	elseif(i == 23) { return 1.1920928955078068e-07f;}
+	elseif(i == 24) { return 5.960464477539055e-08f;}
+	elseif(i == 25) { return 2.9802322387695303e-08f;}
+	elseif(i == 26) { return 1.4901161193847655e-08f;}
+	elseif(i == 27) { return 7.450580596923828e-09f;}
+	elseif(i == 28) { return 3.725290298461914e-09f;}
+	elseif(i == 29) { return 1.862645149230957e-09f;}
+	elseif(i == 30) { return 9.313225746154785e-10f;}
+	elseif(i == 31) { return 4.656612873077393e-10f;}
+	elseif(i == 32) { return 2.3283064365386963e-10f;}
+	elseif(i == 33) { return 1.1641532182693481e-10f;}
+	elseif(i == 34) { return 5.820766091346741e-11f;}
+	elseif(i == 35) { return 2.9103830456733704e-11f;}
+	elseif(i == 36) { return 1.4551915228366852e-11f;}
+	elseif(i == 37) { return 7.275957614183426e-12f;}
+	elseif(i == 38) { return 3.637978807091713e-12f;}
+	elseif(i == 39) { return 1.8189894035458565e-12f;}
+	elseif(i == 40) { return 9.094947017729282e-13f;}
+	elseif(i == 41) { return 4.547473508864641e-13f;}
+	elseif(i == 42) { return 2.2737367544323206e-13f;}
+	elseif(i == 43) { return 1.1368683772161603e-13f;}
+	elseif(i == 44) { return 5.684341886080802e-14f;}
+	elseif(i == 45) {return 2.8421709430404007e-14f;}
+	}
+	
+	public  float cos(float theta) {
+		
+		theta = anglePrincipal(theta); // on retrouve l'angle principale càd compris entre -PI et PI de theta
+		
+		if (theta > PI/2 ) {
+			theta -= PI/2;
+			return - sin(theta);
+		}
+		
+		elseif (theta < - PI/2) {
+			theta = - PI/2 - theta;
+			return -sin(theta);
+		}
+		
+		else {
+			float K = 1.646760258121f;
+			int n = 45;
+			
+			float x = 1/K;
+			float y = 0;
+			float z = theta;
+			
+			int i=0;
+			while(i < n)  {
+				int d;
+				
+				float funx = x;
+				float funy = y;
+				float funz = z;
+				
+				// Initialisation de d	
+				if (funz > 0) {
+					d = 1;
+				}
+				else {
+					d = -1;
+				}
+				
+				x = funx - d * funy * puissanceNegativeDeDeux(i);
+				y = funy + d * funx * puissanceNegativeDeDeux(i);
+				z = funz - d * getAtan(i);
+				
+				i++;
+			}
+			return x;	
+		}	
+	}
+	
+	
+	public  float sin(float theta) {
+		
+		theta = anglePrincipal(theta); // on retrouve l'angle principale càd l'angle compris entre -PI et PI de theta
+
+		
+		if (theta > PI/2 ) {
+			theta -= PI/2;
+			return cos(theta);
+		}
+		
+		elseif(theta < - PI/2 ) {
+			theta += PI/2;
+			return -cos(theta);
+		}
+		
+		else {
+		    float K = 1.646760258121f;
+			int n = 45;
+			
+			float x = 1/K;
+			float y = 0;
+			float z = theta;
+			
+			int i=0;
+			while(i < n){
+				int d;
+				
+				float funx = x;
+				float funy = y;
+				float funz = z;
+				
+				// Initialisation de d	
+				if (funz > 0) {
+					d = 1;
+				}
+				else {
+					d = -1;
+				}
+				
+				x = funx - d * funy * puissanceNegativeDeDeux(i);
+				y = funy + d * funx * puissanceNegativeDeDeux(i);
+				z = funz - d * getAtan(i);
+				
+				i++;
+			}
+			
+			return y;
+		}
+		
+		
+	}
+	
+	public  float atan(float val) {
+		
+		
+		// Le if else statement sert à adapter pour le cas où abs(val) >1
+		
+		if(val > 1) {
+			return PI/2 - atan(1/val);
+		}
+		
+		elseif (val < -1) {
+			return - PI/2 - atan(1/val);
+		}
+		
+		// Nombres d'itérations de l'algorithme
+		int n = 45;
+		
+		float x = 1;
+		float y = val;
+		float z = 0;
+		
+		int i=0;
+		while(i < n){
+			int d;
+			
+			float funx = x;
+			float funy = y;
+			float funz = z;
+			
+			// Initialisation de d	
+			if (funy > 0) {
+				d = -1;
+			}
+			else {
+				d = 1;
+			}
+			
+			x = funx - d * funy * puissanceNegativeDeDeux(i);
+			y = funy + d * funx * puissanceNegativeDeDeux(i);
+			z = funz - d * getAtan(i);
+			
+			i++;
+		}
+		
+		return z;
+		
+	}
+	
+	public  float asin(float val) {
+		
+		if (val > 1 || val < -1) {
+			return null; // En Java, on retournait Nan
+		}
+		
+		elseif (val == 1){
+			return PI/2;
+		}
+		
+		elseif (val == -1) {
+			return - PI/2;
+		}
+		
+		else {
+			val = val/racine((1 - val * val));
+			return atan(val);
+		}
+		
+		
+		
+	}
+	
+	
+	
+	
+	public  float  ulp(float  d) {
+		int exp = getExponent(d);
+		float returnValue = 0.0;
+		 if (exp == MAX_EXPONENT + 1) {
+			 returnValue = abs(d); 
+		}
+		 else if (exp == MIN_EXPONENT -1 ) {
+			 returnValue = MIN_VALUE;
+		 }
+		 
+		 else {
+			 
+			 exp = exp - (SIGNIFICAND_WIDTH - 1);
+			 
+			 if(exp >= MIN_EXPONENT) {
+				 returnValue = puissanceDeDeux(exp);
+			 }
+			 
+			 else {
+				 returnValue = 1 << (exp - (MIN_EXPONENT - (SIGNIFICAND_WIDTH - 1))); 
+			 }
+		 }
+		 
+		 return returnValue;	
+	}
+	
+  
 }
 
 
