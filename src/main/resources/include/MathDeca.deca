@@ -1,7 +1,7 @@
 public class MathDeca {
 	
 	
-	public  float PI = 3.141592653589793;
+	public  float PI = 3.141592653589793f;
 	
 	public  float anglePrincipal(float theta) {
 		
