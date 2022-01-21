@@ -17,12 +17,9 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
-<<<<<<< HEAD
-=======
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
->>>>>>> 65733e474d9569ffaa278b84cc6b28d8731380e6
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
@@ -122,6 +119,7 @@ public class DeclClass extends AbstractDeclClass {
 
     public void insertionClassTableMethodes(DecacCompiler compiler){
         //on verifie si la class extend object
+
         compiler.addComment("Code de la table des méthodes de "+identifier.getName());
 
         if(classExtension.getName().getName().equals("Object")){

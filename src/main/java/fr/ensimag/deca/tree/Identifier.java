@@ -258,6 +258,7 @@ public class Identifier extends AbstractIdentifier {
             }
             def = def.getSuperClass();
         }
+    
         throw new ContextualError(identifier.getName()+" n'est pas une méthode définie",getLocation());
     }
 

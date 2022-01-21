@@ -1,0 +1,64 @@
+; start main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de B
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+; Code de la table des méthodes de A
+	LEA 3(GB), R0
+	STORE R0, 4(GB)
+	LOAD code.A.get, R0
+	STORE R0, 5(GB)
+; Main program
+	ADDSP #5
+	STORE R2, 8(GB)
+; Beginning of main instructions:
+	HALT
+; Initialisation des champs de B
+init.B:
+	TSTO #2
+	BOV pile_pleine
+	LOAD #0, R0
+	LOAD -2(LB), R1
+	STORE R0, -1(R1)
+	RTS
+; Initialisation des champs de A
+init.A:
+; Appel de l'initialisation des champs hérités de B
+	PUSH R1
+	BSR init.B
+	SUBSP #1
+	TSTO #2
+	BOV pile_pleine
+	LOAD #0, R0
+	LOAD -2(LB), R1
+	STORE R0, -1(R1)
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

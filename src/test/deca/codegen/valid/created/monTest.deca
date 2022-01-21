@@ -11,5 +11,5 @@ class A extends B{
 {
     A a = new A() ;
     B b = new B();
-    boolean t = a.equals(" 00 ");
+    boolean t = a.equals(b);
 }
