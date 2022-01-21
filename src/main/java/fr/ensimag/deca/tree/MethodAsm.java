@@ -40,4 +40,9 @@ public class MethodAsm extends AbstractMethodBody {
     EnvironmentExp parametres, ClassDefinition currentClass, Type expectedReturn) throws ContextualError{
             throw new UnsupportedOperationException("Not yet implemented");
         }
+    @Override
+    public void codeGenMethodBody(DecacCompiler compiler) {
+        // TODO Auto-generated method stub
+        
+    }
 }

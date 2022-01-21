@@ -1,20 +1,15 @@
+class B{
+    int y;
+}
+class A extends B{
+    int x;
+    void get(int a){
+        this.x = a;
+        println(x);
+    }    
+}
 {
-    boolean b1, b2, b3;
-    b1 = true;
-    b2 = false;
-    b3 = b1 == b2;
-    if(b3){
-        println("ko1");
-    }
-    b3 = b1!=b2;
-    if(b3){
-        println("ok1");
-    }
-    b3 = (b1!=b2) && (b2!=b1);
-    if(b3){
-        println("ok2");
-    }
-    if(b3 != false){
-        println("ok3");
-
+    A a = new A() ;
+    B b = new B();
+    boolean t = a.equals(" 00 ");
 }

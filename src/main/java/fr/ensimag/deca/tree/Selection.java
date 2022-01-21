@@ -43,11 +43,10 @@ public class Selection extends AbstractLValue {
     EnvironmentExp localEnv, ClassDefinition currentClass)
     throws ContextualError{
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
-         SymbolTable tab = new SymbolTable();
-         SymbolTable.Symbol symbol = tab.create("boolean");
-         BooleanType chaine = new BooleanType(symbol);
-         setType(chaine);
-         return chaine;
+        expr.verifyExpr(compiler, localEnv, currentClass);
+        Type expression = type.verifyExpr(compiler,localEnv,currentClass);
+        setType(expression);
+        return getType();
     }
     @Override
     public void decompile(IndentPrintStream s) {

@@ -10,7 +10,7 @@
 	LOAD code.A.printHello, R0
 	STORE R0, 4(GB)
 ; Main program
-	ADDSP #4
+	ADDSP #5
 ; Beginning of main instructions:
 	HALT
 ; Initialisation des champs de A

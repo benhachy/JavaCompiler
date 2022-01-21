@@ -40,8 +40,6 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      * Pass 1 of [SyntaxeContextuelle]
      */
     void verifyListClass(DecacCompiler compiler) throws ContextualError {
-        LOG.debug("verify listClass: start");
-        System.out.println("ListDeclClass.java :: verifyListClass");
         for (AbstractDeclClass c : getList()) {
             c.verifyClass(compiler);
         }

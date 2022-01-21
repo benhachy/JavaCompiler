@@ -111,5 +111,4 @@ public class DeclMethod extends AbstractDeclMethod {
         
         methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
     }
-
 }

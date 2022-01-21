@@ -52,9 +52,9 @@ public class NoInitialization extends AbstractInitialization {
                 defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
                 type = t;
             }
-            else{
-                
-            }
+            // else{
+            //     throw new ContextualError("le type n'est pas défini ",null);
+            // }
     }
 
 
