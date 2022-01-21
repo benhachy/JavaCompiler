@@ -1,12 +1,14 @@
 class A {
-    int z;
-    int zA;
-    void printHello() {
-        int x = 1;
-        int y = 1;
-        println("hello");
+    int w;
+    void increment(int z) {
+        w = w + z;
     }
 }
 {
     A a = new A();
+    int x = 2;
+    int y = 3;
+    a.printHello(x,y);
+    println("hello main");
+    a.equals
 }
