@@ -143,8 +143,9 @@ public class DeclClass extends AbstractDeclClass {
             methode.creerEtStockerLabel(compiler,this);
         }*/
         //insertion des etiquetes des methodes
+        //ClassDefinition superClass = compiler.get(classExtension.getName());
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
-            methode.creerEtStockerLabel(compiler,this);
+             methode.creerEtStockerLabel(compiler,this);
         }
         //cherche les methodes du super class pour les inserer aussi
         //comment faire pour le surcharge des methodes???
@@ -190,6 +191,9 @@ public class DeclClass extends AbstractDeclClass {
             pos++;
         }
         compiler.addInstruction(new RTS());
+        for (AbstractDeclMethod methode : methodDecl.getList()) {
+            methode.genCodeMethode(compiler,this);
+        }
     }
 
 }

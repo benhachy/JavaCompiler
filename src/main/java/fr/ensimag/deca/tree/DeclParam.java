@@ -64,6 +64,7 @@ public class DeclParam extends AbstractDeclParam {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+        ident.iter(f);
     }
 }

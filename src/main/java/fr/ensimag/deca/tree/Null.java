@@ -5,6 +5,7 @@ import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.NullType;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
@@ -39,8 +40,8 @@ public class Null extends AbstractExpr {
     throws ContextualError{
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
          SymbolTable tab = new SymbolTable();
-         SymbolTable.Symbol symbol = tab.create("boolean");
-         BooleanType chaine = new BooleanType(symbol);
+         SymbolTable.Symbol symbol = tab.create("null");
+         NullType chaine = new NullType(symbol);
          setType(chaine);
          return chaine;
     }

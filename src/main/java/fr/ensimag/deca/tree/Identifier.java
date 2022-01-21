@@ -281,6 +281,7 @@ public class Identifier extends AbstractIdentifier {
     private Definition definition;
     public static HashMap<Symbol,Integer> identificateurs = new HashMap<Symbol,Integer>();
     public static HashMap<Symbol,Integer> posGBIdentificateur = new HashMap<Symbol,Integer>();
+    public static HashMap<Symbol,Integer> posLBIdentificateur = new HashMap<Symbol,Integer>();
     public static int ordreIdentifier;
 
     @Override

@@ -9,9 +9,18 @@ import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.LEA;
+import fr.ensimag.ima.pseudocode.instructions.NEW;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -107,10 +116,22 @@ public class DeclVar extends AbstractDeclVar {
         if(type.getType().isClass()){
             
         }else{
-            compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosGB(),Register.GB)));
             initialization.codeGenInit(compiler);        
+            compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosGB(),Register.GB)));
         }
-        Identifier.posGBIdentificateur.put(varName.getName(),Register.positionGB);
+        Identifier.posGBIdentificateur.put(varName.getName(),Register.getPosGB());
         Register.updatePosGB();
+    }
+
+    @Override
+    public void codeGenDeclvarMethode(DecacCompiler compiler){
+        if(type.getType().isClass()){
+            // to do
+        }else{
+            initialization.codeGenInit(compiler);        
+            compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosLB(),Register.LB)));
+        }
+        Identifier.posLBIdentificateur.put(varName.getName(),Register.getPosLB());
+        Register.updatePosLB();
     }
 }
