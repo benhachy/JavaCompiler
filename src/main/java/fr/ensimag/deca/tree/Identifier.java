@@ -193,7 +193,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::Identifier.java::VerifyExpr");
+        System.out.println("::Identifier.java::VerifyExpr "+getName());
         ExpDefinition def = localEnv.get(getName());
         if(def==null)
         {
@@ -237,7 +237,8 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
         }
-        
+        System.out.println("::Identifier.java :: verifyType");
+        setType(type);
         return type;
     }
     

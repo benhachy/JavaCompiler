@@ -1,15 +1,12 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.tools.SymbolTable;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.instructions.FLOAT;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 
 /**
  * Assignment, i.e. lvalue = expr.
@@ -33,15 +30,9 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println("::Assign.java:: verifyExpr");
+        System.out.println("::Assign.java:: verifyExpr");
         AbstractExpr rvalue = getRightOperand();
         AbstractLValue lvalue = getLeftOperand();
-        if(lvalue instanceof Identifier)
-        {
-            //System.out.println("========>>>  "+((AbstractIdentifier)lvalue).getName());
-            //((AbstractIdentifier)lvalue).getName().setOrdre();
-            localEnv.setValue(((AbstractIdentifier)lvalue).getName(), true);
-        }
         Type variable = lvalue.verifyExpr(compiler, localEnv, currentClass);
         rvalue.verifyRValue(compiler, localEnv, currentClass, variable);
         if(!verifyCompatibility(localEnv, variable, rvalue.getType()))
