@@ -51,7 +51,8 @@ public class New extends AbstractExpr {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {

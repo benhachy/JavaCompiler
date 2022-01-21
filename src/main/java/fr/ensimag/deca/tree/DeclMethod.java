@@ -14,6 +14,7 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.LabelOperand;
 
 import java.io.PrintStream;
 
@@ -48,15 +49,19 @@ public class DeclMethod extends AbstractDeclMethod {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+        name.iter(f);
+        paramDecl.iter(f);
+        methodBody.iter(f);
     }
 
     public void creerEtStockerLabel(DecacCompiler compiler,DeclClass declClass){
         //creer l'etiquete du methode
-        Label label = new Label("code."+declClass.getClass()+"."+name.getName());
+        Label label = new Label("code."+declClass.getIdentifier().getName().getName()+"."+name.getName());
         //insertion des etiquetes des methodes sur la table des methodes
-        //compiler.addInstruction(new LOAD(label,Register.getR(0));
-        compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(4,Register.GB)));
+        compiler.addInstruction(new LOAD(new LabelOperand(label),Register.getR(0)));
+        compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.getPosGB(),Register.GB)));
+        Register.updatePosGB();
     }
 
     //generer le code ass pour le methode
@@ -78,6 +83,7 @@ public class DeclMethod extends AbstractDeclMethod {
     public void verifyMethod(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
+        type.setDefinition(compiler.getDefinition(type.getName()));
         System.out.println(" type "+type.getName()+" name "+name.getName());
         Type expectedReturn = compiler.get(type.getName()).getType();
         Signature signature = new Signature();

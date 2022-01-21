@@ -228,7 +228,8 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError(this.getName()+" n'est pas défini",getLocation());
         }
-        this.setDefinition(compiler.getDefinition(getName()));
+        setDefinition(compiler.getDefinition(getName()));
+
         Type type =getDefinition().getType();
         if(type.isVoid() || type.isString())
         {
@@ -298,6 +299,7 @@ public class Identifier extends AbstractIdentifier {
 
     private Definition definition;
     public static HashMap<Symbol,Integer> identificateurs = new HashMap<Symbol,Integer>();
+    public static HashMap<Symbol,Integer> posGBIdentificateur = new HashMap<Symbol,Integer>();
     public static int ordreIdentifier;
 
     @Override

@@ -34,8 +34,13 @@ public class DeclField extends AbstractDeclField {
         this.initialization=initiate;
     }
 
+    @Override
     public AbstractIdentifier getType(){
         return type;
+    }
+
+    public AbstractIdentifier getName(){
+        return name;
     }
 
     @Override
@@ -88,6 +93,9 @@ public class DeclField extends AbstractDeclField {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+        name.iter(f);
+        initialization.iter(f);
     }
+
 }

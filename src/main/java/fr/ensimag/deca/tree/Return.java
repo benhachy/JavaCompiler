@@ -39,7 +39,7 @@ public class Return extends AbstractInst {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        expression.iter(f);
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
