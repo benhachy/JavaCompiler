@@ -12,6 +12,7 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import java.io.PrintStream;
@@ -33,7 +34,10 @@ public class Selection extends AbstractLValue {
         this.expr=expr;
     }
     public  void codeGenAssign(DecacCompiler compiler){
-
+        compiler.addComment("Affectation");
+        //obtenir l'address de le objet en relation a LB
+        compiler.addInstruction(new LOAD(new RegisterOffset(1,Register.LB),Register.getR(2)));
+        
     }
     public  Type verifyExpr(DecacCompiler compiler,
     EnvironmentExp localEnv, ClassDefinition currentClass)

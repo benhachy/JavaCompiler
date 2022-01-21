@@ -51,4 +51,14 @@ public class MethodBody extends AbstractMethodBody {
             insts.verifyListInst(compiler,parametres,currentClass,expectedReturn);
 
         }
+
+    @Override
+    public void codeGenMethodBody(DecacCompiler compiler){
+        for (AbstractDeclVar variableDecl : declVariables.getList()) {
+            variableDecl.codeGenDeclvarMethode(compiler);
+        }
+        for (AbstractInst instruction : insts.getList()) {
+            instruction.codeGenInst(compiler);
+        }
+    }
 }

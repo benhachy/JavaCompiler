@@ -12,8 +12,13 @@ import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import fr.ensimag.ima.pseudocode.LabelOperand;
 
 import java.io.PrintStream;
@@ -68,15 +73,20 @@ public class DeclMethod extends AbstractDeclMethod {
     public void genCodeMethode(DecacCompiler compiler,DeclClass declClass){
         
         //creer l'etiquete du methode
-        Label label = new  Label("code."+declClass.getClass()+name.getName());
-        //inserer l'etiquete du methode
-        compiler.addLabel(label);
-
-        //code pour la declaration des parametres 
-
-        //paramDecl
-        //code pour les instructions de methode
-        //methodBody
+        compiler.addLabel(new  Label("code."+declClass.getIdentifier().getName().getName()+"."+name.getName().getName()));
+        //test de debordement de la pile
+        compiler.addInstruction(new TSTO(2),"test de debordement de la pile");
+        compiler.addInstruction(new BOV(new Label("pile_pleine")));
+        compiler.addInstruction(new PUSH(Register.getR(2)));
+        compiler.addInstruction(new PUSH(Register.getR(3)));
+        //appel de la gen code pour le method body
+        methodBody.codeGenMethodBody(compiler);
+        //etiquete du fin de methode
+        compiler.addLabel(new  Label("fin."+declClass.getIdentifier().getName().getName()+"."+name.getName().getName()));
+        compiler.addComment("Restauration des registres");
+        compiler.addInstruction(new POP(Register.getR(3)));
+        compiler.addInstruction(new POP(Register.getR(2)));
+        compiler.addInstruction(new RTS());
     }
 
     @Override
