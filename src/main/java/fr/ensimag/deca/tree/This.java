@@ -1,13 +1,14 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
+
 import java.io.PrintStream;
 
 
@@ -22,12 +23,13 @@ public class This extends AbstractExpr {
     public  Type verifyExpr(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
-             //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
-             SymbolTable tab = new SymbolTable();
-             SymbolTable.Symbol symbol = tab.create("boolean");
-             BooleanType chaine = new BooleanType(symbol);
-             setType(chaine);
-             return chaine;
+            SymbolTable.Symbol classe0 = SymbolTable.creerSymbol("0");
+            if( currentClass.getType().getName().equals(classe0)){
+                throw new ContextualError(" This est défini que dans des classes",getLocation());
+            }
+            ClassType type = new ClassType(currentClass.getType().getName(),getLocation(), currentClass.getSuperClass());
+            setType(type);
+            return type;
             }
     @Override
     protected void iterChildren(TreeFunction f) {

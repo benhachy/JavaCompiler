@@ -1,0 +1,12 @@
+// Resultats:
+//    hello de A
+// 
+class A {
+    void printHello() {
+        println("hello de A");
+    }
+}
+{
+    A a = new A();
+    a.printHello();
+}

@@ -1,8 +1,14 @@
 class A {
-void m() { }
-void p() { }
+    int w;
+    void increment(int z) {
+        w = w + z;
+    }
 }
-class B extends A {
-void p() { }
-void q() { }
+{
+    A a = new A();
+    int x = 2;
+    int y = 3;
+    a.printHello(x,y);
+    println("hello main");
+    a.equals
 }

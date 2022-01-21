@@ -1,15 +1,14 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.ClassType;
+import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
-import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
@@ -24,10 +23,9 @@ import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
-
 import java.io.PrintStream;
 
-import org.apache.commons.lang.ObjectUtils.Null;
+
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -60,8 +58,6 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        System.out.println("DeclClass.java :: verifyClass");
-        
         ClassType c = new ClassType(identifier.getName(),getLocation(),null);
         TypeDefinition superClass = compiler.get(classExtension.getName());
         if(superClass == null)
@@ -98,13 +94,11 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-                System.out.println("ListDeclClass.java :: verifyClassMembers");
         throw new UnsupportedOperationException("not yet implemented");
     }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        System.out.println("ListDeclClass.java :: verifyClassBody");
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -126,6 +120,7 @@ public class DeclClass extends AbstractDeclClass {
 
     public void insertionClassTableMethodes(DecacCompiler compiler){
         //on verifie si la class extend object
+
         compiler.addComment("Code de la table des méthodes de "+identifier.getName());
 
         if(classExtension.getName().getName().equals("Object")){
@@ -144,8 +139,9 @@ public class DeclClass extends AbstractDeclClass {
             methode.creerEtStockerLabel(compiler,this);
         }
         //insertion des etiquetes des methodes
+        //ClassDefinition superClass = compiler.get(classExtension.getName());
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
-            methode.creerEtStockerLabel(compiler,this);
+             methode.creerEtStockerLabel(compiler,this);
         }
         //cherche les methodes du super class pour les inserer aussi
         //comment faire pour le surcharge des methodes???
@@ -191,6 +187,9 @@ public class DeclClass extends AbstractDeclClass {
             pos++;
         }
         compiler.addInstruction(new RTS());
+        for (AbstractDeclMethod methode : methodDecl.getList()) {
+            methode.genCodeMethode(compiler,this);
+        }
     }
 
 }

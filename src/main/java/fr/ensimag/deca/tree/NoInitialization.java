@@ -39,7 +39,7 @@ public class NoInitialization extends AbstractInitialization {
             {
                 defaultValue = new IntLiteral(0);
                 defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
-                type =t;
+                type = t;
             }
             else if(t.isFloat())
             {
@@ -53,7 +53,9 @@ public class NoInitialization extends AbstractInitialization {
                 defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
                 type = t;
             }
-            
+            // else{
+            //     throw new ContextualError("le type n'est pas défini ",null);
+            // }
     }
 
 

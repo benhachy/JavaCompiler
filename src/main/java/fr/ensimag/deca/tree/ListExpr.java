@@ -5,7 +5,10 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tools.IndentPrintStream;
+
+import java.io.PrintStream;
 import java.util.Collections;
 
 /**
@@ -20,10 +23,27 @@ public class ListExpr extends TreeList<AbstractExpr> {
     // protected abstract void codeGenInst(DecacCompiler compiler){
 
     // }
+
+    public void verifySignature(DecacCompiler compiler,
+    EnvironmentExp localEnv, ClassDefinition currentClass,Signature sig) throws ContextualError{
+        int param = 0;
+        if(this.size()!= sig.size()){
+            throw new ContextualError("la methode prend "+sig.size()+" parametres", getLocation());
+        }
+        for (AbstractExpr i : getList()) {
+            i.verifyExpr(compiler, localEnv, currentClass);
+            if(!(i.getType().sameType(sig.paramNumber(param)))){
+                throw new ContextualError("le parametre "+(param+1)+" doit etre de type "+sig.paramNumber(param).getName(), i.getLocation());
+            }
+            ++param;
+        }
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         for (AbstractExpr i : getList()) {
             i.decompile(s);
         }
     }
+    
 }
