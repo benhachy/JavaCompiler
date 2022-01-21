@@ -1,15 +1,6 @@
-class B{
-    int y;
-}
-class A extends B{
-    int x;
-    void get(int a){
-        this.x = a;
-        println(x);
-    }    
+class A {
+    int x;  
 }
 {
     A a = new A() ;
-    B b = new B();
-    boolean t = a.equals(b);
 }

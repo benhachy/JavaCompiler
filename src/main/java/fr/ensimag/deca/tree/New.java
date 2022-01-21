@@ -55,7 +55,12 @@ public class New extends AbstractExpr {
         if(!classe.isClass() || classe == null){
             throw new ContextualError("Il faut un constructeur pour initialiser ", getLocation());
         }
+        if(compiler.getClass(type.getName()) == null){
+            throw new ContextualError("Classe définie ", type.getLocation());
+        }
+        type.setDefinition(compiler.getClass(type.getName()));
         setType(classe);
+
         return (ClassType)classe;
     }
     @Override
