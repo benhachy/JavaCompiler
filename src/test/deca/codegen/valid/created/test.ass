@@ -7,17 +7,33 @@
 ; Code de la table des méthodes de A
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
+	LOAD code.A.m, R0
+	STORE R0, 4(GB)
+	LOAD code.A.p, R0
+	STORE R0, 5(GB)
+; Code de la table des méthodes de B
+	LEA 3(GB), R0
+	STORE R0, 6(GB)
+	LOAD code.B.p, R0
+	STORE R0, 7(GB)
+	LOAD code.B.q, R0
+	STORE R0, 8(GB)
 ; Main program
 	ADDSP #2
-; Beginning of main instructions:
 	HALT
 ; Initialisation des champs de A
 init.A:
-	TSTO #2
+	TSTO #1
 	BOV pile_pleine
-	LOAD #0, R0
-	LOAD -2(LB), R1
-	STORE R0, -1(R1)
+	RTS
+; Initialisation des champs de B
+init.B:
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
+	TSTO #1
+	BOV pile_pleine
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"

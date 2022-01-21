@@ -39,8 +39,8 @@ public class Null extends AbstractExpr {
     throws ContextualError{
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
          SymbolTable tab = new SymbolTable();
-         SymbolTable.Symbol symbol = tab.create("boolean");
-         BooleanType chaine = new BooleanType(symbol);
+         SymbolTable.Symbol symbol = tab.create("null");
+         NullType chaine = new NullType(symbol);
          setType(chaine);
          return chaine;
     }

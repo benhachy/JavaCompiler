@@ -40,6 +40,7 @@ public class DeclClass extends AbstractDeclClass {
     AbstractIdentifier classExtension;
     ListDeclField   feildDecl;
     ListDeclMethod  methodDecl;
+    private List<Label> listEtiquetteMethod = new ArrayList<Label>();
 
     public DeclClass(AbstractIdentifier identifier,AbstractIdentifier classExtension,ListDeclField  feildDecl,ListDeclMethod  methodDecl){
         this.identifier= identifier;
@@ -47,7 +48,7 @@ public class DeclClass extends AbstractDeclClass {
         this.feildDecl= feildDecl;
         this.methodDecl=methodDecl;
     }
-
+    
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
@@ -139,9 +140,9 @@ public class DeclClass extends AbstractDeclClass {
         Identifier.posGBIdentificateur.put(identifier.getName(),Register.positionGB);
         Register.updatePosGB();
         //insertion des etiquetes des methodes de la super class
-        /*for (AbstractDeclMethod  methode : classExtension.getList()) {
+        for (AbstractDeclMethod  methode : classExtension.getList()) {
             methode.creerEtStockerLabel(compiler,this);
-        }*/
+        }
         //insertion des etiquetes des methodes
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
             methode.creerEtStockerLabel(compiler,this);
