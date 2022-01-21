@@ -193,7 +193,6 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::Identifier.java::VerifyExpr "+getName());
         ExpDefinition def = localEnv.get(getName());
         if(def==null)
         {
@@ -210,7 +209,6 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public ClassDefinition verifyIdentifier( DecacCompiler compiler,ClassType c,TypeDefinition definition)throws ContextualError {
-        System.out.println("::Identifier.java :: verifyIdentifier");
         if(compiler.get(getName())==null)
         {
             throw new ContextualError("la classe "+getName()+" n'est pas déclarée",getLocation());
@@ -226,7 +224,6 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        System.out.println("::Identifier.java :: verifyType");
         if(compiler.getDefinition(this.getName()) == null)
         {
             throw new ContextualError(this.getName()+" n'est pas défini",getLocation());
@@ -237,11 +234,32 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError(type.getName()+" n'est pas un type pour initialiser",getLocation());
         }
-        System.out.println("::Identifier.java :: verifyType");
         setType(type);
         return type;
     }
     
+
+    public MethodDefinition verifyExistence(DecacCompiler compiler, ClassType classe)throws ContextualError{
+        Symbol identifier = getName();
+        EnvironmentExp envClass;
+        ClassDefinition def = compiler.getClass(classe.getName());
+        while(def != null){
+            classe = def.getType();
+            envClass = compiler.getEnv(classe.getName());
+            if(envClass.get(identifier) != null){
+                if(!envClass.get(identifier).isMethod()){
+                    throw new ContextualError(identifier.getName()+" n'est pas une méthode",getLocation());
+                }
+                MethodDefinition methodDef = (MethodDefinition)envClass.get(identifier);
+                setDefinition(methodDef);
+                setType(methodDef.getType());
+                return methodDef;
+            }
+            def = def.getSuperClass();
+        }
+        throw new ContextualError(identifier.getName()+" n'est pas une méthode définie",getLocation());
+    }
+
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {

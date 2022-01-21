@@ -97,10 +97,11 @@ public class DecacCompiler implements Runnable{
         Signature sign = new Signature();
         sign.add(objectClass);
         SymbolTable.Symbol e =SymbolTable.creerSymbol("equals");
-        MethodDefinition equal = new MethodDefinition(new BooleanType(null),null,sign,0);
+        MethodDefinition equal = new MethodDefinition(new BooleanType(e),null,sign,0);
         EnvironmentExp envObjet = new EnvironmentExp(null);
         envObjet.update(e,equal);
-        envExprs.put(e,envObjet);
+        //envExprs.put(e,envObjet);
+        envExprs.put(o,envObjet);
     }
 
     public void declare(Symbol name, TypeDefinition def) throws DoubleDefException {
@@ -129,6 +130,14 @@ public class DecacCompiler implements Runnable{
         return null;
     }
 
+    public TypeDefinition getDefinition(Symbol key) {
+        if (envTypes.containsKey(key))
+        {
+            return envTypes.get(key);
+        }
+        return null;
+    }
+
     public ClassDefinition getClass(Symbol key) {
         if (envTypes.containsKey(key))
         {
@@ -144,11 +153,11 @@ public class DecacCompiler implements Runnable{
         return null;
     }
 
-    public Definition getDefinition(Symbol s)
+    public EnvironmentExp getEnv(Symbol s)
     {
-        if(envTypes.containsKey(s))
+        if(envExprs.containsKey(s))
         { 
-            return envTypes.get(s);
+            return envExprs.get(s);
         }
         return null;
     }

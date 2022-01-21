@@ -5,6 +5,8 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import java.time.format.SignStyle;
+
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.SymbolTable;
@@ -16,6 +18,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
+import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.BooleanType;
 
 
@@ -36,15 +41,26 @@ public class MethodCall extends AbstractExpr {
         this.methodName = methodName;
         this.listExpression = listExpression;
     }
+
+
+
     public  Type verifyExpr(DecacCompiler compiler,
     EnvironmentExp localEnv, ClassDefinition currentClass)
     throws ContextualError{
-         //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
-         SymbolTable tab = new SymbolTable();
-         SymbolTable.Symbol symbol = tab.create("boolean");
-         BooleanType chaine = new BooleanType(symbol);
-         setType(chaine);
-         return chaine;
+        //name : l'expression à laquelle on applique la méthode MethodName et qui prend en argument lisExpression
+        name.verifyExpr(compiler, localEnv, currentClass);
+        if(!name.getType().isClassOrNull()){
+            throw new ContextualError(methodName.getName()+" n'est applicable que sur des objets", getLocation());
+        }
+
+        ClassType classe = (ClassType) name.getType();
+        //EnvironmentExp envClass = compiler.getEnv(classe.getName());
+        MethodDefinition defMethod=methodName.verifyExistence(compiler,classe);
+        methodName.setDefinition(defMethod);
+        Signature sig = defMethod.getSignature();
+        listExpression.verifySignature(compiler,localEnv,currentClass,sig);
+        setType(defMethod.getType());
+        return getType();
     }
     @Override
     protected void iterChildren(TreeFunction f) {

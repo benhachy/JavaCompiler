@@ -31,30 +31,30 @@ public class NoInitialization extends AbstractInitialization {
             if(t.isBoolean())
             {
                 defaultValue = new BooleanLiteral(false);
-                defaultValue.verifyRValue(compiler,localEnv,currentClass,new BooleanType(null));
-                type = new BooleanType(null);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = t;
             }
             else if(t.isInt())
             {
                 defaultValue = new IntLiteral(0);
-                defaultValue.verifyRValue(compiler,localEnv,currentClass,new IntType(null));
-                type = new IntType(null);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = t;
             }
             else if(t.isFloat())
             {
                 defaultValue = new FloatLiteral(0);
-                defaultValue.verifyRValue(compiler,localEnv,currentClass,new FloatType(null));
-                type = new FloatType(null);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = t;
             }
             else if(t.isClassOrNull())
             {
                 defaultValue = new Null();
-                defaultValue.verifyRValue(compiler,localEnv,currentClass,new NullType(null));
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
                 type = t;
             }
-            else{
-                throw new ContextualError("le type n'est pas défini ",null);
-            }
+            // else{
+            //     throw new ContextualError("le type n'est pas défini ",null);
+            // }
     }
 
 

@@ -83,6 +83,7 @@ public class DeclMethod extends AbstractDeclMethod {
         Signature signature = new Signature();
         EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler,signature);
         MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,0);
+        name.setDefinition(method);
         try{
             localEnv.declare(name.getName(),method);
         }
@@ -94,5 +95,4 @@ public class DeclMethod extends AbstractDeclMethod {
         
         methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
     }
-
 }

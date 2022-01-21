@@ -47,8 +47,6 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        System.out.println("DeclClass.java :: verifyClass");
-        
         ClassType c = new ClassType(identifier.getName(),getLocation(),null);
         TypeDefinition superClass = compiler.get(classExtension.getName());
         if(superClass == null)
@@ -85,13 +83,11 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-                System.out.println("ListDeclClass.java :: verifyClassMembers");
         throw new UnsupportedOperationException("not yet implemented");
     }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        System.out.println("ListDeclClass.java :: verifyClassBody");
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -113,22 +109,22 @@ public class DeclClass extends AbstractDeclClass {
 
     public void insertionClassTableMethodes(DecacCompiler compiler){
         //on verifie si la class extend object
-        compiler.addComment("; Code de la table des méthodes de "+identifier.getName());
-        if(classExtension.getName().equals("")){
-            //si la class extends object on insert un pointure vers 
-            compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
-        }else{
-            //chercher la address de la super class dans la table des methodes
-            compiler.addInstruction(new LEA(new RegisterOffset(Identifier.identificateurs.get(classExtension.getName()),Register.GB),Register.getR(0)));
-        }
-        //mettre l'address ver la super class dans la derner address disponible
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.GB)));
-        //insertion des etiquetes des methodes
-        for (AbstractDeclMethod  methode : methodDecl.getList()) {
-            methode.creerEtStockerLabel(compiler,this);
-        }
-        //cherche les methodes du super class pour les inserer aussi
-        //comment faire pour le surcharge des methodes???
+        // compiler.addComment("; Code de la table des méthodes de "+identifier.getName());
+        // if(classExtension.getName().equals("")){
+        //     //si la class extends object on insert un pointure vers 
+        //     compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
+        // }else{
+        //     //chercher la address de la super class dans la table des methodes
+        //     compiler.addInstruction(new LEA(new RegisterOffset(Identifier.identificateurs.get(classExtension.getName()),Register.GB),Register.getR(0)));
+        // }
+        // //mettre l'address ver la super class dans la derner address disponible
+        // compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.GB)));
+        // //insertion des etiquetes des methodes
+        // for (AbstractDeclMethod  methode : methodDecl.getList()) {
+        //     methode.creerEtStockerLabel(compiler,this);
+        // }
+        // //cherche les methodes du super class pour les inserer aussi
+        // //comment faire pour le surcharge des methodes???
     }
 
     public void genCodeInitializationChampsEtMethodes(DecacCompiler compiler){

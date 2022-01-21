@@ -30,9 +30,9 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        System.out.println("::Assign.java:: verifyExpr");
         AbstractExpr rvalue = getRightOperand();
         AbstractLValue lvalue = getLeftOperand();
+        
         Type variable = lvalue.verifyExpr(compiler, localEnv, currentClass);
         rvalue.verifyRValue(compiler, localEnv, currentClass, variable);
         if(!verifyCompatibility(localEnv, variable, rvalue.getType()))

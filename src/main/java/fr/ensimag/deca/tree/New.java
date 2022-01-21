@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.BooleanType;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
@@ -42,13 +43,12 @@ public class New extends AbstractExpr {
     public  Type verifyExpr(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
-                 //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
-                 SymbolTable tab = new SymbolTable();
-                 SymbolTable.Symbol symbol = tab.create("boolean");
-                 BooleanType chaine = new BooleanType(symbol);
-                 setType(chaine);
-                 return chaine;
-            }
+        Type classe = compiler.get(type.getName()).getType();
+        if(!classe.isClass() || classe == null){
+            throw new ContextualError("Il faut un constructeur pour initialiser ", getLocation());
+        }
+        return (ClassType)classe;
+    }
     @Override
     protected void iterChildren(TreeFunction f) {
         throw new UnsupportedOperationException("Not yet supported");
