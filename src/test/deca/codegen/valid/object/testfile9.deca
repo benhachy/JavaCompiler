@@ -1,0 +1,16 @@
+//Description:
+//    test toutes les visibilités 
+//
+// Resultats:
+// 
+// Historique:
+//    cree le 01/01/2022
+class A{
+    int x;
+    protected boolean b;
+    boolean d;
+    protected int f;
+}
+{
+
+}

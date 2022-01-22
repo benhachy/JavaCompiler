@@ -65,8 +65,31 @@ public class InstanceOf extends AbstractExpr {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+        expr.iter(f);
     }
+    //protected codeGenInstanceOf(DecacCompiler compiler){
+        // Label beginningInstanceOf= new Label("instanceOf.Begin");
+        // Label succesInstanceOf= new Label("instanceOf.succes");
+        // Label endInstanceOf= new Label("instanceOf.end");
+
+        // //B addrB
+        // compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.posGBIdentificateur.get(type.getName()),Register.GB),Register.getR(1)));
+        // //C addrC
+        // compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.posGBIdentificateur.get(expr.getName()),Register.GB),Register.getR(0)));
+        // compiler.addLabel(beginningInstanceOf);
+        // compiler.addInstruction(CMP(Register.getR(0),Register.getR(1)));
+        // compiler.addInstruction(BEQ(succesInstanceOf));
+        // compiler.addInstruction(new LEA(new RegisterOffset(Identifier.posGBIdentificateur.get(expr.getName()),Register.GB),Register.getR(0)));
+        // compiler.addInstruction(new LOAD(new RegisterOffset(0,),Register.getR(0)));
+        // //compiler.addInstruction(CMP(new NullOperand(),Register.getR(1)));
+        // compiler.addInstruction(BEQ(beginningInstanceOf));
+        // compiler.addInstruction(BEQ(endInstanceOf));
+
+
+
+
+    //}
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         // leaf node => nothing to do

@@ -3,8 +3,11 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
+import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.EnvironmentExp.DoubleDefException;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
@@ -23,7 +26,16 @@ import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
+import java.util.HashMap;
+import fr.ensimag.deca.tools.SymbolTable;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Iterator;
+import java.util.Map;
+import fr.ensimag.ima.pseudocode.LabelOperand;
 
 
 
@@ -38,6 +50,9 @@ public class DeclClass extends AbstractDeclClass {
     AbstractIdentifier classExtension;
     ListDeclField   feildDecl;
     ListDeclMethod  methodDecl;
+    static  List<Label> listEtiquetteMethod = new ArrayList<Label>();
+    static HashMap<SymbolTable.Symbol,Integer> hashMapMethodIndex = new HashMap<SymbolTable.Symbol,Integer>();
+    static  int index = 0 ;
 
     public DeclClass(AbstractIdentifier identifier,AbstractIdentifier classExtension,ListDeclField  feildDecl,ListDeclMethod  methodDecl){
         this.identifier= identifier;
@@ -45,7 +60,7 @@ public class DeclClass extends AbstractDeclClass {
         this.feildDecl= feildDecl;
         this.methodDecl=methodDecl;
     }
-
+    
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
@@ -132,7 +147,63 @@ public class DeclClass extends AbstractDeclClass {
         feildDecl.iter(f);
         methodDecl.iter(f);
     }
+    public void createLabelList(DecacCompiler compiler,Symbol currentClass ){
+        //int index = 1 ;
+        //HashMap<SymbolTable.Symbol,Integer> mapHash = new HashMap<SymbolTable.Symbol,Integer>();
+        
+        // on récupère l'environnement de la classe mère
+        if ( currentClass.equals(SymbolTable.creerSymbol("0") )){
+            return;
+        }
 
+        ClassDefinition definitionClass = compiler.getClass(currentClass);
+
+        createLabelList(compiler,definitionClass.getSuperClass().getType().getName());
+        //while ( !currentClass.equals(SymbolTable.creerSymbol("0") )){
+        //ClassDefinition definitionClass = compiler.getClass(currentClass);
+        EnvironmentExp envClass = compiler.getEnv(currentClass);
+        if(envClass == null){
+            //System.out.println("**********NULL******"+currentClass.getName());
+
+        }
+        //System.out.println("********PASSED********"+currentClass.getName());
+        HashMap<SymbolTable.Symbol,ExpDefinition> hashMapEnv = envClass.getEnvExp();
+        //createLabelList(compiler,definitionClass.getSuperClass().getType().getName());
+            for( Symbol s : hashMapEnv.keySet())
+            {   
+
+                // edit this so we can check if its a method or not
+                if( envClass.get(s).isMethod()){
+                    //System.out.println("********I FOUND THIS SYMBOL AND I THINK ITS A METHOD IN THE CLASS********"+s.getName()+currentClass);
+                    // il faut voir si la méthode est déja dans le hashmap il faut 
+                    if ( hashMapMethodIndex.containsKey(s)){
+                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName());
+                        //je récupère l'indice pour que j'écrase l'étiquette dans la liste des étiquettes
+                        int newIndex = hashMapMethodIndex.get(s) ;
+                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName()+"AND I WILL PUT IT HERE "+newIndex);
+                        listEtiquetteMethod.remove(newIndex);
+                        listEtiquetteMethod.add(newIndex,new Label("code."+currentClass+"."+s.getName()));
+                    }
+                    else{
+                        //System.out.println("********HE IS NOT HERE SO********"+s.getName());
+                        //si c'est la premère fois je trouve la méthode je l'insère
+                        listEtiquetteMethod.add(index,new Label("code."+currentClass+"."+s.getName()));
+                        hashMapMethodIndex.put(s,index);
+                        index++;
+                    }
+                    
+                }
+                
+            }
+        
+    }
+    public void afficher(){
+        int i =0;
+        for (Label l :listEtiquetteMethod){
+            System.out.println(i+" "+l.toString());
+            i++;
+        }
+    }
     public void insertionClassTableMethodes(DecacCompiler compiler){
         //on verifie si la class extend object
 
@@ -149,15 +220,31 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(Register.positionGB,Register.GB)));
         Identifier.posGBIdentificateur.put(identifier.getName(),Register.positionGB);
         Register.updatePosGB();
+        EnvironmentExp envClass = compiler.getEnv(identifier.getClassDefinition().getSuperClass().getType().getName());
+        //System.out.println("ANA MN HENA ANPRINTI LIK A KHOYA");
+        //envClass.afficher();
+        //System.out.println("ANA MN HENA salit  LIK A KHOYA");
+        //System.out.println(compiler.getEnv(classExtension.getName()));
         //insertion des etiquetes des methodes de la super class
-        /*for (AbstractDeclMethod  methode : classExtension.getList()) {
+       /* for (AbstractDeclMethod  methode : classExtension.getList()) {
             methode.creerEtStockerLabel(compiler,this);
         }*/
         //insertion des etiquetes des methodes
         //ClassDefinition superClass = compiler.get(classExtension.getName());
-        for (AbstractDeclMethod  methode : methodDecl.getList()) {
-             methode.creerEtStockerLabel(compiler,this);
+        createLabelList(compiler,identifier.getName());
+        // la table des etiquettes est DONE
+        System.out.println("**************** TABLE FOR CLASS :***********"+identifier.getName());
+        //afficher();
+        for (Label l :listEtiquetteMethod){
+            compiler.addInstruction(new LOAD(new LabelOperand(l),Register.getR(0)));
+            compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.getPosGB(),Register.GB)));
+            Register.updatePosGB();
         }
+        // for (AbstractDeclMethod  methode : methodDecl.getList()) {
+
+        //      methode.creerEtStockerLabel(compiler,this);
+            
+        // }
         //cherche les methodes du super class pour les inserer aussi
         //comment faire pour le surcharge des methodes???
     }

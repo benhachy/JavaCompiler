@@ -1,0 +1,27 @@
+//Description:
+//    héritage de d'attributs protected et public
+//
+// Resultats:
+//      14
+//      21
+// Historique:
+//    cree le 01/01/2022
+class A{
+    protected int x;
+    public int y;
+    public void setX(int x){
+        this.x = x;
+    }
+}
+class B extends A{
+    
+}
+{
+    B obj = new B();
+    B.setX(14);
+    print(B.x);
+    B.y = 21;
+    print(B.y)
+}
+
+    

@@ -1,0 +1,20 @@
+//Description:
+//    héritage d'attributs
+//
+// Resultats:
+//      
+// Historique:
+//    cree le 01/01/2022
+class A{
+    int x;
+    int y;
+}
+class B extends A{
+    
+}
+{
+    B obj = new B();
+    B.x = 14;
+}
+
+    
