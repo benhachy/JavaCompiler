@@ -1,0 +1,33 @@
+//Description:
+//     code avec de l'héritage multiple et des redéfinitions de méthodes 
+//
+// Resultats:
+//     
+// Historique:
+//    cree le 01/01/2022
+class A {
+    protected int x ;
+    void setX(int x) {
+        this.x = x ;
+    }
+    int getX() {
+        return x ;
+    }
+    void init() {
+        x = 0 ;
+    }
+}
+class B extends A {
+    int y ;
+    void init() {
+        y.setX(0) ;
+        y = 0 ;
+    }
+}
+class C extends A {
+    int z ;
+    void init() {
+        z.setX(0) ;
+        z = 1 ;
+}
+}

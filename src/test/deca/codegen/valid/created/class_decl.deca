@@ -1,5 +1,28 @@
 class a{
+    int a = 0;
+    int getA(){
+        return this.a ;
+    }
+    void printotito(){
+        print("nanan");
+    }
 
+}
+class b extends a {
+    void printotito(){
+        print("ana B hena ");
+    }
+    void anaprintdialB(){
+        print("hadi lhbhila");
+    }
+}
+class c extends b {
+    void anas(){
+        print("ana B hena ");
+    }
+    void ilyass(){
+        print("hadi lhbhila");
+    }
 }
 {
     

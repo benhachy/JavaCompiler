@@ -1,0 +1,19 @@
+//Description:
+//    test de  equals 
+//
+// Resultats:
+//     50
+// Historique:
+//    cree le 01/01/2022
+class A{
+    public boolean equals (Object other) {
+        return this == other;
+    }
+}
+{
+    A a = new A();
+    A b = new B();
+    if (a.equals(b)){
+        print(50);
+    }
+}

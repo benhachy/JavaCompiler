@@ -1,0 +1,23 @@
+//Description:
+//    série d'héritage
+//
+// Resultats:
+//      
+// Historique:
+//    cree le 01/01/2022
+class A{
+ 
+}
+class B extends A{
+    
+}
+class C extends B{
+
+}
+class D extends B{
+
+}
+class E extends A{
+    
+}
+    

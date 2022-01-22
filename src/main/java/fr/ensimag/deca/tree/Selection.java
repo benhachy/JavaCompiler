@@ -29,21 +29,25 @@ import fr.ensimag.deca.context.BooleanType;
 public class Selection extends AbstractLValue {
     public AbstractIdentifier type;
     public AbstractExpr expr;
-    public Selection(AbstractIdentifier type,AbstractExpr expr) {
+    public Selection(AbstractIdentifier type,AbstractExpr expr){
         this.type = type;
         this.expr=expr;
     }
+    @Override
     public  void codeGenAssign(DecacCompiler compiler){
-        compiler.addComment("Affectation");
-        //obtenir l'address de le objet en relation a LB
-        compiler.addInstruction(new LOAD(new RegisterOffset(1,Register.LB),Register.getR(2)));
         
+        //je veux chercher la valuer dùun objet
+        type.codeGenAssign(compiler);
+        // charger la valeur dùun variable
+        expr.codeGenExpr(compiler, 2);
     }
+    
     public  Type verifyExpr(DecacCompiler compiler,
     EnvironmentExp localEnv, ClassDefinition currentClass)
     throws ContextualError{
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
         expr.verifyExpr(compiler, localEnv, currentClass);
+        // System.out.print(expr.get);
         type.setDefinition(localEnv.get(type.getName()));
         Type expression = type.verifyAttribut(compiler,expr.getType().getName());
         setType(expression);

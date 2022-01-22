@@ -1,13 +1,12 @@
-class Number {
-    int num;
+class A{
+    int x;
     void printNumber(){
-        println(num+1);
+        println(x);
     }
 }
 {
-    Number n = new Number();
-    int x = 2;
-    n.printNumber(); //prints zero attribut initialize en 0 
-    println(x);
-    println("");
+    A a = new A();
+    A b = new A();
+    a.x = 1;
+    b.x = 1;
 }

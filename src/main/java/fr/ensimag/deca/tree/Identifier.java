@@ -14,6 +14,7 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
@@ -214,8 +215,9 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError("la classe "+getName()+" n'est pas déclarée",getLocation());
         }
-        setType(c);
-        setDefinition((new ClassDefinition(c,getLocation(),(ClassDefinition)definition)));
+        ClassType classe = new ClassType(getName(), getLocation(), c.getDefinition().getSuperClass());
+        setType(classe);
+        setDefinition((new ClassDefinition(classe,getLocation(),(ClassDefinition)definition)));
         return getClassDefinition();
     }
 
@@ -296,6 +298,7 @@ public class Identifier extends AbstractIdentifier {
     }
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n) {
+        System.out.println("generation de code pour l'id "+getName());
         compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
     }
     @Override

@@ -41,14 +41,12 @@ public class Program extends AbstractProgram {
         this.getMain().verifyMain(compiler);
         // throw new UnsupportedOperationException("not yet implemented");
         LOG.debug("verify program: end");
-
     }
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
         //add addsp pour la table des methodes et des variables globals
         compiler.addComment("Main program");
-        System.out.println(Identifier.identificateurs.size());
         classes.creerTableMethodes(compiler);
         compiler.addInstruction(new ADDSP(Register.getPosGB()+2));
         main.codeGenMain(compiler);

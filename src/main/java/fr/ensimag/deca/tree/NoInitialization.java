@@ -58,6 +58,7 @@ public class NoInitialization extends AbstractInitialization {
     }
 
 
+
     /**
      * Node contains no real information, nothing to check.
      */

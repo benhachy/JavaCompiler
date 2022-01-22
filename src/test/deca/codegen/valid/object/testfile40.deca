@@ -1,0 +1,18 @@
+//Description:
+//    class normale
+//
+// Resultats:
+//      1
+// Historique:
+//    cree le 01/01/2022
+class Compteur {
+    int x;
+    void incr() {
+        x = x + 1;
+    }
+}
+{
+    Compteur c = new Compteur();
+    c.incr();
+    print(c.x);
+}

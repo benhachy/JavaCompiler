@@ -1,0 +1,21 @@
+//Description:
+//    test de  equals  with true
+//
+// Resultats:
+//     50
+// Historique:
+//    cree le 01/01/2022
+class A{
+    int x = 21;
+    boolean b = false;
+    public boolean equals (Object other) {
+        return this == other;
+    }
+}
+{
+    A a = new A();
+    A b = new B();
+    if (a.equals(b)){
+        print(50);
+    }
+}
