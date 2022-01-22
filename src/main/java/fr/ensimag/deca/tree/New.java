@@ -51,12 +51,12 @@ public class New extends AbstractExpr {
     public  Type verifyExpr(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
+        if(compiler.get(type.getName()) == null){
+            throw new ContextualError("Classe  non définie ", type.getLocation());
+        }
         Type classe = compiler.get(type.getName()).getType();
         if(!classe.isClass() || classe == null){
             throw new ContextualError("Il faut un constructeur pour initialiser ", getLocation());
-        }
-        if(compiler.getClass(type.getName()) == null){
-            throw new ContextualError("Classe définie ", type.getLocation());
         }
         type.setDefinition(compiler.getClass(type.getName()));
         setType(classe);
@@ -75,7 +75,6 @@ public class New extends AbstractExpr {
     public void decompile(IndentPrintStream s) {
         
     }
-
     @Override
     protected void codeGenInst(DecacCompiler compiler){
         //comment obtenir le nb des atributs de l'objet???
@@ -84,9 +83,9 @@ public class New extends AbstractExpr {
         //on verifie si la tas est plein
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         //on charge l'address de la class dans la table des methodes sur R0
-        compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()), Register.getR(1)));
+        compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()), Register.getR(0)));
         //on store l'address de la class sur la premiere posicion de l'address reserve pour l'objet dans la tas
-        compiler.addInstruction(new STORE(Register.getR(1),new RegisterOffset(0,Register.getR(2))));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.getR(2))));
         //on fait push de R2 pour appelle le segment init
         compiler.addInstruction(new PUSH(Register.getR(2)));
         //on appel le segment pour l'initialization du program

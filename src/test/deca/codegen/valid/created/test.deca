@@ -1,24 +1,13 @@
 class Number {
-    int n;
+    int num;
     void printNumber(){
-        println(n);
-    }
-    void printLocal(){
-        int y = 3;
-        println(z);
-    }
-    void printParameter(int numberPrint){
-        println(numberPrint);
+        println(num+1);
     }
 }
 {
     Number n = new Number();
-    a.printNumber(); //prints zero attribut initialize en 0 
-    int x = 1;
-    println(x); //prints one print une variable global
-    a.n = 2;
-    a.printNumber(); //prints two print object attribute
-    a.printLocal(); //prints three print local variable
-    x = 4
-    a.printParameter(x); //prints 4 print une parametre
+    int x = 2;
+    n.printNumber(); //prints zero attribut initialize en 0 
+    println(x);
+    println("");
 }

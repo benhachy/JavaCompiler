@@ -60,13 +60,6 @@ public class DeclField extends AbstractDeclField {
             // Identifier.identificateurs.put(name.getName(),Identifier.ordreIdentifier);
             // ++Identifier.ordreIdentifier;
             localEnv.declare(name.getName(),field);
-            if(initialization instanceof Initialization)
-            {
-                localEnv.setValue(name.getName(), true);
-            }
-            else{
-                localEnv.setValue(name.getName(), false);
-            }
         }
         catch (EnvironmentExp.DoubleDefException e)
         {

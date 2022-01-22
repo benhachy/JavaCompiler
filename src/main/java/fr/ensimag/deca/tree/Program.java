@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -40,14 +41,16 @@ public class Program extends AbstractProgram {
         this.getMain().verifyMain(compiler);
         // throw new UnsupportedOperationException("not yet implemented");
         LOG.debug("verify program: end");
+
     }
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
         //add addsp pour la table des methodes et des variables globals
-        classes.creerTableMethodes(compiler);
         compiler.addComment("Main program");
-        compiler.addInstruction(new ADDSP(Identifier.identificateurs.size()+2));
+        System.out.println(Identifier.identificateurs.size());
+        classes.creerTableMethodes(compiler);
+        compiler.addInstruction(new ADDSP(Register.getPosGB()+2));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
         classes.genCodeInitializationEtMethodes(compiler);

@@ -44,7 +44,8 @@ public class Selection extends AbstractLValue {
     throws ContextualError{
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
         expr.verifyExpr(compiler, localEnv, currentClass);
-        Type expression = type.verifyExpr(compiler,localEnv,currentClass);
+        type.setDefinition(localEnv.get(type.getName()));
+        Type expression = type.verifyAttribut(compiler,expr.getType().getName());
         setType(expression);
         return getType();
     }

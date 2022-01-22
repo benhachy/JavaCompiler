@@ -42,7 +42,7 @@ public class IntLiteral extends AbstractExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
             SymbolTable tab = new SymbolTable();
-            SymbolTable.Symbol symbol = tab.create("int");
+            SymbolTable.Symbol symbol = tab.create(value+"");
             IntType chaine = new IntType(symbol);
             setType(chaine);
             return chaine;

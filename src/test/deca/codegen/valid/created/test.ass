@@ -1,53 +1,58 @@
 ; start main program
+; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de A
+; Code de la table des méthodes de Number
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
-	LOAD code.A.printHello, R0
+	LOAD code.Number.printNumber, R0
 	STORE R0, 4(GB)
-; Main program
-	ADDSP #5
-	NEW #1, R2
+	ADDSP #7
+	NEW #2, R2
 	BOV pile_pleine
 	LEA 3(GB), R0
 	STORE R0, 0(R2)
 	PUSH R2
-	BSR init.A
+	BSR init.Number
 	POP R2
 	LOAD #2, R2
 	STORE R2, 6(GB)
-	LOAD #3, R2
-	STORE R2, 7(GB)
 ; Beginning of main instructions:
-	LOAD 6(GB), R2
-	PUSH R2
-	LOAD 7(GB), R2
-	PUSH R2
-	BSR code.A.printHello
-	WSTR "hello main"
+	BSR code.Number.printNumber
+	LOAD 6(GB), R1
+	WINT
+	WNL
+	WSTR ""
 	WNL
 	HALT
-; Initialisation des champs de A
-init.A:
-	TSTO #1
+; Initialisation des champs de Number
+init.Number:
+	TSTO #2
 	BOV pile_pleine
+	LOAD #0, R0
+	LOAD -2(LB), R1
+	STORE R0, 1(R1)
 	RTS
-code.A.printHello:
+code.Number.printNumber:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	LOAD 4(GB), R1
+	LOAD 1(R1), R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #1, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD R2, R1
 	WINT
-	LOAD 5(GB), R1
-	WINT
-	WSTR "hello de A"
 	WNL
-fin.A.printHello:
+fin.Number.printNumber:
 ; Restauration des registres
 	POP R3
 	POP R2

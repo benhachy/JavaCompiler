@@ -1,6 +1,7 @@
-class A {
-    int x;  
+class A{
+    protected int y;
 }
 {
-    A a = new A() ;
+    A a = new A();
+    a.y = 12;
 }

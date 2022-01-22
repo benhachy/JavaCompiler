@@ -135,7 +135,10 @@ public abstract class AbstractExpr extends AbstractInst {
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
         //System.out.println("::AbstractExpr.java:: veridyInst");
-        this.verifyExpr(compiler, localEnv, currentClass);
+        Type retour = this.verifyExpr(compiler, localEnv, currentClass);
+        // if(!verifyCompatibility(localEnv, retour, returnType)){
+        //     throw new ContextualError("les deux types "+retour.getName()+" et "+returnType.getName()+" sont incompatibles",getLocation());
+        // }
     }
 
     

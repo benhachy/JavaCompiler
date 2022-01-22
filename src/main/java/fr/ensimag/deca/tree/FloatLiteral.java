@@ -40,7 +40,7 @@ public class FloatLiteral extends AbstractExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
             SymbolTable tab = new SymbolTable();
-            SymbolTable.Symbol symbol = tab.create("float");
+            SymbolTable.Symbol symbol = tab.create(value+"");
             FloatType chaine = new FloatType(symbol);
             setType(chaine);
             return chaine;       

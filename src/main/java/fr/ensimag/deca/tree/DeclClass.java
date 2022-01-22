@@ -82,10 +82,15 @@ public class DeclClass extends AbstractDeclClass {
         {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition());
         }
+        
         for(AbstractDeclMethod f : methodDecl.getList())
         {
             f.verifyMethod(compiler,envExpF,classExtension.getClassDefinition());
         }
+        ClassDefinition newDef = identifier.getClassDefinition();
+        newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
+        newDef.setNumberOfMethods(methodDecl.size()+classExtension.getClassDefinition().getNumberOfMethods());
+        identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
 
@@ -171,7 +176,7 @@ public class DeclClass extends AbstractDeclClass {
             }
             //on charge l'address de le objet sur le registre R1
             compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
-            compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(-pos,Register.getR(1))));
+            compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(pos,Register.getR(1))));
             //appres on charge la valeur par defaut de cette type
             //a la fin on fait l'insertion du valeur dans la pille
             Identifier.addVariableAddress(champ.getName().getName(), pos, Register.getR(1));

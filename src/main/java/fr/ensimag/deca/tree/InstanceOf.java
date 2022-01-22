@@ -46,8 +46,19 @@ public class InstanceOf extends AbstractExpr {
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
                 //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
-                SymbolTable tab = new SymbolTable();
-            SymbolTable.Symbol symbol = tab.create("boolean");
+            Type returnType = type.verifyType(compiler);
+            expr.verifyExpr(compiler, localEnv, currentClass);
+            if(!expr.getType().isClassOrNull()){
+                throw new ContextualError(expr.getType().getName()+" n'est pas un Objet", expr.getLocation());
+            }
+            if(!returnType.isClass()){
+                throw new ContextualError(returnType.getName()+" n'est pas une classe", type.getLocation());
+            }
+            if(!verifyCompatibility(localEnv, expr.getType(), returnType)){
+                    throw new ContextualError("les deux types "+expr.getType().getName()+" et "+returnType.getName()+" sont incompatibles",getLocation());
+            }
+            SymbolTable tab = new SymbolTable();
+            SymbolTable.Symbol symbol = tab.create("instanceof");
             BooleanType chaine = new BooleanType(symbol);
             setType(chaine);
             return chaine;
