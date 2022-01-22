@@ -112,7 +112,12 @@ public class DecacCompiler implements Runnable{
         envTypes.put(name, def);
     }
     public void setEvn(Symbol s,EnvironmentExp def){
-        envExprs.put(s,def);
+        if(envExprs.containsKey(s)){
+            envExprs.replace(s,def);
+        }
+        else{
+            envExprs.put(s,def);
+        }
     }
 
     public void update(Symbol name, TypeDefinition def){

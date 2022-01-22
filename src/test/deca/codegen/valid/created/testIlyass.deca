@@ -12,6 +12,6 @@ class B extends A{
 
 {
     B obj =new B();
-    B.setX(14);
-    print(B.x);
+    obj.setX(14);
+    print(obj.x);
 }

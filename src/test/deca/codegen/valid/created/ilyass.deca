@@ -1,0 +1,26 @@
+class A{
+    B b;
+}
+
+class B{
+    A a;
+}
+class P{
+    void parcourA(A a){
+        if( a != null){
+            this.parcourB(a.b);
+        }
+    }
+
+    void parcourB(B b){
+        if( b != null){
+            this.parcourB(b.a);
+        }
+    }
+}
+{
+    A a = new A();
+    if(a == null){
+
+    }
+}

@@ -92,6 +92,23 @@ public class DeclClass extends AbstractDeclClass {
         {
             throw new ContextualError(classExtension.getName()  +" n'est pas une class", getLocation());
         }
+        // EnvironmentExp envExpF = new EnvironmentExp(null);
+        // for(AbstractDeclField f : feildDecl.getList())
+        // {
+        //     f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition());
+        // }
+        // compiler.setEvn(identifier.getName(),envExpF);
+        // for(AbstractDeclMethod f : methodDecl.getList())
+        // {
+        //     f.verifyMethod(compiler,envExpF,identifier.getClassDefinition());
+        // }
+        // compiler.setEvn(identifier.getName(),envExpF);
+    }
+
+
+    @Override
+    protected void verifyClassMembers(DecacCompiler compiler)
+            throws ContextualError {
         EnvironmentExp envExpF = new EnvironmentExp(null);
         for(AbstractDeclField f : feildDecl.getList())
         {
@@ -100,7 +117,7 @@ public class DeclClass extends AbstractDeclClass {
         
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpF,classExtension.getClassDefinition());
+            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition());
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
@@ -108,17 +125,16 @@ public class DeclClass extends AbstractDeclClass {
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
-
-
-    @Override
-    protected void verifyClassMembers(DecacCompiler compiler)
-            throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        EnvironmentExp envExpR = new EnvironmentExp(null);
+        for(AbstractDeclMethod f : methodDecl.getList())
+        {
+            f.verifyMethod(compiler,envExpR,identifier.getClassDefinition());
+        }
+        envExpR.empiler(compiler.getEnv(identifier.getName()));
+        compiler.setEvn(identifier.getName(),envExpR);
     }
 
     @Override

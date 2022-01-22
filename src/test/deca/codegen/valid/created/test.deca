@@ -6,7 +6,6 @@ class A{
 }
 {
     A a = new A();
-    A b = new A();
     a.x = 1;
-    b.x = 1;
+    a.printNumber();
 }
