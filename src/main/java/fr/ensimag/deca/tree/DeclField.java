@@ -38,7 +38,7 @@ public class DeclField extends AbstractDeclField {
     public AbstractIdentifier getType(){
         return type;
     }
-
+    @Override
     public AbstractIdentifier getName(){
         return name;
     }

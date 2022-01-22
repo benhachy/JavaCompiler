@@ -115,10 +115,15 @@ public class DeclClass extends AbstractDeclClass {
         {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition());
         }
+        
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition());
+            f.verifyBody(compiler,envExpF,identifier.getClassDefinition());
         }
+        ClassDefinition newDef = identifier.getClassDefinition();
+        newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
+        newDef.setNumberOfMethods(methodDecl.size()+classExtension.getClassDefinition().getNumberOfMethods());
+        identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
     
@@ -164,29 +169,22 @@ public class DeclClass extends AbstractDeclClass {
         //ClassDefinition definitionClass = compiler.getClass(currentClass);
         EnvironmentExp envClass = compiler.getEnv(currentClass);
         if(envClass == null){
-            //System.out.println("**********NULL******"+currentClass.getName());
 
         }
-        //System.out.println("********PASSED********"+currentClass.getName());
         HashMap<SymbolTable.Symbol,ExpDefinition> hashMapEnv = envClass.getEnvExp();
-        //createLabelList(compiler,definitionClass.getSuperClass().getType().getName());
             for( Symbol s : hashMapEnv.keySet())
             {   
 
                 // edit this so we can check if its a method or not
                 if( envClass.get(s).isMethod()){
-                    //System.out.println("********I FOUND THIS SYMBOL AND I THINK ITS A METHOD IN THE CLASS********"+s.getName()+currentClass);
                     // il faut voir si la méthode est déja dans le hashmap il faut 
                     if ( hashMapMethodIndex.containsKey(s)){
-                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName());
                         //je récupère l'indice pour que j'écrase l'étiquette dans la liste des étiquettes
                         int newIndex = hashMapMethodIndex.get(s) ;
-                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName()+"AND I WILL PUT IT HERE "+newIndex);
                         listEtiquetteMethod.remove(newIndex);
                         listEtiquetteMethod.add(newIndex,new Label("code."+currentClass+"."+s.getName()));
                     }
                     else{
-                        //System.out.println("********HE IS NOT HERE SO********"+s.getName());
                         //si c'est la premère fois je trouve la méthode je l'insère
                         listEtiquetteMethod.add(index,new Label("code."+currentClass+"."+s.getName()));
                         hashMapMethodIndex.put(s,index);
@@ -209,17 +207,16 @@ public class DeclClass extends AbstractDeclClass {
         //on verifie si la class extend object
 
         compiler.addComment("Code de la table des méthodes de "+identifier.getName());
-
         if(classExtension.getName().getName().equals("Object")){
             //si la class extends object on insert un pointure vers 
             compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
         }else{
             //chercher la address de la super class dans la table des methodes
-            compiler.addInstruction(new LEA(new RegisterOffset(Identifier.posGBIdentificateur.get(classExtension.getName()),Register.GB),Register.getR(0)));
+            compiler.addInstruction(new LEA(Identifier.getVariableAddress(classExtension.getName()),Register.getR(0)));
         }
         //mettre l'address ver la super class dans la derner address disponible
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(Register.positionGB,Register.GB)));
-        Identifier.posGBIdentificateur.put(identifier.getName(),Register.positionGB);
+        Identifier.addVariableAddress(identifier.getName(), Register.positionGB, Register.GB);
         Register.updatePosGB();
         EnvironmentExp envClass = compiler.getEnv(identifier.getClassDefinition().getSuperClass().getType().getName());
         //System.out.println("ANA MN HENA ANPRINTI LIK A KHOYA");
@@ -234,7 +231,6 @@ public class DeclClass extends AbstractDeclClass {
         //ClassDefinition superClass = compiler.get(classExtension.getName());
         createLabelList(compiler,identifier.getName());
         // la table des etiquettes est DONE
-        System.out.println("**************** TABLE FOR CLASS :***********"+identifier.getName());
         //afficher();
         for (Label l :listEtiquetteMethod){
             compiler.addInstruction(new LOAD(new LabelOperand(l),Register.getR(0)));
@@ -284,9 +280,10 @@ public class DeclClass extends AbstractDeclClass {
             }
             //on charge l'address de le objet sur le registre R1
             compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
-            compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(-pos,Register.getR(1))));
+            compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(pos,Register.getR(1))));
             //appres on charge la valeur par defaut de cette type
             //a la fin on fait l'insertion du valeur dans la pille
+            Identifier.addVariableAddress(champ.getName().getName(), pos, Register.getR(1));
             pos++;
         }
         compiler.addInstruction(new RTS());

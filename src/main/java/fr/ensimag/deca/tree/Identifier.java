@@ -14,7 +14,9 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
@@ -217,8 +219,9 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError("la classe "+getName()+" n'est pas déclarée",getLocation());
         }
-        setType(c);
-        setDefinition((new ClassDefinition(c,getLocation(),(ClassDefinition)definition)));
+        ClassType classe = new ClassType(getName(), getLocation(), c.getDefinition().getSuperClass());
+        setType(classe);
+        setDefinition((new ClassDefinition(classe,getLocation(),(ClassDefinition)definition)));
         return getClassDefinition();
     }
 
@@ -294,17 +297,14 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(2) ));
+        //compiler.getEnv(getName()).getEnvExp().get(new scala.Symbol("printNumber"));
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
     }
-    @Override
-    public void codeGenExpr(DecacCompiler compiler,int n) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(n) ));
-        
-    }
+
+    
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(0) ));
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(0)));
         if(b){
             compiler.addInstruction(new CMP( new ImmediateInteger(0) ,Register.getR(0)));
             compiler.addInstruction(new BNE(E));
@@ -318,20 +318,49 @@ public class Identifier extends AbstractIdentifier {
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(1) ));
     }
 
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
-        compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB) ));
+        System.out.println("identifier::codeGenAssing"+getName());
+        if(definition.isField()){
+            //chercher la position de la valeur en relation a l'objet         
+            if(getType().isClass()){
+                //load address dans la tas de l'objet
+                //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(1)));
+            }else{
+                //store value sur l'address de registre R0
+                //compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+            }
+            //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
+        }else{
+            //chercher la valeur comme variable global dans gb
+            compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+        }
     }
 
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+        System.out.println("identifier::codeGenAssing"+getName());
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
+    }
 
     private Definition definition;
     public static HashMap<Symbol,Integer> identificateurs = new HashMap<Symbol,Integer>();
-    public static HashMap<Symbol,Integer> posGBIdentificateur = new HashMap<Symbol,Integer>();
-    public static HashMap<Symbol,Integer> posLBIdentificateur = new HashMap<Symbol,Integer>();
+    public static HashMap<Symbol,VariableLocation> positionVariables = new HashMap<Symbol,VariableLocation>();
     public static int ordreIdentifier;
+
+    public static void addVariableAddress(Symbol symbol,int pos,Register register){
+        positionVariables.put(symbol,new VariableLocation(pos,register));
+    }
+    public static void removeVariableAddress(Symbol symbol){
+        positionVariables.remove(symbol);
+    }
+    public static DAddr getVariableAddress(Symbol symbol){
+        return positionVariables.get(symbol).getVariableAddress();
+    }
+
 
     @Override
     protected void iterChildren(TreeFunction f) {

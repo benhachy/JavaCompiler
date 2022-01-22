@@ -1,5 +1,15 @@
 class A{
     int x;
+<<<<<<< HEAD
+}
+{
+    A a = new A();
+    int y;
+    a.x = 3;
+    y=2;
+    println(y);
+
+=======
     void printNumber(){
         int z;
         println(x);
@@ -9,4 +19,5 @@ class A{
     A a = new A();
     a.x = 1;
     a.printNumber();
+>>>>>>> 8222e95941692ac52d00a33c1b1a8f31b68e3333
 }

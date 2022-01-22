@@ -16,12 +16,12 @@ class B {
 class Parcours {
     void parcoursA ( A a ) {
         if ( a != null ) {
-            a.b.parcoursB(  a.b );
+            parcoursB(  a.b );
         }
     }
     void parcoursB ( B b ) {
         if ( b != null ) {
-            b.a.parcoursA( b.a );
+            parcoursA( b.a );
         }
     }
 }

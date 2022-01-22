@@ -14,7 +14,6 @@ public class DecacMain {
     
     public static void main(String[] args) {
         // example log4j message.
-        System.out.println("Start Debug");
         LOG.info("Decac compiler started");
         boolean error = false;
         final CompilerOptions options = new CompilerOptions();

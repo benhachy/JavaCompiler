@@ -1,0 +1,17 @@
+//Description:
+//    test toutes les visibilités 
+//
+// Resultats:
+//    ok
+// Historique:
+//    cree le 01/01/2022
+class C {
+    int x;
+    int y=1;
+int getX() {
+    return x;
+}
+void incrX() {
+    x = x + 1;
+}
+}

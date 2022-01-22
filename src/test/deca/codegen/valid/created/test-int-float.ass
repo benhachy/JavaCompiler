@@ -1,0 +1,50 @@
+; start main program
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Beginning of main instructions:
+	ADDSP #4
+beginIf0:
+	LOAD #5, R2
+	LOAD #0x1.49999ap3, R3
+	FLOAT R2, R2
+	CMP R2, R3
+	BLT ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "OK"
+	WNL
+	BRA finElse0
+elseInst0:
+	WSTR "NO"
+	WNL
+finElse0:
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

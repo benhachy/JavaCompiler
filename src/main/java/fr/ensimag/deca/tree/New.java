@@ -83,7 +83,7 @@ public class New extends AbstractExpr {
         //on verifie si la tas est plein
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         //on charge l'address de la class dans la table des methodes sur R0
-        compiler.addInstruction(new LEA(new RegisterOffset(Identifier.posGBIdentificateur.get(type.getName()), Register.GB), Register.getR(0)));
+        compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()), Register.getR(0)));
         //on store l'address de la class sur la premiere posicion de l'address reserve pour l'objet dans la tas
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.getR(2))));
         //on fait push de R2 pour appelle le segment init
