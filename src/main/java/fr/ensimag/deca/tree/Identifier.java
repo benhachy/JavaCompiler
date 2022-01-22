@@ -193,6 +193,10 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        if(currentClass != null){
+            verifyAttribut(compiler, currentClass.getType().getName());
+            return getType();
+        }
         ExpDefinition def = localEnv.get(getName());
         if(def==null)
         {

@@ -39,7 +39,7 @@ public class ListInst extends TreeList<AbstractInst> {
                 }
                 if(!returnType.isVoid() && !(lastInst instanceof Return))
                 {
-                    throw new ContextualError(" le retour est de type "+ returnType.getName(),getLocation() );
+                    throw new ContextualError(" le retour doit etre de type "+ returnType.getName(),lastInst.getLocation() );
                 }
             //<AbstractInst> listInstances = this.getList();
         // throw new UnsupportedOperationException("not yet implemented");

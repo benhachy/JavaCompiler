@@ -48,17 +48,17 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         {
             lOp = new ConvFloat(lOp);
             type2 = lOp.verifyExpr(compiler, localEnv, currentClass);
-            lOp.setType( new FloatType(null));
+            lOp.setType( new FloatType(type1.getName()));
             setLeftOperand(lOp);
-            setType(new FloatType(null));
+            setType(new FloatType(type1.getName()));
             
         }
         else if(type2.isFloat()&&type1.isInt()){
             rOp = new ConvFloat(rOp);
             type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
-            rOp.setType( new FloatType(null));
+            rOp.setType( new FloatType(type2.getName()));
             setRightOperand(rOp);
-            setType(new FloatType(null));
+            setType(new FloatType(type2.getName()));
             
         }
         else{

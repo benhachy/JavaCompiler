@@ -59,9 +59,9 @@ public class New extends AbstractExpr {
             throw new ContextualError("Il faut un constructeur pour initialiser ", getLocation());
         }
         type.setDefinition(compiler.getClass(type.getName()));
-        setType(classe);
-
-        return (ClassType)classe;
+        type.setType(type.getClassDefinition().getType());
+        setType(type.getType());
+        return type.getType();
     }
     @Override
     protected void iterChildren(TreeFunction f) {
