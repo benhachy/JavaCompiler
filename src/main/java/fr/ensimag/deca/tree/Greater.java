@@ -50,11 +50,11 @@ public class Greater extends AbstractOpIneq {
         lOp.codeGenExpr(compiler, 2);
         if(rOp.getType().isFloat() && lOp.getType().isInt())
         {
-            compiler.addInstruction(new FLOAT(Register.getR(3), Register.getR(3)));
+            compiler.addInstruction(new FLOAT(Register.getR(2), Register.getR(2)));
         }
         else if(rOp.getType().isInt() && lOp.getType().isFloat())
         {
-            compiler.addInstruction(new FLOAT(Register.getR(2), Register.getR(2)));
+            compiler.addInstruction(new FLOAT(Register.getR(3), Register.getR(3)));
         }
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         Label loadTrue = new Label("loadTrueGT."+cmpEtiquetes);

@@ -131,7 +131,7 @@ public class DeclClass extends AbstractDeclClass {
         EnvironmentExp envExpR = new EnvironmentExp(null);
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpR,identifier.getClassDefinition());
+            f.verifyBody(compiler,envExpR,identifier.getClassDefinition());
         }
         envExpR.empiler(compiler.getEnv(identifier.getName()));
         compiler.setEvn(identifier.getName(),envExpR);
