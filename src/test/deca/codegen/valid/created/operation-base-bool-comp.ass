@@ -1,11 +1,10 @@
 ; start main program
+; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Main program
-	ADDSP #5
 	LOAD #2, R2
 	STORE R2, 3(GB)
 	LOAD #3, R2
@@ -21,6 +20,7 @@ loadTrueGT.0:
 finComparationGT.0:
 	STORE R2, 5(GB)
 ; Beginning of main instructions:
+	ADDSP #7
 beginIf0:
 	LOAD 5(GB), R0
 	CMP #0, R0

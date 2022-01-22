@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.*;
@@ -50,7 +51,6 @@ public class Program extends AbstractProgram {
         //add addsp pour la table des methodes et des variables globals
         compiler.addComment("Main program");
         classes.creerTableMethodes(compiler);
-        compiler.addInstruction(new ADDSP(Register.getPosGB()+2));
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
         classes.genCodeInitializationEtMethodes(compiler);
@@ -60,6 +60,10 @@ public class Program extends AbstractProgram {
         ajouterMessageErreur(compiler, new Label("io_error"),"Error: Input/Output error" );
         ajouterMessageErreur(compiler, new Label("print_Error"),"Error: print float only in hexa form" );
         ajouterMessageErreur(compiler, new Label("code.Object.equals"),"a faire la methode equals de object");
+
+        for (Symbol symb : Identifier.positionVariables.keySet()) {
+            System.out.println(symb+" "+Identifier.positionVariables.get(symb).toString());
+        }
     }
 
     @Override

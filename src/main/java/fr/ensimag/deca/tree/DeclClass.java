@@ -117,7 +117,7 @@ public class DeclClass extends AbstractDeclClass {
         
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition());
+            f.verifyBody(compiler,envExpF,identifier.getClassDefinition());
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());

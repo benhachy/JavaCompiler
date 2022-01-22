@@ -35,11 +35,12 @@ public class Selection extends AbstractLValue {
     }
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
-        
-        //je veux chercher la valuer dùun objet
-        type.codeGenAssign(compiler);
-        // charger la valeur dùun variable
-        expr.codeGenExpr(compiler, 2);
+        if(expr.getType().isClass()){
+            expr.codeGenExpr(compiler, 0);
+            type.codeGenAssign(compiler);
+        }else{
+            type.codeGenAssign(compiler);
+        }      
     }
     
     public  Type verifyExpr(DecacCompiler compiler,

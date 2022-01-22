@@ -293,14 +293,11 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.getEnv(getName()).getEnvExp().get(new scala.Symbol("printNumber"));
+        //compiler.getEnv(getName()).getEnvExp().get(new scala.Symbol("printNumber"));
         compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
     }
-    @Override
-    public void codeGenExpr(DecacCompiler compiler,int n) {
-        System.out.println("generation de code pour l'id "+getName());
-        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
-    }
+
+    
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
         compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(0)));
@@ -322,9 +319,28 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
-        compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+        System.out.println("identifier::codeGenAssing"+getName());
+        if(definition.isField()){
+            //chercher la position de la valeur en relation a l'objet         
+            if(getType().isClass()){
+                //load address dans la tas de l'objet
+                //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(1)));
+            }else{
+                //store value sur l'address de registre R0
+                //compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+            }
+            //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
+        }else{
+            //chercher la valeur comme variable global dans gb
+            compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+        }
     }
 
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+        System.out.println("identifier::codeGenAssing"+getName());
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
+    }
 
     private Definition definition;
     public static HashMap<Symbol,Integer> identificateurs = new HashMap<Symbol,Integer>();

@@ -10,6 +10,7 @@ import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import static org.mockito.ArgumentMatchers.nullable;
@@ -64,6 +65,7 @@ public class Main extends AbstractMain {
         // A FAIRE: traiter les déclarations de variables.
         declVariables.codeGenListDeclVar(compiler);
         compiler.addComment("Beginning of main instructions:");
+        compiler.addInstruction(new ADDSP(Register.getPosGB()+1));
         insts.codeGenListInst(compiler);
 
     }

@@ -16,6 +16,19 @@ public class VariableLocation {
     public DAddr getVariableAddress(){
         return new RegisterOffset(pos, register);
     }
+
+    @Override
+    public String toString() {
+        String s = "pos: "+pos+" register ";
+        if(register.equals(Register.GB)){
+            s+="GB";
+        }else if(register.equals(Register.LB)){
+            s+="LB";
+        }else if(register.equals(Register.getR(1))){
+            s+="R1";
+        }
+        return s;
+    }
     
 }
 
