@@ -94,10 +94,9 @@ public class DeclMethod extends AbstractDeclMethod {
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
         type.setDefinition(compiler.getDefinition(type.getName()));
-        System.out.println(" type "+type.getName()+" name "+name.getName());
         Type expectedReturn = compiler.get(type.getName()).getType();
         Signature signature = new Signature();
-        EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler,signature);
+        paramDecl.verifyListParam(compiler,signature);
         MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,0);
         name.setDefinition(method);
         try{
@@ -109,6 +108,18 @@ public class DeclMethod extends AbstractDeclMethod {
             throw new ContextualError("la méthode "+ name.getName()+" est déjà définie", getLocation());
         }
         
+        //methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
+    }
+
+    @Override
+    public void verifyBody(DecacCompiler compiler,
+    EnvironmentExp localEnv, ClassDefinition currentClass)
+    throws ContextualError{
+        type.setDefinition(compiler.getDefinition(type.getName()));
+        Type expectedReturn = compiler.get(type.getName()).getType();
+        Signature signature = new Signature();
+        EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler,signature);
         methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
+
     }
 }

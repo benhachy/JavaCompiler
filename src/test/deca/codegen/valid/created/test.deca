@@ -1,14 +1,5 @@
-class A {
-    int w;
-    void increment(int z) {
-        w = w + z;
-    }
-}
 {
-    A a = new A();
-    int x = 2;
-    int y = 3;
-    a.printHello(x,y);
-    println("hello main");
-    a.equals
+    int a =15;
+    float b = 15.15;
+    a<b;
 }

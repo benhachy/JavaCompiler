@@ -4,54 +4,23 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de A
-	LEA 1(GB), R0
-	STORE R0, 3(GB)
-	LOAD code.A.printHello, R0
-	STORE R0, 4(GB)
 ; Main program
-	ADDSP #5
-	NEW #1, R2
-	BOV pile_pleine
-	LEA 3(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
-	BSR init.A
-	POP R2
-	LOAD #2, R2
-	STORE R2, 6(GB)
-	LOAD #3, R2
-	STORE R2, 7(GB)
+	ADDSP #4
+	LOAD #15, R2
+	STORE R2, 3(GB)
+	LOAD #0x1.e4ccccp3, R2
+	STORE R2, 4(GB)
 ; Beginning of main instructions:
-	LOAD 6(GB), R2
-	PUSH R2
-	LOAD 7(GB), R2
-	PUSH R2
-	BSR code.A.printHello
-	WSTR "hello main"
-	WNL
+	LOAD 4(GB), R3
+	LOAD 3(GB), R2
+	CMP R3, R2
+	BLT loadTrueLT.0
+	LOAD #0, R2
+	BRA finComparationLT.0
+loadTrueLT.0:
+	LOAD #1, R2
+finComparationLT.0:
 	HALT
-; Initialisation des champs de A
-init.A:
-	TSTO #1
-	BOV pile_pleine
-	RTS
-code.A.printHello:
-	TSTO #2	; test de debordement de la pile
-	BOV pile_pleine
-	PUSH R2
-	PUSH R3
-	LOAD 4(GB), R1
-	WINT
-	LOAD 5(GB), R1
-	WINT
-	WSTR "hello de A"
-	WNL
-fin.A.printHello:
-; Restauration des registres
-	POP R3
-	POP R2
-	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
 	WNL
