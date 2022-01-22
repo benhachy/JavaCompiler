@@ -1,5 +1,12 @@
+class A{
+    int x;
+    void printNumber(){
+        int z;
+        println(x);
+    }
+}
 {
-    int a =15;
-    float b = 15.15;
-    a<b;
+    A a = new A();
+    a.x = 1;
+    a.printNumber();
 }

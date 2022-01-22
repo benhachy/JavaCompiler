@@ -56,8 +56,20 @@ public class Lower extends AbstractOpIneq {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-        getRightOperand().codeGenExpr(compiler, 3);
-        getLeftOperand().codeGenExpr(compiler, 2);
+        // getRightOperand().codeGenExpr(compiler, 3);
+        // getLeftOperand().codeGenExpr(compiler, 2);
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr lOp = getLeftOperand();
+        rOp.codeGenExpr(compiler, 3);
+        lOp.codeGenExpr(compiler, 2);
+        if(rOp.getType().isFloat() && lOp.getType().isInt())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(2), Register.getR(2)));
+        }
+        else if(rOp.getType().isInt() && lOp.getType().isFloat())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(3), Register.getR(3)));
+        }
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         Label loadTrue = new Label("loadTrueLT."+cmpEtiquetes);
         Label finCmp = new Label("finComparationLT."+cmpEtiquetes);
