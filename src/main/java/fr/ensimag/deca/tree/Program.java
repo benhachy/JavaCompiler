@@ -40,6 +40,7 @@ public class Program extends AbstractProgram {
         this.getMain().verifyMain(compiler);
         // throw new UnsupportedOperationException("not yet implemented");
         LOG.debug("verify program: end");
+
     }
 
     @Override

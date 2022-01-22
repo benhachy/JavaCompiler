@@ -1,0 +1,70 @@
+
+public class TestUlpSansObjet{
+	
+	public void main(){
+	
+		//int exp = getExponent(d);
+		
+		int exp;
+		if(d==0){
+			exp = -1023;
+			}
+		else {
+			if (d < 0){
+				d = -d;
+				}
+			int m = 0;
+			while (d > 2){
+				m = m + 1;
+				d = d / 2;
+				}
+			exp = m;
+			
+			}
+		
+		
+		float returnValue = 0.0f;
+		 if (exp == MAX_EXPONENT + 1) {
+			 
+			 if (d < 0){
+			 	returnValue = -d;}
+			 	
+			 else{
+			 	returnValue = d;}
+			 	
+		}
+		 else if (exp == MIN_EXPONENT -1 ) {
+			 returnValue = MIN_VALUE;
+		 }
+		 
+		 else {
+			 
+			 exp = exp - (SIGNIFICAND_WIDTH - 1);
+			 
+			 if(exp >= MIN_EXPONENT) {
+				 //returnValue = puissanceDeDeux(exp);
+				 int j = 0;
+				 float count = 1;
+				 while (j < exp){
+				 	count = count * 2;
+				 	j++;
+				 	}
+				 returnValue = count;
+			 }
+			 
+			 else {
+				 returnValue = 1 << (exp - (MIN_EXPONENT - (SIGNIFICAND_WIDTH - 1))); 
+			 }
+		 }
+		 
+		 println(returnValue);
+	
+	
+	
+	
+	}
+
+
+
+
+}

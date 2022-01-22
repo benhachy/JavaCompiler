@@ -51,12 +51,12 @@ public class New extends AbstractExpr {
     public  Type verifyExpr(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
+        if(compiler.get(type.getName()) == null){
+            throw new ContextualError("Classe  non définie ", type.getLocation());
+        }
         Type classe = compiler.get(type.getName()).getType();
         if(!classe.isClass() || classe == null){
             throw new ContextualError("Il faut un constructeur pour initialiser ", getLocation());
-        }
-        if(compiler.getClass(type.getName()) == null){
-            throw new ContextualError("Classe définie ", type.getLocation());
         }
         type.setDefinition(compiler.getClass(type.getName()));
         setType(classe);
@@ -75,8 +75,8 @@ public class New extends AbstractExpr {
     public void decompile(IndentPrintStream s) {
         
     }
-
-    public void codeGenNew(DecacCompiler compiler){
+    @Override
+    protected void codeGenInst(DecacCompiler compiler){
         //comment obtenir le nb des atributs de l'objet???
         //on allue une structure de la taille de l'objet dans la tas
         compiler.addInstruction(new NEW(type.getClassDefinition().getNumberOfFields()+1,Register.getR(2)));

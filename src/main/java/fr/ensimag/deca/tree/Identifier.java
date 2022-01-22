@@ -244,14 +244,17 @@ public class Identifier extends AbstractIdentifier {
         Symbol identifier = getName();
         EnvironmentExp envClass;
         ClassDefinition def = compiler.getClass(classe.getName());
-        while(def != null){
+        while(def.getSuperClass() != null){
             classe = def.getType();
             envClass = compiler.getEnv(classe.getName());
             if(envClass.get(identifier) != null){
                 if(!envClass.get(identifier).isMethod()){
-                    throw new ContextualError(identifier.getName()+" n'est pas une méthode",getLocation());
+                    throw new ContextualError(identifier.getName()+" n'est pas une méthode ",getLocation());
                 }
                 MethodDefinition methodDef = (MethodDefinition)envClass.get(identifier);
+                // if(methodDef.getV{
+                //     throw new ContextualError(identifier.getName()+" n'est pas une méthode ",getLocation());
+                // }
                 setDefinition(methodDef);
                 setType(methodDef.getType());
                 return methodDef;
@@ -259,9 +262,31 @@ public class Identifier extends AbstractIdentifier {
             def = def.getSuperClass();
         }
     
-        throw new ContextualError(identifier.getName()+" n'est pas une méthode définie",getLocation());
+        throw new ContextualError(identifier.getName()+" n'est pas une méthode définie dans "+identifier.getName(),getLocation());
     }
 
+    public  Type verifyAttribut(DecacCompiler compiler,Symbol classe) throws ContextualError{
+        ClassDefinition def = compiler.getClass(classe);
+        EnvironmentExp envClass;
+        while(def.getSuperClass() != null){
+            classe = def.getType().getName();
+            envClass = compiler.getEnv(classe);
+            if(envClass.get(getName()) != null){
+                if(!envClass.get(getName()).isField()){
+                    throw new ContextualError(getName()+" n'est pas une attribut",getLocation());
+                }
+                FieldDefinition field = (FieldDefinition)envClass.get(getName());
+                if(field.getVisibility() == Visibility.PROTECTED){
+                    throw new ContextualError(getName()+"  est une attribut protégé ",getLocation());
+                }
+                setDefinition(field);
+                setType(field.getType());
+                return getType();
+            }
+            def = def.getSuperClass();
+        }
+        throw new ContextualError(getName()+" n'est pas un attribut définie dans "+classe,getLocation());
+    }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
