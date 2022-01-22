@@ -47,7 +47,7 @@ public class Null extends AbstractExpr {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        // leaf nodes => nothing to do 
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {

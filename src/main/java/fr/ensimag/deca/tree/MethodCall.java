@@ -41,6 +41,13 @@ public class MethodCall extends AbstractExpr {
         this.methodName = methodName;
         this.listExpression = listExpression;
     }
+    public MethodCall(AbstractIdentifier methodName ,
+    ListExpr listExpression) {
+        this.name = new This();
+        this.name.setLocation(methodName.getLocation());
+        this.methodName = methodName;
+        this.listExpression = listExpression;
+    }
 
 
 
@@ -50,7 +57,7 @@ public class MethodCall extends AbstractExpr {
         //name : l'expression à laquelle on applique la méthode MethodName et qui prend en argument lisExpression
         name.verifyExpr(compiler, localEnv, currentClass);
         if(!name.getType().isClassOrNull()){
-            throw new ContextualError(methodName.getName()+" n'est applicable que sur des objets", getLocation());
+            throw new ContextualError(methodName.getName()+" n'est applicable que sur des objets", methodName.getLocation());
         }
 
         ClassType classe = (ClassType) name.getType();
