@@ -28,7 +28,6 @@ public class NoInitialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-            SymbolTable.Symbol symbol = type.getName();
             if(t.isBoolean())
             {
                 defaultValue = new BooleanLiteral(false);
@@ -57,6 +56,7 @@ public class NoInitialization extends AbstractInitialization {
             //     throw new ContextualError("le type n'est pas défini ",null);
             // }
     }
+
 
 
     /**

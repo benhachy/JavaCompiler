@@ -1,0 +1,13 @@
+//Description:
+//    object de type A
+//
+// Resultats:
+// 
+// Historique:
+//    cree le 01/01/2022
+class A{
+
+}
+{
+    A obj;
+}

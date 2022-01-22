@@ -64,7 +64,9 @@ public class MethodCall extends AbstractExpr {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-    throw new UnsupportedOperationException("Not yet supported");
+        name.iter(f);
+        methodName.iter(f);
+        listExpression.iter(f);
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {

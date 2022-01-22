@@ -1,0 +1,15 @@
+//Description:
+//    methode avec plusieurs attributs  
+//
+// Resultats:
+//     
+// Historique:
+//    cree le 01/01/2022
+class P {
+    int x;
+    int y;
+    void move(int a, int b) {
+        x = x + a;
+        y = y + b;
+    }
+}
