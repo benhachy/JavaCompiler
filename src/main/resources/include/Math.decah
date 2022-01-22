@@ -36,7 +36,7 @@ class Math {
 			return -190/(a+20) + 10;
 		}
 		else {
-			return   0.5f*(racine_n(a, n -1) + a/racine_n(a, n -1) );
+			return   0.5f*(_racine_n(a, n -1) + a/(_racine_n(a, n -1)) );
 		}
 	}
 	
@@ -47,7 +47,7 @@ class Math {
 			return null;
 		}
 		
-		return racine_n(a, 5);
+		return _racine_n(a, 5);
 	}
 	
 	
@@ -118,7 +118,7 @@ class Math {
 		int nbrMaxDeDeux = -1023;
 		
 		if(d != 0) {
-			nbrMaxDeDeux = nbrMaxDeDeux(d);
+			nbrMaxDeDeux = _nbrMaxDeDeux(d);
 		}
 		
 		return nbrMaxDeDeux;
@@ -158,7 +158,7 @@ class Math {
 		
 		elseif (nbrDeDix < 0) {	
 			nbrDeDix = -nbrDeDix;
-			return -nbrDeDeux(nbrDeDix) - 1;
+			return -_nbrDeDeux(nbrDeDix) - 1;
 		}
 		
 		
@@ -217,7 +217,7 @@ class Math {
 	
 	public  float cos(float theta) {
 		
-		theta = anglePrincipal(theta); // on retrouve l'angle principale càd compris entre -PI et PI de theta
+		theta = _anglePrincipal(theta); // on retrouve l'angle principale càd compris entre -PI et PI de theta
 		
 		if (theta > PI/2 ) {
 			theta -= PI/2;
@@ -253,9 +253,9 @@ class Math {
 					d = -1;
 				}
 				
-				x = funx - d * funy * puissanceNegativeDeDeux(i);
-				y = funy + d * funx * puissanceNegativeDeDeux(i);
-				z = funz - d * getAtan(i);
+				x = funx - d * funy * _puissanceNegativeDeDeux(i);
+				y = funy + d * funx * _puissanceNegativeDeDeux(i);
+				z = funz - d * _getAtan(i);
 				
 				i++;
 			}
@@ -266,7 +266,7 @@ class Math {
 	
 	public  float sin(float theta) {
 		
-		theta = anglePrincipal(theta); // on retrouve l'angle principale càd l'angle compris entre -PI et PI de theta
+		theta = _anglePrincipal(theta); // on retrouve l'angle principale càd l'angle compris entre -PI et PI de theta
 
 		
 		if (theta > PI/2 ) {
@@ -303,9 +303,9 @@ class Math {
 					d = -1;
 				}
 				
-				x = funx - d * funy * puissanceNegativeDeDeux(i);
-				y = funy + d * funx * puissanceNegativeDeDeux(i);
-				z = funz - d * getAtan(i);
+				x = funx - d * funy * _puissanceNegativeDeDeux(i);
+				y = funy + d * funx * _puissanceNegativeDeDeux(i);
+				z = funz - d * _getAtan(i);
 				
 				i++;
 			}
@@ -352,9 +352,9 @@ class Math {
 				d = 1;
 			}
 			
-			x = funx - d * funy * puissanceNegativeDeDeux(i);
-			y = funy + d * funx * puissanceNegativeDeDeux(i);
-			z = funz - d * getAtan(i);
+			x = funx - d * funy * _puissanceNegativeDeDeux(i);
+			y = funy + d * funx * _puissanceNegativeDeDeux(i);
+			z = funz - d * _getAtan(i);
 			
 			i++;
 		}
@@ -378,7 +378,7 @@ class Math {
 		}
 		
 		else {
-			val = val/racine((1 - val * val));
+			val = val/_racine((1 - val * val));
 			return atan(val);
 		}
 		
@@ -390,7 +390,7 @@ class Math {
 	
 	
 	public  float  ulp(float  d) {
-		int exp = getExponent(d);
+		int exp = _getExponent(d);
 		float returnValue = 0.0f;
 		 if (exp == MAX_EXPONENT + 1) {
 			 returnValue = abs(d); 
@@ -404,7 +404,7 @@ class Math {
 			 exp = exp - (SIGNIFICAND_WIDTH - 1);
 			 
 			 if(exp >= MIN_EXPONENT) {
-				 returnValue = puissanceDeDeux(exp);
+				 returnValue = _puissanceDeDeux(exp);
 			 }
 			 
 			 else {
