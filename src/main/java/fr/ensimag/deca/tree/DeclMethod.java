@@ -94,7 +94,6 @@ public class DeclMethod extends AbstractDeclMethod {
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
         type.setDefinition(compiler.getDefinition(type.getName()));
-        System.out.println(" type "+type.getName()+" name "+name.getName());
         Type expectedReturn = compiler.get(type.getName()).getType();
         Signature signature = new Signature();
         EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler,signature);

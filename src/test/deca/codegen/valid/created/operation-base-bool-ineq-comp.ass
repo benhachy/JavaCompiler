@@ -1,0 +1,236 @@
+; start main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Main program
+	ADDSP #6
+	LOAD #12, R2
+	LOAD #12, R3
+	CMP R2, R3
+	BNE finAnd0
+	LOAD #16, R2
+	LOAD #12, R3
+	CMP R2, R3
+	BLT trueVar0
+finAnd0:
+	BRA falseVar0
+trueVar0:
+	LOAD #1, R2
+	BRA nextVar0
+falseVar0:
+	LOAD #0, R2
+nextVar0:
+	STORE R2, 3(GB)
+	LOAD #0x1.fp3, R2
+	STORE R2, 4(GB)
+	LOAD #0x1.0p4, R2
+	STORE R2, 5(GB)
+	LOAD #16, R2
+	STORE R2, 6(GB)
+; Beginning of main instructions:
+beginIf0:
+	LOAD 4(GB), R2
+	LOAD 6(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BLT ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "true"
+	WNL
+	BRA finElse0
+elseInst0:
+	WSTR "false"
+	WNL
+finElse0:
+beginIf1:
+	LOAD 5(GB), R2
+	LOAD 6(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BEQ ifInst1
+	BRA elseInst1
+ifInst1:
+	WSTR "true"
+	WNL
+	BRA finElse1
+elseInst1:
+	WSTR "false"
+	WNL
+finElse1:
+beginIf2:
+	LOAD 5(GB), R2
+	LOAD 6(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BNE ifInst2
+	BRA elseInst2
+ifInst2:
+	WSTR "true"
+	WNL
+	BRA finElse2
+elseInst2:
+	WSTR "false"
+	WNL
+finElse2:
+beginIf3:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst3
+	BRA elseInst3
+ifInst3:
+	WSTR "true"
+	WNL
+	BRA finElse3
+elseInst3:
+	WSTR "false"
+	WNL
+finElse3:
+	LOAD #12, R2
+	LOAD #12, R3
+	CMP R2, R3
+	BNE trueVar1
+	LOAD #16, R3
+	LOAD #0, R2
+	CMP R2, R3
+	BLE trueVar1
+	BRA falseVar1
+trueVar1:
+	LOAD #1, R2
+	BRA nextVar1
+falseVar1:
+	LOAD #0, R2
+nextVar1:
+	STORE R2, 3(GB)
+beginIf4:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst4
+	BRA elseInst4
+ifInst4:
+	WSTR "true"
+	WNL
+	BRA finElse4
+elseInst4:
+	WSTR "false"
+	WNL
+finElse4:
+	LOAD #15, R2
+	LOAD #12, R3
+	CMP R2, R3
+	BEQ finAnd1
+	LOAD #150, R3
+	LOAD #16, R2
+	CMP R2, R3
+	LOAD #150, R3
+	LOAD #160, R2
+	CMP R2, R3
+	BLE trueVar2
+finAnd1:
+	BRA falseVar2
+trueVar2:
+	LOAD #1, R2
+	BRA nextVar2
+falseVar2:
+	LOAD #0, R2
+nextVar2:
+	STORE R2, 3(GB)
+beginIf5:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst5
+	BRA elseInst5
+ifInst5:
+	WSTR "true"
+	WNL
+	BRA finElse5
+elseInst5:
+	WSTR "false"
+	WNL
+finElse5:
+	LOAD #152, R2
+	LOAD #12, R3
+	CMP R3, R2
+	BEQ loadTrueEQ.0
+	LOAD #0, R2
+	BRA finComparationEQ.0
+loadTrueEQ.0:
+	LOAD #1, R2
+finComparationEQ.0:
+	STORE R2, 3(GB)
+beginIf6:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst6
+	BRA elseInst6
+ifInst6:
+	WSTR "true"
+	WNL
+	BRA finElse6
+elseInst6:
+	WSTR "false"
+	WNL
+finElse6:
+	LOAD #152, R2
+	LOAD #12, R3
+	CMP R2, R3
+	BEQ finAnd3
+	LOAD 4(GB), R3
+	LOAD 5(GB), R2
+	CMP R2, R3
+	BLT finAnd2
+finAnd3:
+	LOAD 5(GB), R2
+	LOAD 4(GB), R3
+	CMP R2, R3
+	BEQ trueVar3
+finAnd2:
+	BRA falseVar3
+trueVar3:
+	LOAD #1, R2
+	BRA nextVar3
+falseVar3:
+	LOAD #0, R2
+nextVar3:
+	STORE R2, 3(GB)
+beginIf7:
+	LOAD 3(GB), R0
+	CMP #0, R0
+	BNE ifInst7
+	BRA elseInst7
+ifInst7:
+	WSTR "true"
+	WNL
+	BRA finElse7
+elseInst7:
+	WSTR "false"
+	WNL
+finElse7:
+	HALT
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

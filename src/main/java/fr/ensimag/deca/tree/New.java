@@ -76,16 +76,17 @@ public class New extends AbstractExpr {
         
     }
 
-    public void codeGenNew(DecacCompiler compiler){
+    @Override
+    protected void codeGenInst(DecacCompiler compiler){
         //comment obtenir le nb des atributs de l'objet???
         //on allue une structure de la taille de l'objet dans la tas
         compiler.addInstruction(new NEW(type.getClassDefinition().getNumberOfFields()+1,Register.getR(2)));
         //on verifie si la tas est plein
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         //on charge l'address de la class dans la table des methodes sur R0
-        compiler.addInstruction(new LEA(new RegisterOffset(Identifier.posGBIdentificateur.get(type.getName()), Register.GB), Register.getR(0)));
+        compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()), Register.getR(1)));
         //on store l'address de la class sur la premiere posicion de l'address reserve pour l'objet dans la tas
-        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(0,Register.getR(2))));
+        compiler.addInstruction(new STORE(Register.getR(1),new RegisterOffset(0,Register.getR(2))));
         //on fait push de R2 pour appelle le segment init
         compiler.addInstruction(new PUSH(Register.getR(2)));
         //on appel le segment pour l'initialization du program

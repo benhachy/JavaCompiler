@@ -10,7 +10,10 @@ import java.time.format.SignStyle;
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
@@ -64,7 +67,9 @@ public class MethodCall extends AbstractExpr {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-    throw new UnsupportedOperationException("Not yet supported");
+        name.iter(f); 
+        methodName.iter(f); 
+        listExpression.iter(f);    
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
@@ -76,5 +81,11 @@ public class MethodCall extends AbstractExpr {
     public void decompile(IndentPrintStream s) {
 
     }
-    
+    public void codeGenInst(DecacCompiler compiler){
+        for (AbstractExpr exp : listExpression.getList()) {
+            exp.codeGenInst(compiler);
+            compiler.addInstruction(new PUSH(Register.getR(2)));
+        }
+        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+    }    
 }

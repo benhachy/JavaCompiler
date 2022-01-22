@@ -4,28 +4,42 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de A
-	LEA 1(GB), R0
-	STORE R0, 3(GB)
 ; Main program
 	ADDSP #3
-	NEW #1, R2
-	BOV pile_pleine
-	LEA 3(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
-	BSR init.A
-	POP R2
-; Beginning of main instructions:
-	HALT
-; Initialisation des champs de A
-init.A:
+	LOAD #5, R2
 	TSTO #2
 	BOV pile_pleine
-	LOAD #0, R0
-	LOAD -2(LB), R1
-	STORE R0, -1(R1)
-	RTS
+	PUSH R2
+	LOAD #4, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #5, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #3, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #4, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	STORE R2, 3(GB)
+; Beginning of main instructions:
+	LOAD 3(GB), R1
+	WINT
+	HALT
 pile_pleine:
 	WSTR "Error: pile pleine"
 	WNL

@@ -17,6 +17,7 @@ public abstract class AbstractDeclField extends Tree {
     public abstract void verifyFeild(DecacCompiler compiler, EnvironmentExp localEnv,ClassDefinition superClass,ClassDefinition classe)
     throws ContextualError ;
     public abstract AbstractIdentifier getType();
+    public abstract AbstractIdentifier getName();
 
 
 }

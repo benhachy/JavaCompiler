@@ -30,6 +30,7 @@ public class DeclParam extends AbstractDeclParam {
     {
         Type t = type.verifyType(compiler);
         ident.setType(t);
+        ident.setDefinition(compiler.get(type.getName()));
         try{
             paramsEnv.declare(ident.getName(),new ParamDefinition(t,getLocation()));
         }

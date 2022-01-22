@@ -121,29 +121,20 @@ public class DeclClass extends AbstractDeclClass {
         //on verifie si la class extend object
 
         compiler.addComment("Code de la table des méthodes de "+identifier.getName());
-
         if(classExtension.getName().getName().equals("Object")){
             //si la class extends object on insert un pointure vers 
             compiler.addInstruction(new LEA(new RegisterOffset(1,Register.GB),Register.getR(0)));
         }else{
             //chercher la address de la super class dans la table des methodes
-            compiler.addInstruction(new LEA(new RegisterOffset(Identifier.posGBIdentificateur.get(classExtension.getName()),Register.GB),Register.getR(0)));
+            compiler.addInstruction(new LEA(Identifier.getVariableAddress(classExtension.getName()),Register.getR(0)));
         }
         //mettre l'address ver la super class dans la derner address disponible
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(Register.positionGB,Register.GB)));
-        Identifier.posGBIdentificateur.put(identifier.getName(),Register.positionGB);
+        Identifier.addVariableAddress(identifier.getName(), Register.positionGB, Register.GB);
         Register.updatePosGB();
-        //insertion des etiquetes des methodes de la super class
-        /*for (AbstractDeclMethod  methode : classExtension.getList()) {
-            methode.creerEtStockerLabel(compiler,this);
-        }*/
-        //insertion des etiquetes des methodes
-        //ClassDefinition superClass = compiler.get(classExtension.getName());
         for (AbstractDeclMethod  methode : methodDecl.getList()) {
              methode.creerEtStockerLabel(compiler,this);
         }
-        //cherche les methodes du super class pour les inserer aussi
-        //comment faire pour le surcharge des methodes???
     }
 
     public void genCodeInitializationChampsEtMethodes(DecacCompiler compiler){
@@ -183,6 +174,7 @@ public class DeclClass extends AbstractDeclClass {
             compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(-pos,Register.getR(1))));
             //appres on charge la valeur par defaut de cette type
             //a la fin on fait l'insertion du valeur dans la pille
+            Identifier.addVariableAddress(champ.getName().getName(), pos, Register.getR(1));
             pos++;
         }
         compiler.addInstruction(new RTS());
