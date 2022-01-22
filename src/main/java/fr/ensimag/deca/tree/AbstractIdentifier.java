@@ -12,6 +12,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 
 /**
  *
@@ -96,4 +97,6 @@ public abstract class AbstractIdentifier extends AbstractLValue {
     public abstract Type verifyType(DecacCompiler compiler) throws ContextualError;
 
     public abstract MethodDefinition verifyExistence(DecacCompiler compiler, ClassType classe)throws ContextualError;
+
+    public abstract Type verifyAttribut(DecacCompiler compiler,Symbol classe) throws ContextualError;
 }

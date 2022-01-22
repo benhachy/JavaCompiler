@@ -2,6 +2,8 @@ package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 
@@ -27,13 +29,13 @@ public class EnvironmentExp {
     // environnement (association nom -> définition, avec possibilité
     // d'empilement).
     private HashMap<SymbolTable.Symbol,ExpDefinition> envExp;
-    private HashMap<SymbolTable.Symbol,Boolean> values;
+    private HashMap<SymbolTable.Symbol,MethodDefinition> methods;
     EnvironmentExp parentEnvironment;
     
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
         envExp = new HashMap<SymbolTable.Symbol,ExpDefinition>();
-        values = new HashMap<SymbolTable.Symbol,Boolean>();
+        methods = new HashMap<SymbolTable.Symbol,MethodDefinition>();
     }
 
     public static class DoubleDefException extends Exception {
@@ -57,13 +59,9 @@ public class EnvironmentExp {
 
 
 
-    public boolean getValue(Symbol key)
+    public HashMap<SymbolTable.Symbol,MethodDefinition>  getMethods()
     {
-        if(values.containsKey(key))
-        {
-            return values.get(key);
-        }
-        return false;
+        return methods;
     }
     public HashMap<SymbolTable.Symbol,ExpDefinition>  getEnvExp()
     {
@@ -73,11 +71,6 @@ public class EnvironmentExp {
     public int getOrdre(Symbol key)
     {
         return key.getOrdre();
-    }
-
-    public void setValue(Symbol key,boolean val)
-    {
-        values.put(key, val);
     }
 
     /**
@@ -113,6 +106,9 @@ public class EnvironmentExp {
             throw new DoubleDefException("La variable "+name.getName()+" est déjà définie");
         }
         envExp.put(name, def);
+        if(def.isMethod()){
+            methods.put(name, (MethodDefinition)def);
+        }
     }
     public void update(Symbol name, ExpDefinition def){
         if(envExp.containsKey(name))
@@ -132,4 +128,5 @@ public class EnvironmentExp {
         }
         System.out.print(" }");
     }
+
 }
