@@ -33,7 +33,7 @@ class Math {
 	 
 	public float _racine_n(float a, int n) {
 		if (n == 0 ) {
-			return 1;
+			return -190/(a+20) + 10;
 		}
 		else {
 			return   0.5f*(racine_n(a, n -1) + a/racine_n(a, n -1) );
@@ -47,7 +47,7 @@ class Math {
 			return null;
 		}
 		
-		return racine_n(a, 20);
+		return racine_n(a, 5);
 	}
 	
 	
