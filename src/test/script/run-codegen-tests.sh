@@ -4,7 +4,7 @@ echo "----- Code Gen tests run -----"
 
 cd "$(dirname "$0")"/../../.. || exit 1
 
-cd "src/test/deca/codegen/valid/object"
+cd "src/test/deca/codegen/valid/created"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'

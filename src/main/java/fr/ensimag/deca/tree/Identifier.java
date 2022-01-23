@@ -371,7 +371,8 @@ public class Identifier extends AbstractIdentifier {
         compiler.addComment("je suis dans codeGenExpr dans indentifier.java");
         if(getDefinition().isField()){
             System.out.println("identifier::codeGenExpr Champs"+getName());
-            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            // à voir ou faut la mettre avant 
+            //compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
 
         }
@@ -380,6 +381,11 @@ public class Identifier extends AbstractIdentifier {
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
 
+        }
+        else if(getDefinition().isParam()){
+            System.out.println("identifier::codeGenExpr Class"+getName());
+            //compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB),Register.getR(n)));
         }
         else{
             System.out.println("identifier::codeGenExpr Nnnnnnnnnnnon Champs"+getName());

@@ -1,4 +1,5 @@
 ; start main program
+	ADDSP #1
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -45,6 +46,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

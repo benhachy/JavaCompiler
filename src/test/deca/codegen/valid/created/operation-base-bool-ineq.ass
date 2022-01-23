@@ -1,10 +1,12 @@
 ; start main program
+	ADDSP #2
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; idk why or how he's here
 	LOAD #12, R2
 	LOAD #12, R3
 	CMP R3, R2
@@ -39,6 +41,8 @@ finElse0:
 loadFalseNE.0:
 	LOAD #0, R2
 finComparationNE.0:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf1:
 	LOAD 3(GB), R0
@@ -62,6 +66,8 @@ finElse1:
 loadFalseNE.1:
 	LOAD #0, R2
 finComparationNE.1:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf2:
 	LOAD 3(GB), R0
@@ -85,6 +91,8 @@ finElse2:
 loadTrueEQ.1:
 	LOAD #1, R2
 finComparationEQ.1:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf3:
 	LOAD 3(GB), R0
@@ -110,6 +118,8 @@ trueVar0:
 falseVar0:
 	LOAD #0, R2
 nextVar0:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf4:
 	LOAD 3(GB), R0
@@ -143,6 +153,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

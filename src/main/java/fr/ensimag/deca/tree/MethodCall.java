@@ -117,8 +117,8 @@ public class MethodCall extends AbstractExpr {
         compiler.addInstruction(new BEQ(new Label("deferencement.null")));
         compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.getR(3)),Register.getR(3)));
         // a revoir
-        compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
-        //compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+        //compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
+        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
         compiler.addInstruction(new SUBSP(1+listExpression.size()));
     }    
 }

@@ -1,0 +1,186 @@
+; start main program
+	ADDSP #12
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de a
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.a.getA, R0
+	STORE R0, 5(GB)
+	LOAD code.a.printotito, R0
+	STORE R0, 6(GB)
+; Code de la table des méthodes de b
+	LEA 3(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+	LOAD code.a.getA, R0
+	STORE R0, 9(GB)
+	LOAD code.b.printotito, R0
+	STORE R0, 10(GB)
+	LOAD code.b.anaprintdialB, R0
+	STORE R0, 11(GB)
+; Code de la table des méthodes de c
+	LEA 7(GB), R0
+	STORE R0, 12(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 13(GB)
+	LOAD code.a.getA, R0
+	STORE R0, 14(GB)
+	LOAD code.b.printotito, R0
+	STORE R0, 15(GB)
+	LOAD code.b.anaprintdialB, R0
+	STORE R0, 16(GB)
+	LOAD code.c.anas, R0
+	STORE R0, 17(GB)
+	LOAD code.c.ilyass, R0
+	STORE R0, 18(GB)
+; Beginning of main instructions:
+	ADDSP #20
+	HALT
+; Initialisation des champs de a
+init.a:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	RTS
+code.a.getA:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+fin.a.getA:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.a.printotito:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	WSTR "nanan"
+fin.a.printotito:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+; Initialisation des champs de b
+init.b:
+	TSTO #1
+	BOV pile_pleine
+	LOAD -2(LB), R1
+; Appel de l'initialisation des champs hérités de a
+	PUSH R1
+	BSR init.a
+	SUBSP #1
+	RTS
+code.b.printotito:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	WSTR "ana B hena "
+fin.b.printotito:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.b.anaprintdialB:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	WSTR "hadi lhbhila"
+fin.b.anaprintdialB:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+; Initialisation des champs de c
+init.c:
+	TSTO #1
+	BOV pile_pleine
+	LOAD -2(LB), R1
+; Appel de l'initialisation des champs hérités de b
+	PUSH R1
+	BSR init.b
+	SUBSP #1
+	RTS
+code.c.anas:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	WSTR "ana B hena "
+fin.c.anas:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.c.ilyass:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	WSTR "hadi lhbhila"
+fin.c.ilyass:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

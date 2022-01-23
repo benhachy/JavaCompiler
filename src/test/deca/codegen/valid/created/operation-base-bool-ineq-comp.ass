@@ -1,10 +1,12 @@
 ; start main program
+	ADDSP #5
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; idk why or how he's here
 	LOAD #12, R2
 	LOAD #12, R3
 	CMP R2, R3
@@ -22,16 +24,21 @@ falseVar0:
 	LOAD #0, R2
 nextVar0:
 	STORE R2, 3(GB)
+; idk why or how he's here
 	LOAD #0x1.fp3, R2
 	STORE R2, 4(GB)
+; idk why or how he's here
 	LOAD #0x1.0p4, R2
 	STORE R2, 5(GB)
+; idk why or how he's here
 	LOAD #16, R2
 	STORE R2, 6(GB)
 ; Beginning of main instructions:
 	ADDSP #8
 beginIf0:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 	FLOAT R3, R3
 	CMP R2, R3
@@ -46,7 +53,9 @@ elseInst0:
 	WNL
 finElse0:
 beginIf1:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 	FLOAT R3, R3
 	CMP R2, R3
@@ -61,7 +70,9 @@ elseInst1:
 	WNL
 finElse1:
 beginIf2:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 	FLOAT R3, R3
 	CMP R2, R3
@@ -103,6 +114,8 @@ trueVar1:
 falseVar1:
 	LOAD #0, R2
 nextVar1:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf4:
 	LOAD 3(GB), R0
@@ -136,6 +149,8 @@ trueVar2:
 falseVar2:
 	LOAD #0, R2
 nextVar2:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf5:
 	LOAD 3(GB), R0
@@ -159,6 +174,8 @@ finElse5:
 loadTrueEQ.0:
 	LOAD #1, R2
 finComparationEQ.0:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf6:
 	LOAD 3(GB), R0
@@ -177,12 +194,16 @@ finElse6:
 	LOAD #12, R3
 	CMP R2, R3
 	BEQ finAnd3
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R3
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
 	CMP R2, R3
 	BLT finAnd2
 finAnd3:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R3
 	CMP R2, R3
 	BEQ trueVar3
@@ -194,6 +215,8 @@ trueVar3:
 falseVar3:
 	LOAD #0, R2
 nextVar3:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf7:
 	LOAD 3(GB), R0
@@ -227,6 +250,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

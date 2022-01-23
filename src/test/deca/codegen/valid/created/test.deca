@@ -26,10 +26,10 @@ class C{
     /*if( b instanceof C){
         println("je suis un fils de B");
     }*/
-    //b.addAtt1(5);
-    b.setX(11);
-    //print(b.att1);
-    print(b.x);
+    b.setAtt1(5);
+    //b.setX(11);
+    println(b.att1);
+    println(b.x);
     /*b.att2 = 30;
     b.aat3 = b.x * b.att2 -b.att2 + 24;
     println("OK");

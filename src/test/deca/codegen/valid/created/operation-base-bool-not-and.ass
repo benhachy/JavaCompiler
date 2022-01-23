@@ -1,12 +1,15 @@
 ; start main program
+	ADDSP #3
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 3(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 4(GB)
 ; Beginning of main instructions:
@@ -106,6 +109,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

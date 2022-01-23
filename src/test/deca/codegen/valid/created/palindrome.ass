@@ -1,30 +1,42 @@
 ; start main program
+	ADDSP #12
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 3(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 4(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 5(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 6(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 7(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 8(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 9(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 10(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 11(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 12(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 13(GB)
 ; Beginning of main instructions:
@@ -36,18 +48,26 @@ beginWhile0:
 	BRA endWhile0
 instWhile0:
 	LOAD #0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 8(GB)
 	LOAD #12344321, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 3(GB)
 	LOAD 3(GB), R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 11(GB)
 beginWhile1:
 	LOAD #0, R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 11(GB), R3
 	CMP R2, R3
 	BNE instWhile1
 	BRA endWhile1
 instWhile1:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 11(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -58,8 +78,11 @@ instWhile1:
 	QUO R0, R2
 	CMP #0, R0
 	BEQ division_zero
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 11(GB)
 beginWhile2:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 8(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -68,11 +91,13 @@ beginWhile2:
 	LOAD R2, R0
 	POP R2
 	ADD R0, R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 	CMP R2, R3
 	BNE instWhile2
 	BRA endWhile2
 instWhile2:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -81,7 +106,10 @@ instWhile2:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -90,17 +118,23 @@ instWhile2:
 	LOAD R2, R0
 	POP R2
 	ADD R0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 6(GB)
 	BRA beginWhile2
 endWhile2:
 	LOAD #1, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 12(GB)
 beginWhile3:
 	LOAD #0, R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 11(GB), R3
 	TSTO #2
 	BOV pile_pleine
 	PUSH R3
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 12(GB), R3
 	LOAD R3, R0
 	POP R3
@@ -111,6 +145,7 @@ beginWhile3:
 	BNE instWhile3
 	BRA endWhile3
 instWhile3:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 10(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -119,7 +154,10 @@ instWhile3:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 10(GB)
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 12(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -128,15 +166,21 @@ instWhile3:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 12(GB)
 	BRA beginWhile3
 endWhile3:
 	LOAD #0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 6(GB)
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 10(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -156,11 +200,15 @@ endWhile3:
 	MUL R0, R2
 	SUB R2, R3
 	LOAD R3, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 4(GB)
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -174,13 +222,17 @@ endWhile3:
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 9(GB), R2
 	LOAD R2, R0
 	POP R2
 	QUO R0, R2
 	CMP #0, R0
 	BEQ division_zero
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 5(GB)
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 9(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -189,13 +241,21 @@ endWhile3:
 	LOAD R2, R0
 	POP R2
 	MUL R0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 9(GB)
 	LOAD #1, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 	LOAD #1, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 10(GB)
 beginIf0:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R3
 	CMP R2, R3
 	BNE ifInst0
@@ -204,11 +264,16 @@ ifInst0:
 	WSTR "le nombre n'est pas palindrome"
 	WNL
 	LOAD #1, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 9(GB)
 	LOAD #0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 11(GB)
 	BRA finElse0
 elseInst0:
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 8(GB), R2
 	TSTO #2
 	BOV pile_pleine
@@ -217,9 +282,12 @@ elseInst0:
 	LOAD R2, R0
 	POP R2
 	ADD R0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 8(GB)
 beginIf1:
 	LOAD #0, R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 11(GB), R3
 	CMP R2, R3
 	BNE ifInst1
@@ -230,6 +298,8 @@ elseInst1:
 	WSTR "le nombre est palindrome"
 	WNL
 	LOAD #0, R2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 13(GB)
 finElse1:
 finElse0:
@@ -256,6 +326,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:
