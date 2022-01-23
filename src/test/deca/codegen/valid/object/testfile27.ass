@@ -1,0 +1,158 @@
+; start main program
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.A.setX, R0
+	STORE R0, 5(GB)
+	LOAD code.A.init, R0
+	STORE R0, 6(GB)
+	LOAD code.A.getX, R0
+	STORE R0, 7(GB)
+; Code de la table des méthodes de B
+	LEA 3(GB), R0
+	STORE R0, 8(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 9(GB)
+	LOAD code.A.setX, R0
+	STORE R0, 10(GB)
+	LOAD code.B.init, R0
+	STORE R0, 11(GB)
+	LOAD code.A.getX, R0
+	STORE R0, 12(GB)
+; Code de la table des méthodes de C
+	LEA 3(GB), R0
+	STORE R0, 13(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 14(GB)
+	LOAD code.A.setX, R0
+	STORE R0, 15(GB)
+	LOAD code.C.init, R0
+	STORE R0, 16(GB)
+	LOAD code.A.getX, R0
+	STORE R0, 17(GB)
+	HALT
+; Initialisation des champs de A
+init.A:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	RTS
+code.A.setX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD 1(R1), R2
+fin.A.setX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.A.getX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+fin.A.getX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.A.init:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD #0, R2
+fin.A.init:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+; Initialisation des champs de B
+init.B:
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 2(R1)
+	RTS
+code.B.init:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD #0, R2
+	PUSH R2
+	BSR code.B.setX
+	LOAD #0, R2
+fin.B.init:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+; Initialisation des champs de C
+init.C:
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 2(R1)
+	RTS
+code.C.init:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD #0, R2
+	PUSH R2
+	BSR code.C.setX
+	LOAD #1, R2
+fin.C.init:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

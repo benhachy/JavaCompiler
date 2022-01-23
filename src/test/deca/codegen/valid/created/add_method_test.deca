@@ -1,8 +1,20 @@
-class P {
+/*class P {
     int x;
     int y;
 void move(int a, int b) {
     x = x + a;
     y = y + b;
 }
+}*/
+class P {
+    int x;
+    int y;
+void setX() {
+    x = 100;
+}
+}
+{
+    P p =new P();
+    p.setX();
+    print(p.x);
 }
