@@ -38,10 +38,13 @@ public class Selection extends AbstractLValue {
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
         if(expr.getType().isClass()){
+            compiler.addComment("je traite un assign dans la selection");
+            //exp is this
             expr.codeGenExpr(compiler, 3);
+            //type is x in this.x
             type.codeGenAssign(compiler);
             compiler.addComment("ononon");
-            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
+            //compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
             //type.getFieldDefinition().getIndex();
         }else{
             type.codeGenAssign(compiler);
@@ -49,7 +52,10 @@ public class Selection extends AbstractLValue {
     }
     @Override
     public  void codeGenExpr(DecacCompiler compiler,int n){
+        compiler.addComment("je traite une expression de type je sais pas dans la selection"+expr.getType());
+
         if(expr.getType().isClass()){
+            compiler.addComment("je traite une expression de type Class dans la selection");
             expr.codeGenExpr(compiler, 3);
             type.codeGenAssign(compiler);
             compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(n)));

@@ -16,6 +16,9 @@ public class VariableLocation {
     public DAddr getVariableAddress(){
         return new RegisterOffset(pos, register);
     }
+    public int getPosition(){
+        return this.pos;
+    }
 
     @Override
     public String toString() {

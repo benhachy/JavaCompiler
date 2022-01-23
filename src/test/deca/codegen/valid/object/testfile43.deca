@@ -2,7 +2,7 @@
 //    plusieurs classe avec methodes sur objets 
 //
 // Resultats:
-//
+//     
 // Historique:
 //    cree le 01/01/2022
 class A {
@@ -12,16 +12,15 @@ class B {
     
     A a ;
 }
-
 class Parcours {
     void parcoursA ( A a ) {
         if ( a != null ) {
-            parcoursB(  a.b );
+            parcoursB( a.b );
         }
     }
     void parcoursB ( B b ) {
         if ( b != null ) {
-            parcoursA( b.a );
+        parcoursA(b.a );
         }
     }
 }

@@ -14,7 +14,7 @@ class B extends A{
 }
 {
     B obj = new B();
-    B.x = 14;
+    obj.x = 14;
 }
 
     

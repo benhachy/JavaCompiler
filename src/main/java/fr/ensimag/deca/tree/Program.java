@@ -59,6 +59,7 @@ public class Program extends AbstractProgram {
         ajouterMessageErreur(compiler, new Label("division_zero"),"Error: Division by zero" );
         ajouterMessageErreur(compiler, new Label("io_error"),"Error: Input/Output error" );
         ajouterMessageErreur(compiler, new Label("print_Error"),"Error: print float only in hexa form" );
+        ajouterMessageErreur(compiler, new Label("deferencement.null"),"Erreur : dereferencement de null" );
         ajouterMessageErreur(compiler, new Label("code.Object.equals"),"a faire la methode equals de object");
 
         for (Symbol symb : Identifier.positionVariables.keySet()) {

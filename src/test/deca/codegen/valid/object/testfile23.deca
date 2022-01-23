@@ -8,8 +8,8 @@
 //    cree le 01/01/2022
 class A{
     protected int x;
-    public int y;
-    public void setX(int x){
+    int y;
+    void setX(int x){
         this.x = x;
     }
 }
@@ -18,10 +18,10 @@ class B extends A{
 }
 {
     B obj = new B();
-    B.setX(14);
-    print(B.x);
-    B.y = 21;
-    print(B.y)
+    obj.setX(14);
+    print(obj.x);
+    obj.y = 21;
+    print(obj.y);
 }
 
     

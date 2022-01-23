@@ -14,6 +14,6 @@ class Q {
 }
 {
     Q obj = new Q();
-    int x = Q.abs(-8);
+    int x = obj.abs(-8);
     print(x);
 }

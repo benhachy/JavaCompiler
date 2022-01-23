@@ -2,8 +2,7 @@
 //    creation de l'object au sein de la class
 //
 // Resultats:
-//      14
-//      21
+//          
 // Historique:
 //    cree le 01/01/2022
 class A {

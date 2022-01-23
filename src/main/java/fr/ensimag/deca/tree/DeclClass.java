@@ -322,6 +322,7 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
+        // il vaut mieux mettre une classe feild , on fait appel à codegenlistdecfeild
         for (AbstractDeclField champ : feildDecl.getList()) {
             //pour chaque champ on verifie le type
             //appres on les mett sur le registre R0

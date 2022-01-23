@@ -8,10 +8,10 @@
 class A{
     int x = 21;
     boolean b = false;
-    public boolean equals (Object other) {
+    boolean equals (Object other) {
         return this == other;
     }
-    public void setX(int x){
+    void setX(int x){
         this.x = x;
     }
 }

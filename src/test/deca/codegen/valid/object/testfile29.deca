@@ -6,7 +6,7 @@
 // Historique:
 //    cree le 01/01/2022
 class A{
-    public boolean equals (Object other) {
+    boolean equals (Object other) {
         return this == other;
     }
 }

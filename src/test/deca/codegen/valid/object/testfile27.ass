@@ -52,7 +52,11 @@ code.A.setX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 	LOAD 1(R1), R2
+; ononon
+	STORE R2, 1(R3)
 fin.A.setX:
 ; Restauration des registres
 	POP R3
@@ -63,6 +67,8 @@ code.A.getX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 fin.A.getX:
 ; Restauration des registres
 	POP R3
@@ -73,6 +79,8 @@ code.A.init:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 	LOAD #0, R2
 fin.A.init:
 ; Restauration des registres
@@ -81,21 +89,23 @@ fin.A.init:
 	RTS
 ; Initialisation des champs de B
 init.B:
-; Appel de l'initialisation des champs hérités de A
-	PUSH R1
-	BSR init.A
-	SUBSP #1
 	TSTO #2
 	BOV pile_pleine
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 2(R1)
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
 	RTS
 code.B.init:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 	LOAD #0, R2
 	PUSH R2
 	BSR code.B.setX
@@ -107,21 +117,23 @@ fin.B.init:
 	RTS
 ; Initialisation des champs de C
 init.C:
-; Appel de l'initialisation des champs hérités de A
-	PUSH R1
-	BSR init.A
-	SUBSP #1
 	TSTO #2
 	BOV pile_pleine
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 2(R1)
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
 	RTS
 code.C.init:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 	LOAD #0, R2
 	PUSH R2
 	BSR code.C.setX

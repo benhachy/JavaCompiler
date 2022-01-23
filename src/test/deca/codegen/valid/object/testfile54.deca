@@ -1,0 +1,22 @@
+//Description:
+//    test des réferences 
+//
+// Resultats:
+//    5
+// Historique:
+//    cree le 01/01/2022
+class A{
+	int a = 21;
+	boolean b = true;
+	int c = -393;
+	int x;
+}
+{	
+	A obj = new A();
+    obj.a = obj.a /3;
+    obj.a = 5 * obj.a + 3;
+    if ( obj.a % 2 == 0){
+        print(5);
+    }
+	
+}
