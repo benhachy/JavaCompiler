@@ -1,4 +1,3 @@
-
 public class TestAsinSansObjet {
 	
 	public  void main(String[] args) {
@@ -20,7 +19,7 @@ public class TestAsinSansObjet {
 		int n = 45;
 		
 		float x = 1;
-		float y = val;
+		float y = theta;
 		float z = 0;
 		
 		int i = 0;
@@ -40,10 +39,10 @@ public class TestAsinSansObjet {
 			}
 			// Initialisation de d	
 			if (funy > 0) {
-				d = 1;
+				d = -1;
 			}
 			else {
-				d = -1;
+				d = 1;
 			}
 			
 			x = (funx - d * funy * twoPow);
@@ -96,13 +95,14 @@ public class TestAsinSansObjet {
 			elseif(i == 43) { z =  funz - d * 1.1368683772161603e-13f;}
 			elseif(i == 44) { z =  funz - d * 5.684341886080802e-14f;}
 			elseif(i == 45) {z =  funz - d * 2.8421709430404007e-14f;}
-			}
-			
+
 			i++;
 		}
 			
-		
-		
 		println(z);
-			
+
 	}
+			
+		
+			
+}
