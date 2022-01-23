@@ -119,6 +119,21 @@ public class EnvironmentExp {
             envExp.put(name,def);
         }
     }
+
+    public boolean contains(Symbol s){
+        boolean b = false;
+        b = envExp.containsKey(s);
+        if(b){
+            return b;
+        }
+        else{
+            if(parentEnvironment == null){
+                return false;
+            }
+            b = parentEnvironment.contains(s);
+        }
+        return b;
+    }
     public void afficher()
     {
         System.out.print(" {");

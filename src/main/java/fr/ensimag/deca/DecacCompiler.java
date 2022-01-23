@@ -120,6 +120,19 @@ public class DecacCompiler implements Runnable{
         }
     }
 
+    public int getNumberOfClass(){
+        return envTypes.size()-5;
+    }
+    // public int getNumberOfMethods(){
+    //     envExprs.size();
+    //     int nbMethods;
+    //     for(Symbol s: envExprs.keySet()){
+    //         for(Symbol s1 : envExprs.get(s).getEnvExp().keySet()){
+
+    //         }
+    //     }
+    //     return 0;
+    // }
     public void update(Symbol name, TypeDefinition def){
         if(envTypes.containsKey(name))
         {

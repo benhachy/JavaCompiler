@@ -6,6 +6,10 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import java.io.PrintStream;
 
 /**
@@ -54,6 +58,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     public void codeGenMethodBody(DecacCompiler compiler){
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(2)));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(3)));
         for (AbstractDeclVar variableDecl : declVariables.getList()) {
             variableDecl.codeGenDeclvarMethode(compiler);
         }

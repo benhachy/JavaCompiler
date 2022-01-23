@@ -40,7 +40,8 @@ public class Selection extends AbstractLValue {
         if(expr.getType().isClass()){
             expr.codeGenExpr(compiler, 3);
             type.codeGenAssign(compiler);
-            //compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
+            compiler.addComment("ononon");
+            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
             //type.getFieldDefinition().getIndex();
         }else{
             type.codeGenAssign(compiler);
@@ -49,9 +50,11 @@ public class Selection extends AbstractLValue {
     
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
+        expr.codeGenExpr(compiler, 3);
         if(expr.getType().isClass()){
             //expr.codeGenExpr(compiler, 3);
             //type.codeGenAssign(compiler);
+            compiler.addComment("blabala");
             compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(2)));
             //type.getFieldDefinition().getIndex();
         }
@@ -64,6 +67,9 @@ public class Selection extends AbstractLValue {
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
         expr.verifyExpr(compiler, localEnv, currentClass);
         // System.out.print(expr.get);
+        if(expr.getType().isNull()){
+            throw new ContextualError("l'Objet est null ", expr.getLocation());
+        }
         type.setDefinition(localEnv.get(type.getName()));
         Type expression = type.verifyAttribut(compiler,expr.getType().getName(),currentClass);
         setType(expression);
@@ -71,7 +77,9 @@ public class Selection extends AbstractLValue {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        type.decompile(s);
+        s.print(".");
+        expr.decompile(s);
     }
     @Override
     protected void iterChildren(TreeFunction f) {
