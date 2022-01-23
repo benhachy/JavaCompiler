@@ -1,4 +1,4 @@
-package fr.ensimag.deca.tree;
+fpackage fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;

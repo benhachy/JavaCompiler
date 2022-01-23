@@ -11,6 +11,7 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import java.io.PrintStream;
+import java.util.concurrent.DelayQueue;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -28,7 +29,8 @@ public class MethodBody extends AbstractMethodBody {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        declVariables.decompile(s);
+        insts.decompile(s);
     }
 
     @Override

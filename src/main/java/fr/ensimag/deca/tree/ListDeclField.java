@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import java.util.List;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -12,6 +13,10 @@ import java.io.PrintStream;
 public class ListDeclField extends TreeList<AbstractDeclField> {
     @Override
     public void decompile(IndentPrintStream s) {
+        for (AbstractDeclField e : getList()){
+            e.decompile(s);
+            s.println("");
+        }
     }
     
 

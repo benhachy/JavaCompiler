@@ -1,0 +1,19 @@
+//Description:
+//    class pour la valeur absolue
+//
+// Resultats:
+//      8
+// Historique:
+//    cree le 01/01/2022
+class Q {
+    float abs(float x) {
+        if (x < 0.0) {
+            return -x;
+        }
+    }
+}
+{
+    Q obj = new Q();
+    int x = obj.abs(-8);
+    print(x);
+}

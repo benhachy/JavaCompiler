@@ -1,0 +1,8 @@
+class A{
+    int z;
+    int b;
+    float a;
+    float Mult(int x){
+        return a*b*z*x;
+    }
+}

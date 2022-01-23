@@ -1,0 +1,23 @@
+//Description:
+//    extension avec de nouveau attributs 
+//
+// Resultats:
+//     
+// Historique:
+//    cree le 01/01/2022
+class A{
+    protected int x;
+     int y;
+     void setX(int x){
+        this.x = x;
+    }
+}
+class B extends A{
+    int e;
+}
+{
+    B obj = new B();
+    obj.e = 30;
+}
+
+    
