@@ -1,11 +1,22 @@
 
-
 public class TestAsinSansObjet {
 	
 	public  void main(String[] args) {
-	
-		// Pour le tests Sans objet on testera les valeurs du cos entre -pi/2 et pi/2
 		
+
+		// Pour le tests Sans objet on testera les valeurs du cos entre -pi/2 et pi/2
+		float val = 0.5f;
+
+		float w = 1 - val*val;
+		
+		//Calcul de la racine carré de w avec la méthode de Héron
+		float sqroot = -190/(w+20) + 10;
+		for(int i = 0; i <= 3; i++ ) {
+			sqroot = (sqroot + a/sqroot)*0.5f;
+			}
+		
+		val = val / sqroot;
+
 		int n = 45;
 		
 		float x = 1;
@@ -90,11 +101,7 @@ public class TestAsinSansObjet {
 			i++;
 		}
 			
-		float w = 1 - z*z;
 		
-		// racine de w TO-DO
-		
-		z = z / w;
 		
 		println(z);
 			

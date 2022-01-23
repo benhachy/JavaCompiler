@@ -3,13 +3,28 @@
 
 class Math {
 	
-	
+	// Valeur de PI en flottant
 	public  float PI = 3.141592653589793f;
+
+	// La valeur de l'exposant maximal codé en 8 bits selon la méthode complement à deux
 	public  int MAX_EXPONENT = 127;
+
+	// La valeur de l'exposant maximal codé en 8 bits selon la méthode complément à deux
 	public  int MIN_EXPONENT = -126;
-	public  float  MIN_VALUE = 1.4e-45f;
+
+	// La largeur de la mantisse en terme de bits, elle est codée en 24 bits
 	public  int SIGNIFICAND_WIDTH = 24;
 	
+	// La valeur du plus petit flottant
+	public  float  MIN_VALUE = 1.4e-45f;
+	
+	
+	/**
+	 * Retourne l'angle compris entre -PI et PI d'un angle quelconque 
+	 * 
+	 * @param theta : l'angle en rad dont on veut calculer l'angle principale
+	 * @return retourne l'angle correspondant entre -PI et PI
+	 * */
 	public float _anglePrincipal(float theta) {
 		
 		while (theta > 2 * PI ) {
@@ -28,30 +43,50 @@ class Math {
 	}
 	
 	/**
-	 * Cette algorithme après devient lent dès que le nombre d'itération devient plus grand que 25 
+	 * Il s'agit de la fameuse méthode par reccurence d'Héron pour calculer la racine carrée
+	 * 
+	 * @param a : flottant dont on veut calculer la racine
+	 * @param n : entier qui précise le nombre d'itérations de l'algorithme
+	 * @return retourne un flottant représentant la racine carrée
 	 * */
 	 
 	public float _racine_n(float a, int n) {
+			
 		if (n == 0 ) {
-			return -190/(a+20) + 10;
+			return -190/(a+20) + 10;  // seed
 		}
 		else {
 			return   0.5f*(_racine_n(a, n -1) + a/(_racine_n(a, n -1)) );
 		}
 	}
 	
-	// On peut pas regrouper les deux fonctions racine_n et racine à cause de la réccurence 
+	/** 
+	 *  Calcule la racine carrée d'un flottant
+	 *  Pour que la fonction racine carrée ait un seul paramètre et conserver la structure de reccurence, on est obligé de réutiliser la méthode précédente
+	 *  On note que le calcul est fait dans cinq itérations, et aboutit à une très bonne précision, ceci revient au choix du "seed" (voir méthode précédente)
+	 *  
+	 * @param a : dont on veut calculer la racine
+	 * @return retourne un flottant représentant la racine carrée
+	 * 
+	 * */
 	public float _racine(float a) {
 		
 		if(a < 0) {
-			return null;
+			println("La fonction racine carrée n'est définie que pour les réels positifs ! Veuillez changer votre entrée");
+			return 0;
 		}
-		
-		return _racine_n(a, 5);
+		else {
+			return _racine_n(a, 5);
+		}
 	}
 	
 	
-	
+	/**
+	 * Calcule la ième puissance de dix
+	 * 
+	 * @param i : entier qui designe la ième puissance
+	 * @return count : un float représentant la ième puissance de dix
+	 * */
 	public float _puissanceDeDix(int i) {
 		if(i < 0) {
 			i = -i;
@@ -76,13 +111,20 @@ class Math {
 		
 	}
 	
+	/**
+	 * Calcule la ième puissance de deux
+	 * 
+	 * @param i : entier qui designe la ième puissance
+	 * @return count : un float représentant la ième puissance de deux
+	 * @Author Youssef Benhachem
+	 * */
 	public float _puissanceDeDeux(int i) {
 		if(i < 0) {
 			i = -i;
 			float count = 1;
 			int j=0;
 			while(j < i){
-				count *= 0.5;
+				count *= 0.5f;
 				j++;
 				}
 			return count;
@@ -100,6 +142,12 @@ class Math {
 		
 	}
 	
+	/**
+	 * Calcule la valeur absolue d'un flottant
+	 * 
+	 * @param f : un flottant
+	 * @return : un flottant représentant la valeur absolue du paramètre d'entrée
+	 * */
 	public float _abs(float f ) {
 		if (f >= 0) {
 			return f;
@@ -109,22 +157,14 @@ class Math {
 		}
 	}
 	
-	
 	/**
-	 * Cette fonction retourn l'exposant mais en mode decimal càd l'exposant du radix 10 
-	*/
-	
-	public int _getExponent(float d ) {
-		int nbrMaxDeDeux = -1023;
-		
-		if(d != 0) {
-			nbrMaxDeDeux = _nbrMaxDeDeux(d);
-		}
-		
-		return nbrMaxDeDeux;
-	}
-	
-	
+	 * Retourne m tel que : m est le plus grand entier vérifiant 2^m <= n
+	 * 
+	 * @param d : flottant dont on cherche à calculer m d'au dessus.
+	 * @return m : flottant représentant m d'au dessus, autrement m coincide avec l'exposant en base binaire des flottants non nuls
+
+
+	 * */
 	public int _nbrMaxDeDeux(float d ) {
 		d = _abs(d);
 		int m = 0;
@@ -136,6 +176,13 @@ class Math {
 		return m;
 	}
 	
+	
+	/**
+	 * Cette fonction retourne l'exposant en binaire de 10^(nbrDeDix), intuitivement le nombre de deux contenu dans 10^(nbrDeDix)
+	 * 
+	 * @param nbrDeDix : entier
+	 * @return nbrDeDeux : entier
+	 * */
 	public  int _nbrDeDeux(int nbrDeDix) {
 		
 		int nbrDeDeux = -127;
@@ -166,6 +213,29 @@ class Math {
 		return nbrDeDeux;	
 	}
 	
+	/**
+	 * Cette fonction retourn l'exposant d'un flottant en base binaire selon la norme IEE754
+	 * 
+	 * @param d : fottant dont on cherche l'exposant en base binaire
+	 * @return nbrMaxDeDeux : entier représentant l'exposant en nombre binaire de l'entrée
+	*/
+	
+	public int _getExponent(float d ) {
+		int nbrMaxDeDeux = -1023;
+		
+		if(d != 0) {
+			nbrMaxDeDeux = _nbrMaxDeDeux(d);
+		}
+		
+		return nbrMaxDeDeux;
+	}
+	
+
+	/**
+	 * Fonction qui sert à stocker les valeurs nécessaires à l'execution de l'algorithme CORDIC
+	 * @param i : entier
+	 * @return : flottant représentant arctan(2^(-i))
+	 * */
 	public float _getAtan(int  i) {
 	if(i == 0) { return 0.7853981633974483f;}
 	elseif(i == 1) { return 0.4636476090008061f;}
@@ -215,24 +285,34 @@ class Math {
 	elseif(i == 45) {return 2.8421709430404007e-14f;}
 	}
 	
+	
+	/**
+	 * Permet de calculer le cos d'un angle en radian selon la méthode CORDIC
+	 * @param theta : l'angle dont on veut calculer le cosinus
+	 * @return flottant représentant le cosinus de l'angle passé en paramètre
+	 * */
 	public  float cos(float theta) {
 		
-		theta = _anglePrincipal(theta); // on retrouve l'angle principale càd compris entre -PI et PI de theta
+		theta = _anglePrincipal(theta); // on retrouve l'angle principal compris entre -PI et PI de theta
 		
+		// cos(PI/2 + theta) = - sin(theta)
 		if (theta > PI/2 ) {
 			theta -= PI/2;
 			return - sin(theta);
 		}
-		
+		// cos(-PI/2 - theta) = - sin(theta)
 		elseif (theta < - PI/2) {
 			theta = - PI/2 - theta;
 			return -sin(theta);
 		}
 		
 		else {
+			// K est une constante de l'algorithme CORDIC calculé préablement
 			float K = 1.646760258121f;
+			// n représente le nombre d'itérations de notre algorithme
 			int n = 45;
 			
+			//Initialisation de x,y et z
 			float x = 1/K;
 			float y = 0;
 			float z = theta;
@@ -245,7 +325,7 @@ class Math {
 				float funy = y;
 				float funz = z;
 				
-				// Initialisation de d	
+				// d = sgn(funz)	
 				if (funz > 0) {
 					d = 1;
 				}
@@ -263,10 +343,14 @@ class Math {
 		}	
 	}
 	
-	
+	/**
+	 * Permet de calculer le sin d'un angle en radian selon la méthode CORDIC
+	 * @param theta : l'angle dont on veut calculer le sinus
+	 * @return flottant représentant le sinus de l'angle passé en paramètre
+	 * */
 	public  float sin(float theta) {
 		
-		theta = _anglePrincipal(theta); // on retrouve l'angle principale càd l'angle compris entre -PI et PI de theta
+		theta = _anglePrincipal(theta); // on retrouve l'angle principale cÃ d l'angle compris entre -PI et PI de theta
 
 		
 		if (theta > PI/2 ) {
@@ -280,9 +364,13 @@ class Math {
 		}
 		
 		else {
+			// K est une constante de l'algorithme CORDIC calculé préablement
 		    float K = 1.646760258121f;
+		    
+			// n représente le nombre d'itérations de notre algorithme
 			int n = 45;
 			
+			//Initialisation de x,y et z
 			float x = 1/K;
 			float y = 0;
 			float z = theta;
@@ -295,7 +383,7 @@ class Math {
 				float funy = y;
 				float funz = z;
 				
-				// Initialisation de d	
+				//  d=sgn(funz)
 				if (funz > 0) {
 					d = 1;
 				}
@@ -316,11 +404,18 @@ class Math {
 		
 	}
 	
+	/**
+	 * Permet de calculer l'arctangente d'un réel selon la méthode CORDIC
+	 * @param theta : l'angle dont on veut calculer l'arctangente
+	 * @return flottant représentant l'arctangente de l'angle passé en paramètre
+	 * */
 	public  float atan(float val) {
 		
 		
-		// Le if else statement sert à adapter pour le cas où abs(val) >1
-		
+		/** 
+		 * L'expression conditionnelle suivante est baséee sur la relation  : 
+		 * atan(x) + atan(1/x) = sgn(x)*PI/2  (pour tout réel non nul)
+		*/
 		if(val > 1) {
 			return PI/2 - atan(1/val);
 		}
@@ -329,7 +424,7 @@ class Math {
 			return - PI/2 - atan(1/val);
 		}
 		
-		// Nombres d'itérations de l'algorithme
+		// n représente le nombre d'itérations de notre algorithme
 		int n = 45;
 		
 		float x = 1;
@@ -344,7 +439,7 @@ class Math {
 			float funy = y;
 			float funz = z;
 			
-			// Initialisation de d	
+			// d = -sgn(y)	
 			if (funy > 0) {
 				d = -1;
 			}
@@ -360,13 +455,20 @@ class Math {
 		}
 		
 		return z;
-		
 	}
 	
+	/**
+	 * Permet de calculer l'arcsinus d'un réel entre -1 et 1 en se basant sur la relation : 
+	 * 		arcsin(x) = arctan(x/sqrt(1-x**2)) pour tout x de ]-1,1[
+	 * 
+	 * @param theta : l'angle dont on veut calculer l'arcsinus
+	 * @return flottant représentant l'arcsinus de l'angle passé en paramètre
+	 * */
 	public  float asin(float val) {
 		
 		if (val > 1 || val < -1) {
-			return null; // En Java, on retournait Nan
+			println("Votre nombre est hors ]-1;1[, veuillez réessayer !");
+			return  0; 
 		}
 		
 		elseif (val == 1){
@@ -389,9 +491,17 @@ class Math {
 	
 	
 	
+	/**
+	 * Permet de calculer la fonction ulp (unit in the last place) d'un flottant 
+	 * 
+	 * @param d : le flottant dont on cherche à calculer l'ulp
+	 * @return returnValue : un flottant représentant l'ulp du flottant passé en paramètre
+	 * */
 	public  float  ulp(float  d) {
+		
 		int exp = _getExponent(d);
 		float returnValue = 0.0f;
+		
 		 if (exp == MAX_EXPONENT + 1) {
 			 returnValue = _abs(d); 
 		}

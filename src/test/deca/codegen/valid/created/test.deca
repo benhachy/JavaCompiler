@@ -3,8 +3,7 @@ class A{
 }
 {
     A a = new A();
-    A aa = new A();
+    A aa = a;
     a.x = 1;
     aa.equals(a);
-
 }

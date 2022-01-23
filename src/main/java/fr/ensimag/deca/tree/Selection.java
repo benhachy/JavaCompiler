@@ -40,11 +40,21 @@ public class Selection extends AbstractLValue {
         if(expr.getType().isClass()){
             expr.codeGenExpr(compiler, 3);
             type.codeGenAssign(compiler);
-            compiler.addComment("ononon");
             compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
             //type.getFieldDefinition().getIndex();
         }else{
             type.codeGenAssign(compiler);
+        }      
+    }
+    @Override
+    public  void codeGenExpr(DecacCompiler compiler,int n){
+        if(expr.getType().isClass()){
+            expr.codeGenExpr(compiler, 3);
+            type.codeGenAssign(compiler);
+            compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(n)));
+            //type.getFieldDefinition().getIndex();
+        }else{
+            compiler.addComment("I SHOULD NOT BE HERE AT ALL");
         }      
     }
     
