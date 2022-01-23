@@ -62,7 +62,7 @@ class Math {
 	
 	/** 
 	 *  Calcule la racine carrée d'un flottant
-	 *  Pour que la fonction racine carrée ait un seul paramètre et conserver la structure de reccerence, on est obligé de réutiliser la méthode précédente
+	 *  Pour que la fonction racine carrée ait un seul paramètre et conserver la structure de reccurence, on est obligé de réutiliser la méthode précédente
 	 *  On note que le calcul est fait dans cinq itérations, et aboutit à une très bonne précision, ceci revient au choix du "seed" (voir méthode précédente)
 	 *  
 	 * @param a : dont on veut calculer la racine
