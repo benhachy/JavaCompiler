@@ -1,0 +1,25 @@
+//Description:
+//    plusieurs appels à une méthode  
+//
+// Resultats:
+//     4
+// Historique:
+//    cree le 01/01/2022
+class C {
+    int x;
+    int y=1;
+    int getX() {
+        return x;
+    }
+    void incrX() {
+        x = x + 1;
+    }
+}
+{
+    C obj = new C();
+    obj.incrX();
+    obj.incrX();
+    obj.incrX();
+    obj.incrX();
+    print(obj.x);
+}

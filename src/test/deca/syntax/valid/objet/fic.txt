@@ -1,0 +1,857 @@
+class A {
+protected int x ;
+
+int getX(){
+return x ;
+}
+void setX(int x){
+(this.x = 1);
+}
+}
+
+{
+	A a  = new A();
+	a.setX(1);
+	println("a.getX() = "a.getX());
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+void affiche(){
+println("hello");
+}
+}
+
+{
+	A obj  = new A();
+	obj.affiche();
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+int get(){
+return 12 ;
+}
+}
+
+{
+	A obj  = new A();
+	int x  = obj.get();
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+void setX(int val){
+(this.x = val);
+}
+int getX(){
+return this.x ;
+}
+}
+
+{
+	A obj  = new A();
+	obj.setX(12);
+	print(obj.getX());
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+void setX(int x){
+(this.x = x);
+}
+int getX(){
+return this.x ;
+}
+}
+
+{
+	A obj  = new A();
+	obj.setX(12);
+	print(obj.getX());
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+void setX(int x){
+(this.x = x);
+}
+int getX(){
+return this.x ;
+}
+}
+
+{
+	A obj  = new A();
+	obj.setX(-12);
+	print(obj.getX());
+}
+class A {
+int x ;
+protected boolean b ;
+
+void setX(int val){
+(this.x = val);
+}
+int getX(){
+return this.x ;
+}
+}
+
+{
+	A obj  = new A();
+	(obj.x = 12);
+	print(obj.getX());
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+void setX(int val){
+(this.x = val);
+}
+int getX(){
+return this.x ;
+}
+}
+
+{
+	A obj  = new A();
+	print(obj.getX());
+}
+class A {
+protected int x  = 21;
+protected boolean b ;
+
+void setX(int val){
+(this.x = val);
+}
+int getX(){
+return this.x ;
+}
+}
+
+{
+	A obj  = new A();
+	print(obj.getX());
+}
+class A {
+protected int x  = 21;
+int y  = x;
+protected boolean b ;
+
+void setX(int val){
+(this.x = val);
+}
+int getX(){
+return this.x ;
+}
+int getY(){
+return this.y ;
+}
+}
+
+{
+	A obj  = new A();
+	print(obj.getY());
+}
+class A {
+
+}
+
+class B extends A {
+
+}
+
+class A {
+
+}
+
+{
+}
+class A {
+
+}
+
+class B extends A {
+
+}
+
+class C extends B {
+
+}
+
+class D extends B {
+
+}
+
+class E extends A {
+
+}
+
+class A {
+int x ;
+int y ;
+
+}
+
+class B extends A {
+
+}
+
+{
+	B obj  = new B();
+	(obj.x = 14);
+}
+class A {
+int x ;
+int y ;
+
+void setX(int x){
+(this.x = x);
+}
+}
+
+class B extends A {
+
+}
+
+{
+	B obj  = new B();
+	obj.setX(14);
+	print(obj.x);
+}
+class A {
+protected int x ;
+int y ;
+
+void setX(int x){
+(this.x = x);
+}
+}
+
+class B extends A {
+
+}
+
+{
+	B obj  = new B();
+	obj.setX(14);
+	print(obj.x);
+	(obj.y = 21);
+	print(obj.y);
+}
+class A {
+protected int x ;
+int y ;
+
+void setX(int x){
+(this.x = x);
+}
+}
+
+class B extends A {
+int e ;
+
+}
+
+{
+	B obj  = new B();
+	(obj.e = 30);
+}
+class A {
+protected int x ;
+int y ;
+
+void setX(int x){
+(this.x = x);
+}
+}
+
+class B extends A {
+int e ;
+
+int getE(){
+return this.e ;
+}
+}
+
+{
+	B obj  = new B();
+	(obj.e = 30);
+}
+class A {
+protected int x  = 21;
+
+int getX(){
+return x ;
+}
+}
+
+{
+	A obj  = new A();
+	print(obj.getX());
+}
+class A {
+protected int x ;
+
+void setX(int x){
+(this.x = x);
+}
+int getX(){
+return x ;
+}
+void init(){
+(this.x = 0);
+}
+}
+
+class B extends A {
+int y ;
+
+void init(){
+this.setX(0);
+(this.y = 0);
+}
+}
+
+class C extends A {
+int z ;
+
+void init(){
+this.setX(0);
+(this.z = 1);
+}
+}
+
+class A {
+
+boolean equals(Object other){
+return (this == other) ;
+}
+}
+
+class A {
+
+}
+
+class A {
+
+boolean equals(Object other){
+return (this == other) ;
+}
+}
+
+{
+	A a  = new A();
+	A b  = new B();
+	if (a.equals(b)) {
+print(50);
+	}
+else{
+}
+
+}
+class A {
+int x  = 21;
+boolean b  = false;
+
+boolean equals(Object other){
+return (this == other) ;
+}
+}
+
+{
+	A a  = new A();
+	A b  = new B();
+	if (a.equals(b)) {
+print(50);
+	}
+else{
+}
+
+}
+class A {
+int x  = 21;
+boolean b  = false;
+
+boolean equals(Object other){
+return (this == other) ;
+}
+void setX(int x){
+(this.x = x);
+}
+}
+
+{
+	A a  = new A();
+	A b  = new B();
+	b.setX(140);
+	if (a.equals(b)) {
+print(50);
+	}
+else{
+print(70);
+	}
+
+}
+class A {
+protected int x ;
+
+int getX(){
+return x ;
+}
+void setX(int x){
+(this.x = x);
+}
+}
+
+{
+	A a  = new A();
+	a.setX(1);
+	println("a.getX() = "a.getX());
+}
+class P {
+int x ;
+int y ;
+
+void move(int aint b){
+(x = (x + a));
+(y = (y + b));
+}
+}
+
+class P {
+int x ;
+int y ;
+
+void move(int aint b){
+(x = (x + a));
+(y = (y + b));
+}
+}
+
+{
+	P obj  = new P();
+	p.move(58);
+	println(p.x);
+	println(p.y);
+}
+class C {
+int x ;
+int y  = 1;
+
+int getX(){
+return x ;
+}
+void incrX(){
+(x = (x + 1));
+}
+}
+
+{
+	C obj  = new C();
+	obj.incrX();
+	obj.incrX();
+	obj.incrX();
+	obj.incrX();
+	print(obj.x);
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+void affiche(){
+println("hello");
+}
+}
+
+{
+}
+class A {
+
+void m(){
+}
+void p(){
+}
+}
+
+class B extends A {
+
+void p(){
+}
+void q(){
+}
+}
+
+class Q {
+
+float abs(float x){
+if ((x < 0x0.0p0)) {
+return -x ;
+}
+else{
+}
+
+}
+}
+
+{
+	Q obj  = new Q();
+	int x  = obj.abs(-8);
+	print(x);
+}
+class A {
+
+}
+
+{
+	A obj ;
+}
+class Compteur {
+int x ;
+
+void incr(){
+(x = (x + 1));
+}
+}
+
+{
+	Compteur c  = new Compteur();
+	c.incr();
+	print(c.x);
+}
+class A {
+
+void f(){
+A A  = new A();
+A.f();
+}
+}
+
+class A {
+B b ;
+
+}
+
+class B {
+A a ;
+
+}
+
+class A {
+B b ;
+
+}
+
+class B {
+A a ;
+
+}
+
+class Parcours {
+
+void parcoursA(A a){
+if ((a != )) {
+this.parcoursB(a.b);
+}
+else{
+}
+
+}
+void parcoursB(B b){
+if ((b != )) {
+this.parcoursA(b.a);
+}
+else{
+}
+
+}
+}
+
+class A {
+int x ;
+int y ;
+int z ;
+
+}
+
+class B extends A {
+int x ;
+
+}
+
+class Point2D {
+int x ;
+int y ;
+
+void diag(int a){
+(x = (x + a));
+(y = (y + a));
+}
+}
+
+class Point3D extends Point2D {
+int z ;
+
+void diag(int a){
+(x = (x + a));
+(y = (y + a));
+(z = (z + a));
+}
+}
+
+{
+	Point2D p1 ;
+	Point2D p2 ;
+	Point3D p3 ;
+	(p1 = new Point2D());
+	p1.diag(1);
+	(p3 = new Point3D());
+	p3.diag(2);
+	(p2 = p3);
+	p2.diag(3);
+	println(p3.x);
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A a  = new A();
+	if ((a.x == 0)) {
+print(5);
+	}
+else{
+}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A a  = new A();
+	if ((a.a == 21)) {
+print(5);
+	}
+else{
+}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A a  = new A();
+	(a.x = 250);
+	(a.x = (a.c + a.x));
+	(a.x = (a.x + 143));
+	(a.x = (a.x - 5));
+	print(a.x);
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A a  = new A();
+	if (a.b) {
+print(5);
+	}
+else{
+}
+
+}
+class A {
+
+}
+
+{
+	A obj ;
+	A b ;
+	A a ;
+	A p ;
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+int d  = ((c / c) + 2);
+
+}
+
+{
+	A a  = new A();
+	if ((a.d == 1)) {
+print(5);
+	}
+else{
+}
+
+	(a.d = (a.d * a.x));
+	if ((a.d == 0)) {
+print(3);
+	}
+else{
+}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A a  = new A();
+	(a.b = !a.b);
+	if (a.b) {
+print(3);
+	}
+else{
+print(5);
+	}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+float d  = 0x1.19999ap2;
+
+}
+
+{
+	A a  = new A();
+	(a.d = 18);
+	if ((a.d < 20)) {
+print(5);
+	}
+else{
+}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+boolean c  = false;
+
+}
+
+{
+	A a  = new A();
+	if ((a.b || a.c)) {
+print(5);
+	}
+else{
+print(1920);
+	}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A obj  = new A();
+	(obj.a = (obj.a / 3));
+	(obj.a = ((5 * obj.a) + 3));
+	if (((obj.a % 2) == 0)) {
+print(5);
+	}
+else{
+}
+
+}
+class A {
+int a  = 21;
+boolean b  = true;
+int c  = -393;
+int x ;
+
+}
+
+{
+	A a  = new A();
+	(a.b = !a.b);
+	if (a.b) {
+print(3);
+	}
+else{
+print(5);
+	}
+
+}
+class A {
+
+}
+
+{
+	A obj  = new A();
+}
+class A {
+int x ;
+
+}
+
+{
+}
+class A {
+protected int x ;
+protected boolean b ;
+
+}
+
+{
+}
+class A {
+int x ;
+boolean b ;
+
+}
+
+{
+}
+class A {
+int x ;
+protected boolean b ;
+boolean d ;
+protected int f ;
+
+}
+
+{
+}

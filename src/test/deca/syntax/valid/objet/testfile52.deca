@@ -1,0 +1,23 @@
+//Description:
+//    test des réferences 
+//
+// Resultats:
+//    5
+// Historique:
+//    cree le 01/01/2022
+class A{
+	int a = 21;
+	boolean b = true;
+	int c = -393;
+	int x;
+    float d = 4.4;
+
+}
+{	
+	A a = new A();
+	a.d = 18;
+    if (a.d < 20){
+        print(5);
+    }
+	
+}

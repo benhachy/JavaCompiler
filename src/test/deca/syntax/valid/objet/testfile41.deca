@@ -1,0 +1,13 @@
+//Description:
+//    creation de l'object au sein de la class
+//
+// Resultats:
+//          
+// Historique:
+//    cree le 01/01/2022
+class A {
+    void f(){
+        A A = new A();
+        A.f();
+    }
+}

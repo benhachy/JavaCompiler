@@ -5,6 +5,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import java.util.List;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -15,6 +16,9 @@ import java.io.PrintStream;
 public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
     @Override
     public void decompile(IndentPrintStream s) {
+        for (AbstractDeclMethod e : getList()){
+            e.decompile(s);
+        }
     }
     
 }
