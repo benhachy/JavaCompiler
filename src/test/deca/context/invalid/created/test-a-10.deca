@@ -1,0 +1,15 @@
+class A{
+    protected int x;
+    protected float y;
+}
+
+class B{
+    int z;
+    int w;
+    void SetX(){
+        x = z;
+    }
+    void setY(){
+        y = w;
+    }
+}

@@ -6,6 +6,7 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+	ADDSP #3
 ; idk why or how he's here
 	LOAD #100, R2
 	FLOAT R2, R2

@@ -5,6 +5,7 @@
 # integration with maven (or with maven's generation of IDE files like
 # mvn eclipse:eclipse).
 .classpath
+*.ass
 .project
 .metadata
 .settings

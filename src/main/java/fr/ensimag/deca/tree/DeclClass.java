@@ -149,7 +149,7 @@ public class DeclClass extends AbstractDeclClass {
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        EnvironmentExp envExpR = compiler.getEnv(identifier.getName());
+        EnvironmentExp envExpR = new EnvironmentExp(null);
         for(AbstractDeclMethod f : methodDecl.getList())
         {
             f.verifyBody(compiler,envExpR,identifier.getClassDefinition());

@@ -6,6 +6,7 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+	ADDSP #3
 ; idk why or how he's here
 	LOAD #0x1.44ccccp7, R2
 	OPP R2, R2

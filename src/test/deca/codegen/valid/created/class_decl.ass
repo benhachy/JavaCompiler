@@ -1,5 +1,4 @@
 ; start main program
-	ADDSP #12
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -41,6 +40,7 @@
 	STORE R0, 17(GB)
 	LOAD code.c.ilyass, R0
 	STORE R0, 18(GB)
+	ADDSP #8
 ; Beginning of main instructions:
 	ADDSP #20
 	HALT
@@ -57,7 +57,10 @@ code.a.getA:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
 ; ana jit les méthodes 
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 fin.a.getA:
@@ -70,7 +73,10 @@ code.a.printotito:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
 ; ana jit les méthodes 
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "nanan"
@@ -94,7 +100,10 @@ code.b.printotito:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
 ; ana jit les méthodes 
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "ana B hena "
@@ -108,7 +117,10 @@ code.b.anaprintdialB:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
 ; ana jit les méthodes 
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "hadi lhbhila"
@@ -132,7 +144,10 @@ code.c.anas:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
 ; ana jit les méthodes 
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "ana B hena "
@@ -146,7 +161,10 @@ code.c.ilyass:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
 ; ana jit les méthodes 
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "hadi lhbhila"
@@ -175,10 +193,13 @@ print_Error:
 	WSTR "Error: print float only in hexa form"
 	WNL
 	ERROR
+<<<<<<< HEAD
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
+=======
+>>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
 code.Object.equals:
 	WSTR "a faire la methode equals de object"
 	WNL

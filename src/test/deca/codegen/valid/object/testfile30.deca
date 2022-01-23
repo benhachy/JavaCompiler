@@ -6,10 +6,17 @@
 // Historique:
 //    cree le 01/01/2022
 class A{
+<<<<<<< HEAD
+    int x;
+    boolean equals (A other) {
+        return this.x == other.x;
+=======
     boolean equals (Object other) {
         return this == other;
+>>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
     }
 }
+class B{}
 {
     A a = new A();
     A b = new B();

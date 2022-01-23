@@ -1,14 +1,14 @@
 class P {
     int x;
     int y;
-    void move(int a, int b) {
+    void move(int a) {
         x = x + a;
-        y = y + b;
+        //y = y + b;
     }
 }
 {
     P monTest = new P();
-    monTest.move(10,5);
+    monTest.move(10);
     println(monTest.x);
     println(monTest.y);
 }

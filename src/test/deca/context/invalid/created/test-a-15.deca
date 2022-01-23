@@ -1,0 +1,31 @@
+class A{
+    protected int x;
+    protected float y;
+}
+
+class B extends A{
+    int z;
+    int w;
+    void SetX(){
+        x = z;
+    }
+    void setY(){
+        y = w;
+    }
+}
+
+class C extends A{
+    int z;
+    protected int w;
+    void SetX(){
+        x = z;
+    }
+    void setY(){
+        y = w;
+    }
+}
+
+{
+    B a = new C();
+    a.w = 15;
+}
