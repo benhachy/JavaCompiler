@@ -72,7 +72,9 @@ public class Selection extends AbstractLValue {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        type.decompile(s);
+        s.print(".");
+        expr.decompile(s);
     }
     @Override
     protected void iterChildren(TreeFunction f) {
