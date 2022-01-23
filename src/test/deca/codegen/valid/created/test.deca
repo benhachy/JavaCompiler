@@ -21,10 +21,10 @@ class C{
 
 {
     B b = new B();
-    /*if( b instanceof B){
-        println("wow");
+    /*if( b instanceof C){
+        println("je suis un fils de B");
     }*/
-    print(b.x);
+    //print(b.x);
     /*b.att2 = 16;
     print(b.att2);*/
 }

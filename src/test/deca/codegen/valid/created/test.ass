@@ -36,10 +36,24 @@
 	STORE R2, 12(GB)
 ; Beginning of main instructions:
 	ADDSP #14
+beginIf0:
+	LEA 10(GB), R2
 	LOAD 12(GB), R3
-	LOAD 1(R3), R2
-	LOAD R2, R1
-	WINT
+	LOAD 0(R3), R3
+instanceOf.Begin:
+	CMP R3, R2
+	BEQ ifInst0
+	LOAD 0(R3), R3
+	CMP #null, R3
+	BEQ finElse0
+	BNE instanceOf.Begin
+	BRA elseInst0
+ifInst0:
+	WSTR "je suis un fils de B"
+	WNL
+	BRA finElse0
+elseInst0:
+finElse0:
 	HALT
 ; Initialisation des champs de A
 init.A:
@@ -56,6 +70,8 @@ code.A.getX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 fin.A.getX:
 ; Restauration des registres
 	POP R3
@@ -63,10 +79,6 @@ fin.A.getX:
 	RTS
 ; Initialisation des champs de B
 init.B:
-; Appel de l'initialisation des champs hérités de A
-	PUSH R1
-	BSR init.A
-	SUBSP #1
 	TSTO #4
 	BOV pile_pleine
 	LOAD -2(LB), R1
@@ -76,12 +88,18 @@ init.B:
 	STORE R0, 4(R1)
 	LOAD #0, R0
 	STORE R0, 5(R1)
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
 	RTS
 code.B.addAtt1:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 	LOAD #5, R2
 fin.B.addAtt1:
 ; Restauration des registres
