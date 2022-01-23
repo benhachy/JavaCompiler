@@ -1,0 +1,13 @@
+class B{
+    protected int z;
+}
+class C extends B{
+    int  x;
+    int y;
+    int getX(){
+        return z;
+    }
+    void incrX(){
+        x = x+1;
+    }
+}

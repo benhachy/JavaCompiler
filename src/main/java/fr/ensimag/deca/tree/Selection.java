@@ -50,7 +50,7 @@ public class Selection extends AbstractLValue {
         expr.verifyExpr(compiler, localEnv, currentClass);
         // System.out.print(expr.get);
         type.setDefinition(localEnv.get(type.getName()));
-        Type expression = type.verifyAttribut(compiler,expr.getType().getName());
+        Type expression = type.verifyAttribut(compiler,expr.getType().getName(),currentClass);
         setType(expression);
         return getType();
     }

@@ -1,10 +1,31 @@
-class C{
+/*class B{
+    int z;
+}
+
+{
+    B b;
+    b.z = 5;
+}
+*/
+
+class A{
     int x;
+    void getX(){
+
+    }
+}
+class B extends A{
     int y;
-    int getX(){
-        return x;
+    void getY(){
+
     }
-    void incrX(){
-        x = x+1;
-    }
+}
+class C{
+    B b;
+}
+{
+    int x;
+    C c = new C();
+    c.b = new B();
+    c.b.x = 1;
 }

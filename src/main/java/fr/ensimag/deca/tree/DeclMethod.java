@@ -95,10 +95,12 @@ public class DeclMethod extends AbstractDeclMethod {
             throws ContextualError{
         type.setDefinition(compiler.getDefinition(type.getName()));
         Type expectedReturn = compiler.get(type.getName()).getType();
+        type.setType(expectedReturn);
         Signature signature = new Signature();
         paramDecl.verifyListParam(compiler,signature);
         MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,0);
         name.setDefinition(method);
+        name.setType(method.getType());
         try{
             localEnv.declare(name.getName(),method);
         }

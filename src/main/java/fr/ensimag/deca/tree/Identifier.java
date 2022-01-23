@@ -196,7 +196,7 @@ public class Identifier extends AbstractIdentifier {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         if(currentClass != null){
-            verifyAttribut(compiler, currentClass.getType().getName());
+            verifyAttribut(compiler, currentClass.getType().getName(),currentClass);
             return getType();
         }
         ExpDefinition def = localEnv.get(getName());
@@ -272,7 +272,7 @@ public class Identifier extends AbstractIdentifier {
         throw new ContextualError(identifier.getName()+" n'est pas une méthode définie dans "+identifier.getName(),getLocation());
     }
 
-    public  Type verifyAttribut(DecacCompiler compiler,Symbol classe) throws ContextualError{
+    public  Type verifyAttribut(DecacCompiler compiler,Symbol classe,ClassDefinition currentClass) throws ContextualError{
         ClassDefinition def = compiler.getClass(classe);
         EnvironmentExp envClass;
         while(def.getSuperClass() != null){
@@ -283,7 +283,7 @@ public class Identifier extends AbstractIdentifier {
                     throw new ContextualError(getName()+" n'est pas une attribut",getLocation());
                 }
                 FieldDefinition field = (FieldDefinition)envClass.get(getName());
-                if(field.getVisibility() == Visibility.PROTECTED){
+                if(field.getVisibility() == Visibility.PROTECTED && currentClass == null){
                     throw new ContextualError(getName()+"  est une attribut protégé ",getLocation());
                 }
                 setDefinition(field);
