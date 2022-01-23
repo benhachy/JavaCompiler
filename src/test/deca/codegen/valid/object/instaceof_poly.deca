@@ -12,11 +12,6 @@ class A {
 class B extends A { 
     int a ;
 }
-{
-    B b;
-    b= new B();
-}
-/*
 class C extends B { }
 {
     C c;
@@ -25,4 +20,4 @@ class C extends B { }
     if (c instanceof B) {
         println("ok");
     }
-}*/
+}

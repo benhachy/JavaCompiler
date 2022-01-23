@@ -19,7 +19,7 @@
 	STORE R0, 7(GB)
 	LOAD code.A.getX, R0
 	STORE R0, 8(GB)
-	LOAD code.B.getY, R0
+	LOAD code.B.addAtt1, R0
 	STORE R0, 9(GB)
 ; Code de la table des méthodes de C
 	LEA 1(GB), R0
@@ -36,6 +36,7 @@
 	STORE R2, 12(GB)
 ; Beginning of main instructions:
 	ADDSP #14
+	LOAD 12(GB), R3
 	LOAD 1(R3), R2
 	LOAD R2, R1
 	WINT
@@ -76,12 +77,13 @@ init.B:
 	LOAD #0, R0
 	STORE R0, 5(R1)
 	RTS
-code.B.getY:
+code.B.addAtt1:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-fin.B.getY:
+	LOAD #5, R2
+fin.B.addAtt1:
 ; Restauration des registres
 	POP R3
 	POP R2

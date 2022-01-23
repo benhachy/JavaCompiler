@@ -49,6 +49,7 @@ public class Selection extends AbstractLValue {
     
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
+        expr.codeGenExpr(compiler, 3);
         if(expr.getType().isClass()){
             //expr.codeGenExpr(compiler, 3);
             //type.codeGenAssign(compiler);

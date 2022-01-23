@@ -10,8 +10,8 @@ class B extends A{
     int att1;
     int att2;
     int aat3;
-    void getY(){
-
+    void addAtt1(){
+        att1 = 5;
     }
 }
 class C{
