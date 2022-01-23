@@ -63,7 +63,14 @@ public class DeclClass extends AbstractDeclClass {
     
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        s.print("class ");
+        identifier.decompile(s);
+        classExtension.decompile();
+        s.println(" {");
+        feildDecl.decompile(s);
+        s.println("");
+        methodDecl.decompile(s);
+        s.println("}");
     }
 
     public AbstractIdentifier getIdentifier(){
