@@ -119,6 +119,10 @@ public abstract class AbstractExpr extends AbstractInst {
         {
             return true;
         }
+        else if(type1.isNull() || type2.isNull())
+        {
+            return true;
+        }
         else if(!type1.isClass() || !type2.isClass())
         {
             if(type2.sameType(type1)){
@@ -126,10 +130,7 @@ public abstract class AbstractExpr extends AbstractInst {
             }
             return false;
         }
-        else if(type1.isNull() || type2.isNull())
-        {
-            return true;
-        }
+        
         else if( type1.isClass() && type2.isClass()){
             if(type1.getName().equals(type2.getName())){
                 return true;

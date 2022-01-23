@@ -1,37 +1,9 @@
-class A{
-    int x=6;
-    boolean y = true ;
-    void getX(){
-    }
-    void setX(int x){
-        x = x;
-    }
-}
-
-class B extends A{
-    int att1;
-    int att2;
-    int aat3;
-    void setAtt1(int x){
-        this.att1 = x;
-    }
-}
-class C{
-    int z;
-    B b;
-}
-
 {
-    B b = new B();
-    /*if( b instanceof C){
-        println("je suis un fils de B");
-    }*/
-    //b.addAtt1(5);
-    b.setX(11);
-    //print(b.att1);
-    print(b.x);
-    /*b.att2 = 30;
-    b.aat3 = b.x * b.att2 -b.att2 + 24;
-    println("OK");
-    print(b.aat3);*/
+    int a = 15;
+    float b = 16.5;
+    if(b-a>0){
+        print("OK");
+    }
+    print(b-a);
+   
 }
