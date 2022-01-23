@@ -2,10 +2,8 @@
 //  declaration de deux variables booleennes une initialisee par true
 //  et l'autre par false
 // Resultats:
-//    false
-//    true
-//    true
-//    false
+//    ok2
+//    ok3
 // Historique:
 //    cree le 14/01/2022
 {

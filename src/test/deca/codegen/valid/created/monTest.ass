@@ -5,29 +5,18 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de A
+; Code de la table des méthodes de C
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-; Code de la table des méthodes de B
-	LEA 3(GB), R0
+	LOAD code.C.incrX, R0
 	STORE R0, 5(GB)
-	LOAD code.Object.equals, R0
+	LOAD code.C.getX, R0
 	STORE R0, 6(GB)
-; Beginning of main instructions:
-	ADDSP #9
-	NEW #4, R2
-	BOV pile_pleine
-	LEA 5(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
-	BSR init.B
-	POP R2
-	STORE R2, 7(GB)
 	HALT
-; Initialisation des champs de A
-init.A:
+; Initialisation des champs de C
+init.C:
 	TSTO #3
 	BOV pile_pleine
 	LOAD #0, R0
@@ -37,17 +26,33 @@ init.A:
 	LOAD -2(LB), R1
 	STORE R0, 2(R1)
 	RTS
-; Initialisation des champs de B
-init.B:
-; Appel de l'initialisation des champs hérités de A
-	PUSH R1
-	BSR init.A
-	SUBSP #1
+code.C.getX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+fin.C.getX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.C.incrX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD 1(R1), R2
 	TSTO #2
 	BOV pile_pleine
-	LOAD #0, R0
-	LOAD -2(LB), R1
-	STORE R0, 1(R1)
+	PUSH R2
+	LOAD #1, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+fin.C.incrX:
+; Restauration des registres
+	POP R3
+	POP R2
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"

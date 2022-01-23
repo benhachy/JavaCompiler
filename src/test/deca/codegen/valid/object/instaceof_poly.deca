@@ -5,8 +5,18 @@
 //    ok
 // Historique:
 //    cree le 01/01/2022
-class A { }
-class B extends A { }
+class A {
+    int x;
+    int y;
+ }
+class B extends A { 
+    int a ;
+}
+{
+    B b;
+    b= new B();
+}
+/*
 class C extends B { }
 {
     C c;
@@ -15,4 +25,4 @@ class C extends B { }
     if (c instanceof B) {
         println("ok");
     }
-}
+}*/

@@ -84,7 +84,10 @@ public class InstanceOf extends AbstractExpr {
         //compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(0)));
         compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(2)));
         //on recupère l'adresse de l'objet C 
-        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(expr.getType().getName()),Register.getR(3)));
+        // c instance of B 
+
+        expr.codeGenExpr(compiler,3);
+        //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(expr.codeGenAssign(compiler) .getType().getName()),Register.getR(3)));
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));
         compiler.addLabel(beginningInstanceOf);
         //on compare les deux adresses

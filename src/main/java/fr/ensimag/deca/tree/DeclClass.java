@@ -50,12 +50,12 @@ public class DeclClass extends AbstractDeclClass {
     AbstractIdentifier classExtension;
     ListDeclField   feildDecl;
     ListDeclMethod  methodDecl;
-    static  List<Label> listEtiquetteMethod = new ArrayList<Label>();
-    static  List<String> listFields = new ArrayList<String>();
-    static HashMap<SymbolTable.Symbol,Integer> hashMapMethodIndex = new HashMap<SymbolTable.Symbol,Integer>();
-    static HashMap<SymbolTable.Symbol,Integer> hashMapFieldIndex = new HashMap<SymbolTable.Symbol,Integer>();
-    static  int index = 0 ;
-    static  int indexFields = 0 ;
+    private  List<Label> listEtiquetteMethod = new ArrayList<Label>();
+    private  List<String> listFields = new ArrayList<String>();
+    private HashMap<SymbolTable.Symbol,Integer> hashMapMethodIndex = new HashMap<SymbolTable.Symbol,Integer>();
+    private HashMap<SymbolTable.Symbol,Integer> hashMapFieldIndex = new HashMap<SymbolTable.Symbol,Integer>();
+    private  int index = 0 ;
+    private  int indexFields = 0 ;
 
     public DeclClass(AbstractIdentifier identifier,AbstractIdentifier classExtension,ListDeclField  feildDecl,ListDeclMethod  methodDecl){
         this.identifier= identifier;
@@ -201,17 +201,13 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     public void createListFields(DecacCompiler compiler,Symbol currentClass ){
-        //int index = 1 ;
-        //HashMap<SymbolTable.Symbol,Integer> mapHash = new HashMap<SymbolTable.Symbol,Integer>();
-        
-        // on récupère l'environnement de la classe mère
         if ( currentClass.equals(SymbolTable.creerSymbol("0") )){
             return;
         }
 
         ClassDefinition definitionClass = compiler.getClass(currentClass);
 
-        createLabelList(compiler,definitionClass.getSuperClass().getType().getName());
+        createListFields(compiler,definitionClass.getSuperClass().getType().getName());
         //while ( !currentClass.equals(SymbolTable.creerSymbol("0") )){
         //ClassDefinition definitionClass = compiler.getClass(currentClass);
         EnvironmentExp envClass = compiler.getEnv(currentClass);
@@ -219,31 +215,16 @@ public class DeclClass extends AbstractDeclClass {
             //System.out.println("**********NULL******"+currentClass.getName());
 
         }
-        //System.out.println("********PASSED********"+currentClass.getName());
         HashMap<SymbolTable.Symbol,ExpDefinition> hashMapEnv = envClass.getEnvExp();
-        //createLabelList(compiler,definitionClass.getSuperClass().getType().getName());
             for( Symbol s : hashMapEnv.keySet())
             {   
 
                 // edit this so we can check if its a method or not
                 if( envClass.get(s).isField()){
-                    //System.out.println("********I FOUND THIS SYMBOL AND I THINK ITS A METHOD IN THE CLASS********"+s.getName()+currentClass);
-                    // il faut voir si la méthode est déja dans le hashmap il faut 
-                    if ( hashMapFieldIndex.containsKey(s)){
-                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName());
-                        //je récupère l'indice pour que j'écrase l'étiquette dans la liste des étiquettes
-                        int newIndex = hashMapFieldIndex.get(s) ;
-                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName()+"AND I WILL PUT IT HERE "+newIndex);
-                        listFields.remove(newIndex);
-                        listFields.add(newIndex,currentClass+"."+s.getName());
-                    }
-                    else{
-                        //System.out.println("********HE IS NOT HERE SO********"+s.getName());
-                        //si c'est la premère fois je trouve la méthode je l'insère
                         listFields.add(indexFields,currentClass+"."+s.getName());
-                        hashMapFieldIndex.put(s,index);
+                        hashMapFieldIndex.put(s,indexFields);
                         indexFields++;
-                    }
+                    
                     
                 }
                 
@@ -294,10 +275,10 @@ public class DeclClass extends AbstractDeclClass {
         //insertion des etiquetes des methodes
         //ClassDefinition superClass = compiler.get(classExtension.getName());
         createLabelList(compiler,identifier.getName());
-        System.out.println("bla bla bla "+identifier.getName());
+        System.out.println("definition de la class "+identifier.getName());
         createListFields(compiler,identifier.getName());
         // la table des etiquettes est DONE
-        afficher();
+        //afficher();
         afficherFields();
         for (Label l :listEtiquetteMethod){
             compiler.addInstruction(new LOAD(new LabelOperand(l),Register.getR(0)));
