@@ -10,7 +10,10 @@ import java.time.format.SignStyle;
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.deca.DecacCompiler;
@@ -41,6 +44,13 @@ public class MethodCall extends AbstractExpr {
         this.methodName = methodName;
         this.listExpression = listExpression;
     }
+    public MethodCall(AbstractIdentifier methodName ,
+    ListExpr listExpression) {
+        this.name = new This();
+        this.name.setLocation(methodName.getLocation());
+        this.methodName = methodName;
+        this.listExpression = listExpression;
+    }
 
 
 
@@ -50,7 +60,7 @@ public class MethodCall extends AbstractExpr {
         //name : l'expression à laquelle on applique la méthode MethodName et qui prend en argument lisExpression
         name.verifyExpr(compiler, localEnv, currentClass);
         if(!name.getType().isClassOrNull()){
-            throw new ContextualError(methodName.getName()+" n'est applicable que sur des objets", getLocation());
+            throw new ContextualError(methodName.getName()+" n'est applicable que sur des objets", methodName.getLocation());
         }
 
         ClassType classe = (ClassType) name.getType();
@@ -64,9 +74,9 @@ public class MethodCall extends AbstractExpr {
     }
     @Override
     protected void iterChildren(TreeFunction f) {
-        name.iter(f);
-        methodName.iter(f);
-        listExpression.iter(f);
+        name.iter(f); 
+        methodName.iter(f); 
+        listExpression.iter(f);    
     }
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
@@ -83,5 +93,11 @@ public class MethodCall extends AbstractExpr {
         listExpression.decompile(s);
         s.print(")");
     }
-    
+    public void codeGenInst(DecacCompiler compiler){
+        for (AbstractExpr exp : listExpression.getList()) {
+            exp.codeGenInst(compiler);
+            compiler.addInstruction(new PUSH(Register.getR(2)));
+        }
+        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+    }    
 }

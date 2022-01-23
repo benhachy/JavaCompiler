@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
@@ -126,6 +127,9 @@ public abstract class AbstractExpr extends AbstractInst {
         {
             return true;
         }
+        if( type1.isClass() && type2.isClass()){
+            return ((ClassType)type2).isSubClassOf((ClassType)type1);
+        }
         return false;
     }
     
@@ -199,7 +203,8 @@ public abstract class AbstractExpr extends AbstractInst {
     }
 
     public void codeGenExpr(DecacCompiler compiler,int n) {
-        return ;
+        //code ici 
+        
     }
 
     public void codeGenOp(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand,int n) {

@@ -15,6 +15,8 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 import java.io.PrintStream;
 import fr.ensimag.deca.context.BooleanType;
 
@@ -29,23 +31,41 @@ import fr.ensimag.deca.context.BooleanType;
 public class Selection extends AbstractLValue {
     public AbstractIdentifier type;
     public AbstractExpr expr;
-    public Selection(AbstractIdentifier type,AbstractExpr expr) {
+    public Selection(AbstractIdentifier type,AbstractExpr expr){
         this.type = type;
         this.expr=expr;
     }
+    @Override
     public  void codeGenAssign(DecacCompiler compiler){
-        compiler.addComment("Affectation");
-        //obtenir l'address de le objet en relation a LB
-        compiler.addInstruction(new LOAD(new RegisterOffset(1,Register.LB),Register.getR(2)));
-        
+        if(expr.getType().isClass()){
+            expr.codeGenExpr(compiler, 3);
+            type.codeGenAssign(compiler);
+            //compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
+            //type.getFieldDefinition().getIndex();
+        }else{
+            type.codeGenAssign(compiler);
+        }      
     }
+    
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler){
+        if(expr.getType().isClass()){
+            //expr.codeGenExpr(compiler, 3);
+            //type.codeGenAssign(compiler);
+            compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(2)));
+            //type.getFieldDefinition().getIndex();
+        }
+        compiler.addInstruction(new LOAD(Register.getR(2) ,Register.getR(1) ));
+    }
+
     public  Type verifyExpr(DecacCompiler compiler,
     EnvironmentExp localEnv, ClassDefinition currentClass)
     throws ContextualError{
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
         expr.verifyExpr(compiler, localEnv, currentClass);
+        // System.out.print(expr.get);
         type.setDefinition(localEnv.get(type.getName()));
-        Type expression = type.verifyAttribut(compiler,expr.getType().getName());
+        Type expression = type.verifyAttribut(compiler,expr.getType().getName(),currentClass);
         setType(expression);
         return getType();
     }

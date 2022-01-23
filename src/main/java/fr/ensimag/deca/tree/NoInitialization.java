@@ -50,11 +50,15 @@ public class NoInitialization extends AbstractInitialization {
             {
                 defaultValue = new Null();
                 defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
-                type = t;
+                type = defaultValue.getType();
+                t = type;
             }
             // else{
             //     throw new ContextualError("le type n'est pas défini ",null);
             // }
+    }
+    public  Type getType(){
+        return type;
     }
 
 
@@ -86,5 +90,19 @@ public class NoInitialization extends AbstractInitialization {
     public void codeGenInit(DecacCompiler compiler)
     {
         defaultValue.codeGenInst(compiler);
+    }
+    @Override
+    public void codeGenInitFeilds(DecacCompiler compiler){
+        defaultValue.codeGenExpr(compiler, 0);
+        // if(this.getType().getType().isFloat()){
+        //     new FloatLiteral(0).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isInt()){
+        //     new IntLiteral(0).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isBoolean()){
+        //     new BooleanLiteral(false).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isClass()){
+        //     //c'est un objet
+        //     compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
+        // }
     }
 }

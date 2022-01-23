@@ -10,6 +10,7 @@ import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import static org.mockito.ArgumentMatchers.nullable;
@@ -38,7 +39,7 @@ public class Main extends AbstractMain {
     @Override
     protected void verifyMain(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify Main: start");
-        SymbolTable.Symbol name  = null ;
+        SymbolTable.Symbol name  = SymbolTable.creerSymbol("void") ;
         //SymbolTable symbol = new SymbolTable.Symbol("void") ; 
         VoidType retour = new VoidType(name);
        // VoidType retour = new VoidType( symbol.create("void"));
@@ -64,6 +65,7 @@ public class Main extends AbstractMain {
         // A FAIRE: traiter les déclarations de variables.
         declVariables.codeGenListDeclVar(compiler);
         compiler.addComment("Beginning of main instructions:");
+        compiler.addInstruction(new ADDSP(Register.getPosGB()+1));
         insts.codeGenListInst(compiler);
 
     }

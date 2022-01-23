@@ -15,6 +15,7 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.NEW;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
@@ -54,6 +55,7 @@ public class DeclVar extends AbstractDeclVar {
         //System.out.println(":: DeclVar :: Verify DeclVar");
         Type t = type.verifyType(compiler);
         initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
+        t = initialization.getType();
         varName.setType(t);
         VariableDefinition var = new VariableDefinition(t,getLocation());
         varName.setDefinition(var);
@@ -115,14 +117,16 @@ public class DeclVar extends AbstractDeclVar {
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler){
 
-        if(type.getType().isClass()){
-            
-        }else{
-            initialization.codeGenInit(compiler);        
+        initialization.codeGenInit(compiler);        
+        if(!type.getType().isClass()){
             compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosGB(),Register.GB)));
         }
-        Identifier.posGBIdentificateur.put(varName.getName(),Register.getPosGB());
+        Identifier.addVariableAddress(varName.getName(),Register.getPosGB(),Register.GB);
+        if(type.getType().isClass()){
+            compiler.addInstruction(new STORE( Register.getR(2) , new RegisterOffset(Register.getPosGB(),Register.GB)));
+        } 
         Register.updatePosGB();
+        
     }
 
     @Override
@@ -133,7 +137,7 @@ public class DeclVar extends AbstractDeclVar {
             initialization.codeGenInit(compiler);        
             compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosLB(),Register.LB)));
         }
-        Identifier.posLBIdentificateur.put(varName.getName(),Register.getPosLB());
+        Identifier.addVariableAddress(varName.getName(),Register.getPosLB(),Register.LB);
         Register.updatePosLB();
     }
 }

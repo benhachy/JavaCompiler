@@ -14,7 +14,9 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
@@ -193,6 +195,10 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        if(currentClass != null){
+            verifyAttribut(compiler, currentClass.getType().getName(),currentClass);
+            return getType();
+        }
         ExpDefinition def = localEnv.get(getName());
         if(def==null)
         {
@@ -204,6 +210,10 @@ public class Identifier extends AbstractIdentifier {
         // }
         this.setDefinition(def);
         setType(def.getType());
+        if(getType().isNull())
+        {
+            throw new ContextualError("la variable "+getName()+" est null",getLocation());
+        }
         return this.getType();
     }
 
@@ -213,8 +223,9 @@ public class Identifier extends AbstractIdentifier {
         {
             throw new ContextualError("la classe "+getName()+" n'est pas déclarée",getLocation());
         }
-        setType(c);
-        setDefinition((new ClassDefinition(c,getLocation(),(ClassDefinition)definition)));
+        ClassType classe = new ClassType(getName(), getLocation(), c.getDefinition().getSuperClass());
+        setType(classe);
+        setDefinition((new ClassDefinition(classe,getLocation(),(ClassDefinition)definition)));
         return getClassDefinition();
     }
 
@@ -265,7 +276,7 @@ public class Identifier extends AbstractIdentifier {
         throw new ContextualError(identifier.getName()+" n'est pas une méthode définie dans "+identifier.getName(),getLocation());
     }
 
-    public  Type verifyAttribut(DecacCompiler compiler,Symbol classe) throws ContextualError{
+    public  Type verifyAttribut(DecacCompiler compiler,Symbol classe,ClassDefinition currentClass) throws ContextualError{
         ClassDefinition def = compiler.getClass(classe);
         EnvironmentExp envClass;
         while(def.getSuperClass() != null){
@@ -276,7 +287,7 @@ public class Identifier extends AbstractIdentifier {
                     throw new ContextualError(getName()+" n'est pas une attribut",getLocation());
                 }
                 FieldDefinition field = (FieldDefinition)envClass.get(getName());
-                if(field.getVisibility() == Visibility.PROTECTED){
+                if(field.getVisibility() == Visibility.PROTECTED && currentClass == null){
                     throw new ContextualError(getName()+"  est une attribut protégé ",getLocation());
                 }
                 setDefinition(field);
@@ -290,17 +301,14 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(2) ));
+        //compiler.getEnv(getName()).getEnvExp().get(new scala.Symbol("printNumber"));
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
     }
-    @Override
-    public void codeGenExpr(DecacCompiler compiler,int n) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(n) ));
-        
-    }
+
+    
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(0) ));
+        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(0)));
         if(b){
             compiler.addInstruction(new CMP( new ImmediateInteger(0) ,Register.getR(0)));
             compiler.addInstruction(new BNE(E));
@@ -314,20 +322,65 @@ public class Identifier extends AbstractIdentifier {
     }
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB),Register.getR(1) ));
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(1) ));
     }
 
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
-        compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(Identifier.identificateurs.get(getName())+3,Register.GB) ));
+        System.out.println("identifier::codeGenAssing"+getName());
+        if(definition.isField()){
+            //chercher la position de la valeur en relation a l'objet         
+            if(getType().isClass()){
+                //load address dans la tas de l'objet
+                //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(1)));
+            }else{
+                //store value sur l'address de registre R0
+                //compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+            }
+            //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
+        }else{
+            //chercher la valeur comme variable global dans gb
+            compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
+        }
     }
 
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+        
+        if(getDefinition().isField()){
+            System.out.println("identifier::codeGenAssing Champs"+getName());
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
+
+        }
+        else if(getDefinition().isClass()){
+            System.out.println("identifier::codeGenAssing Class"+getName());
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
+
+        }
+        else{
+            System.out.println("identifier::codeGenAssing Nnnnnnnnnnnon Champs"+getName());
+            compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
+        }
+        
+    }
 
     private Definition definition;
     public static HashMap<Symbol,Integer> identificateurs = new HashMap<Symbol,Integer>();
-    public static HashMap<Symbol,Integer> posGBIdentificateur = new HashMap<Symbol,Integer>();
-    public static HashMap<Symbol,Integer> posLBIdentificateur = new HashMap<Symbol,Integer>();
+    public static HashMap<Symbol,VariableLocation> positionVariables = new HashMap<Symbol,VariableLocation>();
     public static int ordreIdentifier;
+
+    public static void addVariableAddress(Symbol symbol,int pos,Register register){
+        positionVariables.put(symbol,new VariableLocation(pos,register));
+    }
+    public static void removeVariableAddress(Symbol symbol){
+        positionVariables.remove(symbol);
+    }
+    public static DAddr getVariableAddress(Symbol symbol){
+        return positionVariables.get(symbol).getVariableAddress();
+    }
+
 
     @Override
     protected void iterChildren(TreeFunction f) {

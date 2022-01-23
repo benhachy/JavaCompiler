@@ -49,7 +49,9 @@ public class Initialization extends AbstractInitialization {
         expectedType = t;
         setExpression(expression);
     }
-
+    public  Type getType(){
+        return expectedType;
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
@@ -76,5 +78,9 @@ public class Initialization extends AbstractInitialization {
             compiler.addInstruction(new FLOAT(Register.getR(2),Register.getR(2)));
         }
         
+    }
+    @Override
+    public void codeGenInitFeilds(DecacCompiler compiler){
+        expression.codeGenExpr(compiler, 0);
     }
 }

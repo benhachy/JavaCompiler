@@ -1,0 +1,6 @@
+class B{
+    int x;
+    void set(){
+        return x;
+    }
+}

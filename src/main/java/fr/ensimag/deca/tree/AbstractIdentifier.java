@@ -98,5 +98,5 @@ public abstract class AbstractIdentifier extends AbstractLValue {
 
     public abstract MethodDefinition verifyExistence(DecacCompiler compiler, ClassType classe)throws ContextualError;
 
-    public abstract Type verifyAttribut(DecacCompiler compiler,Symbol classe) throws ContextualError;
+    public abstract Type verifyAttribut(DecacCompiler compiler,Symbol classe,ClassDefinition currentClass) throws ContextualError;
 }
