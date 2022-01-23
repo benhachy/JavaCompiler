@@ -134,15 +134,15 @@ public class DeclClass extends AbstractDeclClass {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
             ++indiceField;
         }
-        //int nbrOfMethods =0;
+        int nbrOfMethods = indiceMethod;
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            indiceMethod += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
-            
+            nbrOfMethods += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            ++indiceMethod;
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
-        newDef.setNumberOfMethods(indiceMethod);
+        newDef.setNumberOfMethods(nbrOfMethods);
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
@@ -342,7 +342,7 @@ public class DeclClass extends AbstractDeclClass {
             compiler.addInstruction(new BSR(labelInitSuper));
             compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
         }
-        int nmChamps = feildDecl.getList().size();
+        nmChamps = feildDecl.getList().size();
         //on verifie les debordements de la pile
         compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
