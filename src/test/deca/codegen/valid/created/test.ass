@@ -36,24 +36,16 @@
 	STORE R2, 12(GB)
 ; Beginning of main instructions:
 	ADDSP #14
-beginIf0:
-	LEA 10(GB), R2
+	LOAD #16, R2
 	LOAD 12(GB), R3
-	LOAD 0(R3), R3
-instanceOf.Begin:
-	CMP R3, R2
-	BEQ ifInst0
-	LOAD 0(R3), R3
-	CMP #null, R3
-	BEQ finElse0
-	BNE instanceOf.Begin
-	BRA elseInst0
-ifInst0:
-	WSTR "je suis un fils de B"
-	WNL
-	BRA finElse0
-elseInst0:
-finElse0:
+; ononon
+	STORE R2, 4(R3)
+	WSTR "OK"
+	LOAD 12(GB), R3
+; blabala
+	LOAD 4(R3), R2
+	LOAD R2, R1
+	WINT
 	HALT
 ; Initialisation des champs de A
 init.A:

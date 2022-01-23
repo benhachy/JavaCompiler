@@ -25,6 +25,7 @@ class C{
         println("je suis un fils de B");
     }*/
     //print(b.x);
-    /*b.att2 = 16;
-    print(b.att2);*/
+    b.att2 = 16;
+    print("OK");
+    print(b.att2);
 }

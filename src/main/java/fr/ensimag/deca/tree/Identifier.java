@@ -348,19 +348,19 @@ public class Identifier extends AbstractIdentifier {
     public void codeGenExpr(DecacCompiler compiler,int n) {
         
         if(getDefinition().isField()){
-            System.out.println("identifier::codeGenAssing Champs"+getName());
+            System.out.println("identifier::codeGenExpr Champs"+getName());
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
 
         }
         else if(getDefinition().isClass()){
-            System.out.println("identifier::codeGenAssing Class"+getName());
+            System.out.println("identifier::codeGenExpr Class"+getName());
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
 
         }
         else{
-            System.out.println("identifier::codeGenAssing Nnnnnnnnnnnon Champs"+getName());
+            System.out.println("identifier::codeGenExpr Nnnnnnnnnnnon Champs"+getName());
             compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
         }
         
