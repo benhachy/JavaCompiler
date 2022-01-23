@@ -63,6 +63,9 @@ public class DeclClass extends AbstractDeclClass {
         this.feildDecl= feildDecl;
         this.methodDecl=methodDecl;
     }
+    public int getIndexMethod(Label l ){
+        return listEtiquetteMethod.indexOf(l);
+    }
     
     @Override
     public void decompile(IndentPrintStream s) {
@@ -131,15 +134,15 @@ public class DeclClass extends AbstractDeclClass {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
             ++indiceField;
         }
-        int nbrOfMethods =0;
+        //int nbrOfMethods =0;
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            nbrOfMethods += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
-            ++indiceMethod;
+            indiceMethod += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
-        newDef.setNumberOfMethods(nbrOfMethods);
+        newDef.setNumberOfMethods(indiceMethod);
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }

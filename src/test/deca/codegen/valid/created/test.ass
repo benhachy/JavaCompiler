@@ -1,4 +1,5 @@
 ; start main program
+	ADDSP #10
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -30,7 +31,6 @@
 	STORE R0, 12(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 13(GB)
-	ADDSP #8
 ; idk why or how he's here
 	NEW #6, R2
 	BOV pile_pleine

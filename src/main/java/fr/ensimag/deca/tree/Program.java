@@ -49,10 +49,10 @@ public class Program extends AbstractProgram {
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
         //add addsp pour la table des methodes et des variables globals
-        compiler.addComment("Main program");
-        classes.creerTableMethodes(compiler);
         int addSP = compiler.getNumberOfClass()+compiler.getNumberOfMethods()+Identifier.ordreIdentifier;
         compiler.addInstruction(new ADDSP(addSP));
+        compiler.addComment("Main program");
+        classes.creerTableMethodes(compiler);
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
         classes.genCodeInitializationEtMethodes(compiler);
