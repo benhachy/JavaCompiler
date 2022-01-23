@@ -5,6 +5,10 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import java.io.PrintStream;
 
 /**
@@ -31,7 +35,8 @@ public class Return extends AbstractInst {
             }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-
+        //obtenir la variable pour le reour
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(0)));
     }
     @Override
     public void decompile(IndentPrintStream s) {

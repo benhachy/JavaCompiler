@@ -5,6 +5,8 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+	ADDSP #5
+; idk why or how he's here
 	LOAD #12, R2
 	LOAD #12, R3
 	CMP R2, R3
@@ -22,10 +24,13 @@ falseVar0:
 	LOAD #0, R2
 nextVar0:
 	STORE R2, 3(GB)
+; idk why or how he's here
 	LOAD #0x1.fp3, R2
 	STORE R2, 4(GB)
+; idk why or how he's here
 	LOAD #0x1.0p4, R2
 	STORE R2, 5(GB)
+; idk why or how he's here
 	LOAD #16, R2
 	STORE R2, 6(GB)
 ; Beginning of main instructions:
@@ -150,6 +155,7 @@ elseInst5:
 	WSTR "false"
 	WNL
 finElse5:
+; equals
 	LOAD #152, R2
 	LOAD #12, R3
 	CMP R3, R2
