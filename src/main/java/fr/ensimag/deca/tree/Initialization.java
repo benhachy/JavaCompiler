@@ -49,7 +49,9 @@ public class Initialization extends AbstractInitialization {
         expectedType = t;
         setExpression(expression);
     }
-
+    public  Type getType(){
+        return expectedType;
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {

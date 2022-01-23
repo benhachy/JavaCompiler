@@ -210,6 +210,10 @@ public class Identifier extends AbstractIdentifier {
         // }
         this.setDefinition(def);
         setType(def.getType());
+        if(getType().isNull())
+        {
+            throw new ContextualError("la variable "+getName()+" est null",getLocation());
+        }
         return this.getType();
     }
 
@@ -342,8 +346,24 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n) {
-        System.out.println("identifier::codeGenAssing"+getName());
-        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
+        
+        if(getDefinition().isField()){
+            System.out.println("identifier::codeGenAssing Champs"+getName());
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
+
+        }
+        else if(getDefinition().isClass()){
+            System.out.println("identifier::codeGenAssing Class"+getName());
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
+
+        }
+        else{
+            System.out.println("identifier::codeGenAssing Nnnnnnnnnnnon Champs"+getName());
+            compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(n)));
+        }
+        
     }
 
     private Definition definition;

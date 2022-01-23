@@ -113,15 +113,19 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        EnvironmentExp envExpF = new EnvironmentExp(null);
+        EnvironmentExp envExpF = new EnvironmentExp(null); 
+        int indiceField = classExtension.getClassDefinition().getNumberOfFields();
+        int indiceMethod = classExtension.getClassDefinition().getNumberOfMethods();
         for(AbstractDeclField f : feildDecl.getList())
         {
-            f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition());
+            f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
+            ++indiceField;
         }
         
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition());
+            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            ++indiceMethod;
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
@@ -272,6 +276,11 @@ public class DeclClass extends AbstractDeclClass {
        /* for (AbstractDeclMethod  methode : classExtension.getList()) {
             methode.creerEtStockerLabel(compiler,this);
         }*/
+        
+        for(AbstractDeclField f : feildDecl.getList())
+        {
+                    System.out.println(identifier.getName()+"."+f.getName().getName()+" "+f.getName().getFieldDefinition().getIndex());
+        }
         //insertion des etiquetes des methodes
         //ClassDefinition superClass = compiler.get(classExtension.getName());
         createLabelList(compiler,identifier.getName());

@@ -49,12 +49,12 @@ public class DeclField extends AbstractDeclField {
     }
 
     @Override
-    public void verifyFeild(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition superClass,ClassDefinition currentClass)
+    public void verifyFeild(DecacCompiler compiler,EnvironmentExp localEnv, ClassDefinition superClass,ClassDefinition currentClass,int indice)
     throws ContextualError {
         Type t = type.verifyType(compiler);
         initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
         name.setType(t);
-        FieldDefinition field = new FieldDefinition(t, getLocation(), visibility,currentClass,0);
+        FieldDefinition field = new FieldDefinition(t, getLocation(), visibility,currentClass,indice);
         name.setDefinition(field);
         try{
             // Identifier.identificateurs.put(name.getName(),Identifier.ordreIdentifier);

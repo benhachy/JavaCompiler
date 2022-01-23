@@ -5,16 +5,11 @@ class A{
 
     }
 }
-{
-    A a = new A();
-    a.x=7;
-    print(a.x);
-}
-/*
+
 class B extends A{
-    int y;
-    int x;
-    int z;
+    int att1;
+    int att2;
+    int aat3;
     void getY(){
 
     }
@@ -23,9 +18,9 @@ class C{
     int z;
     B b;
 }
+
 {
-    int x;
-    C c = new C();
-    c.b = new B();
-    c.b.x = 1;   
-}*/
+    B b = new B();
+    b.x = 16;
+    print(b.x);
+}

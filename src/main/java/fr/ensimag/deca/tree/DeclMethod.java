@@ -91,14 +91,14 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     public void verifyMethod(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass)
+            EnvironmentExp localEnv, ClassDefinition currentClass,int indice)
             throws ContextualError{
         type.setDefinition(compiler.getDefinition(type.getName()));
         Type expectedReturn = compiler.get(type.getName()).getType();
         type.setType(expectedReturn);
         Signature signature = new Signature();
         paramDecl.verifyListParam(compiler,signature);
-        MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,0);
+        MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,indice);
         name.setDefinition(method);
         name.setType(method.getType());
         try{

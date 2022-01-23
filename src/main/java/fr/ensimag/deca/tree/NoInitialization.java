@@ -57,6 +57,9 @@ public class NoInitialization extends AbstractInitialization {
             //     throw new ContextualError("le type n'est pas défini ",null);
             // }
     }
+    public  Type getType(){
+        return type;
+    }
 
 
 

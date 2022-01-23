@@ -15,6 +15,8 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 import java.io.PrintStream;
 import fr.ensimag.deca.context.BooleanType;
 
@@ -36,13 +38,20 @@ public class Selection extends AbstractLValue {
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
         if(expr.getType().isClass()){
-            expr.codeGenExpr(compiler, 0);
-            type.codeGenAssign(compiler);
+            expr.codeGenExpr(compiler, 2);
+            //type.codeGenAssign(compiler);
+            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(2))));
+            //type.getFieldDefinition().getIndex();
         }else{
             type.codeGenAssign(compiler);
         }      
     }
     
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler){
+        compiler.addInstruction(new LOAD(Register.getR(2) ,Register.getR(1) ));
+    }
+
     public  Type verifyExpr(DecacCompiler compiler,
     EnvironmentExp localEnv, ClassDefinition currentClass)
     throws ContextualError{
