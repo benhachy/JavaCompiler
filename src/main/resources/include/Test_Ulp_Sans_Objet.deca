@@ -5,7 +5,7 @@ public class TestUlpSansObjet{
 		
 		int MAX_EXPONENT = 127;
     	int MIN_EXPONENT = -126;
-		  float MIN_VALUE = (float) 1.4E-45;
+		float MIN_VALUE = 1.4e-45f;
 	 	int SIGNIFICAND_WIDTH = 24;
 
 		float d = 5.01f;
