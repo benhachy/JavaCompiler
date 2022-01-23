@@ -22,10 +22,10 @@ public static final double PI = 3.141592653589793 ;
 	}
 	
 	/**
-	 * Cette algorithme après devient très lent dans le cas suivant par exemple (1009,28)
-	 * Dès que le nombre d'itération devient plus grand que 25 
+	 * Cette algorithme aprs devient trs lent dans le cas suivant par exemple (1009,28)
+	 * Ds que le nombre d'itration devient plus grand que 25 
 	 * 
-	 * Les entrées sont pour < 100 ;
+	 * Les entres sont pour < 100 ;
 	 * */
 	public static double racine_n(double a, int n) {
 		if (n == 0 ) {
@@ -36,7 +36,7 @@ public static final double PI = 3.141592653589793 ;
 		}
 	}
 	
-	// On peut pas regrouper les deux fonctions à cause de la réccurence 
+	// On peut pas regrouper les deux fonctions  cause de la rccurence 
 	public static double racine(double a) {
 		
 		if(a < 0) {
@@ -96,7 +96,7 @@ public static final double PI = 3.141592653589793 ;
 		d = abs(d);
 		int m = 0;
 		
-		while (d > 2) {
+		while (d >= 2) {
 			m += 1;
 			d /= 2;
 		}
