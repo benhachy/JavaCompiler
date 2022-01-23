@@ -10,6 +10,12 @@ import fr.ensimag.deca.context.VoidType;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.Visibility;
+import fr.ensimag.ima.pseudocode.NullOperand;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
 import java.io.PrintStream;
 
 /**
@@ -90,5 +96,28 @@ public class DeclField extends AbstractDeclField {
         name.iter(f);
         initialization.iter(f);
     }
-
+    @Override
+    protected void codeGenFeild(DecacCompiler compiler){
+        initialization.codeGenInitFeilds(compiler);
+        // if(this.getType().getType().isFloat()){
+        //     new FloatLiteral(0).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isInt()){
+        //     new IntLiteral(0).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isBoolean()){
+        //     new BooleanLiteral(false).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isClass()){
+        //     //c'est un objet
+        //     compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
+        // }
+        //on charge l'address de le objet sur le registre R1
+        //compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
+        compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(name.getFieldDefinition().getIndex()+1,Register.getR(1))));
+        //appres on charge la valeur par defaut de cette type
+        //a la fin on fait l'insertion du valeur dans la pille
+        //ajouter les thiss de la superclass
+        this.getName().getType();
+        int pos = 1 ;
+        Identifier.addVariableAddress(this.getName().getName(), pos, Register.getR(1));
+        pos++;
+    }
 }

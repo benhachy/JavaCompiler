@@ -1,6 +1,6 @@
 class A{
-    int x;
-    int y;
+    int x=4;
+    boolean y = true ;
     void getX(){
 
     }
@@ -21,6 +21,10 @@ class C{
 
 {
     B b = new B();
-    b.x = 16;
+    /*if( b instanceof B){
+        println("wow");
+    }*/
     print(b.x);
+    /*b.att2 = 16;
+    print(b.att2);*/
 }

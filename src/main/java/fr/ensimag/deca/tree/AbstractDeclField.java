@@ -18,6 +18,7 @@ public abstract class AbstractDeclField extends Tree {
     throws ContextualError ;
     public abstract AbstractIdentifier getType();
     public abstract AbstractIdentifier getName();
+    protected abstract void codeGenFeild(DecacCompiler compiler);
 
 
 }

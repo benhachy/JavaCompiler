@@ -24,6 +24,7 @@
 	PUSH R2
 	BSR init.B
 	POP R2
+	STORE R2, 8(GB)
 ; Beginning of main instructions:
 	ADDSP #10
 	NEW #2, R2
@@ -33,7 +34,7 @@
 	PUSH R2
 	BSR init.A
 	POP R2
-	LOAD 8(GB), R0
+	LOAD 8(GB), R3
 	LOAD #1, R2
 	LOAD #1, R2
 	STORE R2, 7(GB)
@@ -42,19 +43,17 @@
 init.A:
 	TSTO #2
 	BOV pile_pleine
-	LOAD #0, R0
 	LOAD -2(LB), R1
+	LOAD #0, R0
 	STORE R0, 1(R1)
 	RTS
 ; Initialisation des champs de B
 init.B:
 	TSTO #3
 	BOV pile_pleine
+	LOAD -2(LB), R1
 	LOAD #0, R0
-	LOAD -2(LB), R1
 	STORE R0, 1(R1)
-	LOAD #null, R0
-	LOAD -2(LB), R1
 	STORE R0, 2(R1)
 	RTS
 pile_pleine:

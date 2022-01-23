@@ -19,6 +19,7 @@
 	PUSH R2
 	BSR init.A
 	POP R2
+	STORE R2, 6(GB)
 ; Beginning of main instructions:
 	ADDSP #8
 	BSR code.A.printHello
@@ -27,6 +28,7 @@
 init.A:
 	TSTO #1
 	BOV pile_pleine
+	LOAD -2(LB), R1
 	RTS
 code.A.printHello:
 	TSTO #2	; test de debordement de la pile

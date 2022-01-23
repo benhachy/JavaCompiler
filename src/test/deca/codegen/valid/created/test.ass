@@ -33,11 +33,10 @@
 	PUSH R2
 	BSR init.B
 	POP R2
+	STORE R2, 12(GB)
 ; Beginning of main instructions:
 	ADDSP #14
-	LOAD #16, R2
-	LOAD 12(GB), R2
-	LOAD 1(R2), R2
+	LOAD 1(R3), R2
 	LOAD R2, R1
 	WINT
 	HALT
@@ -45,11 +44,10 @@
 init.A:
 	TSTO #3
 	BOV pile_pleine
-	LOAD #0, R0
 	LOAD -2(LB), R1
+	LOAD #4, R0
 	STORE R0, 1(R1)
-	LOAD #0, R0
-	LOAD -2(LB), R1
+	LOAD #1, R0
 	STORE R0, 2(R1)
 	RTS
 code.A.getX:
@@ -70,15 +68,13 @@ init.B:
 	SUBSP #1
 	TSTO #4
 	BOV pile_pleine
-	LOAD #0, R0
 	LOAD -2(LB), R1
-	STORE R0, 1(R1)
 	LOAD #0, R0
-	LOAD -2(LB), R1
-	STORE R0, 2(R1)
-	LOAD #0, R0
-	LOAD -2(LB), R1
 	STORE R0, 3(R1)
+	LOAD #0, R0
+	STORE R0, 4(R1)
+	LOAD #0, R0
+	STORE R0, 5(R1)
 	RTS
 code.B.getY:
 	TSTO #2	; test de debordement de la pile
@@ -94,11 +90,9 @@ fin.B.getY:
 init.C:
 	TSTO #3
 	BOV pile_pleine
+	LOAD -2(LB), R1
 	LOAD #0, R0
-	LOAD -2(LB), R1
 	STORE R0, 1(R1)
-	LOAD #null, R0
-	LOAD -2(LB), R1
 	STORE R0, 2(R1)
 	RTS
 pile_pleine:

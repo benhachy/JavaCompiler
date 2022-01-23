@@ -91,4 +91,18 @@ public class NoInitialization extends AbstractInitialization {
     {
         defaultValue.codeGenInst(compiler);
     }
+    @Override
+    public void codeGenInitFeilds(DecacCompiler compiler){
+        defaultValue.codeGenExpr(compiler, 0);
+        // if(this.getType().getType().isFloat()){
+        //     new FloatLiteral(0).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isInt()){
+        //     new IntLiteral(0).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isBoolean()){
+        //     new BooleanLiteral(false).codeGenExpr(compiler,0);
+        // }else if(this.getType().getType().isClass()){
+        //     //c'est un objet
+        //     compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
+        // }
+    }
 }

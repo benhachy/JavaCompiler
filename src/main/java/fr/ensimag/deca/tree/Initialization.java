@@ -79,4 +79,8 @@ public class Initialization extends AbstractInitialization {
         }
         
     }
+    @Override
+    public void codeGenInitFeilds(DecacCompiler compiler){
+        expression.codeGenExpr(compiler, 0);
+    }
 }
