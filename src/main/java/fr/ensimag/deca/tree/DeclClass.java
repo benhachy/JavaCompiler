@@ -309,14 +309,7 @@ public class DeclClass extends AbstractDeclClass {
         Label label = new Label("init."+identifier.getName());
         compiler.addLabel(label);
 
-        //on verifie si la class herite d'un autre class
-        if(!classExtension.getName().getName().equals("Object")){
-            compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
-            compiler.addInstruction(new PUSH(Register.getR(1)));
-            Label labelInitSuper = new Label("init."+classExtension.getName().getName());
-            compiler.addInstruction(new BSR(labelInitSuper));
-            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
-        }
+        
         int nmChamps = feildDecl.getList().size();
         //on verifie les debordements de la pile
         compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
@@ -326,6 +319,14 @@ public class DeclClass extends AbstractDeclClass {
             //pour chaque champ on verifie le type
             //appres on les mett sur le registre R0
             champ.codeGenFeild(compiler);
+        }
+        //on verifie si la class herite d'un autre class
+        if(!classExtension.getName().getName().equals("Object")){
+            compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
+            compiler.addInstruction(new PUSH(Register.getR(1)));
+            Label labelInitSuper = new Label("init."+classExtension.getName().getName());
+            compiler.addInstruction(new BSR(labelInitSuper));
+            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
         }
         compiler.addInstruction(new RTS());
         for (AbstractDeclMethod methode : methodDecl.getList()) {
