@@ -38,9 +38,10 @@ public class Selection extends AbstractLValue {
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
         if(expr.getType().isClass()){
-            expr.codeGenExpr(compiler, 2);
-            //type.codeGenAssign(compiler);
-            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(2))));
+            expr.codeGenExpr(compiler, 3);
+            type.codeGenAssign(compiler);
+            compiler.addComment("ononon");
+            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
             //type.getFieldDefinition().getIndex();
         }else{
             type.codeGenAssign(compiler);
@@ -49,6 +50,14 @@ public class Selection extends AbstractLValue {
     
     @Override
     protected void codeGenPrint(DecacCompiler compiler){
+        expr.codeGenExpr(compiler, 3);
+        if(expr.getType().isClass()){
+            //expr.codeGenExpr(compiler, 3);
+            //type.codeGenAssign(compiler);
+            compiler.addComment("blabala");
+            compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(2)));
+            //type.getFieldDefinition().getIndex();
+        }
         compiler.addInstruction(new LOAD(Register.getR(2) ,Register.getR(1) ));
     }
 
@@ -68,7 +77,9 @@ public class Selection extends AbstractLValue {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        type.decompile(s);
+        s.print(".");
+        expr.decompile(s);
     }
     @Override
     protected void iterChildren(TreeFunction f) {

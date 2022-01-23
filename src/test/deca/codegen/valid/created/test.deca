@@ -1,6 +1,6 @@
 class A{
-    int x;
-    int y;
+    int x=4;
+    boolean y = true ;
     void getX(){
 
     }
@@ -10,8 +10,8 @@ class B extends A{
     int att1;
     int att2;
     int aat3;
-    void getY(){
-
+    void addAtt1(){
+        att1 = 5;
     }
 }
 class C{
@@ -21,6 +21,11 @@ class C{
 
 {
     B b = new B();
-    b.x = 16;
-    print(b.x);
+    /*if( b instanceof C){
+        println("je suis un fils de B");
+    }*/
+    //print(b.x);
+    b.att2 = 16;
+    print("OK");
+    print(b.att2);
 }

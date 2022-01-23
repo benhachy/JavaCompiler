@@ -20,14 +20,14 @@ class A {
 class B extends A {
     int y ;
     void init() {
-        y.setX(0) ;
+        setX(0) ;
         y = 0 ;
     }
 }
 class C extends A {
     int z ;
     void init() {
-        z.setX(0) ;
+        setX(0) ;
         z = 1 ;
 }
 }

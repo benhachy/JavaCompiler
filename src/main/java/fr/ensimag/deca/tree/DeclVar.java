@@ -15,6 +15,7 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.NEW;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
@@ -91,9 +92,11 @@ public class DeclVar extends AbstractDeclVar {
     @Override
     public void decompile(IndentPrintStream s) {
         type.decompile(s);
+        s.print(" ");
         varName.decompile(s);
+        s.print(" ");
         initialization.decompile(s);
-        s.print(";");
+        s.println(";");
     }
 
     @Override
@@ -119,7 +122,11 @@ public class DeclVar extends AbstractDeclVar {
             compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosGB(),Register.GB)));
         }
         Identifier.addVariableAddress(varName.getName(),Register.getPosGB(),Register.GB);
+        if(type.getType().isClass()){
+            compiler.addInstruction(new STORE( Register.getR(2) , new RegisterOffset(Register.getPosGB(),Register.GB)));
+        } 
         Register.updatePosGB();
+        
     }
 
     @Override

@@ -5,39 +5,46 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de A
+; Code de la table des méthodes de P
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-	LOAD code.A.printHello, R0
+	LOAD code.P.setX, R0
 	STORE R0, 5(GB)
-	NEW #1, R2
+	NEW #3, R2
 	BOV pile_pleine
 	LEA 3(GB), R0
 	STORE R0, 0(R2)
 	PUSH R2
-	BSR init.A
+	BSR init.P
 	POP R2
 	STORE R2, 6(GB)
 ; Beginning of main instructions:
 	ADDSP #8
-	BSR code.A.printHello
+	BSR code.P.setX
+	LOAD 6(GB), R3
+	LOAD 1(R3), R2
+	LOAD R2, R1
+	WINT
 	HALT
-; Initialisation des champs de A
-init.A:
-	TSTO #1
+; Initialisation des champs de P
+init.P:
+	TSTO #3
 	BOV pile_pleine
 	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	LOAD #0, R0
+	STORE R0, 2(R1)
 	RTS
-code.A.printHello:
+code.P.setX:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	WSTR "hello de A"
-	WNL
-fin.A.printHello:
+	LOAD #100, R2
+fin.P.setX:
 ; Restauration des registres
 	POP R3
 	POP R2

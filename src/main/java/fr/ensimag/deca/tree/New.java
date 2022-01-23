@@ -73,8 +73,10 @@ public class New extends AbstractExpr {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        
-    }
+        s.print("new ");
+        type.decompile(s);
+        s.print("()");
+        }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
         //comment obtenir le nb des atributs de l'objet???

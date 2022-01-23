@@ -66,7 +66,14 @@ public class DeclClass extends AbstractDeclClass {
     
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        s.print("class ");
+        identifier.decompile(s);
+        classExtension.decompile();
+        s.println(" {");
+        feildDecl.decompile(s);
+        s.println("");
+        methodDecl.decompile(s);
+        s.println("}");
     }
 
     public AbstractIdentifier getIdentifier(){
@@ -309,6 +316,17 @@ public class DeclClass extends AbstractDeclClass {
         Label label = new Label("init."+identifier.getName());
         compiler.addLabel(label);
 
+        
+        int nmChamps = feildDecl.getList().size();
+        //on verifie les debordements de la pile
+        compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
+        compiler.addInstruction(new BOV(new Label("pile_pleine")));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
+        for (AbstractDeclField champ : feildDecl.getList()) {
+            //pour chaque champ on verifie le type
+            //appres on les mett sur le registre R0
+            champ.codeGenFeild(compiler);
+        }
         //on verifie si la class herite d'un autre class
         if(!classExtension.getName().getName().equals("Object")){
             compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
@@ -316,34 +334,6 @@ public class DeclClass extends AbstractDeclClass {
             Label labelInitSuper = new Label("init."+classExtension.getName().getName());
             compiler.addInstruction(new BSR(labelInitSuper));
             compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
-        }
-        int nmChamps = feildDecl.getList().size();
-        //on verifie les debordements de la pile
-        compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
-        compiler.addInstruction(new BOV(new Label("pile_pleine")));
-        int pos = 1;
-        for (AbstractDeclField champ : feildDecl.getList()) {
-            //pour chaque champ on verifie le type
-            //appres on les mett sur le registre R0
-            if(champ.getType().getType().isFloat()){
-                new FloatLiteral(0).codeGenExpr(compiler,0);
-            }else if(champ.getType().getType().isInt()){
-                new IntLiteral(0).codeGenExpr(compiler,0);
-            }else if(champ.getType().getType().isBoolean()){
-                new BooleanLiteral(false).codeGenExpr(compiler,0);
-            }else if(champ.getType().getType().isClass()){
-                //c'est un objet
-                compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
-            }
-            //on charge l'address de le objet sur le registre R1
-            compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
-            compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(pos,Register.getR(1))));
-            //appres on charge la valeur par defaut de cette type
-            //a la fin on fait l'insertion du valeur dans la pille
-            //ajouter les champs de la superclass
-            champ.getName().getType();
-            Identifier.addVariableAddress(champ.getName().getName(), pos, Register.getR(1));
-            pos++;
         }
         compiler.addInstruction(new RTS());
         for (AbstractDeclMethod methode : methodDecl.getList()) {

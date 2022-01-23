@@ -86,7 +86,12 @@ public class MethodCall extends AbstractExpr {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-
+        name.decompile(s);
+        s.print(".");
+        methodName.decompile(s);
+        s.print("(");
+        listExpression.decompile(s);
+        s.print(")");
     }
     public void codeGenInst(DecacCompiler compiler){
         for (AbstractExpr exp : listExpression.getList()) {
