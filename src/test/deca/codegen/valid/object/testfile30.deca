@@ -6,10 +6,12 @@
 // Historique:
 //    cree le 01/01/2022
 class A{
-    public boolean equals (Object other) {
-        return this == other;
+    int x;
+    boolean equals (A other) {
+        return this.x == other.x;
     }
 }
+class B{}
 {
     A a = new A();
     A b = new B();

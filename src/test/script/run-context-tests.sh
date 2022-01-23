@@ -12,7 +12,7 @@ NC='\033[0m'
 
 echo "----- Invalid tests Battery -----"
 
-for cas_de_test in src/test/deca/context/invalid/created/*.deca
+for cas_de_test in src/test/deca/codegen/valid/object/*.deca
 do
     if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
     then

@@ -18,5 +18,5 @@ class A{
 {
     A obj = new A();
     obj.setX(12);
-    print(obj).getX());
+    print(obj.getX());
 }

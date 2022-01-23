@@ -8,10 +8,11 @@
 class A{
     int x = 21;
     boolean b = false;
-    public boolean equals (Object other) {
-        return this == other;
+    boolean equals (Object other) {
+        return other instanceof A;
     }
 }
+class B{}
 {
     A a = new A();
     A b = new B();

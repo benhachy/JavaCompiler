@@ -7,20 +7,20 @@
 //    cree le 01/01/2022
 class A{
     protected int x;
-    public int y;
-    public void setX(int x){
+    int y;
+    void setX(int x){
         this.x = x;
     }
 }
 class B extends A{
     int e;
-    public int getE(){
+    int getE(){
         return this.e;
     }
 }
 {
     B obj = new B();
-    B.e = 30;
+    obj.e = 30;
 }
 
     

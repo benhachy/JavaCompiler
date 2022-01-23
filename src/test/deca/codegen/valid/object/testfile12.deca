@@ -12,7 +12,7 @@ class A{
         this.x =val;
     }
     int getX(){
-        return this.x:
+        return this.x;
     }
 }
 {

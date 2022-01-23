@@ -8,13 +8,14 @@
 class A{
     int x = 21;
     boolean b = false;
-    public boolean equals (Object other) {
-        return this == other;
+    boolean equals (Object other) {
+        return !( other.equals(this));
     }
-    public void setX(int x){
+    void setX(int x){
         this.x = x;
     }
 }
+class B{}
 {
     A a = new A();
     A b = new B();

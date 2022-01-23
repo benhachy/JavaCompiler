@@ -5,7 +5,7 @@
 //     a.getX() = 1
 // Historique:
 //    cree le 01/01/2022
-/ Un exemple de programme Deca
+// Un exemple de programme Deca
 
 class A {
     protected int x ;
@@ -17,7 +17,7 @@ class A {
     }
 }
 {
-    A a = new A() ;
-    a.setX(1) ;
-    17 println("a.getX() = ", a.getX())
+  A a = new A() ;
+  a.setX(1) ;
+  println("a.getX() = ", a.getX());
 }

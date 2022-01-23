@@ -10,10 +10,11 @@ class Q {
         if (x < 0.0) {
             return -x;
         }
+        return x;
     }
 }
 {
     Q obj = new Q();
-    int x = Q.abs(-8);
+    float x = obj.abs(-8);
     print(x);
 }

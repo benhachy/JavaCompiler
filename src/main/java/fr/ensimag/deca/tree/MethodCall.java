@@ -68,6 +68,9 @@ public class MethodCall extends AbstractExpr {
         MethodDefinition defMethod=methodName.verifyExistence(compiler,classe);
         methodName.setDefinition(defMethod);
         Signature sig = defMethod.getSignature();
+        if(listExpression.size()!= sig.size()){
+            throw new ContextualError("manque de parametres dans "+methodName.getName(), methodName.getLocation());
+        }
         listExpression.verifySignature(compiler,localEnv,currentClass,sig);
         setType(defMethod.getType());
         return getType();

@@ -22,7 +22,7 @@ public class Return extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass, Type returnType) throws ContextualError{
                 Type t = expression.verifyExpr(compiler,localEnv,currentClass);
-                if(!expression.verifyCompatibility(localEnv,t,returnType))
+                if(!expression.verifyCompatibility(localEnv,returnType,t))
                 {
                     throw new ContextualError("le type du retour et le retour ne sont pas compatibles ",getLocation());
                 }

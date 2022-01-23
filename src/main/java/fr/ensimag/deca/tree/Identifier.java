@@ -255,6 +255,7 @@ public class Identifier extends AbstractIdentifier {
 
     public MethodDefinition verifyExistence(DecacCompiler compiler, ClassType classe)throws ContextualError{
         Symbol identifier = getName();
+        Symbol c = classe.getName();
         EnvironmentExp envClass;
         ClassDefinition def = compiler.getClass(classe.getName());
         while(def.getSuperClass() != null){
@@ -275,7 +276,7 @@ public class Identifier extends AbstractIdentifier {
             def = def.getSuperClass();
         }
     
-        throw new ContextualError(identifier.getName()+" n'est pas une méthode définie dans "+identifier.getName(),getLocation());
+        throw new ContextualError(identifier.getName()+" n'est pas une méthode définie dans "+c,getLocation());
     }
 
     public  Type verifyAttribut(DecacCompiler compiler,Symbol classe,ClassDefinition currentClass) throws ContextualError{

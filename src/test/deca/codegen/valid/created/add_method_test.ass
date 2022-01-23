@@ -12,6 +12,7 @@
 	STORE R0, 4(GB)
 	LOAD code.P.setX, R0
 	STORE R0, 5(GB)
+	ADDSP #4
 ; idk why or how he's here
 	NEW #3, R2
 	BOV pile_pleine

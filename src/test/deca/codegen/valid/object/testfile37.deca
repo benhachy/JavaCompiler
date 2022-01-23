@@ -8,7 +8,7 @@
 class A{
     protected int x;
     protected boolean b;
-    public void affiche(){
+    void affiche(){
         println("hello");
     }
 }
