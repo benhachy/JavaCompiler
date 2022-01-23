@@ -87,12 +87,14 @@ public class TestAtanSansObjet {
 			elseif(i == 43) { z =  funz - d * 1.1368683772161603e-13f;}
 			elseif(i == 44) { z =  funz - d * 5.684341886080802e-14f;}
 			elseif(i == 45) {z =  funz - d * 2.8421709430404007e-14f;}
+
+			i++;
 			}
 			
-			i++;
+		println(z);
+
 		}
 			
 		
-		println(z);
 			
 	}
