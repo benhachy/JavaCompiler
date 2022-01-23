@@ -27,12 +27,10 @@ public class ListExpr extends TreeList<AbstractExpr> {
     public void verifySignature(DecacCompiler compiler,
     EnvironmentExp localEnv, ClassDefinition currentClass,Signature sig) throws ContextualError{
         int param = 0;
-        if(this.size()!= sig.size()){
-            throw new ContextualError("la methode prend "+sig.size()+" parametres", getLocation());
-        }
+        
         for (AbstractExpr i : getList()) {
             i.verifyExpr(compiler, localEnv, currentClass);
-            if(!(i.getType().sameType(sig.paramNumber(param)))){
+            if(!i.verifyCompatibility(localEnv, sig.paramNumber(param),i.getType())){
                 throw new ContextualError("le parametre "+(param+1)+" doit etre de type "+sig.paramNumber(param).getName(), i.getLocation());
             }
             ++param;

@@ -1,0 +1,59 @@
+; start main program
+	ADDSP #6
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+; idk why or how he's here
+	STORE R2, 5(GB)
+; idk why or how he's here
+	STORE R2, 6(GB)
+; idk why or how he's here
+	STORE R2, 7(GB)
+; idk why or how he's here
+	STORE R2, 8(GB)
+; Beginning of main instructions:
+	ADDSP #10
+	HALT
+; Initialisation des champs de A
+init.A:
+	TSTO #1
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

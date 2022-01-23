@@ -31,5 +31,16 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
         }
         return paramsEnv;
     }
+    public void codeListDeclParam(DecacCompiler compiler){
+        // on cmmence par l'indice -3
+        int index = -3;
+        for(AbstractDeclParam p :getList())
+        {
+            p.setIndex(index);
+            index--;
+            p.codeGenDeclParam(compiler);
+        }
+
+    }
     
 }

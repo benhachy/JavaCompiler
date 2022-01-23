@@ -1,0 +1,25 @@
+//Description:
+//    test des réferences 
+//
+// Resultats:
+//    5
+// Historique:
+//    cree le 01/01/2022
+class A{
+	int a = 21;
+	boolean b = true;
+	int c = -393;
+	int x;
+    boolean c = false;
+
+}
+{	
+	A a = new A();
+	if (a.b || a.c){
+        print(5);
+    }
+    else{
+        print(1920);
+    }
+	
+}

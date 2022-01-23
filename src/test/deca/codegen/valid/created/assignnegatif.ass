@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ; start main program
 ; Main program
 ; code pour l'initializaton de la table des methodes
@@ -41,3 +42,5 @@ code.Object.equals:
 	WNL
 	ERROR
 ; end main program
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e

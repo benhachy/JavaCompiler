@@ -14,20 +14,20 @@ class A {
         return x ;
     }
     void init() {
-        x = 0 ;
+        this.x = 0 ;
     }
 }
 class B extends A {
     int y ;
     void init() {
-        setX(0) ;
-        y = 0 ;
+        this.setX(0) ;
+        this.y = 0 ;
     }
 }
 class C extends A {
     int z ;
     void init() {
-        setX(0) ;
-        z = 1 ;
+        this.setX(0) ;
+        this.z = 1 ;
 }
 }

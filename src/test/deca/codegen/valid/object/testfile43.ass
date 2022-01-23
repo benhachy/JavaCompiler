@@ -1,0 +1,161 @@
+; start main program
+	ADDSP #6
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+; Code de la table des méthodes de B
+	LEA 1(GB), R0
+	STORE R0, 5(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 6(GB)
+; Code de la table des méthodes de Parcours
+	LEA 1(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+	LOAD code.Parcours.parcoursA, R0
+	STORE R0, 9(GB)
+	LOAD code.Parcours.parcoursB, R0
+	STORE R0, 10(GB)
+	HALT
+; Initialisation des champs de A
+init.A:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	STORE R0, 1(R1)
+	RTS
+; Initialisation des champs de B
+init.B:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	STORE R0, 1(R1)
+	RTS
+; Initialisation des champs de Parcours
+init.Parcours:
+	TSTO #1
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	RTS
+code.Parcours.parcoursA:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+beginIf0:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 1(R1), R3
+	CMP R2, R3
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+; appel à la méthode parcoursB
+	ADDSP #2
+	STORE R3, 0(SP)
+; je traite une expression de type je sais pas dans la selectionA
+; je traite une expression de type Class dans la selection
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 1(R1), R3
+; je susi dans identifier coodegenAssign
+; bazi dont be u
+	STORE R2, 1(R3)
+; shit shit
+	LOAD 1(R3), R3
+	STORE R3, -1(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR 1(R3)
+	SUBSP #2
+	BRA finElse0
+elseInst0:
+finElse0:
+fin.Parcours.parcoursA:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.Parcours.parcoursB:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+beginIf1:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 1(R1), R3
+	CMP R2, R3
+	BNE ifInst1
+	BRA elseInst1
+ifInst1:
+; appel à la méthode parcoursA
+	ADDSP #2
+	STORE R3, 0(SP)
+; je traite une expression de type je sais pas dans la selectionB
+; je traite une expression de type Class dans la selection
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 1(R1), R3
+; je susi dans identifier coodegenAssign
+; bazi dont be u
+	STORE R2, 1(R3)
+; shit shit
+	LOAD 1(R3), R3
+	STORE R3, -1(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR 0(R3)
+	SUBSP #2
+	BRA finElse1
+elseInst1:
+finElse1:
+fin.Parcours.parcoursB:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

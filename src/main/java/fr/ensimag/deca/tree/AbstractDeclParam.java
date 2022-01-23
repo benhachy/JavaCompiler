@@ -24,5 +24,11 @@ public abstract class AbstractDeclParam extends Tree {
     public Symbol getName(){
         return null;
     }
+
+    public  abstract void codeGenDeclParam(DecacCompiler compiler);
+
+    public abstract void setIndex(int index) ;
+    public abstract int  getIndex() ;
+
     
 }

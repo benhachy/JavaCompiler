@@ -1,11 +1,15 @@
 ; start main program
+	ADDSP #4
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+<<<<<<< HEAD
 	ADDSP #4
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	LOAD #19, R2
 	OPP R2, R2
@@ -27,10 +31,12 @@
 	STORE R2, 5(GB)
 ; Beginning of main instructions:
 	ADDSP #7
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -38,6 +44,7 @@
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -63,6 +70,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

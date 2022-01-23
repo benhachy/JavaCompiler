@@ -61,15 +61,25 @@ public class DecacCompiler implements Runnable{
     private static final String nl = System.getProperty("line.separator", "\n");
     private  HashMap<SymbolTable.Symbol,TypeDefinition> envTypes;
     private  HashMap<SymbolTable.Symbol,EnvironmentExp> envExprs;
+    private  HashMap<SymbolTable.Symbol,Integer> posLB;
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
         envTypes = new HashMap<SymbolTable.Symbol,TypeDefinition>();
         envExprs = new HashMap<SymbolTable.Symbol,EnvironmentExp> ();
+        posLB = new HashMap<SymbolTable.Symbol,Integer>() ;
         this.initiate();
     }
-
+    public void addIndexParam(Symbol symbol,int index){
+        posLB.put(symbol, index);
+    }
+    public void cleanParam(){
+        //idk
+    }
+    public int getIndexParam(Symbol symbol){
+        return posLB.get(symbol);
+    }
     /**
      * Source file associated with this compiler instance.
      */

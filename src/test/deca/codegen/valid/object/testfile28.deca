@@ -33,9 +33,9 @@ class C extends A {
 }
 {
     A obj = new A();
-    A.init();
     B b = new B();
     C c = new C();
+    obj.init();
     c.init();
     print(c.z);
 }

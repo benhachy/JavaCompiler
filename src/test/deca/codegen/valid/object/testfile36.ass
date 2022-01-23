@@ -1,0 +1,158 @@
+; start main program
+	ADDSP #5
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de C
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.C.incrX, R0
+	STORE R0, 5(GB)
+	LOAD code.C.getX, R0
+	STORE R0, 6(GB)
+; idk why or how he's here
+	NEW #3, R2
+	BOV pile_pleine
+	LEA 3(GB), R0
+	STORE R0, 0(R2)
+	PUSH R2
+	BSR init.C
+	POP R2
+	STORE R2, 7(GB)
+; Beginning of main instructions:
+	ADDSP #9
+; appel à la méthode incrX
+	ADDSP #1
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 7(GB), R3
+	STORE R3, 0(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR 1(R3)
+	SUBSP #1
+; appel à la méthode incrX
+	ADDSP #1
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 7(GB), R3
+	STORE R3, 0(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR 1(R3)
+	SUBSP #1
+; appel à la méthode incrX
+	ADDSP #1
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 7(GB), R3
+	STORE R3, 0(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR 1(R3)
+	SUBSP #1
+; appel à la méthode incrX
+	ADDSP #1
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 7(GB), R3
+	STORE R3, 0(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR 1(R3)
+	SUBSP #1
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 7(GB), R3
+; blabala
+	LOAD 1(R3), R2
+	LOAD R2, R1
+	WINT
+	HALT
+; Initialisation des champs de C
+init.C:
+	TSTO #3
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	LOAD #1, R0
+	STORE R0, 2(R1)
+	RTS
+code.C.getX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+fin.C.getX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.C.incrX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+; ana jit les méthodes 
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD -2(LB), R2
+	LOAD 1(R2), R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #1, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+; je susi dans identifier coodegenAssign
+; bazi dont be u
+	STORE R2, 1(R3)
+; shit shit
+fin.C.incrX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

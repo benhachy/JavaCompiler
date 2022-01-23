@@ -2,10 +2,10 @@
 //   code deca normal 
 //
 // Resultats:
-//     a.getX() = 1
+//    a.getX() = 1
 // Historique:
 //    cree le 01/01/2022
-/ Un exemple de programme Deca
+// Un exemple de programme Deca
 
 class A {
     protected int x ;
@@ -17,7 +17,13 @@ class A {
     }
 }
 {
+<<<<<<< HEAD
+  A a = new A() ;
+  a.setX(1) ;
+  println("a.getX() = ", a.getX());
+=======
     A a = new A() ;
     a.setX(1) ;
-    17 println("a.getX() = ", a.getX())
+    println("a.getX() = ", a.getX());
+>>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
 }

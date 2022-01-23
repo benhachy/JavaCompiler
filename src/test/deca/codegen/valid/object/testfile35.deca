@@ -15,8 +15,8 @@ class P {
     }
 }
 {
-    P obj = new P();
+    P p = new P();
     p.move(5,8);
     println(p.x);
-    println(p.y)
+    println(p.y);
 }

@@ -119,15 +119,21 @@ public abstract class AbstractExpr extends AbstractInst {
         {
             return true;
         }
-        else if(type2.sameType(type1))
+        else if(!type1.isClass() || !type2.isClass())
         {
-            return true;
+            if(type2.sameType(type1)){
+                return true;
+            }
+            return false;
         }
         else if(type1.isNull() || type2.isNull())
         {
             return true;
         }
-        if( type1.isClass() && type2.isClass()){
+        else if( type1.isClass() && type2.isClass()){
+            if(type1.getName().equals(type2.getName())){
+                return true;
+            }
             return ((ClassType)type2).isSubClassOf((ClassType)type1);
         }
         return false;

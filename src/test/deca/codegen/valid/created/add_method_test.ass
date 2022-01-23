@@ -1,4 +1,5 @@
 ; start main program
+	ADDSP #4
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -10,7 +11,7 @@
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-	LOAD code.P.setX, R0
+	LOAD code.P.move, R0
 	STORE R0, 5(GB)
 	ADDSP #4
 ; idk why or how he's here
@@ -24,12 +25,33 @@
 	STORE R2, 6(GB)
 ; Beginning of main instructions:
 	ADDSP #8
-	BSR code.P.setX
+; appel à la méthode move
+	ADDSP #2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 6(GB), R3
+	STORE R3, 0(SP)
+	LOAD #10, R3
+	STORE R3, -1(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR code.P.move
+	SUBSP #2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 ; blabala
 	LOAD 1(R3), R2
 	LOAD R2, R1
 	WINT
+	WNL
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 6(GB), R3
+; blabala
+	LOAD 2(R3), R2
+	LOAD R2, R1
+	WINT
+	WNL
 	HALT
 ; Initialisation des champs de P
 init.P:
@@ -41,15 +63,29 @@ init.P:
 	LOAD #0, R0
 	STORE R0, 2(R1)
 	RTS
-code.P.setX:
+code.P.move:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
-	LOAD #100, R2
-fin.P.setX:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 1(R2), R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD -3(LB), R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+; je susi dans identifier coodegenAssign
+; bazi dont be u
+	STORE R2, 1(R3)
+; shit shit
+fin.P.move:
 ; Restauration des registres
 	POP R3
 	POP R2
@@ -72,6 +108,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

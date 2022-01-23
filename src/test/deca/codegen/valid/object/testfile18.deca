@@ -9,13 +9,13 @@ class A{
     protected int x = 21;
     int y = x;
     protected boolean b;
-     void  setX(int val){
+    void  setX(int val){
         this.x =val;
     }
-     int getX(){
+    int getX(){
         return this.x;
     }
-     int getY(){
+    int getY(){
         return this.y;
     }
 }

@@ -1,0 +1,22 @@
+//Description:
+//    test des réferences 
+//
+// Resultats:
+//    -5
+// Historique:
+//    cree le 01/01/2022
+class A{
+	int a = 21;
+	boolean b = true;
+	int c = -393;
+	int x;
+}
+{	
+	A a = new A();
+	a.x = 250;
+	a.x = a.c + a.x;
+	a.x = a.x + 143;
+	a.x = a.x - 5;
+	print(a.x);
+	
+}

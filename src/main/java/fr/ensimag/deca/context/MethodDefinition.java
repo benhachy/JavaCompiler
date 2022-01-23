@@ -69,4 +69,8 @@ public class MethodDefinition extends ExpDefinition {
         return false;
     }
 
+    public void setIndex(int newIndex) {
+        this.index=newIndex;
+    }
+
 }

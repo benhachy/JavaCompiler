@@ -1,0 +1,7 @@
+class A{
+    int x;
+    int d(int x){
+        x = x;
+    return x == x;
+    }
+}

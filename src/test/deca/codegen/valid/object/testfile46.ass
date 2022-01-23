@@ -1,0 +1,87 @@
+; start main program
+	ADDSP #3
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+; idk why or how he's here
+	NEW #5, R2
+	BOV pile_pleine
+	LEA 3(GB), R0
+	STORE R0, 0(R2)
+	PUSH R2
+	BSR init.A
+	POP R2
+	STORE R2, 5(GB)
+; Beginning of main instructions:
+	ADDSP #7
+beginIf0:
+	LOAD #0, R2
+; je traite une expression de type je sais pas dans la selectionA
+; je traite une expression de type Class dans la selection
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 5(GB), R3
+; je susi dans identifier coodegenAssign
+; bazi dont be u
+	STORE R2, 4(R3)
+; shit shit
+	LOAD 4(R3), R3
+	CMP R2, R3
+	BEQ ifInst0
+	BRA elseInst0
+ifInst0:
+	LOAD #5, R1
+	WINT
+	BRA finElse0
+elseInst0:
+finElse0:
+	HALT
+; Initialisation des champs de A
+init.A:
+	TSTO #5
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #21, R0
+	STORE R0, 1(R1)
+	LOAD #1, R0
+	STORE R0, 2(R1)
+	STORE R0, 3(R1)
+	LOAD #0, R0
+	STORE R0, 4(R1)
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program
