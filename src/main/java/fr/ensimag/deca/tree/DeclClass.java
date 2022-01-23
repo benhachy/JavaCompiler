@@ -75,8 +75,9 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        ClassType c = new ClassType(identifier.getName(),getLocation(),null);
-        TypeDefinition superClass = compiler.get(classExtension.getName());
+        
+        ClassDefinition superClass = compiler.getClass(classExtension.getName());
+        ClassType c = new ClassType(identifier.getName(),getLocation(),superClass);
         if(superClass == null)
         {
             throw new ContextualError("la super classe "+ classExtension.getName()  +" n'est déjà définie", getLocation());
@@ -171,29 +172,22 @@ public class DeclClass extends AbstractDeclClass {
         //ClassDefinition definitionClass = compiler.getClass(currentClass);
         EnvironmentExp envClass = compiler.getEnv(currentClass);
         if(envClass == null){
-            //System.out.println("**********NULL******"+currentClass.getName());
 
         }
-        //System.out.println("********PASSED********"+currentClass.getName());
         HashMap<SymbolTable.Symbol,ExpDefinition> hashMapEnv = envClass.getEnvExp();
-        //createLabelList(compiler,definitionClass.getSuperClass().getType().getName());
             for( Symbol s : hashMapEnv.keySet())
             {   
 
                 // edit this so we can check if its a method or not
                 if( envClass.get(s).isMethod()){
-                    //System.out.println("********I FOUND THIS SYMBOL AND I THINK ITS A METHOD IN THE CLASS********"+s.getName()+currentClass);
                     // il faut voir si la méthode est déja dans le hashmap il faut 
                     if ( hashMapMethodIndex.containsKey(s)){
-                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName());
                         //je récupère l'indice pour que j'écrase l'étiquette dans la liste des étiquettes
                         int newIndex = hashMapMethodIndex.get(s) ;
-                        //System.out.println("********HE IS ALREADY HERE SO********"+s.getName()+"AND I WILL PUT IT HERE "+newIndex);
                         listEtiquetteMethod.remove(newIndex);
                         listEtiquetteMethod.add(newIndex,new Label("code."+currentClass+"."+s.getName()));
                     }
                     else{
-                        //System.out.println("********HE IS NOT HERE SO********"+s.getName());
                         //si c'est la premère fois je trouve la méthode je l'insère
                         listEtiquetteMethod.add(index,new Label("code."+currentClass+"."+s.getName()));
                         hashMapMethodIndex.put(s,index);
