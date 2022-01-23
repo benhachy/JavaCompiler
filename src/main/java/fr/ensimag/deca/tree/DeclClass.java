@@ -68,7 +68,10 @@ public class DeclClass extends AbstractDeclClass {
     public void decompile(IndentPrintStream s) {
         s.print("class ");
         identifier.decompile(s);
-        classExtension.decompile();
+        if (!classExtension.getName().getName().equals("Object")){
+            s.print(" extends ");
+            classExtension.decompile(s);
+        }
         s.println(" {");
         feildDecl.decompile(s);
         s.println("");

@@ -35,7 +35,10 @@ public class Return extends AbstractInst {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        s.print("return ");
+        expression.decompile(s);
+        s.print(" ;");
+
     }
     @Override
     protected void iterChildren(TreeFunction f) {

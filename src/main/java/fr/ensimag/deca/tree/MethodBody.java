@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import java.util.concurrent.DelayQueue;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -24,7 +25,8 @@ public class MethodBody extends AbstractMethodBody {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        declVariables.decompile(s);
+        insts.decompile(s);
     }
 
     @Override

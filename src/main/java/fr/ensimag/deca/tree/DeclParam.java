@@ -56,6 +56,7 @@ public class DeclParam extends AbstractDeclParam {
     @Override
     public void decompile(IndentPrintStream s) {
         type.decompile(s);
+        s.print(" ");
         ident.decompile(s);
     }
 

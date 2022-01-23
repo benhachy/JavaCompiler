@@ -1,0 +1,21 @@
+//Description:
+//    attrbiuts initialisés 
+//
+// Resultats:
+//      21
+// Historique:
+//    cree le 01/01/2022
+class A{
+    protected int x = 21;
+    protected boolean b;
+    void  setX(int val){
+        this.x =val;
+    }
+    int getX(){
+        return this.x;
+    }
+}
+{
+    A obj = new A();
+    print(obj.getX());
+}
