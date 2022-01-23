@@ -6,6 +6,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -56,17 +57,38 @@ public class Program extends AbstractProgram {
         main.codeGenMain(compiler);
         compiler.addInstruction(new HALT());
         classes.genCodeInitializationEtMethodes(compiler);
+        codeGenEquals(compiler);
         ajouterMessageErreur(compiler, new Label("pile_pleine"), "Error: pile pleine");
         ajouterMessageErreur(compiler, new Label("Overflow_error"), "Error: Overflow during arithmetic operation");
         ajouterMessageErreur(compiler, new Label("division_zero"),"Error: Division by zero" );
         ajouterMessageErreur(compiler, new Label("io_error"),"Error: Input/Output error" );
         ajouterMessageErreur(compiler, new Label("print_Error"),"Error: print float only in hexa form" );
         ajouterMessageErreur(compiler, new Label("deferencement.null"),"Erreur : dereferencement de null" );
-        ajouterMessageErreur(compiler, new Label("code.Object.equals"),"a faire la methode equals de object");
+        
 
         for (Symbol symb : Identifier.positionVariables.keySet()) {
             System.out.println(symb+" "+Identifier.positionVariables.get(symb).toString());
         }
+    }
+
+    private void codeGenEquals(DecacCompiler compiler){
+        compiler.addLabel(new Label("code.Object.equals"));
+        compiler.addInstruction(new PUSH(Register.getR(2)));
+        compiler.addInstruction(new PUSH(Register.getR(3)));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(2)));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-3,Register.LB), Register.getR(3)));
+        compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
+        Label loadTrue = new Label("code.Object.equals.loadTrueEQ");
+        Label finCmp = new Label("code.Object.equals.finComparationEQ");
+        compiler.addInstruction(new BEQ(loadTrue));
+        new IntLiteral(0).codeGenExpr(compiler,2);
+        compiler.addInstruction(new BRA(finCmp));
+        compiler.addLabel(loadTrue);
+        new IntLiteral(1).codeGenExpr(compiler,2);
+        compiler.addLabel(finCmp);
+        compiler.addInstruction(new POP(Register.getR(2)));
+        compiler.addInstruction(new POP(Register.getR(3)));
+        compiler.addInstruction(new RTS());
     }
 
     @Override

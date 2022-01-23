@@ -1,15 +1,4 @@
 class A{
-<<<<<<< HEAD
-    int x;
-    int getX(){
-        return x;
-    }
-}
-{
-    A a = new A();
-    a.x = 1;
-    println(a.getX());
-=======
     int x=6;
     boolean y = true ;
     void getX(){
@@ -45,5 +34,4 @@ class C{
     b.aat3 = b.x * b.att2 -b.att2 + 24;
     println("OK");
     print(b.aat3);*/
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 }
