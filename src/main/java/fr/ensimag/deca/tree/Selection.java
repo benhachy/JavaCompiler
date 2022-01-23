@@ -43,8 +43,7 @@ public class Selection extends AbstractLValue {
             expr.codeGenExpr(compiler, 3);
             //type is x in this.x
             type.codeGenAssign(compiler);
-            compiler.addComment("ononon");
-            //compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
+            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
             //type.getFieldDefinition().getIndex();
         }else{
             type.codeGenAssign(compiler);

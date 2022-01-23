@@ -1,20 +1,20 @@
-/*class P {
-    int x;
-    int y;
-void move(int a, int b) {
-    x = x + a;
-    y = y + b;
-}
-}*/
 class P {
     int x;
-    int y;
-void setX() {
-    x = 100;
-}
+    int y=2;
+    int getX(){
+        return x;
+    }
+    void move(int a,int b,int c) {
+        x = x + a-b-c;
+        y = y * b;
+    }
 }
 {
-    P p =new P();
-    p.setX();
-    print(p.x);
+    P monTest = new P();
+    monTest.move(10,5,2);
+    println(monTest.x);
+    println(monTest.y);
+    monTest.x=monTest.y+5;
+    println(monTest.x);
+    println(monTest.getX());
 }

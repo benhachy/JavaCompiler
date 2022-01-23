@@ -1,4 +1,5 @@
 ; start main program
+	ADDSP #4
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -38,6 +39,7 @@ code.A.getX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 fin.A.getX:
@@ -63,6 +65,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

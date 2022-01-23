@@ -1,18 +1,28 @@
 ; start main program
+	ADDSP #6
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+<<<<<<< HEAD
+	ADDSP #6
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 3(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 4(GB)
+; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 5(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 6(GB)
+; idk why or how he's here
 	LOAD #0, R2
 	STORE R2, 7(GB)
 ; Beginning of main instructions:
@@ -38,6 +48,8 @@ trueVar0:
 falseVar0:
 	LOAD #0, R2
 nextVar0:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf0:
 	LOAD 7(GB), R0
@@ -72,6 +84,8 @@ trueVar1:
 falseVar1:
 	LOAD #0, R2
 nextVar1:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf1:
 	LOAD 7(GB), R0
@@ -107,6 +121,8 @@ trueVar2:
 falseVar2:
 	LOAD #0, R2
 nextVar2:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf2:
 	LOAD 7(GB), R0
@@ -144,6 +160,8 @@ trueVar3:
 falseVar3:
 	LOAD #0, R2
 nextVar3:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf3:
 	LOAD 7(GB), R0
@@ -179,6 +197,8 @@ trueVar4:
 falseVar4:
 	LOAD #0, R2
 nextVar4:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf4:
 	LOAD 7(GB), R0
@@ -213,6 +233,8 @@ trueVar5:
 falseVar5:
 	LOAD #0, R2
 nextVar5:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf5:
 	LOAD 7(GB), R0
@@ -248,6 +270,8 @@ trueVar6:
 falseVar6:
 	LOAD #0, R2
 nextVar6:
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
 	STORE R2, 7(GB)
 beginIf6:
 	LOAD 7(GB), R0
@@ -281,6 +305,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

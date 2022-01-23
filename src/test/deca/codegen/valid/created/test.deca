@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     int a = 15;
     float b = 16.5;
     if(b-a>0){
@@ -6,4 +7,18 @@
     }
     print(b-a);
    
+=======
+    B b = new B();
+    /*if( b instanceof C){
+        println("je suis un fils de B");
+    }*/
+    b.setAtt1(5);
+    //b.setX(11);
+    println(b.att1);
+    println(b.x);
+    /*b.att2 = 30;
+    b.aat3 = b.x * b.att2 -b.att2 + 24;
+    println("OK");
+    print(b.aat3);*/
+>>>>>>> b797e834e1d05fb0dd342ca26b2e83360bb9b952
 }

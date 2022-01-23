@@ -1,8 +1,14 @@
 public class TestUlpSansObjet{
 	
 	public void main(){
+
 		
-		float d = 5.01f;
+		int MAX_EXPONENT = 127;
+    	int MIN_EXPONENT = -126;
+		float MIN_VALUE = 1.4e-45f;
+	 	int SIGNIFICAND_WIDTH = 24;
+
+		float d = 20.56546f;
 
 		//int exp = getExponent(d);
 		
@@ -15,7 +21,7 @@ public class TestUlpSansObjet{
 				d = -d;
 				}
 			int m = 0;
-			while (d > 2){
+			while (d >= 2){
 				m = m + 1;
 				d = d / 2;
 				}

@@ -62,6 +62,7 @@ public class DecacCompiler implements Runnable{
     private  HashMap<SymbolTable.Symbol,TypeDefinition> envTypes;
     private  HashMap<SymbolTable.Symbol,EnvironmentExp> envExprs;
     private  HashMap<SymbolTable.Symbol,Integer> posLB;
+    private Label returnLabel;
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
@@ -70,6 +71,12 @@ public class DecacCompiler implements Runnable{
         envExprs = new HashMap<SymbolTable.Symbol,EnvironmentExp> ();
         posLB = new HashMap<SymbolTable.Symbol,Integer>() ;
         this.initiate();
+    }
+    public Label getReturnLabel(){
+        return returnLabel;
+    }
+    public void setReturnLabel(Label label){
+        this.returnLabel = label;
     }
     public void addIndexParam(Symbol symbol,int index){
         posLB.put(symbol, index);

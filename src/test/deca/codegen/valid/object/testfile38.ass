@@ -1,4 +1,5 @@
 ; start main program
+	ADDSP #9
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -37,8 +38,6 @@ code.A.m:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	LOAD -2(LB), R2
-	LOAD -2(LB), R3
 fin.A.m:
 ; Restauration des registres
 	POP R3
@@ -49,8 +48,6 @@ code.A.p:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	LOAD -2(LB), R2
-	LOAD -2(LB), R3
 fin.A.p:
 ; Restauration des registres
 	POP R3
@@ -71,8 +68,6 @@ code.B.p:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	LOAD -2(LB), R2
-	LOAD -2(LB), R3
 fin.B.p:
 ; Restauration des registres
 	POP R3
@@ -83,8 +78,6 @@ code.B.q:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	LOAD -2(LB), R2
-	LOAD -2(LB), R3
 fin.B.q:
 ; Restauration des registres
 	POP R3
@@ -108,6 +101,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:

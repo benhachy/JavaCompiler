@@ -1,4 +1,5 @@
 ; start main program
+	ADDSP #2
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -13,6 +14,7 @@
 	ADDSP #5
 beginIf0:
 	LOAD #5, R2
+; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R3
 	CMP R2, R3
 	BEQ ifInst0
@@ -44,6 +46,10 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:
