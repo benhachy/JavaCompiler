@@ -195,13 +195,18 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        if(currentClass != null){
-            verifyAttribut(compiler, currentClass.getType().getName(),currentClass);
-            return getType();
-        }
+        
         ExpDefinition def = localEnv.get(getName());
         if(def==null)
         {
+            if(currentClass != null){
+                verifyAttribut(compiler, currentClass.getType().getName(),currentClass);
+                if(getType().isNull())
+                {
+                    throw new ContextualError("la variable "+getName()+" est null",getLocation());
+                }
+                return getType();
+            }
             throw new ContextualError("la variable "+getName()+" n'est pas déclarée",getLocation());
         }
         // if(!localEnv.getValue(getName()))
@@ -210,10 +215,7 @@ public class Identifier extends AbstractIdentifier {
         // }
         this.setDefinition(def);
         setType(def.getType());
-        if(getType().isNull())
-        {
-            throw new ContextualError("la variable "+getName()+" est null",getLocation());
-        }
+        
         return this.getType();
     }
 

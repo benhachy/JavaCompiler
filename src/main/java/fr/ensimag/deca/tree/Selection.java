@@ -58,6 +58,9 @@ public class Selection extends AbstractLValue {
          //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
         expr.verifyExpr(compiler, localEnv, currentClass);
         // System.out.print(expr.get);
+        if(expr.getType().isNull()){
+            throw new ContextualError("l'Objet est null ", expr.getLocation());
+        }
         type.setDefinition(localEnv.get(type.getName()));
         Type expression = type.verifyAttribut(compiler,expr.getType().getName(),currentClass);
         setType(expression);

@@ -113,7 +113,7 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        EnvironmentExp envExpF = new EnvironmentExp(null); 
+        EnvironmentExp envExpF = new EnvironmentExp(compiler.getEnv(classExtension.getName())); 
         int indiceField = classExtension.getClassDefinition().getNumberOfFields();
         int indiceMethod = classExtension.getClassDefinition().getNumberOfMethods();
         for(AbstractDeclField f : feildDecl.getList())
@@ -121,22 +121,22 @@ public class DeclClass extends AbstractDeclClass {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
             ++indiceField;
         }
-        
+        int nbrOfMethods =0;
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            nbrOfMethods += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
             ++indiceMethod;
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
-        newDef.setNumberOfMethods(methodDecl.size()+classExtension.getClassDefinition().getNumberOfMethods());
+        newDef.setNumberOfMethods(nbrOfMethods);
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        EnvironmentExp envExpR = new EnvironmentExp(null);
+        EnvironmentExp envExpR = compiler.getEnv(identifier.getName());
         for(AbstractDeclMethod f : methodDecl.getList())
         {
             f.verifyBody(compiler,envExpR,identifier.getClassDefinition());

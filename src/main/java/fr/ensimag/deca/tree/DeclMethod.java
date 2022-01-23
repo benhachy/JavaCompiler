@@ -90,7 +90,7 @@ public class DeclMethod extends AbstractDeclMethod {
     }
 
     @Override
-    public void verifyMethod(DecacCompiler compiler,
+    public int verifyMethod(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass,int indice)
             throws ContextualError{
         type.setDefinition(compiler.getDefinition(type.getName()));
@@ -99,6 +99,8 @@ public class DeclMethod extends AbstractDeclMethod {
         Signature signature = new Signature();
         paramDecl.verifyListParam(compiler,signature);
         MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,indice);
+        ClassDefinition superClass = currentClass.getSuperClass();
+        
         name.setDefinition(method);
         name.setType(method.getType());
         try{
@@ -109,7 +111,10 @@ public class DeclMethod extends AbstractDeclMethod {
             
             throw new ContextualError("la méthode "+ name.getName()+" est déjà définie", getLocation());
         }
-        
+        if(compiler.getEnv(superClass.getType().getName()).contains(superClass.getType().getName())){
+            return 0;
+        }
+        return 1;
         //methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
     }
 
