@@ -11,7 +11,7 @@ public class TestAsinSansObjet {
 		//Calcul de la racine carré de w avec la méthode de Héron
 		float sqroot = -190/(w+20) + 10;
 		for(int i = 0; i <= 3; i++ ) {
-			sqroot = (sqroot + a/sqroot)*0.5f;
+			sqroot = (sqroot + w/sqroot)*0.5f;
 			}
 		
 		val = val / sqroot;
