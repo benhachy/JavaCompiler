@@ -19,11 +19,10 @@
 init.C:
 	TSTO #3
 	BOV pile_pleine
-	LOAD #0, R0
 	LOAD -2(LB), R1
+	LOAD #0, R0
 	STORE R0, 1(R1)
-	LOAD #0, R0
-	LOAD -2(LB), R1
+	LOAD #1, R0
 	STORE R0, 2(R1)
 	RTS
 code.C.getX:
@@ -31,6 +30,8 @@ code.C.getX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 fin.C.getX:
 ; Restauration des registres
 	POP R3
@@ -41,7 +42,10 @@ code.C.incrX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-	LOAD 1(R1), R2
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	LOAD -2(LB), R2
+	LOAD 1(R2), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2

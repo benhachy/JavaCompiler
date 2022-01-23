@@ -11,6 +11,7 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 import java.io.PrintStream;
+import java.util.concurrent.DelayQueue;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -28,7 +29,8 @@ public class MethodBody extends AbstractMethodBody {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        declVariables.decompile(s);
+        insts.decompile(s);
     }
 
     @Override
@@ -58,12 +60,14 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     public void codeGenMethodBody(DecacCompiler compiler){
-        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(2)));
-        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(3)));
         for (AbstractDeclVar variableDecl : declVariables.getList()) {
+            compiler.addComment("ana jit les variables");
             variableDecl.codeGenDeclvarMethode(compiler);
         }
         for (AbstractInst instruction : insts.getList()) {
+            compiler.addComment("ana jit les méthodes ");
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(2)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(3)));
             instruction.codeGenInst(compiler);
         }
     }

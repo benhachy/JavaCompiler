@@ -17,13 +17,19 @@ import java.io.PrintStream;
  * @date 01/01/2022
  */
 public class DeclParam extends AbstractDeclParam {
-    AbstractIdentifier type;
-    AbstractIdentifier ident;
+    private AbstractIdentifier type;
+    private AbstractIdentifier ident;
+    private int index;
     public DeclParam(AbstractIdentifier type,AbstractIdentifier ident){
         this.type= type;
         this.ident=ident;
     }
-
+    public int getIndex(){
+        return this.index;
+    }
+    public void  setIndex(int index){
+        this.index= index;
+    }
     @Override
     public void verifyParam(DecacCompiler compiler,Signature signature,EnvironmentExp paramsEnv )
         throws ContextualError 
@@ -42,7 +48,12 @@ public class DeclParam extends AbstractDeclParam {
         
         signature.add(t);
     }
-
+    public void  codeGenDeclParam(DecacCompiler compiler){
+        //je dois mettre le paramètre dans le LB selon son indice 
+        //ident.getFieldDefinition().
+        //hashmapLb fih f kola variable associé une position
+        compiler.addIndexParam(ident.getName(), index);
+        }
 
     @Override
     public Type getType(){
@@ -56,6 +67,7 @@ public class DeclParam extends AbstractDeclParam {
     @Override
     public void decompile(IndentPrintStream s) {
         type.decompile(s);
+        s.print(" ");
         ident.decompile(s);
     }
 

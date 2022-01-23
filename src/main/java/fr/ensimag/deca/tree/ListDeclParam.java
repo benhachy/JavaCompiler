@@ -5,6 +5,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import java.util.List;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -15,6 +16,9 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 public class ListDeclParam extends TreeList<AbstractDeclParam> {
     @Override
     public void decompile(IndentPrintStream s) {
+        for (AbstractDeclParam e : getList()){
+            e.decompile(s);
+        }
     }
 
     public EnvironmentExp verifyListParam(DecacCompiler compiler,Signature signature)
@@ -26,6 +30,17 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
             p.verifyParam(compiler,signature,paramsEnv);
         }
         return paramsEnv;
+    }
+    public void codeListDeclParam(DecacCompiler compiler){
+        // on cmmence par l'indice -3
+        int index = -3;
+        for(AbstractDeclParam p :getList())
+        {
+            p.setIndex(index);
+            index--;
+            p.codeGenDeclParam(compiler);
+        }
+
     }
     
 }

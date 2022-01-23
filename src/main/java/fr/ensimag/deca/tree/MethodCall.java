@@ -11,11 +11,19 @@ import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -97,10 +105,23 @@ public class MethodCall extends AbstractExpr {
         s.print(")");
     }
     public void codeGenInst(DecacCompiler compiler){
+        // je pense faire push pop pour le r3 
+        compiler.addComment("appel à la méthode "+methodName.getName());
+        compiler.addInstruction(new ADDSP(1+listExpression.size()));
+        name.codeGenExpr(compiler, 3);
+        compiler.addInstruction(new STORE(Register.getR(3),new RegisterOffset(0, Register.SP)));
+        int j = 0;
         for (AbstractExpr exp : listExpression.getList()) {
-            exp.codeGenInst(compiler);
-            compiler.addInstruction(new PUSH(Register.getR(2)));
+            exp.codeGenExpr(compiler,3);
+            compiler.addInstruction(new STORE(Register.getR(3),new RegisterOffset(-j-1, Register.SP)));
         }
-        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(3)));
+        compiler.addInstruction(new CMP(new NullOperand(),Register.getR(3)));
+        compiler.addInstruction(new BEQ(new Label("deferencement.null")));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.getR(3)),Register.getR(3)));
+        // a revoir
+        compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
+        //compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+        compiler.addInstruction(new SUBSP(1+listExpression.size()));
     }    
 }

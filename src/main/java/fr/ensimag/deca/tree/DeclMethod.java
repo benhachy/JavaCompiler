@@ -46,10 +46,10 @@ public class DeclMethod extends AbstractDeclMethod {
         s.print(" ");
         name.decompile(s);
         s.print("(");
-        paramDecl.decompile();
+        paramDecl.decompile(s);
         s.print(")");
         s.println("{");
-        methodBody.decompile();
+        methodBody.decompile(s);
         s.println("}");
         
     }
@@ -88,6 +88,7 @@ public class DeclMethod extends AbstractDeclMethod {
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         compiler.addInstruction(new PUSH(Register.getR(2)));
         compiler.addInstruction(new PUSH(Register.getR(3)));
+        paramDecl.codeListDeclParam(compiler);
         //appel de la gen code pour le method body
         methodBody.codeGenMethodBody(compiler);
         //etiquete du fin de methode

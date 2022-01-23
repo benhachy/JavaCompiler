@@ -1,0 +1,118 @@
+; start main program
+; Main program
+; code pour l'initializaton de la table des methodes
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Code de la table des méthodes de A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+; Code de la table des méthodes de B
+	LEA 1(GB), R0
+	STORE R0, 5(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 6(GB)
+; Code de la table des méthodes de Parcours
+	LEA 1(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+	LOAD code.Parcours.parcoursA, R0
+	STORE R0, 9(GB)
+	LOAD code.Parcours.parcoursB, R0
+	STORE R0, 10(GB)
+	HALT
+; Initialisation des champs de A
+init.A:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	STORE R0, 1(R1)
+	RTS
+; Initialisation des champs de B
+init.B:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	STORE R0, 1(R1)
+	RTS
+; Initialisation des champs de Parcours
+init.Parcours:
+	TSTO #1
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	RTS
+code.Parcours.parcoursA:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+beginIf0:
+	LOAD 1(R1), R3
+	CMP R2, R3
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	PUSH R2
+	BSR code.Parcours.parcoursB
+	BRA finElse0
+elseInst0:
+finElse0:
+fin.Parcours.parcoursA:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.Parcours.parcoursB:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+beginIf1:
+	LOAD 1(R1), R3
+	CMP R2, R3
+	BNE ifInst1
+	BRA elseInst1
+ifInst1:
+	PUSH R2
+	BSR code.Parcours.parcoursA
+	BRA finElse1
+elseInst1:
+finElse1:
+fin.Parcours.parcoursB:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+pile_pleine:
+	WSTR "Error: pile pleine"
+	WNL
+	ERROR
+Overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+division_zero:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+print_Error:
+	WSTR "Error: print float only in hexa form"
+	WNL
+	ERROR
+code.Object.equals:
+	WSTR "a faire la methode equals de object"
+	WNL
+	ERROR
+; end main program

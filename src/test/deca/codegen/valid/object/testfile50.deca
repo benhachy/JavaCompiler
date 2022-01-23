@@ -1,0 +1,25 @@
+//Description:
+//    test des réferences 
+//
+// Resultats:
+//    3
+// Historique:
+//    cree le 01/01/2022
+class A{
+	int a = 21;
+	boolean b = true;
+	int c = -393;
+	int x;
+	int d = c /c + 2; // 1
+}
+{	
+	A a = new A();
+	if (a.d == 1 ){
+	print(5);
+	}
+	a.d = a.d * a.x;
+	if (a.d == 0){
+	print(3);
+	}
+	
+}

@@ -1,8 +1,9 @@
-
 public class TestUlpSansObjet{
 	
 	public void main(){
-	
+		
+		float d = 5.01f;
+
 		//int exp = getExponent(d);
 		
 		int exp;

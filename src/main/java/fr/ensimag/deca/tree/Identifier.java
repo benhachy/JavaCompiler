@@ -304,8 +304,14 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        if( definition.isParam()){
+            compiler.addComment("ana paramètre o jit l codegeninst dial ientifier hahahahh");
+            compiler.addInstruction(new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB),Register.getR(2)));
+        }
+        else {
+            compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
+        }
         //compiler.getEnv(getName()).getEnvExp().get(new scala.Symbol("printNumber"));
-        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
     }
 
     
@@ -331,7 +337,15 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public  void codeGenAssign(DecacCompiler compiler){
         System.out.println("identifier::codeGenAssing"+getName());
+        compiler.addComment("je susi dans identifier coodegenAssign");
         if(definition.isField()){
+            compiler.addComment("bazi dont be u");
+            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(3))));
+            //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(3) ));
+            //compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
+            compiler.addComment("shit shit");
+
+            //compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(3))));
             //chercher la position de la valeur en relation a l'objet         
             if(getType().isClass()){
                 //load address dans la tas de l'objet
@@ -341,7 +355,13 @@ public class Identifier extends AbstractIdentifier {
                 //compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
             }
             //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
-        }else{
+        }
+        else if (definition.isParam()) {
+            compiler.addComment("ana param hihih");
+            compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(3) ));
+        }
+        else{
+            compiler.addComment("indentifier.java codegenassign");
             //chercher la valeur comme variable global dans gb
             compiler.addInstruction(new STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
         }
@@ -349,7 +369,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n) {
-        
+        compiler.addComment("je suis dans codeGenExpr dans indentifier.java");
         if(getDefinition().isField()){
             System.out.println("identifier::codeGenExpr Champs"+getName());
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));

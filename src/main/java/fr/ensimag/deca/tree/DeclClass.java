@@ -63,10 +63,23 @@ public class DeclClass extends AbstractDeclClass {
         this.feildDecl= feildDecl;
         this.methodDecl=methodDecl;
     }
+    public int getIndexMethod(Label l ){
+        return listEtiquetteMethod.indexOf(l);
+    }
     
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print("class { ... A FAIRE ... }");
+        s.print("class ");
+        identifier.decompile(s);
+        if (!classExtension.getName().getName().equals("Object")){
+            s.print(" extends ");
+            classExtension.decompile(s);
+        }
+        s.println(" {");
+        feildDecl.decompile(s);
+        s.println("");
+        methodDecl.decompile(s);
+        s.println("}");
     }
 
     public AbstractIdentifier getIdentifier(){
@@ -121,15 +134,15 @@ public class DeclClass extends AbstractDeclClass {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
             ++indiceField;
         }
-        int nbrOfMethods = indiceMethod;
+        //int nbrOfMethods =0;
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            nbrOfMethods += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
-            ++indiceMethod;
+            indiceMethod += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
-        newDef.setNumberOfMethods(nbrOfMethods);
+        newDef.setNumberOfMethods(indiceMethod);
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
@@ -309,6 +322,18 @@ public class DeclClass extends AbstractDeclClass {
         Label label = new Label("init."+identifier.getName());
         compiler.addLabel(label);
 
+        
+        int nmChamps = feildDecl.getList().size();
+        //on verifie les debordements de la pile
+        compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
+        compiler.addInstruction(new BOV(new Label("pile_pleine")));
+        compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
+        // il vaut mieux mettre une classe feild , on fait appel à codegenlistdecfeild
+        for (AbstractDeclField champ : feildDecl.getList()) {
+            //pour chaque champ on verifie le type
+            //appres on les mett sur le registre R0
+            champ.codeGenFeild(compiler);
+        }
         //on verifie si la class herite d'un autre class
         if(!classExtension.getName().getName().equals("Object")){
             compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());

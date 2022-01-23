@@ -55,7 +55,7 @@ public class Null extends AbstractExpr {
     }
     @Override
     public void decompile(IndentPrintStream s) {
-        
+        s.print(" null ");
     }
 
 }

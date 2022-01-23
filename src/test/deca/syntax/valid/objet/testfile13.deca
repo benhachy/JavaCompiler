@@ -1,0 +1,22 @@
+//Description:
+//    test getters with same name of attributs
+//
+// Resultats:
+//      12
+// Historique:
+//    cree le 01/01/2022
+class A{
+    protected int x;
+    protected boolean b;
+    void  setX(int x){
+        this.x = x;
+    }
+    int getX(){
+        return this.x;
+    }
+}
+{
+    A obj = new A();
+    obj.setX(12);
+    print(obj.getX());
+}
