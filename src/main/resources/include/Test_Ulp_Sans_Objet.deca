@@ -1,7 +1,13 @@
 public class TestUlpSansObjet{
 	
 	public void main(){
+
 		
+		int MAX_EXPONENT = 127;
+    	int MIN_EXPONENT = -126;
+		  float MIN_VALUE = (float) 1.4E-45;
+	 	int SIGNIFICAND_WIDTH = 24;
+
 		float d = 5.01f;
 
 		//int exp = getExponent(d);
