@@ -1,23 +1,21 @@
 class A{
     int x;
-<<<<<<< HEAD
-}
-{
-    A a = new A();
-    int y;
-    a.x = 3;
-    y=2;
-    println(y);
+    void getX(){
 
-=======
-    void printNumber(){
-        int z;
-        println(x);
     }
 }
+class B extends A{
+    int y;
+    void getY(){
+
+    }
+}
+class C{
+    B b;
+}
 {
-    A a = new A();
-    a.x = 1;
-    a.printNumber();
->>>>>>> 8222e95941692ac52d00a33c1b1a8f31b68e3333
+    int x;
+    C c = new C();
+    c.b = new B();
+    c.b.x = 1;   
 }
