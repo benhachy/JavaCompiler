@@ -114,6 +114,7 @@ public class MethodCall extends AbstractExpr {
         for (AbstractExpr exp : listExpression.getList()) {
             exp.codeGenExpr(compiler,3);
             compiler.addInstruction(new STORE(Register.getR(3),new RegisterOffset(-j-1, Register.SP)));
+            j++;
         }
         compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(3)));
         compiler.addInstruction(new CMP(new NullOperand(),Register.getR(3)));
