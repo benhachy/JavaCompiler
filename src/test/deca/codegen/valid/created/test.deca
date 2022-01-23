@@ -1,5 +1,5 @@
 class A{
-    int x=4;
+    int x=6;
     boolean y = true ;
     void getX(){
 
@@ -21,10 +21,12 @@ class C{
 
 {
     B b = new B();
-    /*if( b instanceof B){
-        println("wow");
+    /*if( b instanceof C){
+        println("je suis un fils de B");
     }*/
-    print(b.x);
-    /*b.att2 = 16;
-    print(b.att2);*/
+    //print(b.x);
+    b.att2 = 30;
+    b.aat3 = b.x * b.att2 -b.att2 + 24;
+    println("OK");
+    print(b.aat3);
 }

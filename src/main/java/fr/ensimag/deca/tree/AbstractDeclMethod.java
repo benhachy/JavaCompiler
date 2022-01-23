@@ -15,7 +15,7 @@ public abstract class AbstractDeclMethod extends Tree {
     public abstract void genCodeMethode(DecacCompiler compiler,DeclClass declClass);
     public abstract void creerEtStockerLabel(DecacCompiler compiler,DeclClass declClass);
 
-    public abstract void verifyMethod(DecacCompiler compiler,
+    public abstract int verifyMethod(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass,int indice)
             throws ContextualError;
 

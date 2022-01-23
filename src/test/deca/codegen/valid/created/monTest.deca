@@ -1,26 +1,8 @@
 class A{
     int x;
-    int y;
-    void getX(){
-
-    }
 }
-
-class B extends A{
-    int att1;
-    int att2;
-    int aat3;
-    void getY(){
-
-    }
-}
-class C{
-    int z;
-    B b;
-}
-
 {
-    B b = new B();
-    b.x = 16;
-    print(b.x);
+    A a = new A();
+    A aa = a;
+    aa.equals(a);
 }

@@ -1,5 +1,4 @@
 
-
 public class TestAtanSansObjet {
 	
 	public  void main(String[] args) {
@@ -13,7 +12,7 @@ public class TestAtanSansObjet {
 		int n = 45;
 		
 		float x = 1;
-		float y = val;
+		float y = theta;
 		float z = 0;
 		
 		int i = 0;

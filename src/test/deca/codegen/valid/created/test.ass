@@ -26,6 +26,7 @@
 	STORE R0, 10(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 11(GB)
+; idk why or how he's here
 	NEW #6, R2
 	BOV pile_pleine
 	LEA 6(GB), R0
@@ -36,8 +37,43 @@
 	STORE R2, 12(GB)
 ; Beginning of main instructions:
 	ADDSP #14
+	LOAD #30, R2
+	LOAD 12(GB), R3
+; ononon
+	STORE R2, 4(R3)
 	LOAD 12(GB), R3
 	LOAD 1(R3), R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 12(GB), R3
+	LOAD 4(R3), R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 12(GB), R3
+	LOAD 4(R3), R2
+	LOAD R2, R0
+	POP R2
+	SUB R0, R2
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #24, R2
+	LOAD R2, R0
+	POP R2
+	ADD R0, R2
+	LOAD 12(GB), R3
+; ononon
+	STORE R2, 5(R3)
+	WSTR "OK"
+	WNL
+	LOAD 12(GB), R3
+; blabala
+	LOAD 5(R3), R2
 	LOAD R2, R1
 	WINT
 	HALT
@@ -46,7 +82,7 @@ init.A:
 	TSTO #3
 	BOV pile_pleine
 	LOAD -2(LB), R1
-	LOAD #4, R0
+	LOAD #6, R0
 	STORE R0, 1(R1)
 	LOAD #1, R0
 	STORE R0, 2(R1)
@@ -56,6 +92,8 @@ code.A.getX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 fin.A.getX:
 ; Restauration des registres
 	POP R3
@@ -63,10 +101,6 @@ fin.A.getX:
 	RTS
 ; Initialisation des champs de B
 init.B:
-; Appel de l'initialisation des champs hérités de A
-	PUSH R1
-	BSR init.A
-	SUBSP #1
 	TSTO #4
 	BOV pile_pleine
 	LOAD -2(LB), R1
@@ -76,12 +110,18 @@ init.B:
 	STORE R0, 4(R1)
 	LOAD #0, R0
 	STORE R0, 5(R1)
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
 	RTS
 code.B.addAtt1:
 	TSTO #2	; test de debordement de la pile
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
 	LOAD #5, R2
 fin.B.addAtt1:
 ; Restauration des registres

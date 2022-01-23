@@ -123,7 +123,7 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-        EnvironmentExp envExpF = new EnvironmentExp(null); 
+        EnvironmentExp envExpF = new EnvironmentExp(compiler.getEnv(classExtension.getName())); 
         int indiceField = classExtension.getClassDefinition().getNumberOfFields();
         int indiceMethod = classExtension.getClassDefinition().getNumberOfMethods();
         for(AbstractDeclField f : feildDecl.getList())
@@ -131,22 +131,22 @@ public class DeclClass extends AbstractDeclClass {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
             ++indiceField;
         }
-        
+        int nbrOfMethods =0;
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            nbrOfMethods += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
             ++indiceMethod;
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
-        newDef.setNumberOfMethods(methodDecl.size()+classExtension.getClassDefinition().getNumberOfMethods());
+        newDef.setNumberOfMethods(nbrOfMethods);
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }
     
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        EnvironmentExp envExpR = new EnvironmentExp(null);
+        EnvironmentExp envExpR = compiler.getEnv(identifier.getName());
         for(AbstractDeclMethod f : methodDecl.getList())
         {
             f.verifyBody(compiler,envExpR,identifier.getClassDefinition());
@@ -319,14 +319,7 @@ public class DeclClass extends AbstractDeclClass {
         Label label = new Label("init."+identifier.getName());
         compiler.addLabel(label);
 
-        //on verifie si la class herite d'un autre class
-        if(!classExtension.getName().getName().equals("Object")){
-            compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
-            compiler.addInstruction(new PUSH(Register.getR(1)));
-            Label labelInitSuper = new Label("init."+classExtension.getName().getName());
-            compiler.addInstruction(new BSR(labelInitSuper));
-            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
-        }
+        
         int nmChamps = feildDecl.getList().size();
         //on verifie les debordements de la pile
         compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps+1)));
@@ -336,6 +329,14 @@ public class DeclClass extends AbstractDeclClass {
             //pour chaque champ on verifie le type
             //appres on les mett sur le registre R0
             champ.codeGenFeild(compiler);
+        }
+        //on verifie si la class herite d'un autre class
+        if(!classExtension.getName().getName().equals("Object")){
+            compiler.addComment("Appel de l'initialisation des champs hérités de "+classExtension.getName().getName());
+            compiler.addInstruction(new PUSH(Register.getR(1)));
+            Label labelInitSuper = new Label("init."+classExtension.getName().getName());
+            compiler.addInstruction(new BSR(labelInitSuper));
+            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
         }
         compiler.addInstruction(new RTS());
         for (AbstractDeclMethod methode : methodDecl.getList()) {
