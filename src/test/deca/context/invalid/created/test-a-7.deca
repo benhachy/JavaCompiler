@@ -1,4 +1,3 @@
 class A{
-    boolean  x,y,z;
-    x= 15;
+    boolean  y =15;
 }

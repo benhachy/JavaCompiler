@@ -197,9 +197,10 @@ public class Identifier extends AbstractIdentifier {
         if (def == null) {
             if (currentClass != null) {
                 verifyAttribut(compiler, currentClass.getType().getName(), currentClass);
-                if (getType().isNull()) {
-                    throw new ContextualError("la variable " + getName() + " est null", getLocation());
-                }
+                // if (getType().isNull()) {
+                // throw new ContextualError("la variable " + getName() + " est null",
+                // getLocation());
+                // }
                 return getType();
             }
             throw new ContextualError("la variable " + getName() + " n'est pas déclarée", getLocation());

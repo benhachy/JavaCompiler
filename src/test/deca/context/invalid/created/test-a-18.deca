@@ -1,31 +1,21 @@
 class A{
-    int x;
-    protected float y;
 }
 
 class B extends A{
-    int z;
+    protected int z;
     int w;
-    void SetX(){
-        x = z;
-    }
-    void setY(int w){
-        y = w;
-    }
 }
 
 class C extends A{
-    int z;
+    int m;
+    B b;
     protected int w;
     void SetX(){
-        x = z;
-    }
-    int toInt(float x){
-        return 5;
+        b.z = 5;
     }
 }
 
 {
-    A a ;
-    a.x = 15;
+    C a ;
+    a.SetX();
 }
