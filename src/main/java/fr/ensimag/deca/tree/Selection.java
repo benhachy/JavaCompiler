@@ -79,8 +79,15 @@ public class Selection extends AbstractLValue {
     public void codeGenOpBool(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand, boolean b,
             Label E, Label EFin, int n) {
         this.codeGenExpr(compiler, 0);
-        compiler.addInstruction(new CMP(new ImmediateInteger(1), Register.getR(0)));
-        compiler.addInstruction(new BEQ(E));
+        if(b){
+            compiler.addInstruction(new CMP(new ImmediateInteger(1),Register.getR(0)));
+            compiler.addInstruction(new BEQ(E));
+        }
+        else{
+            compiler.addInstruction(new CMP(new ImmediateInteger(0),Register.getR(0)));
+            compiler.addInstruction(new BEQ(E));
+        }
+        
     }
 
     @Override
