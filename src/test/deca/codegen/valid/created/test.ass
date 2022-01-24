@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #10
+	ADDSP #5
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -11,64 +11,53 @@
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-	LOAD code.A.setX, R0
-	STORE R0, 5(GB)
-	LOAD code.A.getX, R0
-	STORE R0, 6(GB)
-; Code de la table des méthodes de B
-	LEA 3(GB), R0
-	STORE R0, 7(GB)
-	LOAD code.Object.equals, R0
-	STORE R0, 8(GB)
-	LOAD code.A.setX, R0
-	STORE R0, 9(GB)
-	LOAD code.A.getX, R0
-	STORE R0, 10(GB)
-	LOAD code.B.setAtt1, R0
-	STORE R0, 11(GB)
-; Code de la table des méthodes de C
-	LEA 1(GB), R0
-	STORE R0, 12(GB)
-	LOAD code.Object.equals, R0
-	STORE R0, 13(GB)
 ; idk why or how he's here
 	NEW #2, R2
 	BOV pile_pleine
-	LEA 7(GB), R0
+	LEA 3(GB), R0
 	STORE R0, 0(R2)
 	PUSH R2
 	BSR init.A
 	POP R2
-	STORE R2, 14(GB)
+	STORE R2, 5(GB)
+; idk why or how he's here
+	LOAD 5(GB), R2
+	STORE R2, 6(GB)
+; idk why or how he's here
+	LOAD #0, R2
+	STORE R2, 7(GB)
 ; Beginning of main instructions:
-	ADDSP #16
-; appel à la méthode setAtt1
+	ADDSP #9
+; appel à la méthode equals
 	ADDSP #2
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 14(GB), R3
+	LOAD 6(GB), R3
 	STORE R3, 0(SP)
-	LOAD #5, R3
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 5(GB), R3
 	STORE R3, -1(SP)
 	LOAD 0(SP), R3
 	CMP #null, R3
 	BEQ deferencement.null
 	LOAD 0(R3), R3
-	BSR 2(R3)
+	BSR code.A.equals
 	SUBSP #2
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 14(GB), R3
-; blabala
-	LOAD 3(R3), R2
-	LOAD R2, R1
-	WINT
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
+	STORE R2, 7(GB)
+beginIf0:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "yes"
 	WNL
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 14(GB), R3
-; blabala
-	LOAD 1(R3), R2
-	LOAD R2, R1
-	WINT
+	BRA finElse0
+elseInst0:
+	WSTR "no"
 	WNL
+finElse0:
 	HALT
 ; Initialisation des champs de A
 init.A:
@@ -78,88 +67,21 @@ init.A:
 	LOAD #0, R0
 	STORE R0, 1(R1)
 	RTS
-code.A.getX:
-	TSTO #2	; test de debordement de la pile
-	BOV pile_pleine
+code.Object.equals:
 	PUSH R2
 	PUSH R3
-fin.A.getX:
-; Restauration des registres
-	POP R3
-	POP R2
-	RTS
-code.A.setX:
-	TSTO #2	; test de debordement de la pile
-	BOV pile_pleine
-	PUSH R2
-	PUSH R3
-; ana jit les méthodes 
 	LOAD -2(LB), R2
-	LOAD -2(LB), R3
-<<<<<<< HEAD
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
 	LOAD #1, R0
-fin.A.getX:
-=======
-; ana paramètre o jit l codegeninst dial ientifier hahahahh
-	LOAD -3(LB), R2
-; je susi dans identifier coodegenAssign
-; ana param hihih
-	LOAD 1(R1), R3
-fin.A.setX:
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
-; Restauration des registres
+code.Object.equals.finComparationEQ:
 	POP R3
 	POP R2
 	RTS
-<<<<<<< HEAD
-=======
-; Initialisation des champs de B
-init.B:
-	TSTO #4
-	BOV pile_pleine
-	LOAD -2(LB), R1
-	LOAD #0, R0
-	STORE R0, 3(R1)
-	LOAD #0, R0
-	STORE R0, 4(R1)
-	LOAD #0, R0
-	STORE R0, 5(R1)
-; Appel de l'initialisation des champs hérités de A
-	PUSH R1
-	BSR init.A
-	SUBSP #1
-	RTS
-code.B.setAtt1:
-	TSTO #2	; test de debordement de la pile
-	BOV pile_pleine
-	PUSH R2
-	PUSH R3
-; ana jit les méthodes 
-	LOAD -2(LB), R2
-	LOAD -2(LB), R3
-; ana paramètre o jit l codegeninst dial ientifier hahahahh
-	LOAD -3(LB), R2
-; je traite un assign dans la selection
-; je susi dans identifier coodegenAssign
-; bazi dont be u
-	STORE R2, 3(R3)
-; shit shit
-; ononon
-fin.B.setAtt1:
-; Restauration des registres
-	POP R3
-	POP R2
-	RTS
-; Initialisation des champs de C
-init.C:
-	TSTO #3
-	BOV pile_pleine
-	LOAD -2(LB), R1
-	LOAD #0, R0
-	STORE R0, 1(R1)
-	STORE R0, 2(R1)
-	RTS
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 pile_pleine:
 	WSTR "Error: pile pleine"
 	WNL
@@ -182,10 +104,6 @@ print_Error:
 	ERROR
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program

@@ -81,13 +81,13 @@ public class Program extends AbstractProgram {
         Label loadTrue = new Label("code.Object.equals.loadTrueEQ");
         Label finCmp = new Label("code.Object.equals.finComparationEQ");
         compiler.addInstruction(new BEQ(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,2);
+        new IntLiteral(0).codeGenExpr(compiler,0);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,2);
+        new IntLiteral(1).codeGenExpr(compiler,0);
         compiler.addLabel(finCmp);
-        compiler.addInstruction(new POP(Register.getR(2)));
         compiler.addInstruction(new POP(Register.getR(3)));
+        compiler.addInstruction(new POP(Register.getR(2)));
         compiler.addInstruction(new RTS());
     }
 
