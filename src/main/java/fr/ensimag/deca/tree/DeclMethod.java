@@ -43,6 +43,9 @@ public class DeclMethod extends AbstractDeclMethod {
         this.paramDecl = paramDecl;
         this.methodBody = methodBody;
     }
+    public AbstractIdentifier getName(){
+        return name;
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {

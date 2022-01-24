@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Map;
 import fr.ensimag.ima.pseudocode.LabelOperand;
@@ -48,7 +49,8 @@ public class DeclClass extends AbstractDeclClass {
     AbstractIdentifier classExtension;
     ListDeclField feildDecl;
     ListDeclMethod methodDecl;
-    private List<Label> listEtiquetteMethod = new ArrayList<Label>();
+    private TreeMap<Label,Integer> listEtiquetteMethod = new TreeMap<Label,Integer>();
+    private TreeMap<Integer, Label> newHashMap = new TreeMap<Integer, Label>();
     private List<String> listFields = new ArrayList<String>();
     private HashMap<SymbolTable.Symbol, Integer> hashMapMethodIndex = new HashMap<SymbolTable.Symbol, Integer>();
     private HashMap<SymbolTable.Symbol, Integer> hashMapFieldIndex = new HashMap<SymbolTable.Symbol, Integer>();
@@ -63,9 +65,9 @@ public class DeclClass extends AbstractDeclClass {
         this.methodDecl = methodDecl;
     }
 
-    public int getIndexMethod(Label l) {
-        return listEtiquetteMethod.indexOf(l);
-    }
+    // public int getIndexMethod(Label l) {
+    //     return listEtiquetteMethod.indexOf(l);
+    // }
 
     @Override
     public void decompile(IndentPrintStream s) {
@@ -191,7 +193,7 @@ public class DeclClass extends AbstractDeclClass {
         }
         HashMap<SymbolTable.Symbol, ExpDefinition> hashMapEnv = envClass.getEnvExp();
         for (Symbol s : hashMapEnv.keySet()) {
-
+            
             // edit this so we can check if its a method or not
             if (envClass.get(s).isMethod()) {
                 // il faut voir si la méthode est déja dans le hashmap il faut
@@ -199,12 +201,15 @@ public class DeclClass extends AbstractDeclClass {
                     // je récupère l'indice pour que j'écrase l'étiquette dans la liste des
                     // étiquettes
                     int newIndex = hashMapMethodIndex.get(s);
-                    listEtiquetteMethod.remove(newIndex);
-                    listEtiquetteMethod.add(newIndex, new Label("code." + currentClass + "." + s.getName()));
+                    newHashMap.remove(envClass.get(s).getIndex());
+                    newHashMap.put(envClass.get(s).getIndex(), new Label("code." + currentClass + "." + s.getName()));
+                    //                     listEtiquetteMethod.remove(envClass.get(s).getIndex());
+                    // listEtiquetteMethod.add(envClass.get(s).getIndex(), new Label("code." + currentClass + "." + s.getName()));
                 } else {
                     // si c'est la premère fois je trouve la méthode je l'insère
-                    listEtiquetteMethod.add(index, new Label("code." + currentClass + "." + s.getName()));
-                    hashMapMethodIndex.put(s, index);
+                    newHashMap.put(envClass.get(s).getIndex(), new Label("code." + currentClass + "." + s.getName()));
+                    //listEtiquetteMethod.add(envClass.get(s).getIndex(), new Label("code." + currentClass + "." + s.getName()));
+                    hashMapMethodIndex.put(s, envClass.get(s).getIndex());
                     index++;
                 }
 
@@ -244,13 +249,13 @@ public class DeclClass extends AbstractDeclClass {
 
     }
 
-    public void afficher() {
-        int i = 0;
-        for (Label l : listEtiquetteMethod) {
-            System.out.println(i + " " + l.toString());
-            i++;
-        }
-    }
+    // public void afficher() {
+    //     int i = 0;
+    //     for (Label l : listEtiquetteMethod) {
+    //         System.out.println(i + " " + l.toString());
+    //         i++;
+    //     }
+    // }
 
     public void afficherFields() {
         int i = 0;
@@ -299,8 +304,9 @@ public class DeclClass extends AbstractDeclClass {
         // la table des etiquettes est DONE
         // afficher();
         afficherFields();
-        for (Label l : listEtiquetteMethod) {
-            compiler.addInstruction(new LOAD(new LabelOperand(l), Register.getR(0)));
+        Set<Integer> keys = newHashMap.keySet();
+      for(Integer key: keys){
+            compiler.addInstruction(new LOAD(new LabelOperand(newHashMap.get(key) ), Register.getR(0)));
             compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.getPosGB(), Register.GB)));
             Register.updatePosGB();
         }

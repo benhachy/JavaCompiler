@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #4
+	ADDSP #5
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
