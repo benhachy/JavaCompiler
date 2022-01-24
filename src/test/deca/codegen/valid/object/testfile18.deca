@@ -19,6 +19,8 @@ class A{
         return this.y;
     }
 }
+
+
 {
     A obj = new A();
     print(obj.getY());

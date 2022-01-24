@@ -9,8 +9,17 @@
 class A{
     int x;
     int y;
+    
     void setX(int x){
         this.x = x;
+    }
+    void range(int n,int i){
+        
+        while(i<n){
+            setX(i);
+            println(this.x);
+            i = i+1;
+        }
     }
 }
 class B extends A{
@@ -18,10 +27,12 @@ class B extends A{
 }
 {
     B obj = new B();
-    obj.setX(14);
+/*    obj.setX(14);
     println(obj.x);
     obj.y = 21;
     println(obj.y);
+    println("Range10 ");*/
+    obj.range(10,0);
 }
 
     

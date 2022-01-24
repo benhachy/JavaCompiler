@@ -1,5 +1,5 @@
 class A{
-    protected int x;
+    int x;
     protected float y;
 }
 
@@ -21,10 +21,11 @@ class C extends A{
         x = z;
     }
     int toInt(float x){
-        return x;
+        return 5;
     }
 }
 
 {
-    A a = new B();
+    A a ;
+    a.x = 15;
 }

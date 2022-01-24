@@ -148,9 +148,9 @@ public class DecacCompiler implements Runnable {
         return envTypes.size() - 5;
     }
 
-    public int getIndexMethod(Symbol classe, Symbol method) {
-        return envExprs.get(classe).contains(method);
-    }
+    // public int getIndexMethod(Symbol classe, Symbol method) {
+    // return envExprs.get(classe).contains(method);
+    // }
 
     public int getNumberOfMethods() {
         envExprs.size();

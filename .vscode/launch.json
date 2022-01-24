@@ -22,7 +22,7 @@
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "args": "~/Projet_GL/src/test/deca/codegen/valid/created/monTest.deca",
+            "args": "~/Projet_GL/src/test/deca/codegen/valid/object/testfile23.deca",
             "mainClass": "${file}"
         },
         {

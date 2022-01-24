@@ -154,7 +154,8 @@ public class DeclMethod extends AbstractDeclMethod {
         Signature signature = new Signature();
         EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler, signature);
         methodBody.verifyMethodBody(compiler, localEnv, paramsEnv, currentClass, expectedReturn);
-        int i = compiler.getIndexMethod(currentClass.getType().getName(), name.getName());
+        // int i = compiler.getIndexMethod(currentClass.getType().getName(),
+        // name.getName());
         // System.out.println(currentClass.getType().getName() + "------" +
         // name.getName() + "+++++" + i);
     }
