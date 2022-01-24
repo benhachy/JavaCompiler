@@ -30,7 +30,6 @@ public class Modulo extends AbstractOpArith {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println("::Modulo.java:: verifyExpr");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);

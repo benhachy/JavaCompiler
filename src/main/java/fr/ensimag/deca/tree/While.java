@@ -22,7 +22,7 @@ import org.apache.commons.lang.Validate;
 public class While extends AbstractInst {
     private AbstractExpr condition;
     private ListInst body;
-    public static int numWhile = 0;
+    public static int numWhile =0;
 
     public AbstractExpr getCondition() {
         return condition;
@@ -41,13 +41,13 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        // System.out.println("::While.java:: codeGenInst");
-        Label beginWhile = new Label("beginWhile" + numWhile);
-        Label endWhile = new Label("endWhile" + numWhile);
-        Label instWhile = new Label("instWhile" + numWhile);
+    //     System.out.println("::While.java:: codeGenInst");
+        Label beginWhile = new Label("beginWhile"+numWhile);
+        Label endWhile = new Label("endWhile"+numWhile);
+        Label instWhile = new Label("instWhile"+numWhile);
         numWhile++;
         compiler.addLabel(beginWhile);
-        condition.codeGenOpBool(compiler, null, null, true, instWhile, endWhile, 2);
+        condition.codeGenOpBool(compiler, null, null,true , instWhile, endWhile, 2);
         compiler.addInstruction(new BRA(endWhile));
         compiler.addLabel(instWhile);
         body.codeGenListInst(compiler);
@@ -59,12 +59,9 @@ public class While extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        System.out.println("::While.java::verifyInst ");
+        //System.out.println("::While.java::verifyInst ");
         condition.verifyCondition(compiler, localEnv, currentClass);
-        for (AbstractInst i : body.getList()) {
-            i.verifyInst(compiler, localEnv, currentClass, returnType);
-        }
-        // body.verifyListInst(compiler, localEnv, currentClass, returnType);
+        body.verifyListInst(compiler, localEnv, currentClass, returnType);
     }
 
     @Override

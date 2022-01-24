@@ -33,7 +33,6 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println("::AbstractOpArith.java:: verifyExpr");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
@@ -66,30 +65,6 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         }
         return getType();
     }
-    // @Override
-    // public void codeGenExpr(DecacCompiler compiler,int n)
-    // {
-    //     AbstractExpr leftOperand = getLeftOperand();
-    //     AbstractExpr rightOperand = getRightOperand();
-    //     if(n == Register.nbRegistres )
-    //     {
-    //         leftOperand.codeGenExpr(compiler,n);
-    //         compiler.addInstruction(new TSTO(2));
-    //         compiler.addInstruction(new BOV(new Label("pile_pleine")));
-    //         compiler.addInstruction(new PUSH(Register.getR(n)));
-    //         rightOperand.codeGenExpr(compiler,n);
-    //         compiler.addInstruction(new LOAD(Register.getR(n) ,Register.getR(0)));
-    //         compiler.addInstruction(new POP(Register.getR(n)));
-    //         this.codeGenOp(compiler, Register.getR(n), Register.getR(0), n); 
-    //     }
-    //     else if(n < Register.nbRegistres){
-    //         leftOperand.codeGenExpr(compiler,n);
-    //         rightOperand.codeGenExpr(compiler,n+1);
-    //         this.codeGenOp(compiler, Register.getR(n), Register.getR(n+1), n); 
-    // }
- 
-    //}
-
 
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n)

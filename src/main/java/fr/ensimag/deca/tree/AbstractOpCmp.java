@@ -22,12 +22,10 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println("::AbstractOpCm.java:: verifyExpr");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         Type type1 = rOp.verifyExpr(compiler, localEnv, currentClass);
         Type type2 = lOp.verifyExpr(compiler, localEnv, currentClass);
-        //System.out.println(type1 +"and the "+ type2);
             if(!(type1.isInt() && type2.isInt()) && !(type1.isFloat() && type2.isFloat())
                 && !(type1.isFloat() && type2.isInt()) && !(type1.isInt() && type2.isFloat()))
             {

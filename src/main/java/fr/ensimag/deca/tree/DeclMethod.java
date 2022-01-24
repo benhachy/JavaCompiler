@@ -43,6 +43,9 @@ public class DeclMethod extends AbstractDeclMethod {
         this.paramDecl = paramDecl;
         this.methodBody = methodBody;
     }
+    public AbstractIdentifier getName(){
+        return name;
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
@@ -142,7 +145,6 @@ public class DeclMethod extends AbstractDeclMethod {
             throw new ContextualError("la méthode " + name.getName() + " est déjà définie", getLocation());
         }
         return isNew;
-        // methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
     }
 
     @Override
@@ -154,9 +156,5 @@ public class DeclMethod extends AbstractDeclMethod {
         Signature signature = new Signature();
         EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler, signature);
         methodBody.verifyMethodBody(compiler, localEnv, paramsEnv, currentClass, expectedReturn);
-        // int i = compiler.getIndexMethod(currentClass.getType().getName(),
-        // name.getName());
-        // System.out.println(currentClass.getType().getName() + "------" +
-        // name.getName() + "+++++" + i);
     }
 }

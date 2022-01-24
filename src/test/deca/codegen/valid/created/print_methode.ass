@@ -13,7 +13,6 @@
 	STORE R0, 4(GB)
 	LOAD code.A.printHello, R0
 	STORE R0, 5(GB)
-; idk why or how he's here
 	NEW #1, R2
 	BOV pile_pleine
 	LEA 3(GB), R0
@@ -26,7 +25,6 @@
 	ADDSP #8
 ; appel à la méthode printHello
 	ADDSP #1
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 	STORE R3, 0(SP)
 	LOAD 0(SP), R3
@@ -47,7 +45,6 @@ code.A.printHello:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "hello de A"

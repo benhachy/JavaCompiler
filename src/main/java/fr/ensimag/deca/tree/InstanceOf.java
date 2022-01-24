@@ -52,7 +52,6 @@ public class InstanceOf extends AbstractExpr {
     public  Type verifyExpr(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
-                //à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation delete it and do whatever u wanna do 
             Type returnType = type.verifyType(compiler);
             expr.verifyExpr(compiler, localEnv, currentClass);
             if(!expr.getType().isClassOrNull()){
@@ -61,9 +60,6 @@ public class InstanceOf extends AbstractExpr {
             if(!returnType.isClass()){
                 throw new ContextualError(returnType.getName()+" n'est pas une classe", type.getLocation());
             }
-            // if(!verifyCompatibility(localEnv, expr.getType(), returnType)){
-            //         throw new ContextualError("les deux types "+expr.getType().getName()+" et "+returnType.getName()+" sont incompatibles",getLocation());
-            // }
             SymbolTable tab = new SymbolTable();
             SymbolTable.Symbol symbol = tab.create("instanceof");
             BooleanType chaine = new BooleanType(symbol);
@@ -81,24 +77,13 @@ public class InstanceOf extends AbstractExpr {
         Label succesInstanceOf= new Label("instanceOf.succes"+numberofIstanceOf);
         Label endInstanceOf= new Label("instanceOf.end"+numberofIstanceOf);
         numberofIstanceOf++;
-
-        //on récupère l'adresse de la classe B ( c instaceof B)
-        //compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(0)));
         compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(2)));
-        //on recupère l'adresse de l'objet C 
-        // c instance of B 
 
         expr.codeGenExpr(compiler,3);
-        //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(expr.codeGenAssign(compiler) .getType().getName()),Register.getR(3)));
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));
         compiler.addLabel(beginningInstanceOf);
-        //on compare les deux adresses
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         compiler.addInstruction(new BEQ(E));
-        //si oui c bon sinon on descend
-        // compiler.addInstruction(new LOAD(new RegisterOffset(3,Register.getR(3)),Register.getR(3)));
-        // compiler.addInstruction(new CMP(Register.getR(3),Register.getR(1)));
-        // compiler.addInstruction(new BEQ(E));
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));
         compiler.addInstruction(new CMP(new NullOperand(),Register.getR(3)));
         compiler.addInstruction(new BEQ(EFin));
@@ -110,18 +95,11 @@ public class InstanceOf extends AbstractExpr {
         Label succesInstanceOf= new Label("instanceOf.succes"+numberofIstanceOf);
         Label endInstanceOf= new Label("instanceOf.end"+numberofIstanceOf);
         numberofIstanceOf++;
-
-        //on récupère l'adresse de la classe B ( c instaceof B)
-        //compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(0)));
         compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(2)));
-        //on recupère l'adresse de l'objet C 
-        // c instance of B 
 
         expr.codeGenExpr(compiler,3);
-        //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(expr.codeGenAssign(compiler) .getType().getName()),Register.getR(3)));
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));
         compiler.addLabel(beginningInstanceOf);
-        //on compare les deux adresses
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         compiler.addInstruction(new BEQ(succesInstanceOf));
         compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));

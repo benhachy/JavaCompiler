@@ -31,7 +31,6 @@ public class Lower extends AbstractOpIneq {
 
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        // System.out.println("::Greater.java:: codeGenOpBool");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 2);
@@ -56,8 +55,6 @@ public class Lower extends AbstractOpIneq {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-        // getRightOperand().codeGenExpr(compiler, 3);
-        // getLeftOperand().codeGenExpr(compiler, 2);
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 3);

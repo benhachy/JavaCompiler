@@ -26,15 +26,12 @@ public class ReadFloat extends AbstractReadExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        //System.out.println(":: ReadFloat :: verifyExpr");
         FloatType typefloat=new FloatType(SymbolTable.creerSymbol("readFloat"));
         return typefloat;
-        // throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler){
-        //System.out.println(":: IntLiteral.java :: codeGenPrint");
         compiler.addInstruction(new RFLOAT());
         compiler.addInstruction(new BOV(new Label("io_error")));
         compiler.addInstruction(new LOAD(Register.getR(1), Register.getR(2)));

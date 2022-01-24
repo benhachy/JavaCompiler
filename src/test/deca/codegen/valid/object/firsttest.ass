@@ -11,11 +11,10 @@
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-	LOAD code.A.setX, R0
-	STORE R0, 5(GB)
 	LOAD code.A.getX, R0
+	STORE R0, 5(GB)
+	LOAD code.A.setX, R0
 	STORE R0, 6(GB)
-; idk why or how he's here
 	NEW #2, R2
 	BOV pile_pleine
 	LEA 3(GB), R0
@@ -28,7 +27,6 @@
 	ADDSP #9
 ; appel à la méthode setX
 	ADDSP #2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R3
 	STORE R3, 0(SP)
 	LOAD #8, R3
@@ -43,7 +41,6 @@
 ; codeGenPrint in MethodCall
 ; appel à la méthode getX
 	ADDSP #1
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R3
 	STORE R3, 0(SP)
 	LOAD 0(SP), R3
@@ -69,10 +66,8 @@ code.A.getX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD -2(LB), R0
 	LOAD 1(R0), R0
 	BRA fin.A.getX
@@ -86,17 +81,11 @@ code.A.setX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
-; ana paramètre o jit l codegeninst dial ientifier hahahahh
 	LOAD -3(LB), R2
-; je traite un assign dans la selection
 	LOAD -2(LB), R3
-; je susi dans identifier coodegenAssign
-; bazi dont be u
 	STORE R2, 1(R3)
-; shit shit
 	STORE R2, 1(R3)
 fin.A.setX:
 ; Restauration des registres

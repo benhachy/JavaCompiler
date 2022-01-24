@@ -49,11 +49,9 @@ public class Assign extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        System.out.println("::Assign.java:: codeGenInst");
         AbstractExpr rvalue = getRightOperand();
         AbstractLValue lvalue = getLeftOperand();
         rvalue.codeGenInst(compiler);
-        System.out.print("********************************************"+rvalue.getClass().toString());
         if( rvalue instanceof MethodCall){
             compiler.addInstruction(new PUSH(Register.getR(2)));
             compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(2)));

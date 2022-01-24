@@ -52,7 +52,6 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        //System.out.println(":: DeclVar :: Verify DeclVar");
         Type t = type.verifyType(compiler);
         initialization.verifyInitialization(compiler,t,localEnv,  currentClass);
         t = initialization.getType();
@@ -63,13 +62,6 @@ public class DeclVar extends AbstractDeclVar {
             Identifier.identificateurs.put(varName.getName(),Identifier.ordreIdentifier);
             ++Identifier.ordreIdentifier;
             localEnv.declare(varName.getName(),var);
-            // if(initialization instanceof Initialization)
-            // {
-            //     localEnv.setValue(varName.getName(), true);
-            // }
-            // else{
-            //     localEnv.setValue(varName.getName(), false);
-            // }
         }
         catch (EnvironmentExp.DoubleDefException e)
         {
@@ -116,8 +108,6 @@ public class DeclVar extends AbstractDeclVar {
 
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler){
-        System.out.println("DECVAL.JAVA CODEGENDECLVAR");
-        compiler.addComment("idk why or how he's here");
         
         initialization.codeGenInit(compiler);        
         if(!type.getType().isClass()){
@@ -139,7 +129,6 @@ public class DeclVar extends AbstractDeclVar {
 
     @Override
     public void codeGenDeclvarMethode(DecacCompiler compiler){
-        System.out.println("DECVAL.JAVA CODEGENDECLVARMETHPDE");
         if(type.getType().isClass()){
             // to do
         }else{

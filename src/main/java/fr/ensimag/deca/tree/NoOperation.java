@@ -20,7 +20,6 @@ public class NoOperation extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        //System.out.println(":: NoOperation :: verifyInst");
         return;
     }
 

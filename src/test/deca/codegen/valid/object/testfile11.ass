@@ -13,7 +13,6 @@
 	STORE R0, 4(GB)
 	LOAD code.A.get, R0
 	STORE R0, 5(GB)
-; idk why or how he's here
 	NEW #4, R2
 	BOV pile_pleine
 	LEA 3(GB), R0
@@ -22,13 +21,10 @@
 	BSR init.A
 	POP R2
 	STORE R2, 6(GB)
-; idk why or how he's here
 	LOAD #5, R2
 	STORE R2, 7(GB)
-; idk why or how he's here
 ; appel à la méthode get
 	ADDSP #1
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R3
 	STORE R3, 0(SP)
 	LOAD 0(SP), R3
@@ -64,7 +60,6 @@ code.A.get:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	LOAD #12, R0

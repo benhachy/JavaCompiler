@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Map;
 import fr.ensimag.ima.pseudocode.LabelOperand;
@@ -48,7 +49,8 @@ public class DeclClass extends AbstractDeclClass {
     AbstractIdentifier classExtension;
     ListDeclField feildDecl;
     ListDeclMethod methodDecl;
-    private List<Label> listEtiquetteMethod = new ArrayList<Label>();
+    private TreeMap<Label,Integer> listEtiquetteMethod = new TreeMap<Label,Integer>();
+    private TreeMap<Integer, Label> newHashMap = new TreeMap<Integer, Label>();
     private List<String> listFields = new ArrayList<String>();
     private HashMap<SymbolTable.Symbol, Integer> hashMapMethodIndex = new HashMap<SymbolTable.Symbol, Integer>();
     private HashMap<SymbolTable.Symbol, Integer> hashMapFieldIndex = new HashMap<SymbolTable.Symbol, Integer>();
@@ -63,9 +65,9 @@ public class DeclClass extends AbstractDeclClass {
         this.methodDecl = methodDecl;
     }
 
-    public int getIndexMethod(Label l) {
-        return listEtiquetteMethod.indexOf(l);
-    }
+    // public int getIndexMethod(Label l) {
+    //     return listEtiquetteMethod.indexOf(l);
+    // }
 
     @Override
     public void decompile(IndentPrintStream s) {
@@ -105,17 +107,6 @@ public class DeclClass extends AbstractDeclClass {
         } catch (DecacInternalError e) {
             throw new ContextualError(classExtension.getName() + " n'est pas une class", getLocation());
         }
-        // EnvironmentExp envExpF = new EnvironmentExp(null);
-        // for(AbstractDeclField f : feildDecl.getList())
-        // {
-        // f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition());
-        // }
-        // compiler.setEvn(identifier.getName(),envExpF);
-        // for(AbstractDeclMethod f : methodDecl.getList())
-        // {
-        // f.verifyMethod(compiler,envExpF,identifier.getClassDefinition());
-        // }
-        // compiler.setEvn(identifier.getName(),envExpF);
     }
 
     @Override
@@ -124,14 +115,11 @@ public class DeclClass extends AbstractDeclClass {
         EnvironmentExp envExpF = new EnvironmentExp(compiler.getEnv(classExtension.getName()));
         int indiceField = classExtension.getClassDefinition().getNumberOfFields();
         int indiceMethod = classExtension.getClassDefinition().getNumberOfMethods() + 1;
-        // System.out.println("methods debut: " + classExtension.getName() + "." +
-        // indiceMethod);
         for (AbstractDeclField f : feildDecl.getList()) {
             f.verifyFeild(compiler, envExpF, classExtension.getClassDefinition(), identifier.getClassDefinition(),
                     indiceField);
             ++indiceField;
         }
-        // int nbrOfMethods = indiceMethod + 1;
         for (AbstractDeclMethod f : methodDecl.getList()) {
             indiceMethod += f.verifyMethod(compiler, envExpF, identifier.getClassDefinition(), indiceMethod);
         }
@@ -146,12 +134,10 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        EnvironmentExp envExpR = compiler.getEnv(identifier.getName());
+        EnvironmentExp envExpR = new EnvironmentExp(null);
         for (AbstractDeclMethod f : methodDecl.getList()) {
             f.verifyBody(compiler, envExpR, identifier.getClassDefinition());
         }
-        // envExpR.empiler(compiler.getEnv(identifier.getName()));
-        // compiler.setEvn(identifier.getName(),envExpR);
     }
 
     @Override
@@ -171,11 +157,7 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     public void createLabelList(DecacCompiler compiler, Symbol currentClass) {
-        // int index = 1 ;
-        // HashMap<SymbolTable.Symbol,Integer> mapHash = new
-        // HashMap<SymbolTable.Symbol,Integer>();
 
-        // on récupère l'environnement de la classe mère
         if (currentClass.equals(SymbolTable.creerSymbol("0"))) {
             return;
         }
@@ -183,28 +165,24 @@ public class DeclClass extends AbstractDeclClass {
         ClassDefinition definitionClass = compiler.getClass(currentClass);
 
         createLabelList(compiler, definitionClass.getSuperClass().getType().getName());
-        // while ( !currentClass.equals(SymbolTable.creerSymbol("0") )){
-        // ClassDefinition definitionClass = compiler.getClass(currentClass);
         EnvironmentExp envClass = compiler.getEnv(currentClass);
         if (envClass == null) {
 
         }
         HashMap<SymbolTable.Symbol, ExpDefinition> hashMapEnv = envClass.getEnvExp();
         for (Symbol s : hashMapEnv.keySet()) {
+            
 
-            // edit this so we can check if its a method or not
             if (envClass.get(s).isMethod()) {
-                // il faut voir si la méthode est déja dans le hashmap il faut
+
                 if (hashMapMethodIndex.containsKey(s)) {
-                    // je récupère l'indice pour que j'écrase l'étiquette dans la liste des
-                    // étiquettes
+
                     int newIndex = hashMapMethodIndex.get(s);
-                    listEtiquetteMethod.remove(newIndex);
-                    listEtiquetteMethod.add(newIndex, new Label("code." + currentClass + "." + s.getName()));
+                    newHashMap.remove(envClass.get(s).getIndex());
+                    newHashMap.put(envClass.get(s).getIndex(), new Label("code." + currentClass + "." + s.getName()));
                 } else {
-                    // si c'est la premère fois je trouve la méthode je l'insère
-                    listEtiquetteMethod.add(index, new Label("code." + currentClass + "." + s.getName()));
-                    hashMapMethodIndex.put(s, index);
+                    newHashMap.put(envClass.get(s).getIndex(), new Label("code." + currentClass + "." + s.getName()));
+                    hashMapMethodIndex.put(s, envClass.get(s).getIndex());
                     index++;
                 }
 
@@ -222,11 +200,8 @@ public class DeclClass extends AbstractDeclClass {
         ClassDefinition definitionClass = compiler.getClass(currentClass);
 
         createListFields(compiler, definitionClass.getSuperClass().getType().getName());
-        // while ( !currentClass.equals(SymbolTable.creerSymbol("0") )){
-        // ClassDefinition definitionClass = compiler.getClass(currentClass);
         EnvironmentExp envClass = compiler.getEnv(currentClass);
         if (envClass == null) {
-            // System.out.println("**********NULL******"+currentClass.getName());
 
         }
         HashMap<SymbolTable.Symbol, ExpDefinition> hashMapEnv = envClass.getEnvExp();
@@ -244,13 +219,6 @@ public class DeclClass extends AbstractDeclClass {
 
     }
 
-    public void afficher() {
-        int i = 0;
-        for (Label l : listEtiquetteMethod) {
-            System.out.println(i + " " + l.toString());
-            i++;
-        }
-    }
 
     public void afficherFields() {
         int i = 0;
@@ -265,52 +233,29 @@ public class DeclClass extends AbstractDeclClass {
 
         compiler.addComment("Code de la table des méthodes de " + identifier.getName());
         if (classExtension.getName().getName().equals("Object")) {
-            // si la class extends object on insert un pointure vers
             compiler.addInstruction(new LEA(new RegisterOffset(1, Register.GB), Register.getR(0)));
         } else {
-            // chercher la address de la super class dans la table des methodes
             compiler.addInstruction(new LEA(Identifier.getVariableAddress(classExtension.getName()), Register.getR(0)));
         }
-        // mettre l'address ver la super class dans la derner address disponible
         compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.positionGB, Register.GB)));
         Identifier.addVariableAddress(identifier.getName(), Register.positionGB, Register.GB);
         Register.updatePosGB();
         EnvironmentExp envClass = compiler.getEnv(identifier.getClassDefinition().getSuperClass().getType().getName());
-        // System.out.println("ANA MN HENA ANPRINTI LIK A KHOYA");
-        // envClass.afficher();
-        // System.out.println("ANA MN HENA salit LIK A KHOYA");
-        // System.out.println(compiler.getEnv(classExtension.getName()));
-        // insertion des etiquetes des methodes de la super class
-        /*
-         * for (AbstractDeclMethod methode : classExtension.getList()) {
-         * methode.creerEtStockerLabel(compiler,this);
-         * }
-         */
 
         for (AbstractDeclField f : feildDecl.getList()) {
             System.out.println(identifier.getName() + "." + f.getName().getName() + " "
                     + f.getName().getFieldDefinition().getIndex());
         }
-        // insertion des etiquetes des methodes
-        // ClassDefinition superClass = compiler.get(classExtension.getName());
         createLabelList(compiler, identifier.getName());
         System.out.println("definition de la class " + identifier.getName());
         createListFields(compiler, identifier.getName());
-        // la table des etiquettes est DONE
-        // afficher();
         afficherFields();
-        for (Label l : listEtiquetteMethod) {
-            compiler.addInstruction(new LOAD(new LabelOperand(l), Register.getR(0)));
+        Set<Integer> keys = newHashMap.keySet();
+      for(Integer key: keys){
+            compiler.addInstruction(new LOAD(new LabelOperand(newHashMap.get(key) ), Register.getR(0)));
             compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.getPosGB(), Register.GB)));
             Register.updatePosGB();
         }
-        // for (AbstractDeclMethod methode : methodDecl.getList()) {
-
-        // methode.creerEtStockerLabel(compiler,this);
-
-        // }
-        // cherche les methodes du super class pour les inserer aussi
-        // comment faire pour le surcharge des methodes???
     }
 
     public void genCodeInitializationChampsEtMethodes(DecacCompiler compiler) {
@@ -320,17 +265,12 @@ public class DeclClass extends AbstractDeclClass {
         compiler.addLabel(label);
 
         int nmChamps = feildDecl.getList().size();
-        // on verifie les debordements de la pile
         compiler.addInstruction(new TSTO(new ImmediateInteger(nmChamps + 1)));
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.getR(1)));
-        // il vaut mieux mettre une classe feild , on fait appel à codegenlistdecfeild
         for (AbstractDeclField champ : feildDecl.getList()) {
-            // pour chaque champ on verifie le type
-            // appres on les mett sur le registre R0
             champ.codeGenFeild(compiler);
         }
-        // on verifie si la class herite d'un autre class
         if (!classExtension.getName().getName().equals("Object")) {
             compiler.addComment(
                     "Appel de l'initialisation des champs hérités de " + classExtension.getName().getName());

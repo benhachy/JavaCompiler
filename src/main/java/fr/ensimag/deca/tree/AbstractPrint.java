@@ -52,7 +52,6 @@ public abstract class AbstractPrint extends AbstractInst {
         {
             return;
         }
-        //System.out.println(":: AbstractPrint :: verifyInst");
         for (AbstractExpr argument : getArguments().getList())
         {
             Type chaine = argument.verifyExpr(compiler, localEnv, currentClass);
@@ -66,7 +65,6 @@ public abstract class AbstractPrint extends AbstractInst {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        //System.out.println(":: AbstractPrint :: codeGenInst");
         for (AbstractExpr a : getArguments().getList()) {
             a.codeGenPrint(compiler);
             if(!getPrintHex())
@@ -109,7 +107,6 @@ public abstract class AbstractPrint extends AbstractInst {
         s.print("print"+getSuffix()+"(");
         arguments.decompile(s);
         s.print(");");
-        //throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

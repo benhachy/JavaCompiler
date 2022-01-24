@@ -4,7 +4,7 @@ class A{
 }
 
 class B extends A{
-    protected int z;
+    int z;
     int w;
     void SetX(){
         x = z;
@@ -15,11 +15,9 @@ class B extends A{
 }
 
 class C extends A{
-    int m;
-    B b;
+    int z;
     protected int w;
     void SetX(){
-        b.z = 10;
         x = z;
     }
     float toInt(float x){
@@ -29,5 +27,5 @@ class C extends A{
 
 {
     A a = new B();
-    //a.toInt(12);
+    a.toInt(12);
 }

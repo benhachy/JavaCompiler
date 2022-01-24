@@ -1,8 +1,14 @@
 //Description:
-//    héritage de d'attributs protected et public
+//    héritage de d'attributs protected et public avec une boucle while et appelle d'une méthode dans une autre
 //
 // Resultats:
 //    14
+//    21
+//    6
+//    7
+//    8
+//    9
+//    10
 //    21
 // Historique:
 //    cree le 01/01/2022
@@ -15,7 +21,7 @@ class A{
     }
     void range(int n,int i){
         
-        while(i<n){
+        while(i<n && true && true && true){
             setX(i);
             println(this.x);
             i = i+1;
@@ -27,12 +33,11 @@ class B extends A{
 }
 {
     B obj = new B();
-/*    obj.setX(14);
+    obj.setX(14);
     println(obj.x);
     obj.y = 21;
     println(obj.y);
-    println("Range10 ");*/
-    obj.range(10,0);
+    obj.range(10,6);
 }
 
     

@@ -38,11 +38,8 @@ public class Main extends AbstractMain {
 
     @Override
     protected void verifyMain(DecacCompiler compiler) throws ContextualError {
-        //LOG.debug("verify Main: start");
         SymbolTable.Symbol name  = SymbolTable.creerSymbol("void") ;
-        //SymbolTable symbol = new SymbolTable.Symbol("void") ; 
         VoidType retour = new VoidType(name);
-       // VoidType retour = new VoidType( symbol.create("void"));
         EnvironmentExp localEnv = new EnvironmentExp(null);
         if(declVariables != null)
         {
@@ -53,11 +50,7 @@ public class Main extends AbstractMain {
             insts.verifyListInst(compiler,localEnv, null, retour);
         }
         
-        // A FAIRE: Appeler méthodes "verify*" de ListDeclVarSet et ListInst.
-        // Vous avez le droit de changer le profil fourni pour ces méthodes
-        // (mais ce n'est à priori pas nécessaire).
         LOG.debug("verify Main: end");
-        // throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

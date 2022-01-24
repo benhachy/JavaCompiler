@@ -28,31 +28,38 @@ public class NoInitialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        if (t.isBoolean()) {
-            defaultValue = new BooleanLiteral(false);
-            defaultValue.verifyRValue(compiler, localEnv, currentClass, t);
-            type = t;
-        } else if (t.isInt()) {
-            defaultValue = new IntLiteral(0);
-            defaultValue.verifyRValue(compiler, localEnv, currentClass, t);
-            type = t;
-        } else if (t.isFloat()) {
-            defaultValue = new FloatLiteral(0);
-            defaultValue.verifyRValue(compiler, localEnv, currentClass, t);
-            type = t;
-        } else if (t.isClassOrNull()) {
-            defaultValue = new Null();
-            defaultValue.verifyRValue(compiler, localEnv, currentClass, t);
-            type = t;
-        }
-        // else{
-        // throw new ContextualError("le type n'est pas défini ",null);
-        // }
+            if(t.isBoolean())
+            {
+                defaultValue = new BooleanLiteral(false);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = t;
+            }
+            else if(t.isInt())
+            {
+                defaultValue = new IntLiteral(0);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = t;
+            }
+            else if(t.isFloat())
+            {
+                defaultValue = new FloatLiteral(0);
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = t;
+            }
+            else if(t.isClassOrNull())
+            {
+                defaultValue = new Null();
+                defaultValue.verifyRValue(compiler,localEnv,currentClass,t);
+                type = defaultValue.getType();
+                t = type;
+            }
+           
     }
-
-    public Type getType() {
+    public  Type getType(){
         return type;
     }
+
+
 
     /**
      * Node contains no real information, nothing to check.
@@ -78,22 +85,12 @@ public class NoInitialization extends AbstractInitialization {
     }
 
     @Override
-    public void codeGenInit(DecacCompiler compiler) {
+    public void codeGenInit(DecacCompiler compiler)
+    {
         defaultValue.codeGenInst(compiler);
     }
-
     @Override
-    public void codeGenInitFeilds(DecacCompiler compiler) {
+    public void codeGenInitFeilds(DecacCompiler compiler){
         defaultValue.codeGenExpr(compiler, 0);
-        // if(this.getType().getType().isFloat()){
-        // new FloatLiteral(0).codeGenExpr(compiler,0);
-        // }else if(this.getType().getType().isInt()){
-        // new IntLiteral(0).codeGenExpr(compiler,0);
-        // }else if(this.getType().getType().isBoolean()){
-        // new BooleanLiteral(false).codeGenExpr(compiler,0);
-        // }else if(this.getType().getType().isClass()){
-        // //c'est un objet
-        // compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
-        // }
     }
 }

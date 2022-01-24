@@ -30,10 +30,7 @@ public class DeclField extends AbstractDeclField {
     final private AbstractIdentifier name;
     final private AbstractInitialization initialization;
     public DeclField(Visibility visibility,AbstractIdentifier type,AbstractIdentifier  name,AbstractInitialization  initiate){
-        // Validate.notNull(name);
-        // Validate.notNull(visibility);
-        // Validate.notNull(type);
-        // Validate.notNull(initiate);
+
         this.visibility= visibility;
         this.type=type;
         this.name= name;
@@ -71,8 +68,6 @@ public class DeclField extends AbstractDeclField {
         FieldDefinition field = new FieldDefinition(t, getLocation(), visibility,currentClass,indice);
         name.setDefinition(field);
         try{
-            // Identifier.identificateurs.put(name.getName(),Identifier.ordreIdentifier);
-            // ++Identifier.ordreIdentifier;
             localEnv.declare(name.getName(),field);
         }
         catch (EnvironmentExp.DoubleDefException e)
@@ -107,22 +102,7 @@ public class DeclField extends AbstractDeclField {
     @Override
     protected void codeGenFeild(DecacCompiler compiler){
         initialization.codeGenInitFeilds(compiler);
-        // if(this.getType().getType().isFloat()){
-        //     new FloatLiteral(0).codeGenExpr(compiler,0);
-        // }else if(this.getType().getType().isInt()){
-        //     new IntLiteral(0).codeGenExpr(compiler,0);
-        // }else if(this.getType().getType().isBoolean()){
-        //     new BooleanLiteral(false).codeGenExpr(compiler,0);
-        // }else if(this.getType().getType().isClass()){
-        //     //c'est un objet
-        //     compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
-        // }
-        //on charge l'address de le objet sur le registre R1
-        //compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(1)));
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(name.getFieldDefinition().getIndex()+1,Register.getR(1))));
-        //appres on charge la valeur par defaut de cette type
-        //a la fin on fait l'insertion du valeur dans la pille
-        //ajouter les thiss de la superclass
         this.getName().getType();
         int pos = 1 ;
         Identifier.addVariableAddress(this.getName().getName(), pos, Register.getR(1));

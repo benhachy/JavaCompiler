@@ -61,11 +61,9 @@ public class MethodBody extends AbstractMethodBody {
     @Override
     public void codeGenMethodBody(DecacCompiler compiler){
         for (AbstractDeclVar variableDecl : declVariables.getList()) {
-            compiler.addComment("ana jit les variables");
             variableDecl.codeGenDeclvarMethode(compiler);
         }
         for (AbstractInst instruction : insts.getList()) {
-            compiler.addComment("ana jit les méthodes ");
             compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(2)));
             compiler.addInstruction(new LOAD(new RegisterOffset(-2,Register.LB), Register.getR(3)));
             instruction.codeGenInst(compiler);

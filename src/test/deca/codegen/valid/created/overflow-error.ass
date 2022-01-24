@@ -6,25 +6,20 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; idk why or how he's here
 	LOAD #100000000, R2
 	FLOAT R2, R2
 	STORE R2, 3(GB)
-; idk why or how he's here
 	LOAD #100000000, R2
 	FLOAT R2, R2
 	STORE R2, 4(GB)
-; idk why or how he's here
 	LOAD #0x0.0p0, R2
 	STORE R2, 5(GB)
 ; Beginning of main instructions:
 	ADDSP #7
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R2
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -33,7 +28,6 @@
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -42,43 +36,6 @@
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-	LOAD #100000, R2
-	FLOAT R2, R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -96,7 +53,6 @@
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -105,7 +61,6 @@
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -114,7 +69,6 @@
 	TSTO #2
 	BOV pile_pleine
 	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
@@ -129,8 +83,39 @@
 	POP R2
 	MUL R0, R2
 	BOV Overflow_error
-; je susi dans identifier coodegenAssign
-; indentifier.java codegenassign
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	BOV Overflow_error
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	BOV Overflow_error
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD 4(GB), R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	BOV Overflow_error
+	TSTO #2
+	BOV pile_pleine
+	PUSH R2
+	LOAD #100000, R2
+	FLOAT R2, R2
+	LOAD R2, R0
+	POP R2
+	MUL R0, R2
+	BOV Overflow_error
 	STORE R2, 5(GB)
 	HALT
 code.Object.equals:

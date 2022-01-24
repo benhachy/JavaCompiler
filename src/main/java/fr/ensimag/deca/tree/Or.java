@@ -21,7 +21,6 @@ public class Or extends AbstractOpBool {
     }
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        //System.out.println("::Or.java:: codeGenOpBool");
         AbstractExpr lOp = getLeftOperand();
         AbstractExpr rOp = getRightOperand();
         AbstractExpr OrOperand =new Not(new And( new Not(lOp), new Not(rOp)));

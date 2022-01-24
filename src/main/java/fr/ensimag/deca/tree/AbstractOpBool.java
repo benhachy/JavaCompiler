@@ -48,12 +48,6 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     }
     @Override
     public void codeGenExpr(DecacCompiler compiler,int n){
-        //System.out.println("::AbstractOpBool.java:: codeGenExpr");
-    }
-
-    @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        //System.out.println("::AbstractOpBool.java:: codeGenInst");
         Label trueVar = new Label("trueVar"+numInst);
         Label falseVar = new Label("falseVar"+numInst);
         Label nextVar = new Label("nextVar"+numInst);
@@ -61,11 +55,16 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         codeGenOpBool(compiler,null,null,true,trueVar,falseVar,1);
         compiler.addInstruction(new BRA(falseVar));
         compiler.addLabel(trueVar);
-        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(2)));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n)));
         compiler.addInstruction(new BRA(nextVar));
         compiler.addLabel(falseVar);
-        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(2)));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n)));
         compiler.addLabel(nextVar);
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        this.codeGenExpr(compiler,2);
     }
 
 }

@@ -30,7 +30,6 @@ public class GreaterOrEqual extends AbstractOpIneq {
     }
 
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        // System.out.println("::Greater.java:: codeGenOpBool");
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 2);
@@ -47,9 +46,6 @@ public class GreaterOrEqual extends AbstractOpIneq {
         if (b){
             compiler.addInstruction(new BGE(E));
         }
-        // else{
-        //     compiler.addInstruction( new BLE(E));
-        // }
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){

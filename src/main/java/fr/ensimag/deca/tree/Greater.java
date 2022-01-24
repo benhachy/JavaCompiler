@@ -30,9 +30,6 @@ public class Greater extends AbstractOpIneq {
     }
     @Override
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
-        //System.out.println("::Greater.java:: codeGenOpBool");
-        // getLeftOperand().codeGenExpr(compiler, 3);
-        // getRightOperand().codeGenExpr(compiler, 2);
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 2);

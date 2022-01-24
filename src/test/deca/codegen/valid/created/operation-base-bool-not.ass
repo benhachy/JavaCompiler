@@ -6,7 +6,6 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; idk why or how he's here
 	LOAD #1, R2
 	STORE R2, 3(GB)
 ; Beginning of main instructions:
@@ -32,8 +31,6 @@ trueVar0:
 falseVar0:
 	LOAD #0, R2
 nextVar0:
-; je susi dans identifier coodegenAssign
-; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf1:
 	LOAD 3(GB), R0
@@ -56,8 +53,6 @@ trueVar1:
 falseVar1:
 	LOAD #0, R2
 nextVar1:
-; je susi dans identifier coodegenAssign
-; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf2:
 	LOAD 3(GB), R0
@@ -80,8 +75,6 @@ trueVar2:
 falseVar2:
 	LOAD #0, R2
 nextVar2:
-; je susi dans identifier coodegenAssign
-; indentifier.java codegenassign
 	STORE R2, 3(GB)
 beginIf3:
 	LOAD 3(GB), R0

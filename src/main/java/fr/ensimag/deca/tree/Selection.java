@@ -22,6 +22,9 @@ import fr.ensimag.ima.pseudocode.instructions.STORE;
 import java.io.PrintStream;
 import fr.ensimag.deca.context.BooleanType;
 
+
+
+
 /**
  *
  * @author gl03
@@ -30,54 +33,35 @@ import fr.ensimag.deca.context.BooleanType;
 public class Selection extends AbstractLValue {
     public AbstractIdentifier type;
     public AbstractExpr expr;
-
-    public Selection(AbstractIdentifier type, AbstractExpr expr) {
+    public Selection(AbstractIdentifier type,AbstractExpr expr){
         this.type = type;
-        this.expr = expr;
+        this.expr=expr;
     }
-
     @Override
-    public void codeGenAssign(DecacCompiler compiler, int n) {
-        if (expr.getType().isClass()) {
-            System.out.print("SELECTION DANS CODEGENASSIGN");
-            compiler.addComment("je traite un assign dans la selection");
-            // exp is this
+    public  void codeGenAssign(DecacCompiler compiler,int n){
+        if(expr.getType().isClass()){
             expr.codeGenExpr(compiler, 3);
-            // type is x in this.x
-            type.codeGenAssign(compiler, n);
-            compiler.addInstruction(new STORE(Register.getR(2),
-                    new RegisterOffset(type.getFieldDefinition().getIndex() + 1, Register.getR(3))));
-            // type.getFieldDefinition().getIndex();
-        } else {
-            compiler.addComment("je traite un assign dans la selection du else");
-            type.codeGenAssign(compiler, n);
-        }
+            type.codeGenAssign(compiler,n);
+            compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
+        }else{
+            type.codeGenAssign(compiler,n);
+        }      
     }
-
     @Override
-    public void codeGenExpr(DecacCompiler compiler, int n) {
-        compiler.addComment("je traite une expression de type je sais pas dans la selection" + expr.getType());
+    public  void codeGenExpr(DecacCompiler compiler,int n){
 
-        if (expr.getType().isClass()) {
-            compiler.addComment("je traite une expression de type Class dans la selection");
+        if(expr.getType().isClass()){
             expr.codeGenExpr(compiler, 3);
-            // type.codeGenAssign(compiler,n);
-            compiler.addInstruction(new LOAD(
-                    new RegisterOffset(type.getFieldDefinition().getIndex() + 1, Register.getR(3)), Register.getR(n)));
-            // type.getFieldDefinition().getIndex();
-        } else {
-            compiler.addComment("I SHOULD NOT BE HERE AT ALL");
-        }
+            compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(n)));
+        }else{
+        }      
     }
-
-    @Override
+    @Override 
     protected void codeGenInst(DecacCompiler compiler) {
         this.codeGenExpr(compiler, 2);
     }
-
     @Override
-    public void codeGenOpBool(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand, boolean b,
-            Label E, Label EFin, int n) {
+    public void codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n){
         this.codeGenExpr(compiler, 0);
         if(b){
             compiler.addInstruction(new CMP(new ImmediateInteger(1),Register.getR(0)));
@@ -89,62 +73,39 @@ public class Selection extends AbstractLValue {
         }
         
     }
-
+    
     @Override
-    protected void codeGenPrint(DecacCompiler compiler) {
-        compiler.addComment("codeGenPrint de SELECTION");
+    protected void codeGenPrint(DecacCompiler compiler){
         this.codeGenExpr(compiler, 1);
-        /*
-         * if(expr.getType().isClass()){
-         * //expr.codeGenExpr(compiler, 3);
-         * //type.codeGenAssign(compiler);
-         * compiler.addComment("blabala");
-         * compiler.addInstruction(new LOAD( new
-         * RegisterOffset(type.getFieldDefinition().getIndex()+1,
-         * Register.getR(3)),Register.getR(2)));
-         * //type.getFieldDefinition().getIndex();
-         * }
-         * compiler.addInstruction(new LOAD(Register.getR(2) ,Register.getR(1) ));
-         */
     }
 
-    public Type verifyExpr(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass)
-            throws ContextualError {
-        // à effacer je l'ai ajouter pour ne pas avoir un pb lors de la compilation
-        // delete it and do whatever u wanna do
+    public  Type verifyExpr(DecacCompiler compiler,
+    EnvironmentExp localEnv, ClassDefinition currentClass)
+    throws ContextualError{
         expr.verifyExpr(compiler, localEnv, currentClass);
-        type.setDefinition(compiler.getEnv(expr.getType().getName()).get(type.getName()));
-        if (currentClass != null) {
-            if (type.getDefinition().isField()) {
-                if (!(expr instanceof This) && type.getFieldDefinition().getVisibility() == Visibility.PROTECTED) {
-                    throw new ContextualError("l'attribut " + type.getName() + " est protégé", type.getLocation());
-                }
-            }
+        if(expr.getType().isNull()){
+            throw new ContextualError("l'Objet est null ", expr.getLocation());
         }
-
-        Type expression = type.verifyAttribut(compiler, expr.getType().getName(), currentClass);
+        type.setDefinition(localEnv.get(type.getName()));
+        Type expression = type.verifyAttribut(compiler,expr.getType().getName(),currentClass);
         setType(expression);
         return getType();
     }
-
     @Override
     public void decompile(IndentPrintStream s) {
         expr.decompile(s);
         s.print(".");
         type.decompile(s);
     }
-
     @Override
     protected void iterChildren(TreeFunction f) {
         expr.iter(f);
         type.iter(f);
     }
-
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        // leaf node => nothing to do
-        expr.prettyPrint(s, prefix, false);
-        type.prettyPrint(s, prefix, false);
+    // leaf node => nothing to do
+    expr.prettyPrint(s, prefix, false);
+    type.prettyPrint(s, prefix, false);
     }
 }

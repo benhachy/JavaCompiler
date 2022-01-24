@@ -66,7 +66,6 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
 
     public void creerTableMethodes(DecacCompiler compiler){
         compiler.addComment("code pour l'initializaton de la table des methodes");
-        //add table entry for object and equals
         compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(0)));
         compiler.addInstruction(new STORE(Register.getR(0),new RegisterOffset(1,Register.GB)));
         Label label = new Label("code.Object.equals");

@@ -197,19 +197,13 @@ public class Identifier extends AbstractIdentifier {
         if (def == null) {
             if (currentClass != null) {
                 verifyAttribut(compiler, currentClass.getType().getName(), currentClass);
-                // if (getType().isNull()) {
-                // throw new ContextualError("la variable " + getName() + " est null",
-                // getLocation());
-                // }
+                if (getType().isNull()) {
+                    throw new ContextualError("la variable " + getName() + " est null", getLocation());
+                }
                 return getType();
             }
             throw new ContextualError("la variable " + getName() + " n'est pas déclarée", getLocation());
         }
-        // if(!localEnv.getValue(getName()))
-        // {
-        // throw new ContextualError("la variable "+getName()+" n'est pas
-        // initialisée",getLocation());
-        // }
         this.setDefinition(def);
         setType(def.getType());
 
@@ -261,10 +255,6 @@ public class Identifier extends AbstractIdentifier {
                     throw new ContextualError(identifier.getName() + " n'est pas une méthode ", getLocation());
                 }
                 MethodDefinition methodDef = (MethodDefinition) envClass.get(identifier);
-                // if(methodDef.getV{
-                // throw new ContextualError(identifier.getName()+" n'est pas une méthode
-                // ",getLocation());
-                // }
                 setDefinition(methodDef);
                 setType(methodDef.getType());
                 return methodDef;
@@ -302,13 +292,11 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         if (definition.isParam()) {
-            compiler.addComment("ana paramètre o jit l codegeninst dial ientifier hahahahh");
             compiler.addInstruction(
                     new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB), Register.getR(2)));
         } else {
             compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()), Register.getR(2)));
         }
-        // compiler.getEnv(getName()).getEnvExp().get(new scala.Symbol("printNumber"));
     }
 
     @Override
@@ -334,70 +322,36 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     public void codeGenAssign(DecacCompiler compiler, int n) {
-        System.out.println("identifier::codeGenAssing" + getName());
-        compiler.addComment("je susi dans identifier coodegenAssign");
         if (definition.isField()) {
-            compiler.addComment("bazi dont be u");
-            // compiler.addInstruction(new LOAD(new RegisterOffset(-2,
-            // Register.LB),Register.getR(3)));
             compiler.addInstruction(new STORE(Register.getR(2),
                     new RegisterOffset(getFieldDefinition().getIndex() + 1, Register.getR(3))));
-            // compiler.addInstruction(new
-            // LOAD(Identifier.getVariableAddress(getName()),Register.getR(3) ));
-            // compiler.addInstruction(new STORE( Register.getR(2),new
-            // RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
-            compiler.addComment("shit shit");
-
-            // compiler.addInstruction(new STORE(Register.getR(2),new
-            // RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(3))));
-            // chercher la position de la valeur en relation a l'objet
             if (getType().isClass()) {
-                // load address dans la tas de l'objet
-                // compiler.addInstruction(new
-                // LOAD(Identifier.getVariableAddress(getName()),Register.getR(1)));
             } else {
-                // store value sur l'address de registre R0
-                // compiler.addInstruction(new
-                // STORE(Register.getR(2),Identifier.getVariableAddress(getName())));
             }
-            // compiler.addInstruction(new
-            // LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
         } else if (definition.isParam()) {
-            compiler.addComment("ana param hihih");
-            compiler.addInstruction(
-                    new STORE(Register.getR(2), new RegisterOffset(compiler.getIndexParam(getName()), Register.LB)));
+            compiler.addInstruction(new STORE(Register.getR(2), new RegisterOffset(compiler.getIndexParam(getName()), Register.LB)));
+
         } else {
-            compiler.addComment("indentifier.java codegenassign");
-            // chercher la valeur comme variable global dans gb
-            // compiler.addInstruction(new STORE(Register.getR(2),
-            // Identifier.getVariableAddress(getName())));
+            compiler.addInstruction(new STORE(Register.getR(2), Identifier.getVariableAddress(getName())));
         }
     }
 
     @Override
     public void codeGenExpr(DecacCompiler compiler, int n) {
-        compiler.addComment("je suis dans codeGenExpr dans indentifier.java");
         if (getDefinition().isField()) {
-            System.out.println("identifier::codeGenExpr Champs" + getName());
-            // à voir ou faut le mettre avant
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex() + 1, Register.getR(n)),
                     Register.getR(n)));
 
         } else if (getDefinition().isClass()) {
-            System.out.println("identifier::codeGenExpr Class" + getName());
             compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex() + 1, Register.getR(n)),
                     Register.getR(n)));
 
         } else if (getDefinition().isParam()) {
-            System.out.println("identifier::codeGenExpr Class" + getName());
-            // compiler.addInstruction(new LOAD(new RegisterOffset(-2,
-            // Register.LB),Register.getR(n)));
             compiler.addInstruction(
                     new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB), Register.getR(n)));
         } else {
-            System.out.println("identifier::codeGenExpr Nnnnnnnnnnnon Champs" + getName());
             compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()), Register.getR(n)));
         }
 

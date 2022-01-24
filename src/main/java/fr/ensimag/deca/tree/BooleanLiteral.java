@@ -37,7 +37,6 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-            //System.out.println("::BooleanLiteral.java:: verifyExpr");
             SymbolTable tab = new SymbolTable();
             SymbolTable.Symbol symbol = tab.create("boolean");
             BooleanType chaine = new BooleanType(symbol);
