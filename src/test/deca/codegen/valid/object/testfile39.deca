@@ -2,7 +2,7 @@
 //    class pour la valeur absolue
 //
 // Resultats:
-//      8
+//    8.00000e+00
 // Historique:
 //    cree le 01/01/2022
 class Q {
@@ -15,10 +15,6 @@ class Q {
 }
 {
     Q obj = new Q();
-<<<<<<< HEAD
-    float x = obj.abs(-8);
-=======
-    int x = obj.abs(-8);
->>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
+    float x = obj.abs(-8.0);
     print(x);
 }

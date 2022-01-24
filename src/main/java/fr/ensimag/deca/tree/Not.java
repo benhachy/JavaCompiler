@@ -55,6 +55,11 @@ public class Not extends AbstractUnaryExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler)
     {
+        this.codeGenExpr(compiler, 2);
+    }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n)
+    {
         // System.out.println("::Not.java:: codeGenInst");
         // Label beginNot = new Label("beginNot"+numNot);
         // Label endNot = new Label("endNot"+numNot);

@@ -16,5 +16,8 @@ class A{
 	if (a.b){
 	print(5);
 	}
+	else{
+		print("KO");
+	}
 	
 }

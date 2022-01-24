@@ -2,7 +2,7 @@
 //    test des réferences 
 //
 // Resultats:
-//     5
+//    5
 // Historique:
 //    cree le 01/01/2022
 class Point2D {
