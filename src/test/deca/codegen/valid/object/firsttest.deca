@@ -1,15 +1,22 @@
+//Description:
+//    test pour le print avec le return d'une methode 
+//
+// Resultats:
+//    8
+// Historique:
+//    cree le 01/01/2022
 class A {
     protected int x ;
     int getX() {
         return x ;
     }
     void setX(int x) {
-        this.x = 1 ;
+        this.x = x ;
     }
 }
 
 {
     A a = new A() ;
-    a.setX(1) ;
-    println("a.getX() = ", a.getX()) ;
+    a.setX(8) ;
+    println("a.getX() = ",  a.getX() ) ;
 }

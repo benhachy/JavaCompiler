@@ -124,5 +124,32 @@ public class MethodCall extends AbstractExpr {
         //compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
         compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
         compiler.addInstruction(new SUBSP(1+listExpression.size()));
-    }    
+    } 
+    public void codeGenExpr(DecacCompiler compiler,int n){
+        // je pense faire push pop pour le r3 
+        compiler.addComment("appel à la méthode "+methodName.getName());
+        compiler.addInstruction(new ADDSP(1+listExpression.size()));
+        name.codeGenExpr(compiler, n);
+        compiler.addInstruction(new STORE(Register.getR(n),new RegisterOffset(0, Register.SP)));
+        int j = 0;
+        for (AbstractExpr exp : listExpression.getList()) {
+            exp.codeGenExpr(compiler,n);
+            compiler.addInstruction(new STORE(Register.getR(n),new RegisterOffset(-j-1, Register.SP)));
+            j++;
+        }
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(n)));
+        compiler.addInstruction(new CMP(new NullOperand(),Register.getR(n)));
+        compiler.addInstruction(new BEQ(new Label("deferencement.null")));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.getR(n)),Register.getR(n)));
+        // a revoir
+        //compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
+        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+        compiler.addInstruction(new SUBSP(1+listExpression.size()));
+    } 
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler){
+        compiler.addComment("codeGenPrint in MethodCall");
+        this.codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(1)));
+    }
 }

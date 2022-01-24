@@ -374,7 +374,7 @@ public class Identifier extends AbstractIdentifier {
         if(getDefinition().isField()){
             System.out.println("identifier::codeGenExpr Champs"+getName());
             // à voir ou faut le mettre avant 
-            //compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB),Register.getR(n)));
             compiler.addInstruction(new LOAD(new RegisterOffset(getFieldDefinition().getIndex()+1, Register.getR(n)),Register.getR(n)));
 
         }
