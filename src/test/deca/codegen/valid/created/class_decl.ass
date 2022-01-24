@@ -58,9 +58,12 @@ code.a.getA:
 	PUSH R2
 	PUSH R3
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 ; ana jit les méthodes 
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 fin.a.getA:
@@ -74,9 +77,12 @@ code.a.printotito:
 	PUSH R2
 	PUSH R3
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 ; ana jit les méthodes 
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "nanan"
@@ -101,9 +107,12 @@ code.b.printotito:
 	PUSH R2
 	PUSH R3
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 ; ana jit les méthodes 
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "ana B hena "
@@ -118,9 +127,12 @@ code.b.anaprintdialB:
 	PUSH R2
 	PUSH R3
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 ; ana jit les méthodes 
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "hadi lhbhila"
@@ -145,9 +157,12 @@ code.c.anas:
 	PUSH R2
 	PUSH R3
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 ; ana jit les méthodes 
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "ana B hena "
@@ -162,9 +177,12 @@ code.c.ilyass:
 	PUSH R2
 	PUSH R3
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 ; ana jit les méthodes 
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "hadi lhbhila"
@@ -194,12 +212,15 @@ print_Error:
 	WNL
 	ERROR
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 =======
 >>>>>>> 7c993c100e06e7c0a04f25afc0289488532107c8
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 code.Object.equals:
 	WSTR "a faire la methode equals de object"
 	WNL

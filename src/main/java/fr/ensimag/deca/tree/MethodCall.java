@@ -121,7 +121,15 @@ public class MethodCall extends AbstractExpr {
         compiler.addInstruction(new BEQ(new Label("deferencement.null")));
         compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.getR(3)),Register.getR(3)));
         // a revoir
-        //compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
+        //compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(),Register.getR(3) ) ));
+        //chercher si la methode c'est deja fait sur la superclass
+        /*if(methodName.getMethodDefinition().getIndex()){
+            //il y a de override cherche dans la superclass
+
+        }else{
+            //si no 
+            compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+        }*/
         compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
         compiler.addInstruction(new SUBSP(1+listExpression.size()));
     } 

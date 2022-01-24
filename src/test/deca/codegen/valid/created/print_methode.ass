@@ -13,6 +13,10 @@
 	STORE R0, 4(GB)
 	LOAD code.A.printHello, R0
 	STORE R0, 5(GB)
+<<<<<<< HEAD
+	ADDSP #4
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	NEW #1, R2
 	BOV pile_pleine
@@ -47,7 +51,10 @@ code.A.printHello:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
+=======
 ; ana jit les méthodes 
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 	WSTR "hello de A"

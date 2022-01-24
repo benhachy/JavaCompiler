@@ -6,6 +6,7 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+	ADDSP #1
 ; Beginning of main instructions:
 	ADDSP #4
 	WSTR "1"

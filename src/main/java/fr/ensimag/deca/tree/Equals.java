@@ -55,6 +55,7 @@ public class Equals extends AbstractOpExactCmp {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
+        compiler.addComment("equals");
         getRightOperand().codeGenExpr(compiler, 2);
         getLeftOperand().codeGenExpr(compiler, 3);
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));

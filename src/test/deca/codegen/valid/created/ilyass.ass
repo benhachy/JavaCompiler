@@ -1,5 +1,8 @@
 ; start main program
+<<<<<<< HEAD
+=======
 	ADDSP #7
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -25,6 +28,10 @@
 	STORE R0, 9(GB)
 	LOAD code.P.parcourB, R0
 	STORE R0, 10(GB)
+<<<<<<< HEAD
+	ADDSP #7
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	NEW #2, R2
 	BOV pile_pleine
@@ -37,7 +44,10 @@
 ; Beginning of main instructions:
 	ADDSP #13
 beginIf0:
+<<<<<<< HEAD
+=======
 ; je suis dans codeGenExpr dans indentifier.java
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD 11(GB), R3
 	CMP R2, R3
 	BEQ ifInst0
@@ -72,16 +82,26 @@ code.P.parcourA:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+beginIf1:
+=======
 ; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 beginIf1:
 ; je suis dans codeGenExpr dans indentifier.java
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD 1(R1), R3
 	CMP R2, R3
 	BNE ifInst1
 	BRA elseInst1
 ifInst1:
+<<<<<<< HEAD
+	PUSH R2
+	BSR code.P.parcourB
+=======
 ; appel à la méthode parcourB
 	ADDSP #2
 	STORE R3, 0(SP)
@@ -101,6 +121,7 @@ ifInst1:
 	LOAD 0(R3), R3
 	BSR 1(R3)
 	SUBSP #2
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	BRA finElse1
 elseInst1:
 finElse1:
@@ -114,16 +135,26 @@ code.P.parcourB:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+beginIf2:
+=======
 ; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 beginIf2:
 ; je suis dans codeGenExpr dans indentifier.java
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD 1(R1), R3
 	CMP R2, R3
 	BNE ifInst2
 	BRA elseInst2
 ifInst2:
+<<<<<<< HEAD
+	PUSH R2
+	BSR code.P.parcourB
+=======
 ; appel à la méthode parcourB
 	ADDSP #2
 	STORE R3, 0(SP)
@@ -143,6 +174,7 @@ ifInst2:
 	LOAD 0(R3), R3
 	BSR 1(R3)
 	SUBSP #2
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	BRA finElse2
 elseInst2:
 finElse2:
@@ -171,10 +203,13 @@ print_Error:
 	WSTR "Error: print float only in hexa form"
 	WNL
 	ERROR
+<<<<<<< HEAD
+=======
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 code.Object.equals:
 	WSTR "a faire la methode equals de object"
 	WNL

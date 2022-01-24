@@ -1,37 +1,19 @@
 class A{
-    int x=6;
-    boolean y = true ;
-    void getX(){
+    protected int x;
+    int getX()
+    {
+        return this.x;
     }
-    void setX(int x){
-        x = x;
-    }
-}
-
-class B extends A{
-    int att1;
-    int att2;
-    int aat3;
-    void setAtt1(int x){
-        this.att1 = x;
+    void setX(int a)
+    {
+        this.x = a;
     }
 }
-class C{
-    int z;
-    B b;
-}
-
 {
-    B b = new B();
-    /*if( b instanceof C){
-        println("je suis un fils de B");
-    }*/
-    b.setAtt1(5);
-    //b.setX(11);
-    println(b.att1);
-    println(b.x);
-    /*b.att2 = 30;
-    b.aat3 = b.x * b.att2 -b.att2 + 24;
-    println("OK");
-    print(b.aat3);*/
+    A a =new A();
+    a.setX(15);
+    a.getX();
+    print(a.getX());
+    println("getX ",a.getX());
+    println("getX()= ",a.getX());
 }

@@ -1,5 +1,8 @@
 ; start main program
+<<<<<<< HEAD
+=======
 	ADDSP #6
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -20,6 +23,10 @@
 	STORE R0, 7(GB)
 	LOAD code.A.setX, R0
 	STORE R0, 8(GB)
+<<<<<<< HEAD
+	ADDSP #5
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	NEW #3, R2
 	BOV pile_pleine
@@ -31,6 +38,11 @@
 	STORE R2, 9(GB)
 ; Beginning of main instructions:
 	ADDSP #11
+<<<<<<< HEAD
+	LOAD #14, R2
+	PUSH R2
+	BSR code.B.setX
+=======
 ; appel à la méthode setX
 	ADDSP #2
 ; je suis dans codeGenExpr dans indentifier.java
@@ -45,6 +57,7 @@
 	BSR 0(R3)
 	SUBSP #2
 ; je suis dans codeGenExpr dans indentifier.java
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD 9(GB), R3
 ; blabala
 	LOAD 1(R3), R2
@@ -66,6 +79,12 @@ code.A.setX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
+<<<<<<< HEAD
+	LOAD -2(LB), R2
+	LOAD -2(LB), R3
+	LOAD 1(R1), R2
+	STORE R2, 1(R3)
+=======
 ; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
@@ -77,6 +96,7 @@ code.A.setX:
 	STORE R2, 1(R3)
 ; shit shit
 ; ononon
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 fin.A.setX:
 ; Restauration des registres
 	POP R3
@@ -112,10 +132,13 @@ print_Error:
 	WSTR "Error: print float only in hexa form"
 	WNL
 	ERROR
+<<<<<<< HEAD
+=======
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 code.Object.equals:
 	WSTR "a faire la methode equals de object"
 	WNL

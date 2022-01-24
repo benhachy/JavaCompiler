@@ -134,15 +134,15 @@ public class DeclClass extends AbstractDeclClass {
             f.verifyFeild(compiler,envExpF,classExtension.getClassDefinition(),identifier.getClassDefinition(),indiceField);
             ++indiceField;
         }
-        //int nbrOfMethods =0;
+        int nbrOfMethods = indiceMethod+1;
         for(AbstractDeclMethod f : methodDecl.getList())
         {
-            indiceMethod += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
-            
+            nbrOfMethods += f.verifyMethod(compiler,envExpF,identifier.getClassDefinition(),indiceMethod);
+            ++indiceMethod;
         }
         ClassDefinition newDef = identifier.getClassDefinition();
         newDef.setNumberOfFields(feildDecl.size()+classExtension.getClassDefinition().getNumberOfFields());
-        newDef.setNumberOfMethods(indiceMethod);
+        newDef.setNumberOfMethods(nbrOfMethods);
         identifier.setDefinition(newDef);
         compiler.setEvn(identifier.getName(),envExpF);
     }

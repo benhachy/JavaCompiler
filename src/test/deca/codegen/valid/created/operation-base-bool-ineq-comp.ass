@@ -6,6 +6,10 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+<<<<<<< HEAD
+	ADDSP #5
+=======
+>>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	LOAD #12, R2
 	LOAD #12, R3
@@ -165,6 +169,7 @@ elseInst5:
 	WSTR "false"
 	WNL
 finElse5:
+; equals
 	LOAD #152, R2
 	LOAD #12, R3
 	CMP R3, R2

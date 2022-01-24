@@ -169,7 +169,7 @@ class Math {
 		d = _abs(d);
 		int m = 0;
 		
-		while (d > 2) {
+		while (d >= 2) {
 			m += 1;
 			d /= 2;
 		}

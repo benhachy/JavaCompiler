@@ -1,5 +1,4 @@
 ; start main program
-	ADDSP #5
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -11,64 +10,85 @@
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-; Code de la table des méthodes de B
-	LEA 1(GB), R0
+	LOAD code.A.getX, R0
 	STORE R0, 5(GB)
-	LOAD code.Object.equals, R0
+; Code de la table des méthodes de B
+	LEA 3(GB), R0
 	STORE R0, 6(GB)
-	ADDSP #5
-; idk why or how he's here
-	LOAD #0, R2
-	STORE R2, 7(GB)
-; idk why or how he's here
-	NEW #3, R2
+	LOAD code.Object.equals, R0
+	STORE R0, 7(GB)
+	LOAD code.A.getX, R0
+	STORE R0, 8(GB)
+	LOAD code.B.getY, R0
+	STORE R0, 9(GB)
+; Code de la table des méthodes de C
+	LEA 1(GB), R0
+	STORE R0, 10(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 11(GB)
+	NEW #6, R2
 	BOV pile_pleine
-	LEA 5(GB), R0
+	LEA 6(GB), R0
 	STORE R0, 0(R2)
 	PUSH R2
 	BSR init.B
 	POP R2
-	STORE R2, 8(GB)
+	STORE R2, 12(GB)
 ; Beginning of main instructions:
-	ADDSP #10
-	NEW #2, R2
-	BOV pile_pleine
-	LEA 3(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
-	BSR init.A
-	POP R2
-; je traite un assign dans la selection
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 8(GB), R3
-<<<<<<< HEAD
-=======
-; ononon
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
-	STORE R2, 2(R3)
-	LOAD #1, R2
-	LOAD 8(GB), R3
-	LOAD 2(R3), R3
-<<<<<<< HEAD
-=======
-; ononon
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
-	STORE R2, 1(R3)
-	LOAD #1, R2
-; je susi dans identifier coodegenAssign
-; indentifier.java codegenassign
-	STORE R2, 7(GB)
+	ADDSP #14
+	LOAD 12(GB),R1
+	LOAD 3(R1), R2
+	LOAD R2, R1
+	WINT
 	HALT
 ; Initialisation des champs de A
 init.A:
-	TSTO #2
+	TSTO #3
 	BOV pile_pleine
 	LOAD -2(LB), R1
-	LOAD #0, R0
+	LOAD #1, R0
 	STORE R0, 1(R1)
+	LOAD #2, R0
+	STORE R0, 2(R1)
+	RTS
+code.A.getX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+fin.A.getX:
+; Restauration des registres
+	POP R3
+	POP R2
 	RTS
 ; Initialisation des champs de B
 init.B:
+; Appel de l'initialisation des champs hérités de A
+	TSTO #3
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #3, R0
+	STORE R0, 3(R1)
+	LOAD #4, R0
+	STORE R0, 4(R1)
+	LOAD #5, R0
+	STORE R0, 5(R1)
+	PUSH R1
+	BSR init.A
+	SUBSP #1
+	RTS
+code.B.getY:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+	PUSH R3
+fin.B.getY:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+; Initialisation des champs de C
+init.C:
 	TSTO #3
 	BOV pile_pleine
 	LOAD -2(LB), R1
@@ -94,10 +114,6 @@ io_error:
 	ERROR
 print_Error:
 	WSTR "Error: print float only in hexa form"
-	WNL
-	ERROR
-deferencement.null:
-	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 code.Object.equals:
