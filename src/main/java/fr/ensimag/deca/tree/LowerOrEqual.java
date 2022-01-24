@@ -31,8 +31,18 @@ public class LowerOrEqual extends AbstractOpIneq {
 
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
         // System.out.println("::Greater.java:: codeGenOpBool");
-        getLeftOperand().codeGenExpr(compiler, 3);
-        getRightOperand().codeGenExpr(compiler, 2);
+        AbstractExpr rOp = getRightOperand();
+        AbstractExpr lOp = getLeftOperand();
+        rOp.codeGenExpr(compiler, 2);
+        lOp.codeGenExpr(compiler, 3);
+        if(rOp.getType().isFloat() && lOp.getType().isInt())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(3), Register.getR(3)));
+        }
+        else if(rOp.getType().isInt() && lOp.getType().isFloat())
+        {
+            compiler.addInstruction(new FLOAT(Register.getR(2), Register.getR(2)));
+        }
         compiler.addInstruction(new CMP(Register.getR(2),Register.getR(3)));
         if (b){
             compiler.addInstruction(new BLE(E));

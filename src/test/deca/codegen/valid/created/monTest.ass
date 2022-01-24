@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #5
+	ADDSP #6
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -10,72 +10,73 @@
 	LOAD #15, R2
 	STORE R2, 3(GB)
 ; idk why or how he's here
-	LOAD #0x1.9p3, R2
+	LOAD #0x1.333334p4, R2
 	STORE R2, 4(GB)
+; idk why or how he's here
+	LOAD #0x1.9p3, R2
+	STORE R2, 5(GB)
 ; Beginning of main instructions:
-	ADDSP #6
+	ADDSP #7
+beginIf0:
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 3(GB), R2
-	OPP R2, R2
-	FLOAT R2, R2
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
+	LOAD 5(GB), R2
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 3(GB), R2
-	FLOAT R2, R2
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R2
-	OPP R2, R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R2
-	OPP R2, R2
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 3(GB), R2
-	FLOAT R2, R2
-	LOAD R2, R0
-	POP R2
-	MUL R0, R2
-	BOV Overflow_error
-	LOAD #15, R2
-	OPP R2, R2
-	FLOAT R2, R2
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-	LOAD #0x1.19999ap1, R2
-	LOAD R2, R0
-	POP R2
-	DIV R0, R2
-	CMP #0x0.0p0, R0
-	BEQ division_zero
-	TSTO #2
-	BOV pile_pleine
-	PUSH R2
-	LOAD #15, R2
-	FLOAT R2, R2
-	LOAD R2, R0
-	POP R2
-	ADD R0, R2
-	LOAD R2, R1
-	WFLOAT
+	LOAD 3(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BGT ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "OK"
 	WNL
+	BRA finElse0
+elseInst0:
+finElse0:
+beginIf1:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 5(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BGE ifInst1
+	BRA elseInst1
+ifInst1:
+	WSTR "OK"
+	WNL
+	BRA finElse1
+elseInst1:
+finElse1:
+beginIf2:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 4(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BLT ifInst2
+	BRA elseInst2
+ifInst2:
+	WSTR "OK"
+	WNL
+	BRA finElse2
+elseInst2:
+finElse2:
+beginIf3:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 4(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R3
+	FLOAT R3, R3
+	CMP R2, R3
+	BLE ifInst3
+	BRA elseInst3
+ifInst3:
+	WSTR "OK"
+	WNL
+	BRA finElse3
+elseInst3:
+finElse3:
 	HALT
 code.Object.equals:
 	PUSH R2
@@ -84,13 +85,13 @@ code.Object.equals:
 	LOAD -3(LB), R3
 	CMP R3, R2
 	BEQ code.Object.equals.loadTrueEQ
-	LOAD #0, R2
+	LOAD #0, R0
 	BRA code.Object.equals.finComparationEQ
 code.Object.equals.loadTrueEQ:
-	LOAD #1, R2
+	LOAD #1, R0
 code.Object.equals.finComparationEQ:
-	POP R2
 	POP R3
+	POP R2
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
