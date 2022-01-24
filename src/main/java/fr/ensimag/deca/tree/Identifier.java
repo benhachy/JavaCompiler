@@ -363,8 +363,9 @@ public class Identifier extends AbstractIdentifier {
             // LOAD(Identifier.getVariableAddress(getName()),Register.getR(2)));
         } else if (definition.isParam()) {
             compiler.addComment("ana param hihih");
-            compiler.addInstruction(
-                    new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB), Register.getR(3)));
+            //compiler.addInstruction(new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB), Register.getR(3)));
+            compiler.addInstruction(new STORE(Register.getR(2), new RegisterOffset(compiler.getIndexParam(getName()), Register.LB)));
+
         } else {
             compiler.addComment("indentifier.java codegenassign");
             // chercher la valeur comme variable global dans gb

@@ -12,6 +12,7 @@ import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
@@ -56,6 +57,10 @@ public class Null extends AbstractExpr {
     @Override
     public void decompile(IndentPrintStream s) {
         s.print(" null ");
+    }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
+            compiler.addInstruction(new LOAD(new NullOperand(),Register.getR(n)));        
     }
 
 }

@@ -17,8 +17,6 @@ class B{
 {
     A a = new A();
     B b = new B();
-    println(a.x);
-    println(b.x);
     if (a.equals(b) || 2 < 0 ){
         print(50);
     }
