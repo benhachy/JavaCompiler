@@ -44,7 +44,6 @@ instWhile0:
 	ADD R0, R2
 ; je susi dans identifier coodegenAssign
 ; indentifier.java codegenassign
-	STORE R2, 7(GB)
 ; je suis dans codeGenExpr dans indentifier.java
 	LOAD 6(GB), R2
 	TSTO #2
@@ -56,15 +55,12 @@ instWhile0:
 	ADD R0, R2
 ; je susi dans identifier coodegenAssign
 ; indentifier.java codegenassign
-	STORE R2, 6(GB)
 	LOAD 5(GB), R2
 ; je susi dans identifier coodegenAssign
 ; indentifier.java codegenassign
-	STORE R2, 4(GB)
 	LOAD 7(GB), R2
 ; je susi dans identifier coodegenAssign
 ; indentifier.java codegenassign
-	STORE R2, 5(GB)
 	BRA beginWhile0
 endWhile0:
 	LOAD 5(GB), R1

@@ -247,11 +247,11 @@ class Math {
 	 else if(i == 4) { return 0.06241880999595735f;}
 	 else if(i == 5) { return 0.031239833430268277f;}
 	 else if(i == 6) { return 0.015623728620476831f;}
+	 else if(i == 9) { return 0.0019531225164788188f;}
 	 else if(i == 7) { return 0.007812341060101111f;}
 	 else if(i == 8) { return 0.0039062301319669718f;}
-	 else if(i == 9) { return 0.0019531225164788188f;}
-	 else if(i == 10) { return 0.0009765621895593195f;}
 	 else if(i == 11) { return 0.0004882812111948983f;}
+	 else if(i == 10) { return 0.0009765621895593195f;}
 	 else if(i == 12) { return 0.00024414062014936177f;}
 	 else if(i == 13) { return 0.00012207031189367021f;}
 	 else if(i == 14) { return 6.103515617420877e-05f;}
@@ -551,3 +551,10 @@ class Math {
 
 
 // End of Deca Math library
+
+{
+	Math math = new Math();
+	float PI = 3.141592653589793f;
+	println(math.cos(PI/3));
+
+}

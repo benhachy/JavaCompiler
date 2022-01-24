@@ -38,7 +38,7 @@ public class ListInst extends TreeList<AbstractInst> {
             i.verifyInst(compiler, localEnv, currentClass, returnType);
             lastInst = i;
         }
-        if (currentClass == null && !(lastInst instanceof Return)) {
+        if (currentClass == null && (lastInst instanceof Return)) {
             throw new ContextualError(" le retour doit etre de type " + returnType.getName(), lastInst.getLocation());
         }
         // <AbstractInst> listInstances = this.getList();
