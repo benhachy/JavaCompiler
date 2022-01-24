@@ -25,9 +25,9 @@
 	ADDSP #9
 beginWhile0:
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 6(GB), R3
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 6(GB), R3
 	CMP R2, R3
 	BLE instWhile0
 	BRA endWhile0

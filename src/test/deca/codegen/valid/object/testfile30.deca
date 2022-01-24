@@ -1,26 +1,25 @@
 //Description:
-//    test de  equals 
+//    test de  equals + Or
 //
 // Resultats:
-//     50
+//    50
 // Historique:
 //    cree le 01/01/2022
 class A{
-<<<<<<< HEAD
-    int x;
-    boolean equals (A other) {
+    int x =10;
+    boolean equals (B other) {
         return this.x == other.x;
-=======
-    boolean equals (Object other) {
-        return this == other;
->>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
     }
 }
-class B{}
+class B{
+    int x=10;
+}
 {
     A a = new A();
-    A b = new B();
-    if (a.equals(b)){
+    B b = new B();
+    println(a.x);
+    println(b.x);
+    if (a.equals(b) || 2 < 0 ){
         print(50);
     }
 }

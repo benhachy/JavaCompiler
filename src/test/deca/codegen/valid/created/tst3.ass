@@ -12,9 +12,9 @@
 ; Beginning of main instructions:
 	ADDSP #5
 beginWhile0:
+	LOAD #8, R2
 ; je suis dans codeGenExpr dans indentifier.java
 	LOAD 3(GB), R3
-	LOAD #8, R2
 	CMP R2, R3
 	BLE instWhile0
 	BRA endWhile0

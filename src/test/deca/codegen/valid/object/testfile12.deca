@@ -2,21 +2,21 @@
 //    test this
 //
 // Resultats:
-//    12
+//    15
 // Historique:
 //    cree le 01/01/2022
 class A{
     protected int x;
     protected boolean b;
     void setX(int val){
-        x =val;
+        this.x =val;
     }
-    int getX(){
-        return x;
+    int getX(int x){
+        return this.x;
     }
 }
 {
     A obj = new A();
-    obj.setX(12);
-    print(obj.getX());
+    obj.setX(15);
+    print(obj.getX(5));
 }

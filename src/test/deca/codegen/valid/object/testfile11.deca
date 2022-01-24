@@ -18,6 +18,5 @@ class A{
     int y = 5;
     int x = obj.get();
     println(x);
-    println(y);
 
 }

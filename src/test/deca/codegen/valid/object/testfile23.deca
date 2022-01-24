@@ -2,8 +2,8 @@
 //    héritage de d'attributs protected et public
 //
 // Resultats:
-//      14
-//      21
+//    14
+//    21
 // Historique:
 //    cree le 01/01/2022
 class A{
@@ -19,9 +19,9 @@ class B extends A{
 {
     B obj = new B();
     obj.setX(14);
-    print(obj.x);
+    println(obj.x);
     obj.y = 21;
-    print(obj.y);
+    println(obj.y);
 }
 
     

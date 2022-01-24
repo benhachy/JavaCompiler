@@ -55,6 +55,24 @@ public class Equals extends AbstractOpExactCmp {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
+        // compiler.addComment("equals");
+        // getRightOperand().codeGenExpr(compiler, 2);
+        // getLeftOperand().codeGenExpr(compiler, 3);
+        // compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
+        // Label loadTrue = new Label("loadTrueEQ."+cmpEtiquetes);
+        // Label finCmp = new Label("finComparationEQ."+cmpEtiquetes);
+        // compiler.addInstruction(new BEQ(loadTrue));
+        // new IntLiteral(0).codeGenExpr(compiler,2);
+        // compiler.addInstruction(new BRA(finCmp));
+        // compiler.addLabel(loadTrue);
+        // new IntLiteral(1).codeGenExpr(compiler,2);
+        // compiler.addLabel(finCmp);
+        // cmpEtiquetes++;
+        this.codeGenExpr(compiler,2);
+
+    }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
         compiler.addComment("equals");
         getRightOperand().codeGenExpr(compiler, 2);
         getLeftOperand().codeGenExpr(compiler, 3);
@@ -62,14 +80,13 @@ public class Equals extends AbstractOpExactCmp {
         Label loadTrue = new Label("loadTrueEQ."+cmpEtiquetes);
         Label finCmp = new Label("finComparationEQ."+cmpEtiquetes);
         compiler.addInstruction(new BEQ(loadTrue));
-        new IntLiteral(0).codeGenExpr(compiler,2);
+        new IntLiteral(0).codeGenExpr(compiler,n);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadTrue);
-        new IntLiteral(1).codeGenExpr(compiler,2);
+        new IntLiteral(1).codeGenExpr(compiler,n);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }
-    
     @Override
     protected String getOperatorName() {
         return "==";

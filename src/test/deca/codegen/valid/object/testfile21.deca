@@ -2,7 +2,7 @@
 //    héritage d'attributs
 //
 // Resultats:
-//      
+//    14
 // Historique:
 //    cree le 01/01/2022
 class A{
@@ -15,6 +15,7 @@ class B extends A{
 {
     B obj = new B();
     obj.x = 14;
+    println(obj.x);
 }
 
     

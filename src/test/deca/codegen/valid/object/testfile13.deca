@@ -2,7 +2,7 @@
 //    test getters with same name of attributs
 //
 // Resultats:
-//      12
+//    12
 // Historique:
 //    cree le 01/01/2022
 class A{

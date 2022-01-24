@@ -2,7 +2,7 @@
 //      heritage avec de nouvelles methodes 
 //
 // Resultats:
-//     
+//    30
 // Historique:
 //    cree le 01/01/2022
 class A{
@@ -21,6 +21,7 @@ class B extends A{
 {
     B obj = new B();
     obj.e = 30;
+    println(obj.e);
 }
 
     

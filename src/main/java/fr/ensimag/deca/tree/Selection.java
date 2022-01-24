@@ -41,7 +41,7 @@ public class Selection extends AbstractLValue {
             System.out.print("SELECTION DANS CODEGENASSIGN");
             compiler.addComment("je traite un assign dans la selection");
             //exp is this
-            //expr.codeGenExpr(compiler, 3);
+            expr.codeGenExpr(compiler, 3);
             //type is x in this.x
             type.codeGenAssign(compiler,n);
             compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));

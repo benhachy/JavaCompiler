@@ -165,7 +165,7 @@ public class MethodCall extends AbstractExpr {
        }*/       
        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
        compiler.addInstruction(new SUBSP(1+listExpression.size()));
-       compiler.addInstruction(new CMP(new ImmediateInteger(0),Register.getR(0)));
+       compiler.addInstruction(new CMP(new ImmediateInteger(1),Register.getR(0)));
        compiler.addInstruction(new BEQ(E));
     } 
     public void codeGenExpr(DecacCompiler compiler,int n){

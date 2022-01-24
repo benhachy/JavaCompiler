@@ -46,6 +46,9 @@
 	LOAD 8(GB), R1
 	WINT
 	WNL
+	LOAD 7(GB), R1
+	WINT
+	WNL
 	HALT
 ; Initialisation des champs de A
 init.A:

@@ -2,15 +2,11 @@
 //     definition de  equals 
 //
 // Resultats:
-//     
+//    No output
 // Historique:
 //    cree le 01/01/2022
 class A{
     boolean equals (Object other) {
-<<<<<<< HEAD
         return this.equals(other);
-=======
-        return this == other;
->>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
     }
 }

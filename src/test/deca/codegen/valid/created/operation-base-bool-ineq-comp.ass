@@ -103,8 +103,8 @@ finElse3:
 	LOAD #12, R3
 	CMP R2, R3
 	BNE trueVar1
-	LOAD #16, R3
 	LOAD #0, R2
+	LOAD #16, R3
 	CMP R2, R3
 	BLE trueVar1
 	BRA falseVar1
@@ -134,11 +134,11 @@ finElse4:
 	LOAD #12, R3
 	CMP R2, R3
 	BEQ finAnd1
-	LOAD #150, R3
 	LOAD #16, R2
-	CMP R2, R3
 	LOAD #150, R3
+	CMP R2, R3
 	LOAD #160, R2
+	LOAD #150, R3
 	CMP R2, R3
 	BLE trueVar2
 finAnd1:
@@ -196,9 +196,9 @@ finElse6:
 	CMP R2, R3
 	BEQ finAnd3
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 4(GB), R3
-; je suis dans codeGenExpr dans indentifier.java
 	LOAD 5(GB), R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 4(GB), R3
 	CMP R2, R3
 	BLT finAnd2
 finAnd3:

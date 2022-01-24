@@ -2,7 +2,7 @@
 //     code avec de l'héritage multiple et des redéfinitions de méthodes 
 //
 // Resultats:
-//     
+//    No output
 // Historique:
 //    cree le 01/01/2022
 class A {

@@ -2,24 +2,20 @@
 //    test de  equals  with true
 //
 // Resultats:
-//     50
+//    50
 // Historique:
 //    cree le 01/01/2022
 class A{
     int x = 21;
     boolean b = false;
     boolean equals (Object other) {
-<<<<<<< HEAD
         return other instanceof A;
-=======
-        return this == other;
->>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
     }
 }
-class B{}
+class B extends A{}
 {
     A a = new A();
-    A b = new B();
+    B b = new B();
     if (a.equals(b)){
         print(50);
     }

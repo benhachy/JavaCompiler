@@ -46,4 +46,8 @@ public class This extends AbstractExpr {
     public void decompile(IndentPrintStream s) {
         s.print("this");
     }
+    @Override
+    public  void codeGenExpr(DecacCompiler compiler,int n){
+        //
+    }
 }

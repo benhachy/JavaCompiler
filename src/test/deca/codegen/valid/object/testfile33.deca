@@ -17,13 +17,7 @@ class A {
     }
 }
 {
-<<<<<<< HEAD
   A a = new A() ;
   a.setX(1) ;
   println("a.getX() = ", a.getX());
-=======
-    A a = new A() ;
-    a.setX(1) ;
-    println("a.getX() = ", a.getX());
->>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
 }

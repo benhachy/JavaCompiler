@@ -105,6 +105,38 @@ public class InstanceOf extends AbstractExpr {
         compiler.addInstruction(new BNE(beginningInstanceOf));
     }
     @Override
+    public void codeGenExpr(DecacCompiler compiler, int n){
+        Label beginningInstanceOf= new Label("instanceOf.Begin"+numberofIstanceOf);
+        Label succesInstanceOf= new Label("instanceOf.succes"+numberofIstanceOf);
+        Label endInstanceOf= new Label("instanceOf.end"+numberofIstanceOf);
+        numberofIstanceOf++;
+
+        //on récupère l'adresse de la classe B ( c instaceof B)
+        //compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(0)));
+        compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(2)));
+        //on recupère l'adresse de l'objet C 
+        // c instance of B 
+
+        expr.codeGenExpr(compiler,3);
+        //compiler.addInstruction(new LOAD(Identifier.getVariableAddress(expr.codeGenAssign(compiler) .getType().getName()),Register.getR(3)));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));
+        compiler.addLabel(beginningInstanceOf);
+        //on compare les deux adresses
+        compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
+        compiler.addInstruction(new BEQ(succesInstanceOf));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0,Register.getR(3)),Register.getR(3)));
+        compiler.addInstruction(new CMP(new NullOperand(),Register.getR(3)));
+        compiler.addInstruction(new BNE(beginningInstanceOf));
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0),Register.getR(n)));
+        compiler.addInstruction(new BRA(endInstanceOf));
+        compiler.addLabel(succesInstanceOf);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1),Register.getR(n)));
+        compiler.addLabel(endInstanceOf);
+
+
+
+    }
+    @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         // leaf node => nothing to do
     }

@@ -2,18 +2,13 @@
 //    extension avec de nouveau attributs 
 //
 // Resultats:
-//     
+//    30
 // Historique:
 //    cree le 01/01/2022
 class A{
     protected int x;
-<<<<<<< HEAD
     int y;
     void setX(int x){
-=======
-     int y;
-     void setX(int x){
->>>>>>> cda06dc651db5b42beac9ca67c2cf6109e0a96f2
         this.x = x;
     }
 }
@@ -23,6 +18,7 @@ class B extends A{
 {
     B obj = new B();
     obj.e = 30;
+    println(obj.e);
 }
 
     
