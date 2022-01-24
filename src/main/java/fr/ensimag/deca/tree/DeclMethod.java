@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
@@ -32,14 +33,17 @@ import java.io.PrintStream;
 public class DeclMethod extends AbstractDeclMethod {
     AbstractIdentifier type;
     AbstractIdentifier name;
-    ListDeclParam   paramDecl;
-    AbstractMethodBody  methodBody;
-    public DeclMethod(AbstractIdentifier type,AbstractIdentifier name,ListDeclParam   paramDecl,AbstractMethodBody methodBody){
-        this.type= type;
-        this.name=name;
-        this.paramDecl= paramDecl;
-        this.methodBody=methodBody;
+    ListDeclParam paramDecl;
+    AbstractMethodBody methodBody;
+
+    public DeclMethod(AbstractIdentifier type, AbstractIdentifier name, ListDeclParam paramDecl,
+            AbstractMethodBody methodBody) {
+        this.type = type;
+        this.name = name;
+        this.paramDecl = paramDecl;
+        this.methodBody = methodBody;
     }
+
     @Override
     public void decompile(IndentPrintStream s) {
         type.decompile(s);
@@ -51,7 +55,7 @@ public class DeclMethod extends AbstractDeclMethod {
         s.println("{");
         methodBody.decompile(s);
         s.println("}");
-        
+
     }
 
     @Override
@@ -61,6 +65,7 @@ public class DeclMethod extends AbstractDeclMethod {
         paramDecl.prettyPrint(s, prefix, false);
         methodBody.prettyPrint(s, prefix, false);
     }
+
     @Override
     protected void iterChildren(TreeFunction f) {
         type.iter(f);
@@ -69,31 +74,33 @@ public class DeclMethod extends AbstractDeclMethod {
         methodBody.iter(f);
     }
 
-    public void creerEtStockerLabel(DecacCompiler compiler,DeclClass declClass){
-        //creer l'etiquete du methode
-        Label label = new Label("code."+declClass.getIdentifier().getName().getName()+"."+name.getName());
-        //insertion des etiquetes des methodes sur la table des methodes
-        compiler.addInstruction(new LOAD(new LabelOperand(label),Register.getR(0)));
-        compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.getPosGB(),Register.GB)));
+    public void creerEtStockerLabel(DecacCompiler compiler, DeclClass declClass) {
+        // creer l'etiquete du methode
+        Label label = new Label("code." + declClass.getIdentifier().getName().getName() + "." + name.getName());
+        // insertion des etiquetes des methodes sur la table des methodes
+        compiler.addInstruction(new LOAD(new LabelOperand(label), Register.getR(0)));
+        compiler.addInstruction(new STORE(Register.getR(0), new RegisterOffset(Register.getPosGB(), Register.GB)));
         Register.updatePosGB();
     }
 
-    //generer le code ass pour le methode
-    public void genCodeMethode(DecacCompiler compiler,DeclClass declClass){
-        
-        //creer l'etiquete du methode
-        compiler.addLabel(new  Label("code."+declClass.getIdentifier().getName().getName()+"."+name.getName().getName()));
-        //test de debordement de la pile
-        compiler.addInstruction(new TSTO(2),"test de debordement de la pile");
+    // generer le code ass pour le methode
+    public void genCodeMethode(DecacCompiler compiler, DeclClass declClass) {
+
+        // creer l'etiquete du methode
+        compiler.addLabel(
+                new Label("code." + declClass.getIdentifier().getName().getName() + "." + name.getName().getName()));
+        // test de debordement de la pile
+        compiler.addInstruction(new TSTO(2), "test de debordement de la pile");
         compiler.addInstruction(new BOV(new Label("pile_pleine")));
         compiler.addInstruction(new PUSH(Register.getR(2)));
         compiler.addInstruction(new PUSH(Register.getR(3)));
-        Label returnLabel = new  Label("fin."+declClass.getIdentifier().getName().getName()+"."+name.getName().getName());
+        Label returnLabel = new Label(
+                "fin." + declClass.getIdentifier().getName().getName() + "." + name.getName().getName());
         compiler.setReturnLabel(returnLabel);
         paramDecl.codeListDeclParam(compiler);
-        //appel de la gen code pour le method body
+        // appel de la gen code pour le method body
         methodBody.codeGenMethodBody(compiler);
-        //etiquete du fin de methode
+        // etiquete du fin de methode
         compiler.addLabel(returnLabel);
         compiler.addComment("Restauration des registres");
         compiler.addInstruction(new POP(Register.getR(3)));
@@ -103,42 +110,52 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     public int verifyMethod(DecacCompiler compiler,
-            EnvironmentExp localEnv, ClassDefinition currentClass,int indice)
-            throws ContextualError{
+            EnvironmentExp localEnv, ClassDefinition currentClass, int indice)
+            throws ContextualError {
         type.setDefinition(compiler.getDefinition(type.getName()));
         Type expectedReturn = compiler.get(type.getName()).getType();
         type.setType(expectedReturn);
         Signature signature = new Signature();
-        paramDecl.verifyListParam(compiler,signature);
-        MethodDefinition method = new MethodDefinition(expectedReturn,getLocation(),signature,indice);
+        paramDecl.verifyListParam(compiler, signature);
+        MethodDefinition method = new MethodDefinition(expectedReturn, getLocation(), signature, indice);
         ClassDefinition superClass = currentClass.getSuperClass();
-        
+
+        int isNew = 0;
         name.setDefinition(method);
         name.setType(method.getType());
-        try{
-            localEnv.declare(name.getName(),method);
+        int index = localEnv.contains(name.getName());
+        if (index >= 1) {
+            System.out.println(currentClass.getType().getName() + "." + name.getName() + "..." + index);
+            method.setIndex(index);
+            name.setDefinition(method);
+            name.setType(method.getType());
+            isNew = 0;
+        } else {
+            System.out.println(currentClass.getType().getName() + "." + name.getName() + "..." + indice);
+            isNew = 1;
         }
-        catch (EnvironmentExp.DoubleDefException e)
-        {
-            
-            throw new ContextualError("la méthode "+ name.getName()+" est déjà définie", getLocation());
+
+        try {
+            localEnv.declare(name.getName(), method);
+        } catch (EnvironmentExp.DoubleDefException e) {
+
+            throw new ContextualError("la méthode " + name.getName() + " est déjà définie", getLocation());
         }
-        if(compiler.getEnv(superClass.getType().getName()).contains(superClass.getType().getName())){
-            return 0;
-        }
-        return 1;
-        //methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
+        return isNew;
+        // methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
     }
 
     @Override
     public void verifyBody(DecacCompiler compiler,
-    EnvironmentExp localEnv, ClassDefinition currentClass)
-    throws ContextualError{
+            EnvironmentExp localEnv, ClassDefinition currentClass)
+            throws ContextualError {
         type.setDefinition(compiler.getDefinition(type.getName()));
         Type expectedReturn = compiler.get(type.getName()).getType();
         Signature signature = new Signature();
-        EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler,signature);
-        methodBody.verifyMethodBody(compiler,localEnv,paramsEnv,currentClass,expectedReturn);
-
+        EnvironmentExp paramsEnv = paramDecl.verifyListParam(compiler, signature);
+        methodBody.verifyMethodBody(compiler, localEnv, paramsEnv, currentClass, expectedReturn);
+        int i = compiler.getIndexMethod(currentClass.getType().getName(), name.getName());
+        // System.out.println(currentClass.getType().getName() + "------" +
+        // name.getName() + "+++++" + i);
     }
 }

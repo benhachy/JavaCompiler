@@ -18,10 +18,15 @@ public abstract class ExpDefinition extends Definition {
     public DAddr getOperand() {
         return operand;
     }
+
     private DAddr operand;
 
     public ExpDefinition(Type type, Location location) {
         super(type, location);
+    }
+
+    public int getIndex() {
+        return -1;
     }
 
 }
