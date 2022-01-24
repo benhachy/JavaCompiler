@@ -24,6 +24,9 @@ public class This extends AbstractExpr {
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError{
             SymbolTable.Symbol classe0 = SymbolTable.creerSymbol("0");
+            if(currentClass == null){
+                throw new ContextualError(" This est défini que dans des classes",getLocation());
+            }
             if( currentClass.getType().getName().equals(classe0)){
                 throw new ContextualError(" This est défini que dans des classes",getLocation());
             }

@@ -1,4 +1,5 @@
 class A{
+<<<<<<< HEAD
     int x;
 }
 {
@@ -12,4 +13,23 @@ class A{
         println("no");
     }
 
+=======
+    protected int x;
+    int getX()
+    {
+        return this.x;
+    }
+    void setX(int a)
+    {
+        this.x = a;
+    }
+}
+{
+    A a =new A();
+    a.setX(15);
+    a.getX();
+    print(a.getX());
+    println("getX ",a.getX());
+    println("getX()= ",a.getX());
+>>>>>>> c3eec45341041204ca078039a2a55f9909ceef1f
 }

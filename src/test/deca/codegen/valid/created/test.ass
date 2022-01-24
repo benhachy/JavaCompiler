@@ -6,11 +6,6 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Code de la table des méthodes de A
-	LEA 1(GB), R0
-	STORE R0, 3(GB)
-	LOAD code.Object.equals, R0
-	STORE R0, 4(GB)
 ; idk why or how he's here
 	NEW #2, R2
 	BOV pile_pleine
@@ -67,7 +62,34 @@ init.A:
 	LOAD #0, R0
 	STORE R0, 1(R1)
 	RTS
-code.Object.equals:
+	BOV pile_pleine
+	PUSH R3
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R3
+	FLOAT R3, R3
+	LOAD R3, R0
+	POP R3
+	SUB R0, R3
+	LOAD #0, R2
+	CMP R2, R3
+	BGT ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "OK"
+	BRA finElse0
+elseInst0:
+finElse0:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 4(GB), R2
+	TSTO #2
+fin.A.getX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.A.setX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
 	PUSH R2
 	PUSH R3
 	LOAD -2(LB), R2
@@ -75,12 +97,33 @@ code.Object.equals:
 	CMP R3, R2
 	BEQ code.Object.equals.loadTrueEQ
 	LOAD #0, R0
-	BRA code.Object.equals.finComparationEQ
-code.Object.equals.loadTrueEQ:
-	LOAD #1, R0
-code.Object.equals.finComparationEQ:
-	POP R3
-	POP R2
+	STORE R0, 5(R1)
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
+	RTS
+code.B.setAtt1:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R2
+	FLOAT R2, R2
+	LOAD R2, R0
+	SUB R0, R2
+	LOAD R2, R1
+	WFLOAT
+	HALT
+	RTS
+; Initialisation des champs de C
+init.C:
+	TSTO #3
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	STORE R0, 2(R1)
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
