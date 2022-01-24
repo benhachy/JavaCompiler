@@ -6,26 +6,115 @@
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+<<<<<<< HEAD
 ; Beginning of main instructions:
 	ADDSP #4
 	TSTO #2
 	BOV pile_pleine
+=======
+; idk why or how he's here
+	NEW #2, R2
+	BOV pile_pleine
+	LEA 3(GB), R0
+	STORE R0, 0(R2)
+>>>>>>> bae9609d84ac18403b247a99fb23765cf4eb5536
 	PUSH R2
 	LOAD #2, R2
 	LOAD R2, R0
 	POP R2
+<<<<<<< HEAD
 	MUL R0, R2
 	LOAD R2, R1
 	WINT
+=======
+	STORE R2, 5(GB)
+; idk why or how he's here
+	LOAD 5(GB), R2
+	STORE R2, 6(GB)
+; idk why or how he's here
+	LOAD #0, R2
+	STORE R2, 7(GB)
+; Beginning of main instructions:
+	ADDSP #9
+; appel à la méthode equals
+	ADDSP #2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 6(GB), R3
+	STORE R3, 0(SP)
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 5(GB), R3
+	STORE R3, -1(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR code.A.equals
+	SUBSP #2
+; je susi dans identifier coodegenAssign
+; indentifier.java codegenassign
+	STORE R2, 7(GB)
+beginIf0:
+	LOAD 5(GB), R0
+	CMP #0, R0
+	BNE ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "yes"
 	WNL
+	BRA finElse0
+elseInst0:
+	WSTR "no"
+>>>>>>> bae9609d84ac18403b247a99fb23765cf4eb5536
+	WNL
+finElse0:
 	HALT
+<<<<<<< HEAD
 code.Object.equals:
+=======
+; Initialisation des champs de A
+init.A:
+	TSTO #2
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	RTS
+	BOV pile_pleine
+	PUSH R3
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R3
+	FLOAT R3, R3
+	LOAD R3, R0
+	POP R3
+	SUB R0, R3
+	LOAD #0, R2
+	CMP R2, R3
+	BGT ifInst0
+	BRA elseInst0
+ifInst0:
+	WSTR "OK"
+	BRA finElse0
+elseInst0:
+finElse0:
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 4(GB), R2
+	TSTO #2
+fin.A.getX:
+; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.A.setX:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+>>>>>>> bae9609d84ac18403b247a99fb23765cf4eb5536
 	PUSH R2
 	PUSH R3
 	LOAD -2(LB), R2
 	LOAD -3(LB), R3
 	CMP R3, R2
 	BEQ code.Object.equals.loadTrueEQ
+<<<<<<< HEAD
 	LOAD #0, R2
 	BRA code.Object.equals.finComparationEQ
 code.Object.equals.loadTrueEQ:
@@ -33,6 +122,36 @@ code.Object.equals.loadTrueEQ:
 code.Object.equals.finComparationEQ:
 	POP R2
 	POP R3
+=======
+	LOAD #0, R0
+	STORE R0, 5(R1)
+; Appel de l'initialisation des champs hérités de A
+	PUSH R1
+	BSR init.A
+	SUBSP #1
+	RTS
+code.B.setAtt1:
+	TSTO #2	; test de debordement de la pile
+	BOV pile_pleine
+	PUSH R2
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 3(GB), R2
+	FLOAT R2, R2
+	LOAD R2, R0
+	SUB R0, R2
+	LOAD R2, R1
+	WFLOAT
+	HALT
+	RTS
+; Initialisation des champs de C
+init.C:
+	TSTO #3
+	BOV pile_pleine
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	STORE R0, 2(R1)
+>>>>>>> bae9609d84ac18403b247a99fb23765cf4eb5536
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"

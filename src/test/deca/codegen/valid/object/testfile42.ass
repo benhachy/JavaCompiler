@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #3
+	ADDSP #7
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -31,6 +31,21 @@ init.B:
 	LOAD -2(LB), R1
 	STORE R0, 1(R1)
 	RTS
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
+	POP R3
+	POP R2
+	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
 	WNL
@@ -53,10 +68,6 @@ print_Error:
 	ERROR
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program

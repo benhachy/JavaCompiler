@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #6
+	ADDSP #11
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -56,7 +56,7 @@ code.Parcours.parcoursA:
 	LOAD -2(LB), R3
 beginIf0:
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 1(R1), R3
+	LOAD -3(LB), R3
 	CMP R2, R3
 	BNE ifInst0
 	BRA elseInst0
@@ -67,7 +67,7 @@ ifInst0:
 ; je traite une expression de type je sais pas dans la selectionA
 ; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 1(R1), R3
+	LOAD -3(LB), R3
 ; je susi dans identifier coodegenAssign
 ; bazi dont be u
 	STORE R2, 1(R3)
@@ -78,7 +78,7 @@ ifInst0:
 	CMP #null, R3
 	BEQ deferencement.null
 	LOAD 0(R3), R3
-	BSR 1(R3)
+	BSR code.Parcours.parcoursB
 	SUBSP #2
 	BRA finElse0
 elseInst0:
@@ -98,7 +98,7 @@ code.Parcours.parcoursB:
 	LOAD -2(LB), R3
 beginIf1:
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 1(R1), R3
+	LOAD -3(LB), R3
 	CMP R2, R3
 	BNE ifInst1
 	BRA elseInst1
@@ -109,7 +109,7 @@ ifInst1:
 ; je traite une expression de type je sais pas dans la selectionB
 ; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
-	LOAD 1(R1), R3
+	LOAD -3(LB), R3
 ; je susi dans identifier coodegenAssign
 ; bazi dont be u
 	STORE R2, 1(R3)
@@ -120,13 +120,28 @@ ifInst1:
 	CMP #null, R3
 	BEQ deferencement.null
 	LOAD 0(R3), R3
-	BSR 0(R3)
+	BSR code.Parcours.parcoursA
 	SUBSP #2
 	BRA finElse1
 elseInst1:
 finElse1:
 fin.Parcours.parcoursB:
 ; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
 	POP R3
 	POP R2
 	RTS
@@ -152,10 +167,6 @@ print_Error:
 	ERROR
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program

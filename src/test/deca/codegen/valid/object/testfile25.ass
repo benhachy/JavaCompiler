@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #7
+	ADDSP #12
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -41,7 +41,7 @@
 ; bazi dont be u
 	STORE R2, 3(R3)
 ; shit shit
-; ononon
+	STORE R2, 3(R3)
 	HALT
 ; Initialisation des champs de A
 init.A:
@@ -68,7 +68,7 @@ code.A.setX:
 ; bazi dont be u
 	STORE R2, 1(R3)
 ; shit shit
-; ononon
+	STORE R2, 1(R3)
 fin.A.setX:
 ; Restauration des registres
 	POP R3
@@ -94,8 +94,31 @@ code.B.getE:
 ; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
+; je traite une expression de type je sais pas dans la selectionB
+; je traite une expression de type Class dans la selection
+; je susi dans identifier coodegenAssign
+; bazi dont be u
+	STORE R2, 3(R3)
+; shit shit
+	LOAD 3(R3), R0
+	BRA fin.B.getE
 fin.B.getE:
 ; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
 	POP R3
 	POP R2
 	RTS
@@ -121,10 +144,6 @@ print_Error:
 	ERROR
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program

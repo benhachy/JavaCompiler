@@ -10,6 +10,8 @@ import java.time.format.SignStyle;
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.SymbolTable;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.Register;
@@ -133,4 +135,64 @@ public class MethodCall extends AbstractExpr {
         compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
         compiler.addInstruction(new SUBSP(1+listExpression.size()));
     }    
+
+    @Override
+    public void codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n){
+       // je pense faire push pop pour le r3 
+       compiler.addComment("appel à la méthode "+methodName.getName());
+       compiler.addInstruction(new ADDSP(1+listExpression.size()));
+       name.codeGenExpr(compiler, 3);
+       compiler.addInstruction(new STORE(Register.getR(3),new RegisterOffset(0, Register.SP)));
+       int j = 0;
+       for (AbstractExpr exp : listExpression.getList()) {
+           exp.codeGenExpr(compiler,3);
+           compiler.addInstruction(new STORE(Register.getR(3),new RegisterOffset(-j-1, Register.SP)));
+           j++;
+       }
+       compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(3)));
+       compiler.addInstruction(new CMP(new NullOperand(),Register.getR(3)));
+       compiler.addInstruction(new BEQ(new Label("deferencement.null")));
+       compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.getR(3)),Register.getR(3)));
+       // a revoir
+       //compiler.addInstruction(new BSR(new RegisterOffset(methodName.getMethodDefinition().getIndex(),Register.getR(3) ) ));
+       //chercher si la methode c'est deja fait sur la superclass
+       /*if(methodName.getMethodDefinition().getIndex()){
+           //il y a de override cherche dans la superclass
+
+       }else{
+           //si no 
+           compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+       }*/       
+       compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+       compiler.addInstruction(new SUBSP(1+listExpression.size()));
+       compiler.addInstruction(new CMP(new ImmediateInteger(0),Register.getR(0)));
+       compiler.addInstruction(new BEQ(E));
+    } 
+    public void codeGenExpr(DecacCompiler compiler,int n){
+        // je pense faire push pop pour le r3 
+        compiler.addComment("appel à la méthode "+methodName.getName());
+        compiler.addInstruction(new ADDSP(1+listExpression.size()));
+        name.codeGenExpr(compiler, n);
+        compiler.addInstruction(new STORE(Register.getR(n),new RegisterOffset(0, Register.SP)));
+        int j = 0;
+        for (AbstractExpr exp : listExpression.getList()) {
+            exp.codeGenExpr(compiler,n);
+            compiler.addInstruction(new STORE(Register.getR(n),new RegisterOffset(-j-1, Register.SP)));
+            j++;
+        }
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.SP),Register.getR(n)));
+        compiler.addInstruction(new CMP(new NullOperand(),Register.getR(n)));
+        compiler.addInstruction(new BEQ(new Label("deferencement.null")));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, Register.getR(n)),Register.getR(n)));
+        // a revoir
+        //compiler.addInstruction(new BSR(new RegisterOffset( methodName.getMethodDefinition().getIndex() ,Register.getR(3) ) ));
+        compiler.addInstruction(new BSR(new Label("code."+name.getType().getName().getName()+"."+methodName.getName().getName())));
+        compiler.addInstruction(new SUBSP(1+listExpression.size()));
+    } 
+    @Override
+    protected void codeGenPrint(DecacCompiler compiler){
+        compiler.addComment("codeGenPrint in MethodCall");
+        this.codeGenInst(compiler);
+        compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(1)));
+    }
 }
