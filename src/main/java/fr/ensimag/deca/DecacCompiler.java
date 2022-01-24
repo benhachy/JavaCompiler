@@ -35,8 +35,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
 
-
-
 /**
  * Decac compiler instance.
  *
@@ -52,150 +50,158 @@ import org.apache.log4j.Logger;
  * @author gl03
  * @date 01/01/2022
  */
-public class DecacCompiler implements Runnable{
+public class DecacCompiler implements Runnable {
     private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
-    
+
     /**
      * Portable newline character.
      */
     private static final String nl = System.getProperty("line.separator", "\n");
-    private  HashMap<SymbolTable.Symbol,TypeDefinition> envTypes;
-    private  HashMap<SymbolTable.Symbol,EnvironmentExp> envExprs;
-    private  HashMap<SymbolTable.Symbol,Integer> posLB;
+    private HashMap<SymbolTable.Symbol, TypeDefinition> envTypes;
+    private HashMap<SymbolTable.Symbol, EnvironmentExp> envExprs;
+    private HashMap<SymbolTable.Symbol, Integer> posLB;
     private Label returnLabel;
+
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
         this.source = source;
-        envTypes = new HashMap<SymbolTable.Symbol,TypeDefinition>();
-        envExprs = new HashMap<SymbolTable.Symbol,EnvironmentExp> ();
-        posLB = new HashMap<SymbolTable.Symbol,Integer>() ;
+        envTypes = new HashMap<SymbolTable.Symbol, TypeDefinition>();
+        envExprs = new HashMap<SymbolTable.Symbol, EnvironmentExp>();
+        posLB = new HashMap<SymbolTable.Symbol, Integer>();
         this.initiate();
     }
-    public Label getReturnLabel(){
+
+    public Label getReturnLabel() {
         return returnLabel;
     }
-    public void setReturnLabel(Label label){
+
+    public void setReturnLabel(Label label) {
         this.returnLabel = label;
     }
-    public void addIndexParam(Symbol symbol,int index){
+
+    public void addIndexParam(Symbol symbol, int index) {
         posLB.put(symbol, index);
     }
-    public void cleanParam(){
-        //idk
+
+    public void cleanParam() {
+        // idk
     }
-    public int getIndexParam(Symbol symbol){
+
+    public int getIndexParam(Symbol symbol) {
         return posLB.get(symbol);
     }
+
     /**
      * Source file associated with this compiler instance.
      */
     public File getSource() {
         return source;
     }
-    private void initiate()
-    {
-        SymbolTable.Symbol s =SymbolTable.creerSymbol("int");
-        SymbolTable.Symbol s1 =SymbolTable.creerSymbol("float");
-        SymbolTable.Symbol s2 =SymbolTable.creerSymbol("boolean");
-        SymbolTable.Symbol s3 =SymbolTable.creerSymbol("void");
-        SymbolTable.Symbol s4 =SymbolTable.creerSymbol("string");
-        envTypes.put(s, new TypeDefinition(new IntType(s),null));
-        envTypes.put(s1, new TypeDefinition(new FloatType(s1),null));
-        envTypes.put(s2, new TypeDefinition(new BooleanType(s2),null));
-        envTypes.put(s3, new TypeDefinition(new VoidType(s3),null));
-        envTypes.put(s4, new TypeDefinition(new StringType(s4),null));
+
+    private void initiate() {
+        SymbolTable.Symbol s = SymbolTable.creerSymbol("int");
+        SymbolTable.Symbol s1 = SymbolTable.creerSymbol("float");
+        SymbolTable.Symbol s2 = SymbolTable.creerSymbol("boolean");
+        SymbolTable.Symbol s3 = SymbolTable.creerSymbol("void");
+        SymbolTable.Symbol s4 = SymbolTable.creerSymbol("string");
+        envTypes.put(s, new TypeDefinition(new IntType(s), null));
+        envTypes.put(s1, new TypeDefinition(new FloatType(s1), null));
+        envTypes.put(s2, new TypeDefinition(new BooleanType(s2), null));
+        envTypes.put(s3, new TypeDefinition(new VoidType(s3), null));
+        envTypes.put(s4, new TypeDefinition(new StringType(s4), null));
         // définir la class Object
-        SymbolTable.Symbol o =SymbolTable.creerSymbol("Object");
-        SymbolTable.Symbol sup =SymbolTable.creerSymbol("0");
-        ClassType superObject = new ClassType(sup,null,null);
-        ClassType objectClass= new ClassType(o,null, superObject.getDefinition());
-        envTypes.put(o,objectClass.getDefinition());
+        SymbolTable.Symbol o = SymbolTable.creerSymbol("Object");
+        SymbolTable.Symbol sup = SymbolTable.creerSymbol("0");
+        ClassType superObject = new ClassType(sup, null, null);
+        ClassType objectClass = new ClassType(o, null, superObject.getDefinition());
+        ClassDefinition classeDef = objectClass.getDefinition();
+        classeDef.setNumberOfFields(0);
+        classeDef.setNumberOfMethods(1);
+        envTypes.put(o, classeDef);
         Signature sign = new Signature();
         sign.add(objectClass);
-        SymbolTable.Symbol e =SymbolTable.creerSymbol("equals");
-        MethodDefinition equal = new MethodDefinition(new BooleanType(e),null,sign,0);
+        SymbolTable.Symbol e = SymbolTable.creerSymbol("equals");
+        MethodDefinition equal = new MethodDefinition(new BooleanType(e), null, sign, 1);
         EnvironmentExp envObjet = new EnvironmentExp(null);
-        envObjet.update(e,equal);
-        //envExprs.put(e,envObjet);
-        envExprs.put(o,envObjet);
+        envObjet.update(e, equal);
+        // envExprs.put(e,envObjet);
+        envExprs.put(o, envObjet);
     }
 
     public void declare(Symbol name, TypeDefinition def) throws DoubleDefException {
-        if(envTypes.containsKey(name))
-        {
-            throw new DoubleDefException("La class "+name.getName()+" est déjà définie");
+        if (envTypes.containsKey(name)) {
+            throw new DoubleDefException("La class " + name.getName() + " est déjà définie");
         }
         envTypes.put(name, def);
     }
-    public void setEvn(Symbol s,EnvironmentExp def){
-        if(envExprs.containsKey(s)){
-            envExprs.replace(s,def);
-        }
-        else{
-            envExprs.put(s,def);
+
+    public void setEvn(Symbol s, EnvironmentExp def) {
+        if (envExprs.containsKey(s)) {
+            envExprs.replace(s, def);
+        } else {
+            envExprs.put(s, def);
         }
     }
 
-    public int getNumberOfClass(){
-        return envTypes.size()-5;
+    public int getNumberOfClass() {
+        return envTypes.size() - 5;
     }
-    public int getNumberOfMethods(){
+
+    public int getIndexMethod(Symbol classe, Symbol method) {
+        return envExprs.get(classe).contains(method);
+    }
+
+    public int getNumberOfMethods() {
         envExprs.size();
         int nbMethods = 0;
-        for(Symbol s: envTypes.keySet()){
-            if(envTypes.get(s).isClass()){
-                nbMethods += ((ClassDefinition)envTypes.get(s)).getNumberOfMethods();
+        for (Symbol s : envTypes.keySet()) {
+            if (envTypes.get(s).isClass()) {
+                nbMethods += ((ClassDefinition) envTypes.get(s)).getNumberOfMethods();
             }
         }
         return nbMethods;
     }
-    public void update(Symbol name, TypeDefinition def){
-        if(envTypes.containsKey(name))
-        {
+
+    public void update(Symbol name, TypeDefinition def) {
+        if (envTypes.containsKey(name)) {
             envTypes.replace(name, def);
         }
     }
 
     public TypeDefinition get(Symbol key) {
-        if (envTypes.containsKey(key))
-        {
+        if (envTypes.containsKey(key)) {
             return envTypes.get(key);
         }
         return null;
     }
 
     public TypeDefinition getDefinition(Symbol key) {
-        if (envTypes.containsKey(key))
-        {
+        if (envTypes.containsKey(key)) {
             return envTypes.get(key);
         }
         return null;
     }
 
     public ClassDefinition getClass(Symbol key) {
-        if (envTypes.containsKey(key))
-        {
-            try{
-                return (ClassDefinition)envTypes.get(key);
-            }
-            catch(ClassCastException e)
-            {
+        if (envTypes.containsKey(key)) {
+            try {
+                return (ClassDefinition) envTypes.get(key);
+            } catch (ClassCastException e) {
                 throw new DecacInternalError(" Une erreur lors du casting");
             }
-            
+
         }
         return null;
     }
 
-    public EnvironmentExp getEnv(Symbol s)
-    {
-        if(envExprs.containsKey(s))
-        { 
+    public EnvironmentExp getEnv(Symbol s) {
+        if (envExprs.containsKey(s)) {
             return envExprs.get(s);
         }
         return null;
     }
+
     /**
      * Compilation options (e.g. when to stop compilation, number of registers
      * to use, ...).
@@ -206,7 +212,7 @@ public class DecacCompiler implements Runnable{
 
     /**
      * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
+     *      fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
      */
     public void add(AbstractLine line) {
         program.add(line);
@@ -221,7 +227,7 @@ public class DecacCompiler implements Runnable{
 
     /**
      * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
      */
     public void addLabel(Label label) {
         program.addLabel(label);
@@ -229,7 +235,7 @@ public class DecacCompiler implements Runnable{
 
     /**
      * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
      */
     public void addInstruction(Instruction instruction) {
         program.addInstruction(instruction);
@@ -237,28 +243,27 @@ public class DecacCompiler implements Runnable{
 
     /**
      * @see
-     * fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
-     * java.lang.String)
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
+     *      java.lang.String)
      */
     public void addInstruction(Instruction instruction, String comment) {
         program.addInstruction(instruction, comment);
     }
-    
+
     /**
-     * @see 
-     * fr.ensimag.ima.pseudocode.IMAProgram#display()
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#display()
      */
     public String displayIMAProgram() {
         return program.display();
     }
-    
+
     private final CompilerOptions compilerOptions;
     private final File source;
     /**
      * The main program. Every instruction generated will eventually end up here.
      */
     private final IMAProgram program = new IMAProgram();
- 
 
     /**
      * Run the compiler (parse source file, generate code)
@@ -270,13 +275,13 @@ public class DecacCompiler implements Runnable{
         String sourceFile = source.getAbsolutePath();
         String[] result = sourceFile.split("[.]");
         String destFile = "";
-        for (int i = 0; i<result.length-1;i++) {
-            destFile+=result[i]+".";
+        for (int i = 0; i < result.length - 1; i++) {
+            destFile += result[i] + ".";
         }
-        destFile+="ass";
+        destFile += "ass";
 
         // A FAIRE: calculer le nom du fichier .ass à partir du nom du
-        
+
         // A FAIRE: fichier .deca.
         PrintStream err = System.err;
         PrintStream out = System.out;
@@ -311,9 +316,9 @@ public class DecacCompiler implements Runnable{
      * verification and code generation).
      *
      * @param sourceName name of the source (deca) file
-     * @param destName name of the destination (assembly) file
-     * @param out stream to use for standard output (output of decac -p)
-     * @param err stream to use to display compilation errors
+     * @param destName   name of the destination (assembly) file
+     * @param out        stream to use for standard output (output of decac -p)
+     * @param err        stream to use to display compilation errors
      *
      * @return true on error
      */
@@ -322,44 +327,43 @@ public class DecacCompiler implements Runnable{
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
 
-        
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;
-        }else{
-            assert(prog.checkAllLocations());
-            
-            if(compilerOptions.getParse()){
+        } else {
+            assert (prog.checkAllLocations());
+
+            if (compilerOptions.getParse()) {
                 prog.decompile(new IndentPrintStream(System.out));
-            }else{
-                
+            } else {
+
                 prog.verifyProgram(this);
-                
-                if(!compilerOptions.getVerification()){
-                    
-                    assert(prog.checkAllDecorations());
+
+                if (!compilerOptions.getVerification()) {
+
+                    assert (prog.checkAllDecorations());
                     addComment("start main program");
                     prog.codeGenProgram(this);
                     addComment("end main program");
 
                     LOG.debug("Generated assembly code:" + nl + program.display());
                     LOG.info("Output file assembly file is: " + destName);
-            
+
                     FileOutputStream fstream = null;
                     try {
                         fstream = new FileOutputStream(destName);
                     } catch (FileNotFoundException e) {
                         throw new DecacFatalError("Failed to open output file: " + e.getLocalizedMessage());
                     }
-            
+
                     LOG.info("Writing assembler file ...");
-            
+
                     program.display(new PrintStream(fstream));
                     LOG.info("Compilation of " + sourceName + " successful.");
                 }
             }
             return false;
-        }    
+        }
     }
 
     /**
@@ -367,13 +371,13 @@ public class DecacCompiler implements Runnable{
      * syntax tree.
      *
      * @param sourceName Name of the file to parse
-     * @param err Stream to send error messages to
+     * @param err        Stream to send error messages to
      * @return the abstract syntax tree
-     * @throws DecacFatalError When an error prevented opening the source file
+     * @throws DecacFatalError    When an error prevented opening the source file
      * @throws DecacInternalError When an inconsistency was detected in the
-     * compiler.
-     * @throws LocationException When a compilation error (incorrect program)
-     * occurs.
+     *                            compiler.
+     * @throws LocationException  When a compilation error (incorrect program)
+     *                            occurs.
      */
     protected AbstractProgram doLexingAndParsing(String sourceName, PrintStream err)
             throws DecacFatalError, DecacInternalError {
@@ -391,7 +395,7 @@ public class DecacCompiler implements Runnable{
     }
 
     @Override
-    public void run(){
+    public void run() {
         compile();
     }
 

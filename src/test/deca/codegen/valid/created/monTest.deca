@@ -1,15 +1,11 @@
-{
-    int a =15;
-    float c=19.2;
-    float b =12.5;
-    if(a>b){
-        println("OK");
-    }
-    if(a>=b){
-        println("OK");
-    }if(a<c){
-        println("OK");
-    }if(a<=c){
-        println("OK");
-    }
+class A{
+    void set1(){}
+    void set2(){}
+    void set3(){}
+}
+
+class B extends A{
+    void set4(){}
+    void set2(){}
+    void set1(){}
 }

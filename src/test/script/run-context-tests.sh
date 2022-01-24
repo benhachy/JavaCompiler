@@ -4,6 +4,7 @@ echo "----- Context tests run -----"
 
 cd "$(dirname "$0")"/../../.. || exit 1
 
+cd "src/test/deca/context/invalid/created"
 PATH=./src/test/script/launchers:"$PATH"
 
 RED='\033[0;31m'
@@ -12,24 +13,28 @@ NC='\033[0m'
 
 echo "----- Invalid tests Battery -----"
 
-for cas_de_test in src/test/deca/codegen/valid/object/*.deca
-do
-    if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
-    then
-        echo "${GREEN}Test passed${NC} - for file $cas_de_test"
-    else
-        echo "${RED}Test failed${NC}  - for file  $cas_de_test"
-    fi
-done
+# for cas_de_test in src/test/deca/codegen/valid/object/*.deca
+# do
+#     if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
+#     then
+#         echo "${GREEN}Test passed${NC} - for file $cas_de_test"
+#     else
+#         echo "${RED}Test failed${NC}  - for file  $cas_de_test"
+#     fi
+# done
 
-echo "----- Valid tests Battery -----"
+# echo "----- Valid tests Battery -----"
 
-for cas_de_test in src/test/deca/context/valid/created/*.deca
+# for cas_de_test in src/test/deca/context/valid/created/*.deca
+# do
+#     if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
+#     then
+#         echo "${RED}Test failed${NC} - for file  $cas_de_test"
+#     else
+#         echo "${GREEN}Test passed${NC} -  for file $cas_de_test"
+#     fi
+# done
+for cas_de_test in *.deca
 do
-    if test_context $cas_de_test 2>&1 | grep -q -e "$cas_de_test"
-    then
-        echo "${RED}Test failed${NC} - for file  $cas_de_test"
-    else
-        echo "${GREEN}Test passed${NC} -  for file $cas_de_test"
-    fi
+    test_context $cas_de_test
 done
