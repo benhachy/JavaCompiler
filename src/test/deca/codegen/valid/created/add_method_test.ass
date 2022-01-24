@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #5
+	ADDSP #8
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -43,28 +43,26 @@
 	LOAD 0(R3), R3
 	BSR code.P.move
 	SUBSP #4
+; codeGenPrint de SELECTION
+; je traite une expression de type je sais pas dans la selectionP
+; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R3
-; blabala
-	LOAD 1(R3), R2
-	LOAD R2, R1
+	LOAD 1(R3), R1
 	WINT
 	WNL
+; codeGenPrint de SELECTION
+; je traite une expression de type je sais pas dans la selectionP
+; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R3
-; blabala
-	LOAD 2(R3), R2
-	LOAD R2, R1
+	LOAD 2(R3), R1
 	WINT
 	WNL
 ; je traite une expression de type je sais pas dans la selectionP
 ; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R3
-; je susi dans identifier coodegenAssign
-; bazi dont be u
-	STORE R2, 2(R3)
-; shit shit
 	LOAD 2(R3), R2
 	TSTO #2
 	BOV pile_pleine
@@ -74,20 +72,32 @@
 	POP R2
 	ADD R0, R2
 ; je traite un assign dans la selection
-; je suis dans codeGenExpr dans indentifier.java
-	LOAD 7(GB), R3
 ; je susi dans identifier coodegenAssign
 ; bazi dont be u
 	STORE R2, 1(R3)
 ; shit shit
-; ononon
+	STORE R2, 1(R3)
+; codeGenPrint de SELECTION
+; je traite une expression de type je sais pas dans la selectionP
+; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
 	LOAD 7(GB), R3
-; blabala
-	LOAD 1(R3), R2
-	LOAD R2, R1
+	LOAD 1(R3), R1
 	WINT
 	WNL
+; codeGenPrint in MethodCall
+; appel à la méthode getX
+	ADDSP #1
+; je suis dans codeGenExpr dans indentifier.java
+	LOAD 7(GB), R3
+	STORE R3, 0(SP)
+	LOAD 0(SP), R3
+	CMP #null, R3
+	BEQ deferencement.null
+	LOAD 0(R3), R3
+	BSR code.P.getX
+	SUBSP #1
+	LOAD R0, R1
 	WINT
 	WNL
 	HALT
@@ -110,6 +120,7 @@ code.P.getX:
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 ; je suis dans codeGenExpr dans indentifier.java
+	LOAD -2(LB), R0
 	LOAD 1(R0), R0
 	BRA fin.P.getX
 fin.P.getX:
@@ -126,6 +137,7 @@ code.P.move:
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 ; je suis dans codeGenExpr dans indentifier.java
+	LOAD -2(LB), R2
 	LOAD 1(R2), R2
 	TSTO #2
 	BOV pile_pleine
@@ -159,6 +171,7 @@ code.P.move:
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
 ; je suis dans codeGenExpr dans indentifier.java
+	LOAD -2(LB), R2
 	LOAD 2(R2), R2
 	TSTO #2
 	BOV pile_pleine
@@ -174,6 +187,21 @@ code.P.move:
 ; shit shit
 fin.P.move:
 ; Restauration des registres
+	POP R3
+	POP R2
+	RTS
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
 	POP R3
 	POP R2
 	RTS
@@ -199,10 +227,6 @@ print_Error:
 	ERROR
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program

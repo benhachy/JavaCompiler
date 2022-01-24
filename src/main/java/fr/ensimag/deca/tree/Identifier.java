@@ -335,7 +335,7 @@ public class Identifier extends AbstractIdentifier {
     }
 
     @Override
-    public  void codeGenAssign(DecacCompiler compiler){
+    public  void codeGenAssign(DecacCompiler compiler,int n){
         System.out.println("identifier::codeGenAssing"+getName());
         compiler.addComment("je susi dans identifier coodegenAssign");
         if(definition.isField()){

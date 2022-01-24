@@ -2,10 +2,11 @@
 //    test  return
 //
 // Resultats:
-//      12
+//    12
 // Historique:
 //    cree le 01/01/2022
 class A{
+    int z=10;
     protected int x;
     protected boolean b;
     int get(){
@@ -14,5 +15,9 @@ class A{
 }
 {
     A obj = new A();
+    int y = 5;
     int x = obj.get();
+    println(x);
+    println(y);
+
 }

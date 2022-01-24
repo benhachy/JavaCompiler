@@ -1,8 +1,5 @@
 ; start main program
-<<<<<<< HEAD
-=======
-	ADDSP #6
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
+	ADDSP #11
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -23,10 +20,6 @@
 	STORE R0, 7(GB)
 	LOAD code.A.setX, R0
 	STORE R0, 8(GB)
-<<<<<<< HEAD
-	ADDSP #5
-=======
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	NEW #3, R2
 	BOV pile_pleine
@@ -38,11 +31,6 @@
 	STORE R2, 9(GB)
 ; Beginning of main instructions:
 	ADDSP #11
-<<<<<<< HEAD
-	LOAD #14, R2
-	PUSH R2
-	BSR code.B.setX
-=======
 ; appel à la méthode setX
 	ADDSP #2
 ; je suis dans codeGenExpr dans indentifier.java
@@ -54,14 +42,14 @@
 	CMP #null, R3
 	BEQ deferencement.null
 	LOAD 0(R3), R3
-	BSR 0(R3)
+	BSR code.B.setX
 	SUBSP #2
+; codeGenPrint de SELECTION
+; je traite une expression de type je sais pas dans la selectionB
+; je traite une expression de type Class dans la selection
 ; je suis dans codeGenExpr dans indentifier.java
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 	LOAD 9(GB), R3
-; blabala
-	LOAD 1(R3), R2
-	LOAD R2, R1
+	LOAD 1(R3), R1
 	WINT
 	HALT
 ; Initialisation des champs de A
@@ -79,12 +67,6 @@ code.A.setX:
 	BOV pile_pleine
 	PUSH R2
 	PUSH R3
-<<<<<<< HEAD
-	LOAD -2(LB), R2
-	LOAD -2(LB), R3
-	LOAD 1(R1), R2
-	STORE R2, 1(R3)
-=======
 ; ana jit les méthodes 
 	LOAD -2(LB), R2
 	LOAD -2(LB), R3
@@ -95,8 +77,7 @@ code.A.setX:
 ; bazi dont be u
 	STORE R2, 1(R3)
 ; shit shit
-; ononon
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
+	STORE R2, 1(R3)
 fin.A.setX:
 ; Restauration des registres
 	POP R3
@@ -111,6 +92,21 @@ init.B:
 	PUSH R1
 	BSR init.A
 	SUBSP #1
+	RTS
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
+	POP R3
+	POP R2
 	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
@@ -132,15 +128,8 @@ print_Error:
 	WSTR "Error: print float only in hexa form"
 	WNL
 	ERROR
-<<<<<<< HEAD
-=======
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program
