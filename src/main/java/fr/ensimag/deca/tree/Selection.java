@@ -36,17 +36,19 @@ public class Selection extends AbstractLValue {
         this.expr=expr;
     }
     @Override
-    public  void codeGenAssign(DecacCompiler compiler){
+    public  void codeGenAssign(DecacCompiler compiler,int n){
         if(expr.getType().isClass()){
+            System.out.print("SELECTION DANS CODEGENASSIGN");
             compiler.addComment("je traite un assign dans la selection");
             //exp is this
-            expr.codeGenExpr(compiler, 3);
+            //expr.codeGenExpr(compiler, 3);
             //type is x in this.x
-            type.codeGenAssign(compiler);
+            type.codeGenAssign(compiler,n);
             compiler.addInstruction(new STORE( Register.getR(2),new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3))));
             //type.getFieldDefinition().getIndex();
         }else{
-            type.codeGenAssign(compiler);
+            compiler.addComment("je traite un assign dans la selection du else");
+            type.codeGenAssign(compiler,n);
         }      
     }
     @Override
@@ -56,12 +58,16 @@ public class Selection extends AbstractLValue {
         if(expr.getType().isClass()){
             compiler.addComment("je traite une expression de type Class dans la selection");
             expr.codeGenExpr(compiler, 3);
-            type.codeGenAssign(compiler);
+            //type.codeGenAssign(compiler,n);
             compiler.addInstruction(new LOAD( new RegisterOffset(type.getFieldDefinition().getIndex()+1, Register.getR(3)),Register.getR(n)));
             //type.getFieldDefinition().getIndex();
         }else{
             compiler.addComment("I SHOULD NOT BE HERE AT ALL");
         }      
+    }
+    @Override 
+    protected void codeGenInst(DecacCompiler compiler) {
+        this.codeGenExpr(compiler, 2);
     }
     
     @Override

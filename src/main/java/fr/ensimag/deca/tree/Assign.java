@@ -7,6 +7,9 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 
 /**
  * Assignment, i.e. lvalue = expr.
@@ -46,17 +49,24 @@ public class Assign extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        //System.out.println("::Assign.java:: codeGenInst");
+        System.out.println("::Assign.java:: codeGenInst");
         AbstractExpr rvalue = getRightOperand();
         AbstractLValue lvalue = getLeftOperand();
         rvalue.codeGenInst(compiler);
+        System.out.print("********************************************"+rvalue.getClass().toString());
+        if( rvalue instanceof MethodCall){
+            compiler.addInstruction(new PUSH(Register.getR(2)));
+            compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(2)));
+        }
         if(rvalue.getType().isInt() && lvalue.getType().isFloat())
         {
             compiler.addInstruction(new FLOAT(Register.getR(2),Register.getR(2)));
         }
         //compiler.addInstruction(new PUSH(Register.getR(2)));
-        lvalue.codeGenAssign(compiler);
-        
+        lvalue.codeGenAssign(compiler,2);
+        if( rvalue instanceof MethodCall){
+        compiler.addInstruction(new POP(Register.getR(2)));
+        }
     }
     @Override
     protected String getOperatorName() {

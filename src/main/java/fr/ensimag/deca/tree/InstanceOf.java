@@ -47,6 +47,7 @@ public class InstanceOf extends AbstractExpr {
         this.type = type;
         this.expr=expr;
     }
+    static int numberofIstanceOf;
     @Override
     public  Type verifyExpr(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
@@ -76,9 +77,10 @@ public class InstanceOf extends AbstractExpr {
     }
     public void  codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n) {
 
-        Label beginningInstanceOf= new Label("instanceOf.Begin");
-        Label succesInstanceOf= new Label("instanceOf.succes");
-        Label endInstanceOf= new Label("instanceOf.end");
+        Label beginningInstanceOf= new Label("instanceOf.Begin"+numberofIstanceOf);
+        Label succesInstanceOf= new Label("instanceOf.succes"+numberofIstanceOf);
+        Label endInstanceOf= new Label("instanceOf.end"+numberofIstanceOf);
+        numberofIstanceOf++;
 
         //on récupère l'adresse de la classe B ( c instaceof B)
         //compiler.addInstruction(new LEA(Identifier.getVariableAddress(type.getName()),Register.getR(0)));

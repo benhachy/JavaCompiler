@@ -1,12 +1,11 @@
-<<<<<<< HEAD
 ; start main program
+	ADDSP #4
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-	ADDSP #2
 ; idk why or how he's here
 	LOAD #10, R2
 	OPP R2, R2
@@ -17,6 +16,21 @@
 	WINT
 	WNL
 	HALT
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
+	POP R3
+	POP R2
+	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
 	WNL
@@ -37,10 +51,8 @@ print_Error:
 	WSTR "Error: print float only in hexa form"
 	WNL
 	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
+deferencement.null:
+	WSTR "Erreur : dereferencement de null"
 	WNL
 	ERROR
 ; end main program
-=======
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e

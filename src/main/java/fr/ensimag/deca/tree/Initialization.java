@@ -8,6 +8,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
 
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -74,6 +76,10 @@ public class Initialization extends AbstractInitialization {
     public void codeGenInit(DecacCompiler compiler)
     {
         expression.codeGenInst(compiler);
+        if( expression instanceof MethodCall){
+            compiler.addInstruction(new PUSH(Register.getR(2)));
+            compiler.addInstruction(new LOAD(Register.getR(0),Register.getR(2)));
+        }
         if(expression.getType().isInt() && expectedType.isFloat() ){
             compiler.addInstruction(new FLOAT(Register.getR(2),Register.getR(2)));
         }

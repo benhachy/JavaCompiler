@@ -1,15 +1,11 @@
 ; start main program
-	ADDSP #3
+	ADDSP #5
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-<<<<<<< HEAD
-	ADDSP #3
-=======
->>>>>>> 9a44802ed4648340cf4d993c939c44c9f0027b6e
 ; idk why or how he's here
 	LOAD #100, R2
 	STORE R2, 3(GB)
@@ -35,6 +31,21 @@
 	SUB R2, R3
 	LOAD R3, R2
 	HALT
+code.Object.equals:
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R3, R2
+	BEQ code.Object.equals.loadTrueEQ
+	LOAD #0, R0
+	BRA code.Object.equals.finComparationEQ
+code.Object.equals.loadTrueEQ:
+	LOAD #1, R0
+code.Object.equals.finComparationEQ:
+	POP R3
+	POP R2
+	RTS
 pile_pleine:
 	WSTR "Error: pile pleine"
 	WNL
@@ -57,10 +68,6 @@ print_Error:
 	ERROR
 deferencement.null:
 	WSTR "Erreur : dereferencement de null"
-	WNL
-	ERROR
-code.Object.equals:
-	WSTR "a faire la methode equals de object"
 	WNL
 	ERROR
 ; end main program

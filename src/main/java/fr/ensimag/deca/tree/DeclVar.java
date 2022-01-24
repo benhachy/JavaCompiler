@@ -116,7 +116,9 @@ public class DeclVar extends AbstractDeclVar {
 
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler){
+        System.out.println("DECVAL.JAVA CODEGENDECLVAR");
         compiler.addComment("idk why or how he's here");
+        
         initialization.codeGenInit(compiler);        
         if(!type.getType().isClass()){
             compiler.addInstruction(new STORE(Register.getR(2),new RegisterOffset(Register.getPosGB(),Register.GB)));
@@ -126,11 +128,18 @@ public class DeclVar extends AbstractDeclVar {
             compiler.addInstruction(new STORE( Register.getR(2) , new RegisterOffset(Register.getPosGB(),Register.GB)));
         } 
         Register.updatePosGB();
+        if( initialization.getExpression() != null){
+            if( initialization.getExpression() instanceof MethodCall){
+                compiler.addInstruction(new POP(Register.getR(2)));
+            }
+        }
+        
         
     }
 
     @Override
     public void codeGenDeclvarMethode(DecacCompiler compiler){
+        System.out.println("DECVAL.JAVA CODEGENDECLVARMETHPDE");
         if(type.getType().isClass()){
             // to do
         }else{
