@@ -359,7 +359,7 @@ public class Identifier extends AbstractIdentifier {
         }
         else if (definition.isParam()) {
             compiler.addComment("ana param hihih");
-            compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),Register.getR(3) ));
+            compiler.addInstruction(new LOAD(new RegisterOffset(compiler.getIndexParam(getName()), Register.LB),Register.getR(n)));
         }
         else{
             compiler.addComment("indentifier.java codegenassign");

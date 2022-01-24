@@ -50,19 +50,35 @@ public class NotEquals extends AbstractOpExactCmp {
             compiler.addInstruction(new BEQ(E));
         }
     }
-
     @Override
     protected void codeGenInst(DecacCompiler compiler){
+        // getRightOperand().codeGenExpr(compiler, 2);
+        // getLeftOperand().codeGenExpr(compiler, 3);
+        // compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
+        // Label loadFalse = new Label("loadFalseNE."+cmpEtiquetes);
+        // Label finCmp = new Label("finComparationNE."+cmpEtiquetes);
+        // compiler.addInstruction(new BEQ(loadFalse));
+        // new IntLiteral(1).codeGenExpr(compiler,2);
+        // compiler.addInstruction(new BRA(finCmp));
+        // compiler.addLabel(loadFalse);
+        // new IntLiteral(0).codeGenExpr(compiler,2);
+        // compiler.addLabel(finCmp);
+        // cmpEtiquetes++;
+        this.codeGenExpr(compiler, 2);
+    }
+
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
         getRightOperand().codeGenExpr(compiler, 2);
         getLeftOperand().codeGenExpr(compiler, 3);
         compiler.addInstruction(new CMP(Register.getR(3),Register.getR(2)));
         Label loadFalse = new Label("loadFalseNE."+cmpEtiquetes);
         Label finCmp = new Label("finComparationNE."+cmpEtiquetes);
         compiler.addInstruction(new BEQ(loadFalse));
-        new IntLiteral(1).codeGenExpr(compiler,2);
+        new IntLiteral(1).codeGenExpr(compiler,n);
         compiler.addInstruction(new BRA(finCmp));
         compiler.addLabel(loadFalse);
-        new IntLiteral(0).codeGenExpr(compiler,2);
+        new IntLiteral(0).codeGenExpr(compiler,n);
         compiler.addLabel(finCmp);
         cmpEtiquetes++;
     }

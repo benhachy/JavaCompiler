@@ -1,5 +1,5 @@
 ; start main program
-	ADDSP #9
+	ADDSP #10
 ; Main program
 ; code pour l'initializaton de la table des methodes
 	LOAD #null, R0
@@ -44,9 +44,6 @@
 ; Beginning of main instructions:
 	ADDSP #10
 	LOAD 8(GB), R1
-	WINT
-	WNL
-	LOAD 7(GB), R1
 	WINT
 	WNL
 	HALT

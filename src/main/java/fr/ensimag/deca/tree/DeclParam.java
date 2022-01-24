@@ -52,6 +52,10 @@ public class DeclParam extends AbstractDeclParam {
         //je dois mettre le paramètre dans le LB selon son indice 
         //ident.getFieldDefinition().
         //hashmapLb fih f kola variable associé une position
+        // if(type.getType().isFloat() && ident.getType().isInt()){
+        //     compiler.addInstruction();
+        //     compiler.addIndexParam(ident.getName(), index);
+        // }
         compiler.addIndexParam(ident.getName(), index);
         }
 

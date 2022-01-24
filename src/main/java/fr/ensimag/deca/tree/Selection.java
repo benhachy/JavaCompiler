@@ -13,7 +13,9 @@ import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 
@@ -68,6 +70,12 @@ public class Selection extends AbstractLValue {
     @Override 
     protected void codeGenInst(DecacCompiler compiler) {
         this.codeGenExpr(compiler, 2);
+    }
+    @Override
+    public void codeGenOpBool(DecacCompiler compiler,GPRegister leftOperand, GPRegister rightOperand,boolean b,Label E,Label EFin,int n){
+        this.codeGenExpr(compiler, 0);
+        compiler.addInstruction(new CMP(new ImmediateInteger(1),Register.getR(0)));
+       compiler.addInstruction(new BEQ(E));
     }
     
     @Override
