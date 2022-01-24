@@ -72,6 +72,9 @@ class Math {
 		}
 	}
 	
+	float _puissanceNegativeDeDeux(float x){
+		return 0;
+	}
 	
 	/**
 	 * Calcule la ième puissance de dix
@@ -441,7 +444,7 @@ class Math {
 	   float atan(float val) {
 		
 		// n représente le nombre d'itérations de notre algorithme
-		int n = 45;
+		//int n = 45;
 
 		// Les variables sur lesquels on va itérer en CORDIC
 		float x;
@@ -449,7 +452,7 @@ class Math {
 		float z;
 		int n = 45;
 		// Le i est pour la boucle while dans le else statement
-		int i=0;
+		//int i=0;
 
 		// Variables nécessaires pour passer d'une itération à une autre
 		int d;

@@ -92,6 +92,7 @@ code.A.setX:
 ; ana paramètre o jit l codegeninst dial ientifier hahahahh
 	LOAD -3(LB), R2
 ; je traite un assign dans la selection
+	LOAD -2(LB), R3
 ; je susi dans identifier coodegenAssign
 ; bazi dont be u
 	STORE R2, 1(R3)

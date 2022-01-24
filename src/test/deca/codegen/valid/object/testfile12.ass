@@ -77,6 +77,7 @@ code.A.setX:
 ; ana paramètre o jit l codegeninst dial ientifier hahahahh
 	LOAD -3(LB), R2
 ; je traite un assign dans la selection
+	LOAD -2(LB), R3
 ; je susi dans identifier coodegenAssign
 ; bazi dont be u
 	STORE R2, 1(R3)
@@ -97,6 +98,7 @@ code.A.getX:
 	LOAD -2(LB), R3
 ; je traite une expression de type je sais pas dans la selectionA
 ; je traite une expression de type Class dans la selection
+	LOAD -2(LB), R3
 	LOAD 1(R3), R0
 	BRA fin.A.getX
 fin.A.getX:

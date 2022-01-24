@@ -18,11 +18,12 @@ import fr.ensimag.ima.pseudocode.Label;
  * @date 01/01/2022
  */
 public class IfThenElse extends AbstractInst {
-    
-    private final AbstractExpr condition; 
+
+    private final AbstractExpr condition;
     private final ListInst thenBranch;
     private ListInst elseBranch;
-    public static int numIf =0;
+    public static int numIf = 0;
+
     public IfThenElse(AbstractExpr condition, ListInst thenBranch, ListInst elseBranch) {
         Validate.notNull(condition);
         Validate.notNull(thenBranch);
@@ -31,36 +32,45 @@ public class IfThenElse extends AbstractInst {
         this.thenBranch = thenBranch;
         this.elseBranch = elseBranch;
     }
-    public void setElseBranch(ListInst elseBranch){
-        this.elseBranch=elseBranch;
+
+    public void setElseBranch(ListInst elseBranch) {
+        this.elseBranch = elseBranch;
     }
+
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        //System.out.println("::IfThenElse.java::verifyInst ");
+        // System.out.println("::IfThenElse.java::verifyInst ");
         condition.verifyCondition(compiler, localEnv, currentClass);
-        thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
-        elseBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
+        // thenBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
+        for (AbstractInst i : thenBranch.getList()) {
+            i.verifyInst(compiler, localEnv, currentClass, returnType);
+        }
+        for (AbstractInst i : elseBranch.getList()) {
+            i.verifyInst(compiler, localEnv, currentClass, returnType);
+        }
+        // elseBranch.verifyListInst(compiler, localEnv, currentClass, returnType);
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        Label beginIf = new Label("beginIf"+numIf);
-        Label finElse = new Label("finElse"+numIf);
-        Label ifInst = new Label("ifInst"+numIf);
-        Label elseInst = new Label("elseInst"+numIf);
+        Label beginIf = new Label("beginIf" + numIf);
+        Label finElse = new Label("finElse" + numIf);
+        Label ifInst = new Label("ifInst" + numIf);
+        Label elseInst = new Label("elseInst" + numIf);
         numIf++;
         compiler.addLabel(beginIf);
-        condition.codeGenOpBool(compiler, null, null,true , ifInst, finElse, 2);
+        condition.codeGenOpBool(compiler, null, null, true, ifInst, finElse, 2);
         compiler.addInstruction(new BRA(elseInst));
         compiler.addLabel(ifInst);
         thenBranch.codeGenListInst(compiler);
         compiler.addInstruction(new BRA(finElse));
         compiler.addLabel(elseInst);
         elseBranch.codeGenListInst(compiler);
-        //compiler.addInstruction(new BRA(beginIf));
-        compiler.addLabel(finElse);;
+        // compiler.addInstruction(new BRA(beginIf));
+        compiler.addLabel(finElse);
+        ;
     }
 
     @Override
@@ -77,8 +87,7 @@ public class IfThenElse extends AbstractInst {
     }
 
     @Override
-    protected
-    void iterChildren(TreeFunction f) {
+    protected void iterChildren(TreeFunction f) {
         condition.iter(f);
         thenBranch.iter(f);
         elseBranch.iter(f);

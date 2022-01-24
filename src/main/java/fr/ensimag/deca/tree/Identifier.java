@@ -369,7 +369,8 @@ public class Identifier extends AbstractIdentifier {
         } else {
             compiler.addComment("indentifier.java codegenassign");
             // chercher la valeur comme variable global dans gb
-            compiler.addInstruction(new STORE(Register.getR(2), Identifier.getVariableAddress(getName())));
+            // compiler.addInstruction(new STORE(Register.getR(2),
+            // Identifier.getVariableAddress(getName())));
         }
     }
 
