@@ -53,7 +53,7 @@ class Math {
 	public float _racine_n(float a, int n) {
 			
 		if (n == 0 ) {
-			return -190/(a+20) + 10;  // seed
+			return -190.0f /(a+20.0f) + 10.0f;  // seed
 		}
 		else {
 			return   0.5f*(_racine_n(a, n -1) + a/(_racine_n(a, n -1)) );
