@@ -9,7 +9,7 @@
 
 {
     Math m = new Math();
-    float angle = PI/4;
-    float cos = m.cos(PI/4);
+    float angle = m.PI/4;
+    float cos = m.cos(angle);
     println("Le cosinus de PI/4 est ", cos);
 }

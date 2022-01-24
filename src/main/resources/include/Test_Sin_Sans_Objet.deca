@@ -1,39 +1,38 @@
-
-
-public class TestSinSansObjet {
-	
-	public  void main(String[] args) {
-		
-		// Angle désiré
+{
 		float PI = 3.141592653589793f; //
 		float theta = PI/4;
 
 		// Pour le tests Sans objet on testera les valeurs du cos entre -pi/2 et pi/2
 		
-	    float K = 1.646760258121f; //
+	    	float K = 1.646760258121f; //
 		int n = 45;
 		
 		float x = 1/K;
 		float y = 0;
 		float z = theta;
-		
+		int d;
 		int i = 0;
+		float funx ;
+		float funy ;
+		float funz ;
+		float twoPow;
+		int j;
 		while ( i < n) {
-			int d;
 			
-			float funx = x;
-			float funy = y;
-			float funz = z;
 			
-			float twoPow = 1;
-			int j = 0;
+			funx = x;
+			funy = y;
+			funz = z;
+			
+			twoPow = 1;
+			j = 0;
 			
 			while(j < i) {
 				twoPow = twoPow * 0.5f;
-				j++;
+				j = j + 1;
 			}
 			// Initialisation de d	
-			if (funz > 0) {
+			if (funz > 0.0) {
 				d = 1;
 			}
 			else {
@@ -45,57 +44,55 @@ public class TestSinSansObjet {
 			// expression if
 			// z = funz - d * tab[i]; 
 			if(i == 0) { z =  funz - d * 0.7853981633974483f;}
-			elseif(i == 1) { z =  funz -d * 0.4636476090008061f;}
-			elseif(i == 2) { z =  funz - d * 0.24497866312686414f;}
-			elseif(i == 3) { z =  funz - d * 0.12435499454676144f;}
-			elseif(i == 4) { z =  funz - d * 0.06241880999595735f;}
-			elseif(i == 5) { z =  funz - d * 0.031239833430268277f;}
-			elseif(i == 6) { z =  funz - d * 0.015623728620476831f;}
-			elseif(i == 7) { z =  funz - d * 0.007812341060101111f;}
-			elseif(i == 8) { z =  funz - d * 0.0039062301319669718f;}
-			elseif(i == 9) { z =  funz - d * 0.0019531225164788188f;}
-			elseif(i == 10) { z =  funz - d * 0.0009765621895593195f;}
-			elseif(i == 11) { z =  funz - d * 0.0004882812111948983f;}
-			elseif(i == 12) { z =  funz - d * 0.00024414062014936177f;}
-			elseif(i == 13) { z =  funz - d * 0.00012207031189367021f;}
-			elseif(i == 14) { z =  funz - d * 6.103515617420877e-05f;}
-			elseif(i == 15) { z =  funz - d * 3.0517578115526096e-05f;}
-			elseif(i == 16) { z =  funz - d * 1.5258789061315762e-05f;}
-			elseif(i == 17) { z =  funz - d * 7.62939453110197e-06f;}
-			elseif(i == 18) { z =  funz - d * 3.814697265606496e-06f;}
-			elseif(i == 19) { z =  funz - d * 1.907348632810187e-06f;}
-			elseif(i == 20) { z =  funz - d * 9.536743164059608e-07f;}
-			elseif(i == 21) { z =  funz - d * 4.7683715820308884e-07f;}
-			elseif(i == 22) { z =  funz - d * 2.3841857910155797e-07f;}
-			elseif(i == 23) { z =  funz - d * 1.1920928955078068e-07f;}
-			elseif(i == 24) { z =  funz - d * 5.960464477539055e-08f;}
-			elseif(i == 25) { z =  funz - d * 2.9802322387695303e-08f;}
-			elseif(i == 26) { z =  funz - d * 1.4901161193847655e-08f;}
-			elseif(i == 27) { z =  funz - d * 7.450580596923828e-09f;}
-			elseif(i == 28) { z =  funz - d * 3.725290298461914e-09f;}
-			elseif(i == 29) { z =  funz - d * 1.862645149230957e-09f;}
-			elseif(i == 30) { z =  funz - d * 9.313225746154785e-10f;}
-			elseif(i == 31) { z =  funz - d * 4.656612873077393e-10f;}
-			elseif(i == 32) { z =  funz - d * 2.3283064365386963e-10f;}
-			elseif(i == 33) { z =  funz - d * 1.1641532182693481e-10f;}
-			elseif(i == 34) { z =  funz - d * 5.820766091346741e-11f;}
-			elseif(i == 35) { z =  funz - d * 2.9103830456733704e-11f;}
-			elseif(i == 36) { z =  funz - d * 1.4551915228366852e-11f;}
-			elseif(i == 37) { z =  funz - d * 7.275957614183426e-12f;}
-			elseif(i == 38) { z =  funz - d * 3.637978807091713e-12f;}
-			elseif(i == 39) { z =  funz - d * 1.8189894035458565e-12f;}
-			elseif(i == 40) { z =  funz - d * 9.094947017729282e-13f;}
-			elseif(i == 41) { z =  funz - d * 4.547473508864641e-13f;}
-			elseif(i == 42) { z =  funz - d * 2.2737367544323206e-13f;}
-			elseif(i == 43) { z =  funz - d * 1.1368683772161603e-13f;}
-			elseif(i == 44) { z =  funz - d * 5.684341886080802e-14f;}
-			elseif(i == 45) {z =  funz - d * 2.8421709430404007e-14f;}
-			}
-			
-			i++;
+			if(i == 1) { z =  funz -d * 0.4636476090008061f;}
+			if(i == 2) { z =  funz - d * 0.24497866312686414f;}
+			if(i == 3) { z =  funz - d * 0.12435499454676144f;}
+			if(i == 4) { z =  funz - d * 0.06241880999595735f;}
+			if(i == 5) { z =  funz - d * 0.031239833430268277f;}
+			if(i == 6) { z =  funz - d * 0.015623728620476831f;}
+			if(i == 7) { z =  funz - d * 0.007812341060101111f;}
+			if(i == 8) { z =  funz - d * 0.0039062301319669718f;}
+			if(i == 9) { z =  funz - d * 0.0019531225164788188f;}
+			if(i == 10) { z =  funz - d * 0.0009765621895593195f;}
+			if(i == 11) { z =  funz - d * 0.0004882812111948983f;}
+			if(i == 12) { z =  funz - d * 0.00024414062014936177f;}
+			if(i == 13) { z =  funz - d * 0.00012207031189367021f;}
+			if(i == 14) { z =  funz - d * 6.103515617420877e-05f;}
+			if(i == 15) { z =  funz - d * 3.0517578115526096e-05f;}
+			if(i == 16) { z =  funz - d * 1.5258789061315762e-05f;}
+			if(i == 17) { z =  funz - d * 7.62939453110197e-06f;}
+			if(i == 18) { z =  funz - d * 3.814697265606496e-06f;}
+			if(i == 19) { z =  funz - d * 1.907348632810187e-06f;}
+			if(i == 20) { z =  funz - d * 9.536743164059608e-07f;}
+			if(i == 21) { z =  funz - d * 4.7683715820308884e-07f;}
+			if(i == 22) { z =  funz - d * 2.3841857910155797e-07f;}
+			if(i == 23) { z =  funz - d * 1.1920928955078068e-07f;}
+			if(i == 24) { z =  funz - d * 5.960464477539055e-08f;}
+			if(i == 25) { z =  funz - d * 2.9802322387695303e-08f;}
+			if(i == 26) { z =  funz - d * 1.4901161193847655e-08f;}
+			if(i == 27) { z =  funz - d * 7.450580596923828e-09f;}
+			if(i == 28) { z =  funz - d * 3.725290298461914e-09f;}
+			if(i == 29) { z =  funz - d * 1.862645149230957e-09f;}
+			if(i == 30) { z =  funz - d * 9.313225746154785e-10f;}
+			if(i == 31) { z =  funz - d * 4.656612873077393e-10f;}
+			if(i == 32) { z =  funz - d * 2.3283064365386963e-10f;}
+			if(i == 33) { z =  funz - d * 1.1641532182693481e-10f;}
+			if(i == 34) { z =  funz - d * 5.820766091346741e-11f;}
+			if(i == 35) { z =  funz - d * 2.9103830456733704e-11f;}
+			if(i == 36) { z =  funz - d * 1.4551915228366852e-11f;}
+			if(i == 37) { z =  funz - d * 7.275957614183426e-12f;}
+			if(i == 38) { z =  funz - d * 3.637978807091713e-12f;}
+			if(i == 39) { z =  funz - d * 1.8189894035458565e-12f;}
+			if(i == 40) { z =  funz - d * 9.094947017729282e-13f;}
+			if(i == 41) { z =  funz - d * 4.547473508864641e-13f;}
+			if(i == 42) { z =  funz - d * 2.2737367544323206e-13f;}
+			if(i == 43) { z =  funz - d * 1.1368683772161603e-13f;}
+			if(i == 44) { z =  funz - d * 5.684341886080802e-14f;}
+			if(i == 45) {z =  funz - d * 2.8421709430404007e-14f;}		
+			i = i + 1;
 		}
 			
 		
-		println(y);
+		print(y);
 			
-	}
+}

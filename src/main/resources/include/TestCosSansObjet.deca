@@ -1,31 +1,24 @@
-{
+
+{	
 		float PI = 3.141592653589793f; //
-		
-		// 0.577350f;
-		float theta = 0.5f; 
-		float w = 1 - theta*theta;
-		float sqroot = -190.0/(w+20.0) +10.0;
-		int i = 0;
-		int e = 0;
-		int n = 45;
-		float x = 1;
-		float y;
-		float z = 0;
-		float funx ;
-		float funy ;
-		float funz ;
-		float twoPow;
-		int j ;
-		int d = 0;
-		while(e <= 10){
-		    sqroot = (sqroot + w/sqroot)*0.5f;
-		    e = e + 1;
-		}
-		theta= 0.577350f;
-		y = theta;
+		float theta = PI/4;
+
 		// Pour le tests Sans objet on testera les valeurs du cos entre -pi/2 et pi/2
-		while ( i < n) {
-			
+		
+	    	float K = 1.646760258121f; //
+		int n = 45;
+		
+		float x = 1/K;
+		float y = 0;
+		float z = theta;
+		int d;
+		int i = 0;
+		int j;
+		float funx;
+		float funy;
+		float funz;
+		float twoPow;
+		while ( i < n ) {
 			funx = x;
 			funy = y;
 			funz = z;
@@ -37,12 +30,13 @@
 				twoPow = twoPow * 0.5f;
 				j = j + 1;
 			}
+			
 			// Initialisation de d	
-			if (funy > 0.0) {
-				d = -1;
+			if (funz > 0.0) {
+				d = 1;
 			}
 			else {
-				d = 1;
+				d = -1;
 			}
 			
 			x = (funx - d * funy * twoPow);
@@ -50,8 +44,8 @@
 			// expression if
 			// z = funz - d * tab[i]; 
 			if(i == 0) { z =  funz - d * 0.7853981633974483f;}
-			if (i == 1) { z =  funz -d * 0.4636476090008061f;}
 			if (i == 2) { z =  funz - d * 0.24497866312686414f;}
+			if (i == 1) { z =  funz -d * 0.4636476090008061f;}
 			if (i == 3) { z =  funz - d * 0.12435499454676144f;}
 			if (i == 4) { z =  funz - d * 0.06241880999595735f;}
 			if (i == 5) { z =  funz - d * 0.031239833430268277f;}
@@ -96,11 +90,11 @@
 			if (i == 44) { z =  funz - d * 5.684341886080802e-14f;}
 			if (i == 45) {z =  funz - d * 2.8421709430404007e-14f;}
 			
-			i = i + 1;
-		}
-		
 			
+			i = i + 1;	
+			}	
 		
-		println(z);
-		}
-		
+		printlnx(x);
+		printlnx(0.70710678118);
+			
+}
