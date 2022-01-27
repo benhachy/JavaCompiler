@@ -1,0 +1,6 @@
+{
+    int x;
+    print("Entrer un entier x:");
+    x= readInt();
+    println("x=",x);
+}

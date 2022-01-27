@@ -242,14 +242,14 @@ public class DeclClass extends AbstractDeclClass {
         Register.updatePosGB();
         EnvironmentExp envClass = compiler.getEnv(identifier.getClassDefinition().getSuperClass().getType().getName());
 
-        for (AbstractDeclField f : feildDecl.getList()) {
-            System.out.println(identifier.getName() + "." + f.getName().getName() + " "
-                    + f.getName().getFieldDefinition().getIndex());
-        }
+        // for (AbstractDeclField f : feildDecl.getList()) {
+        //     System.out.println(identifier.getName() + "." + f.getName().getName() + " "
+        //             + f.getName().getFieldDefinition().getIndex());
+        // }
         createLabelList(compiler, identifier.getName());
-        System.out.println("definition de la class " + identifier.getName());
+       // System.out.println("definition de la class " + identifier.getName());
         createListFields(compiler, identifier.getName());
-        afficherFields();
+        //afficherFields();
         Set<Integer> keys = newHashMap.keySet();
       for(Integer key: keys){
             compiler.addInstruction(new LOAD(new LabelOperand(newHashMap.get(key) ), Register.getR(0)));

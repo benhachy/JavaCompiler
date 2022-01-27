@@ -1,0 +1,13 @@
+//Description:
+//    division par zero
+//
+// Resultats:
+//    Error: Division by zero
+// 
+// Historique:
+//    cree le 01/01/2022
+{
+    float a = 100 ;
+    float b = 0 ;
+    a/b;
+}

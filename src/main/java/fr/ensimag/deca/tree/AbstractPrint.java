@@ -81,7 +81,7 @@ public abstract class AbstractPrint extends AbstractInst {
                     
                 }
                 else{
-                    System.out.println("i skiped this one "); 
+                    //System.out.println("i skiped this one "); 
 
                 }
             }

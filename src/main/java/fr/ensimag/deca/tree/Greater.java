@@ -53,6 +53,11 @@ public class Greater extends AbstractOpIneq {
     }
     @Override
     protected void codeGenInst(DecacCompiler compiler){
+        this.codeGenExpr(compiler,2);
+
+    }
+    @Override
+    public void codeGenExpr(DecacCompiler compiler,int n) {
         AbstractExpr rOp = getRightOperand();
         AbstractExpr lOp = getLeftOperand();
         rOp.codeGenExpr(compiler, 3);

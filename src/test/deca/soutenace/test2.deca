@@ -1,0 +1,21 @@
+class A{
+    int x=1; //initialization des champs
+    //methode getX pour montre le retour des fonctions
+    int getX(){ 
+        return x;
+    }
+    //methode setX pour montrer des funtions avec des paramètres
+    void setX(int newX){
+        x = newX;
+    }
+}
+{
+    //instanceation d'un objet
+    A a = new A();
+    //acceseur sur un atribut d'un objet
+    println(a.x);
+    //apppel a setX
+    a.setX(2);
+    //appel a getX
+    println(a.getX());
+}

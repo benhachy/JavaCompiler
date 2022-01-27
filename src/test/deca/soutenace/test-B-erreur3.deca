@@ -1,0 +1,37 @@
+class A{
+    protected int x;
+    protected float y;
+}
+
+class B extends A{
+     int z;
+     int w;
+    void SetX(){
+        x = z;
+    }
+    void setY(int w){
+        y = w;
+    }
+}
+
+class C extends A{
+    int m;
+    B b;
+    protected int w;
+    void SetX(){
+        b.z = 10;
+        x = b.w;
+    }
+    float abs(float x){
+        if(x<0)
+        {
+            return -x;
+        }
+        return x;
+    }
+}
+
+{
+    C a = new C();
+    int x = a.abs(-12);
+}

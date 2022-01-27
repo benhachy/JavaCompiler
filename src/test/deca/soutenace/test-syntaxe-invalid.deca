@@ -1,0 +1,4 @@
+// debordement lexical sur un flottant
+{
+    f=1.2E+50;
+}

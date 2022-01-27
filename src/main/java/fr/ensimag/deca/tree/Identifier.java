@@ -302,7 +302,7 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public void codeGenOpBool(DecacCompiler compiler, GPRegister leftOperand, GPRegister rightOperand, boolean b,
             Label E, Label EFin, int n) {
-        compiler.addInstruction(new LOAD(new RegisterOffset(Identifier.identificateurs.get(getName()) + 3, Register.GB),
+        compiler.addInstruction(new LOAD(Identifier.getVariableAddress(getName()),
                 Register.getR(0)));
         if (b) {
             compiler.addInstruction(new CMP(new ImmediateInteger(0), Register.getR(0)));

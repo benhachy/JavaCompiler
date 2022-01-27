@@ -19,13 +19,8 @@
 	LOAD 4(GB), R2
 	LOAD R2, R0
 	POP R2
-	LOAD R2, R3
-	QUO R0, R2
-	CMP #0, R0
+	REM R0, R2
 	BEQ division_zero
-	MUL R0, R2
-	SUB R2, R3
-	LOAD R3, R2
 	HALT
 code.Object.equals:
 	PUSH R2

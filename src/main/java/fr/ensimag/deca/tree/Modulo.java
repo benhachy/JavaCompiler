@@ -10,6 +10,7 @@ import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.MUL;
 import fr.ensimag.ima.pseudocode.instructions.QUO;
+import fr.ensimag.ima.pseudocode.instructions.REM;
 import fr.ensimag.ima.pseudocode.instructions.SUB;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -45,13 +46,8 @@ public class Modulo extends AbstractOpArith {
 
     @Override
     public void codeGenOp(DecacCompiler compiler,GPRegister leftOperand,GPRegister rightOperand,int n){
-        compiler.addInstruction(new LOAD(leftOperand,Register.getR(3)));
-        compiler.addInstruction(new QUO(rightOperand,leftOperand));
-        compiler.addInstruction(new CMP(new ImmediateInteger(0),rightOperand));
+        compiler.addInstruction(new REM(rightOperand,leftOperand));
         compiler.addInstruction(new BEQ(new Label("division_zero")));
-        compiler.addInstruction(new MUL(rightOperand,leftOperand));
-        compiler.addInstruction(new SUB(leftOperand,Register.getR(3)));
-        compiler.addInstruction(new LOAD(Register.getR(3),leftOperand));
         
     }
 

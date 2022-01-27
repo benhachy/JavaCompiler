@@ -472,6 +472,9 @@ literal returns[AbstractExpr tree]
         catch (NumberFormatException e){
             throw new DecaRecognitionException(this,$fd);
         }
+        catch ( IllegalArgumentException e){
+            throw new  DecaRecognitionException(this,$ctx);
+        }
         }
     | STRING {
             $tree = new StringLiteral($STRING.text.substring(1,$STRING.text.length()-1));

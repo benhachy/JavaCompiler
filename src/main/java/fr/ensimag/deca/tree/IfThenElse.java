@@ -58,7 +58,6 @@ public class IfThenElse extends AbstractInst {
         compiler.addInstruction(new BRA(finElse));
         compiler.addLabel(elseInst);
         elseBranch.codeGenListInst(compiler);
-        //compiler.addInstruction(new BRA(beginIf));
         compiler.addLabel(finElse);;
     }
 

@@ -1,0 +1,38 @@
+class A{
+    int x=1; //initialization des champs
+    //methode getX pour montre le retour des fonctions
+    int getX(){ 
+        return x;
+    }
+    void setX(int newX){
+        x = newX;
+    }
+}
+class B extends A{ //la class B herite de la class A
+    //la class B a herite les attributs et methodes de A
+    int y=3; //on ajute le attribut y
+    int getY(){ //on ajute l'acceseur
+        return y;
+    }
+    void setY(int newY){ //on ajute le modificateur
+        y = newY;
+    }
+}
+{
+    //instanceation d'un objet de la class B
+    B b = new B();
+
+    //acceseur sur un atribut herite d'un objet
+    println(b.x);
+    //apppel a setX herite de la class A
+    b.setX(2);
+    //appel a getX herite de la class A 
+    println(b.getX());
+
+    //acceseur sur un atribut d'un objet
+    println(b.y);
+    //apppel a setY
+    b.setY(4);
+    //appel a getY 
+    println(b.getY());
+}

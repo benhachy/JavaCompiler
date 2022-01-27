@@ -1,0 +1,32 @@
+// Description : definir deux méthod de meme nom et different signature et different valeurs de retour dans une classe
+class A{
+    protected int x;
+    protected float y;
+}
+
+class B extends A{
+    protected int z;
+     int w;
+    void SetX(){
+        x = z;
+    }
+    void setY(int w){
+        y = w;
+    }
+}
+
+class C extends A{
+    int m;
+    B b;
+    protected int w;
+    void SetX(){
+        b.z = 10;
+        x = b.w;
+    }
+    int SetX(int y){
+        return y;
+    }
+    float toInt(float x){
+        return x;
+    }
+}

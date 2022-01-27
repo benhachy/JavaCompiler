@@ -1,0 +1,21 @@
+class A{
+    protected int x;
+    protected float y;
+}
+
+class B{
+    boolean verify(Object b){
+        return b instanceof B;
+    }
+}
+{
+    A a = new A();
+    B b = new B();
+    boolean valeur =b.verify(a)<12;
+    if(valeur){
+        println("OK");
+    }
+    else{
+        println("KO");
+    }
+}

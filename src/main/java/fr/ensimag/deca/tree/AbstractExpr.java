@@ -119,7 +119,7 @@ public abstract class AbstractExpr extends AbstractInst {
         {
             return true;
         }
-        else if(type1.isNull() || type2.isNull())
+        else if(type1.isNull() && !type2.isNull())
         {
             return true;
         }

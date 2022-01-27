@@ -64,9 +64,9 @@ public class Program extends AbstractProgram {
         ajouterMessageErreur(compiler, new Label("deferencement.null"),"Erreur : dereferencement de null" );
         
 
-        for (Symbol symb : Identifier.positionVariables.keySet()) {
-            System.out.println(symb+" "+Identifier.positionVariables.get(symb).toString());
-        }
+        // for (Symbol symb : Identifier.positionVariables.keySet()) {
+        //     System.out.println(symb+" "+Identifier.positionVariables.get(symb).toString());
+        // }
     }
 
     private void codeGenEquals(DecacCompiler compiler){

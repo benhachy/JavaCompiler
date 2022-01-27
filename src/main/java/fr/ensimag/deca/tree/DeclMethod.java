@@ -128,13 +128,13 @@ public class DeclMethod extends AbstractDeclMethod {
         name.setType(method.getType());
         int index = localEnv.contains(name.getName());
         if (index >= 1) {
-            System.out.println(currentClass.getType().getName() + "." + name.getName() + "..." + index);
+           // System.out.println(currentClass.getType().getName() + "." + name.getName() + "..." + index);
             method.setIndex(index);
             name.setDefinition(method);
             name.setType(method.getType());
             isNew = 0;
         } else {
-            System.out.println(currentClass.getType().getName() + "." + name.getName() + "..." + indice);
+           // System.out.println(currentClass.getType().getName() + "." + name.getName() + "..." + indice);
             isNew = 1;
         }
 

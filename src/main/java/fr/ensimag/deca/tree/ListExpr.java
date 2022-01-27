@@ -35,8 +35,11 @@ public class ListExpr extends TreeList<AbstractExpr> {
 
     @Override
     public void decompile(IndentPrintStream s) {
+    
         for (AbstractExpr i : getList()) {
+
             i.decompile(s);
+            s.print(", ");
         }
     }
     
