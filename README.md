@@ -1,4 +1,4 @@
-# Projet Génie Logiciel, Ensimag.
+# Compiler in Java !.
 gl03, 01/01/2022.
 
 The goal of our project was to develop a compiler for a programming language called Deca, which has syntax similar to Java. We utilized several tools including Maven, ANTLR, Git, Jacoco, and Eclipse to build the compiler. The Deca compiler project involved the following steps:
